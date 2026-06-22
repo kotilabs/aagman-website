@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="aagman-build" content="20260622224727">
+<style>html.aagman-checking{visibility:hidden}</style>
+<script>
+// GitHub Pages serves HTML with a 10-minute cache. On mobile, Chrome Custom
+// Tabs / in-app browsers often ignore query strings when caching HTML, so a
+// ?_=123 cache-bust can still return the stale copy. Instead we compare the
+// rendered page against a *path-variant* copy (e.g. /terms -> /terms.html,
+// / -> /index.html) which has a separate cache key and therefore must be
+// fetched fresh. If the current copy is stale, we redirect to that path
+// variant and then restore the clean URL.
+(function () {
+  var html = document.documentElement;
+  function show() { html.classList.remove('aagman-checking'); }
+
+  // Only needed on GitHub Pages. Vercel serves HTML with no-store.
+  if (location.hostname.indexOf('github.io') === -1) { show(); return; }
+
+  // We just loaded the path-variant copy. Restore the original clean URL.
+  var restore = null;
+  try {
+    restore = sessionStorage.getItem('aagman_bust_restore');
+    if (restore) sessionStorage.removeItem('aagman_bust_restore');
+  } catch (e) {}
+  if (restore) {
+    if (history.replaceState) {
+      try { history.replaceState({}, document.title, location.origin + restore); } catch (e) {}
+    }
+    show();
+    return;
+  }
+
+  var currentMeta = document.querySelector('meta[name="aagman-build"]');
+  var current = currentMeta ? currentMeta.content : '';
+  if (!current) { show(); return; }
+
+  html.classList.add('aagman-checking');
+
+  // Purge any service workers / caches that could hold a stale copy.
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      regs.forEach(function (r) { r.unregister(); });
+    }).catch(function () {});
+  }
+  if ('caches' in window) {
+    caches.keys().then(function (keys) {
+      keys.forEach(function (k) { caches.delete(k); });
+    }).catch(function () {});
+  }
+
+  // Build the path-variant URL. It shares the same file but has a separate
+  // GitHub Pages cache key, so it is always served from origin.
+  var path = location.pathname;
+  var bustPath;
+  if (path.slice(-1) === '/') {
+    bustPath = path + 'index.html';
+  } else if (/\.html$/i.test(path)) {
+    bustPath = path.replace(/\.html$/i, '');
+  } else {
+    bustPath = path + '.html';
+  }
+  var bustUrl = location.origin + bustPath +
+    (location.search ? location.search + '&' : '?') + '_=' + Date.now() + location.hash;
+
+  function getBuild(text) {
+    var m = /meta[^>]*name=["']aagman-build["'][^>]*content=["']([^"']+)["']/i.exec(text);
+    return m ? m[1] : '';
+  }
+
+  function bust() {
+    try { sessionStorage.setItem('aagman_bust_restore', location.pathname + location.search + location.hash); } catch (e) {}
+    location.replace(bustUrl);
+  }
+
+  // If the check hangs, redirect rather than risk showing stale content.
+  var fallbackTimer = setTimeout(bust, 2000);
+
+  try {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', bustUrl, false);
+    xhr.send();
+    if (xhr.status === 200) {
+      clearTimeout(fallbackTimer);
+      var fetched = getBuild(xhr.responseText);
+      if (fetched && fetched !== current) { bust(); return; }
+      show();
+      return;
+    }
+  } catch (e) {}
+
+  // Non-200 or network error: rely on the fallback redirect.
+})();
+</script>
+<title>Terms & Conditions — Āagman</title>
+<meta name="description" content="Terms of service for Āagman's AI trading platform. Your rights, your obligations, and how the platform works.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://aagman-landing-page-hxgc.vercel.app/terms.html">
+<meta property="og:title" content="Terms & Conditions — Āagman">
+<meta property="og:description" content="Terms of service for Āagman's AI trading platform. Your rights, your obligations, and how the platform works.">
+<meta property="og:url" content="https://aagman-landing-page-hxgc.vercel.app/terms.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://aagman-landing-page-hxgc.vercel.app/uploads/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Terms & Conditions — Āagman">
+<meta name="twitter:description" content="Terms of service for Āagman's AI trading platform. Your rights, your obligations, and how the platform works.">
+<meta name="twitter:image" content="https://aagman-landing-page-hxgc.vercel.app/uploads/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Āagman",
+  "alternateName": "Aagman",
+  "legalName": "Koti Labs Private Limited",
+  "url": "https://aagman-landing-page-hxgc.vercel.app/",
+  "logo": "https://aagman-landing-page-hxgc.vercel.app/uploads/aagman-logo.png",
+  "foundingDate": "2025",
+  "sameAs": [
+    "https://dub.sh/lp-linkedin",
+    "https://dub.sh/x-lp",
+    "https://dub.sh/insta-lp"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "growth@kotilabs.com",
+    "contactType": "customer support",
+    "availableLanguage": [
+      "English",
+      "Hindi"
+    ]
+  }
+}
+</script>
+
+
+<script src="./support.js?v=20260622224727"></script>
+
+<script>
+(function(){
+  function getLayout(){
+    var w = window.innerWidth;
+    if (w < 768) return 'mobile';
+    if (w < 1024) return 'tablet';
+    return 'desktop';
+  }
+  function applyLayout(){
+    if (window.__dcSetProps && window.__dcRootName){
+      var layout = getLayout();
+      window.__dcSetProps(window.__dcRootName(), { layout: layout, previewLayout: layout });
+    } else {
+      setTimeout(applyLayout, 50);
+    }
+  }
+  // Initial layout is now set by the pre-boot patch on the data-props
+  // default, so we only need to react to viewport changes after load.
+  window.addEventListener('resize', applyLayout);
+})();
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 0; background: #06080A; font-family: 'Schibsted Grotesk', -apple-system, sans-serif; color: #E7EEEA; }
+    * { box-sizing: border-box; }
+  </style>
+</helmet>
+
+<div style="width:{{ frameWidth }};min-height:100vh;background:#06080A;display:flex;flex-direction:column;margin:0 auto">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;width:100%;padding:{{ navPad }};border-bottom:1px solid rgba(255,255,255,0.06)">
+    <a href="index.html" style="display:flex;align-items:center;gap:11px;text-decoration:none">
+      <img src="uploads/aagman-logo.png" style="width:24px;height:24px;border-radius:6px;display:block" alt="Āagman">
+      <span style="font-weight:700;font-size:16px;color:#E7EEEA">Āagman</span>
+    </a>
+    <div style="display:none"></div>
+    <button style="padding:9px 18px;border-radius:6px;background:#56E8B8;border:none;color:#04150F;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Geist Mono',monospace">Get started</button>
+  </nav>
+
+  <div style="max-width:1200px;margin:0 auto;width:100%;padding:{{ mainPad }};flex:1">
+
+    <div style="margin-bottom:64px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#56E8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+        <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;color:#56E8B8;text-transform:uppercase">Terms &amp; Conditions</span>
+      </div>
+      <h1 style="font-size:{{ h1Size }};font-weight:800;line-height:1.08;letter-spacing:-.04em;margin:0 0 24px;max-width:680px">Rules of the <span style="color:#56E8B8">road.</span></h1>
+      <div style="width:48px;height:3px;background:#56E8B8;border-radius:2px;margin-bottom:28px"></div>
+      <p style="font-family:'Geist Mono',monospace;font-size:12px;color:#4a534f;margin:0">Last updated: 21 June 2026 · consent version 2026-06-21.v1</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:{{ bodyGrid }};gap:{{ bodyGap }};align-items:flex-start">
+
+      <div style="position:sticky;top:40px;display:{{ sidebarDisplay }}">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:20px">Contents</div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <a href="#s1" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Acceptance &amp; eligibility</a>
+          <a href="#s2" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Nature of the service</a>
+          <a href="#s3" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Not personalised advice</a>
+          <a href="#s4" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Whitebox algorithms</a>
+          <a href="#s5" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Risk disclosure</a>
+          <a href="#s6" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Brokerage integration</a>
+          <a href="#s7" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Order tagging</a>
+          <a href="#s8" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Fees &amp; charges</a>
+          <a href="#s9" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Grievance redressal</a>
+          <a href="#s10" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Limitation of liability</a>
+          <a href="#s11" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Governing law &amp; disputes</a>
+          <a href="#s12" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Amendments &amp; consent</a>
+          <a href="#grievance" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Grievance Redressal</a>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <p style="font-size:17px;line-height:1.75;color:#8a938e;margin:0 0 56px;max-width:680px">These Terms govern your use of Āagman, a platform operated by Koti Labs Private Limited. By creating an account you agree to these Terms, the Risk Disclosure &amp; Disclaimer, and the Privacy Policy.</p>
+
+        <div id="s1" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">01</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Acceptance &amp; eligibility</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">By creating an account you agree to these Terms. You must be at least 18 years old, a resident of India, and legally able to trade in Indian securities.</p>
+        </div>
+
+        <div id="s2" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">02</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Nature of the service</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 16px;max-width:640px">Koti Labs Private Limited is (i) a SEBI-Registered Investment Adviser (RIA, INA000021951) and (ii) an NSE-empanelled algo provider (provisional, Whitebox; NSE Circular Ref. 40/2026 (3 Jun 2026)).</p>
+          <div style="padding:18px 22px;border-radius:10px;background:rgba(86,232,184,0.05);border:1px solid rgba(86,232,184,0.15);max-width:640px">
+            <p style="font-size:14px;line-height:1.65;color:#8a938e;margin:0">Koti Labs Private Limited is <strong style="color:#E7EEEA">NOT</strong> a stock broker, depository participant, or Research Analyst. Under SEBI's retail-algo framework, your broker is the principal and Koti Labs Private Limited acts as the broker's agent in routing algo orders.</p>
+          </div>
+        </div>
+
+        <div id="s3" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">03</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Not personalised advice; suitability</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">Analyses, screeners, backtests, strategies and Gems are data-grounded information, not personalised investment advice or a recommendation unless explicitly delivered through a contracted RIA advisory engagement. You are responsible for your own decisions and for assessing suitability.</p>
+        </div>
+
+        <div id="s4" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">04</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Whitebox algorithms</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">Strategies provided are execution (Whitebox) algorithms — their logic is disclosed to you and is replicable. They are not black-box algos and are not research reports.</p>
+        </div>
+
+        <div id="s5" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">05</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Risk disclosure</h2>
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+            <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:#56E8B8;margin-top:9px;flex-shrink:0"></div><p style="font-size:15px;line-height:1.7;color:#8a938e;margin:0">Trading in securities, derivatives and commodities carries substantial risk of loss.</p></div>
+            <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:#56E8B8;margin-top:9px;flex-shrink:0"></div><p style="font-size:15px;line-height:1.7;color:#8a938e;margin:0">Past and backtested performance is hypothetical and does not guarantee future results.</p></div>
+            <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:#56E8B8;margin-top:9px;flex-shrink:0"></div><p style="font-size:15px;line-height:1.7;color:#8a938e;margin:0">Automated execution carries technology, connectivity, latency and market-volatility risks.</p></div>
+            <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:5px;height:5px;border-radius:50%;background:#56E8B8;margin-top:9px;flex-shrink:0"></div><p style="font-size:15px;line-height:1.7;color:#8a938e;margin:0">A kill-switch and risk gates exist but do not eliminate loss.</p></div>
+          </div>
+        </div>
+
+        <div id="s6" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">06</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Brokerage integration &amp; authorisation</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 16px;max-width:640px">You authorise the Platform to place, modify and cancel orders in your own broker account via the broker's API, using a unique vendor-client API key, a whitelisted static IP, OAuth and two-factor authentication.</p>
+          <div style="padding:18px 22px;border-radius:10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);max-width:640px">
+            <p style="font-size:14px;line-height:1.65;color:#8a938e;margin:0">You are responsible for safeguarding your broker credentials and for all orders placed in your account.</p>
+          </div>
+        </div>
+
+        <div id="s7" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">07</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Order tagging &amp; regulatory cooperation</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">All algo orders are tagged with an exchange-assigned unique algo ID for audit. You consent to the sharing of order and algo data among Koti Labs Private Limited, your broker and the exchange as required by law.</p>
+        </div>
+
+        <div id="s8" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">08</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Fees &amp; charges</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">All Platform subscription charges, and any fee or brokerage-sharing arrangement with your broker, are disclosed to you (per SEBI). There are no undisclosed charges.</p>
+        </div>
+
+        <div id="s9" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">09</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Grievance redressal</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">Contact our Grievance Officer first; unresolved complaints may be escalated to SEBI SCORES (scores.sebi.gov.in) and the SMART ODR portal (smartodr.in). Algo-trading (execution) grievances are handled by your broker once onboarded. See the Grievance Redressal section below.</p>
+        </div>
+
+        <div id="s10" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">10</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Limitation of liability</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 20px;max-width:640px">The service is provided "as is". To the extent permitted by law, Koti Labs Private Limited is not liable for trading losses, broker, exchange or third-party outages, or data inaccuracies. Nothing herein excludes liability that cannot be excluded under law.</p>
+        </div>
+
+        <div id="s11" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">11</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Governing law &amp; disputes</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">These Terms are governed by the laws of India, with seat at Bengaluru, Karnataka, and SEBI-prescribed arbitration / online dispute resolution where applicable.</p>
+        </div>
+
+        <div id="s12" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">12</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Amendments &amp; electronic consent</h2>
+          <p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">These Terms may change; material changes will re-prompt acceptance at next login, and the version you accepted is recorded. This is an electronic record under the Information Technology Act, 2000; your acceptance constitutes agreement.</p>
+        </div>
+
+        <!-- Grievance Redressal detail -->
+        <div id="grievance" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">Grievance Redressal</div>
+          <h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 28px;color:#E7EEEA">How to raise a complaint</h2>
+          <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+
+            <div style="padding:22px 24px;border-radius:12px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);display:flex;gap:20px;align-items:flex-start">
+              <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;flex-shrink:0;margin-top:2px">LEVEL 1</div>
+              <div>
+                <div style="font-weight:600;font-size:15px;color:#E7EEEA;margin-bottom:6px">Grievance Officer</div>
+                <p style="font-size:14px;line-height:1.65;color:#8a938e;margin:0 0 10px">Ajit Kumar — We acknowledge promptly and resolve within 21 calendar days.</p>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <a href="mailto:ajit@kotilabs.com" style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;text-decoration:none" style-hover="opacity:0.8">ajit@kotilabs.com</a>
+                  <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#6f7873">+91 9167949733</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:22px 24px;border-radius:12px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);display:flex;gap:20px;align-items:flex-start">
+              <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;flex-shrink:0;margin-top:2px">LEVEL 2</div>
+              <div>
+                <div style="font-weight:600;font-size:15px;color:#E7EEEA;margin-bottom:6px">SEBI SCORES</div>
+                <p style="font-size:14px;line-height:1.65;color:#8a938e;margin:0 0 8px">Lodge a complaint if unresolved or unsatisfied.</p>
+                <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener" style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;text-decoration:none" style-hover="opacity:0.8">scores.sebi.gov.in ↗</a>
+              </div>
+            </div>
+
+            <div style="padding:22px 24px;border-radius:12px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);display:flex;gap:20px;align-items:flex-start">
+              <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;flex-shrink:0;margin-top:2px">LEVEL 3</div>
+              <div>
+                <div style="font-weight:600;font-size:15px;color:#E7EEEA;margin-bottom:6px">SEBI SMART ODR</div>
+                <p style="font-size:14px;line-height:1.65;color:#8a938e;margin:0 0 8px">Initiate online dispute resolution after taking up the complaint with us.</p>
+                <a href="https://smartodr.in" target="_blank" rel="noopener" style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;text-decoration:none" style-hover="opacity:0.8">smartodr.in ↗</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+    <div style="max-width:1200px;margin:0 auto;padding:{{ footerPad }}">
+      <div style="display:grid;grid-template-columns:{{ footerGrid }};gap:32px">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
+            <img src="uploads/aagman-logo.png" style="width:28px;height:28px;border-radius:7px;display:block" alt="Āagman">
+            <span style="font-weight:700;font-size:17px">Āagman</span>
+          </div>
+          <p style="font-size:13px;line-height:1.6;color:#6f7873;max-width:260px;margin:0">An AI trading team for Indian markets. You brief, they work, you approve.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">COMPANY</div>
+          <a href="index.html#section-founders" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Founders letter</a>
+          <a href="https://www.linkedin.com/company/aagman-ai/jobs/" target="_blank" rel="noopener" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Careers</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">RESOURCES</div>
+          <a href="pricing.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Pricing</a>
+          <a href="#" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Sitemap</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">LEGAL</div>
+          <a href="terms.html" style="font-size:13.5px;color:#56E8B8;text-decoration:none;font-weight:600">Terms &amp; Conditions</a>
+          <a href="privacy-policy.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Privacy Policy</a>
+          <a href="mailto:growth@kotilabs.com" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Contact Us</a>
+          <a href="risk-disclosure.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Risk Disclosure</a>
+          <a href="cancellation-refunds.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Cancellations &amp; Refunds</a>
+        </div>
+      </div>
+      <div style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#4a534f">© 2026 Āagman · Koti Labs Private Limited · Markets carry risk</span>
+        <div style="display:flex;align-items:center;gap:16px">
+          <a href="https://dub.sh/lp-linkedin" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://dub.sh/x-lp" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://dub.sh/insta-lp" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <p style="margin-top:24px;font-size:11px;line-height:1.6;color:#3a4541">Disclaimer: Āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script>
+// The DC runtime defaults layout to "desktop" and then re-renders after mount
+// when the viewport is mobile/tablet, causing a visible layout swap. Patch the
+// data-props default to the actual viewport *before* the runtime reads it, and
+// expose a global helper the component can use as a fallback.
+(function () {
+  function getLayout() {
+    var w = window.innerWidth;
+    if (w < 768) return 'mobile';
+    if (w < 1024) return 'tablet';
+    return 'desktop';
+  }
+  window.__aagmanLayout = getLayout;
+  try {
+    var next = document.currentScript.nextElementSibling;
+    if (!next || next.getAttribute('data-dc-script') === null) return;
+    var raw = next.getAttribute('data-props');
+    if (!raw) return;
+    var decoded = raw.indexOf('&quot;') !== -1 ? raw.replace(/&quot;/g, '"') : raw;
+    if (decoded.indexOf('"layout"') === -1) return;
+    var props = JSON.parse(decoded);
+    if (props && props.layout && typeof props.layout === 'object') {
+      props.layout.default = getLayout();
+      next.setAttribute('data-props', JSON.stringify(props));
+    }
+  } catch (e) {}
+})();
+</script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1200px&quot;,&quot;height&quot;:&quot;100vh&quot;},&quot;previewLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;desktop&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;tsType&quot;:&quot;'desktop'|'tablet'|'mobile'&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const layout = this.props.previewLayout ?? 'desktop';
+    const w = layout === 'mobile' ? 375 : layout === 'tablet' ? 768 : 1200;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    return {
+      navPad:          isMobile ? '16px 20px' : isTablet ? '18px 28px' : '20px 44px',
+      navLinksDisplay: isMobile ? 'none' : 'flex',
+      mainPad:         isMobile ? '48px 20px 80px' : isTablet ? '64px 32px 100px' : '80px 44px 120px',
+      h1Size:          isMobile ? '36px' : isTablet ? '44px' : '52px',
+      bodyGrid:        (isMobile || isTablet) ? '1fr' : '220px 1fr',
+      bodyGap:         (isMobile || isTablet) ? '40px' : '80px',
+      sidebarDisplay:  (isMobile || isTablet) ? 'none' : 'block',
+      footerPad:       isMobile ? '40px 20px 28px' : isTablet ? '48px 28px 32px' : '64px 44px 40px',
+      footerGrid:      (isMobile || isTablet) ? '1fr 1fr' : '1.8fr 1fr 1fr 1fr',
+      frameWidth:      layout === 'mobile' ? '375px' : layout === 'tablet' ? '768px' : '100%',
+    };
+  }
+}
+</script>
+</body>
+</html>
