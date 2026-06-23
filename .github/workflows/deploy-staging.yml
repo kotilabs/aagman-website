@@ -20,11 +20,27 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: https://kotilabs.github.io/aagman-website
+      BASE_PATH: /blog
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: staging
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: blog/package-lock.json
+
+      - name: Install dependencies
+        run: cd blog && npm ci
+
+      - name: Build Astro blog + merge root assets
+        run: cd blog && npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -32,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: blog/dist
 
       - name: Deploy to GitHub Pages
         id: deployment

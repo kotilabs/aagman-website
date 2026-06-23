@@ -1,0 +1,141 @@
+---
+import { site, base } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  authorSlug?: string;
+  authorTitle?: string;
+  tags?: string[];
+  slug?: string;
+  breadcrumbs?: { name: string; url: string }[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = 'website',
+  pubDate,
+  updatedDate,
+  author,
+  authorSlug,
+  authorTitle,
+  tags = [],
+  slug,
+  breadcrumbs,
+} = Astro.props;
+
+const fullTitle = title.includes('Āagman') ? title : `${title} — Āagman Blog`;
+const canonicalUrl = canonical || (slug ? `${site}${base}/${slug}/` : `${site}${base}/`);
+const defaultOg = `${site}/uploads/og-image.png`;
+const ogImageUrl = ogImage
+  ? (ogImage.startsWith('http') ? ogImage : `${site}${base}${ogImage}`)
+  : defaultOg;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Āagman',
+  legalName: 'Koti Labs Private Limited',
+  url: `${site}/`,
+  logo: `${site}/uploads/aagman-logo.png`,
+  sameAs: ['https://dub.sh/lp-linkedin', 'https://dub.sh/x-aagman', 'https://dub.sh/insta-lp'],
+  identifier: {
+    '@type': 'PropertyValue',
+    propertyID: 'SEBI RIA Registration Number',
+    value: 'INA000021951',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'F-130, JUNIPER BRIGADE ORCHARDS',
+    addressLocality: 'Devanahalli',
+    addressRegion: 'Bangalore Rural, Karnataka',
+    addressCountry: 'IN',
+    postalCode: '562110',
+  },
+};
+
+const schemas: Record<string, any>[] = [organizationSchema];
+
+if (ogType === 'article' && slug && pubDate && author) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    image: ogImageUrl,
+    url: canonicalUrl,
+    datePublished: pubDate.toISOString(),
+    dateModified: (updatedDate || pubDate).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: author,
+      url: authorSlug ? `${site}${base}/author/${authorSlug}/` : undefined,
+      jobTitle: authorTitle || undefined,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Āagman',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${site}/uploads/aagman-logo.png`,
+      },
+    },
+    keywords: tags.join(', ') || undefined,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+  });
+}
+
+if (breadcrumbs && breadcrumbs.length > 0) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
+  });
+}
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content="Āagman Blog" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+{ogType === 'article' && pubDate && (
+  <>
+    <meta property="article:published_time" content={pubDate.toISOString()} />
+    {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+    {tags.map(tag => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+<link rel="icon" type="image/png" sizes="32x32" href={`${site}/favicon-32x32.png`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${site}/apple-touch-icon.png`} />
+{schemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { base, site } from '../../config';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const authors = new Set(posts.map(p => p.data.authorSlug));
+  return Array.from(authors).map(author => ({
+    params: { author },
+    props: { author },
+  }));
+}
+
+const { author } = Astro.props;
+const allPosts = await getCollection('posts');
+const posts = allPosts
+  .filter(p => p.data.authorSlug === author)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const authorName = posts[0]?.data.author || author;
+const authorTitle = posts[0]?.data.authorTitle;
+const title = `${authorName} — Āagman Blog`;
+const description = `Articles by ${authorName}${authorTitle ? `, ${authorTitle}` : ''} on the Āagman Blog.`;
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site}/` },
+  { name: 'Blog', url: `${site}${base}/` },
+  { name: authorName, url: `${site}${base}/author/${author}/` },
+];
+---
+
+<BaseLayout title={title} description={description} ogType="website" breadcrumbs={breadcrumbs}>
+  <section class="archive container">
+    <span class="label">Author</span>
+    <h1>{authorName}</h1>
+    {authorTitle && <p class="author-title">{authorTitle}</p>}
+    <div class="post-grid">
+      {posts.map(post => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.data.slug}
+          pubDate={post.data.pubDate}
+          category={post.data.category}
+          tags={post.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .archive {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+  .author-title {
+    color: var(--text-muted);
+    margin: 0 0 40px;
+    font-size: 16px;
+  }
+  .post-grid {
+    display: grid;
+    gap: 24px;
+  }
+</style>

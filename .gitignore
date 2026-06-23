@@ -1,2 +1,6 @@
 .vercel
 .venv
+blog/dist/
+blog/node_modules/
+blog/.astro/
+

@@ -1,0 +1,67 @@
+---
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="/uploads/aagman-logo.png" alt="Āagman" width="24" height="24" />
+      <span>Āagman</span>
+    </div>
+    <p class="footer-copy">
+      © {new Date().getFullYear()} Koti Labs Private Limited. SEBI RIA INA000021951.
+    </p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/privacy-policy.html">Privacy</a>
+      <a href="mailto:growth@kotilabs.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    padding: 48px 0 32px;
+    margin-top: 80px;
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .footer-brand img {
+    border-radius: 6px;
+  }
+  .footer-copy {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    justify-content: center;
+    font-size: 13px;
+    font-family: var(--font-mono);
+  }
+  .footer-links a {
+    color: var(--text-muted);
+  }
+  .footer-links a:hover {
+    color: var(--text);
+  }
+</style>

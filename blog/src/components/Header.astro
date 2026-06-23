@@ -1,0 +1,64 @@
+---
+import { base } from '../config';
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href={`${base}/`} aria-label="Āagman Blog home">
+      <img src="/uploads/aagman-logo.png" alt="Āagman" width="28" height="28" />
+      <span>Āagman Blog</span>
+    </a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href={`${base}/`}>All posts</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .logo:hover {
+    text-decoration: none;
+  }
+  .logo img {
+    border-radius: 7px;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+  .nav a {
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .nav a:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+</style>

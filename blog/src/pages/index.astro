@@ -1,0 +1,107 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { base, site } from '../config';
+
+const posts = (await getCollection('posts'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featured = posts.find(p => p.data.featured) || posts[0];
+const recent = posts.filter(p => p.data.slug !== featured?.data.slug);
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site}/` },
+  { name: 'Blog', url: `${site}${base}/` },
+];
+---
+
+<BaseLayout
+  title="Āagman Blog — AI Trading for Indian Markets"
+  description="Research, strategies, and market notes from the AI trading team at Āagman. Built for Indian equity, commodity, and futures traders."
+  ogType="website"
+  breadcrumbs={breadcrumbs}
+>
+  <section class="hero">
+    <div class="container">
+      <h1>Research & strategy for Indian markets</h1>
+      <p class="hero-lead">
+        Practical trading notes from the Āagman team — options strategies, risk management,
+        backtesting lessons, and how AI agents are changing the way we trade Indian equities,
+        commodities, and futures.
+      </p>
+    </div>
+  </section>
+
+  {featured && (
+    <section class="featured container">
+      <span class="section-label">Featured</span>
+      <PostCard
+        title={featured.data.title}
+        description={featured.data.description}
+        slug={featured.data.slug}
+        pubDate={featured.data.pubDate}
+        category={featured.data.category}
+        tags={featured.data.tags}
+      />
+    </section>
+  )}
+
+  <section class="recent container">
+    <span class="section-label">Latest posts</span>
+    <div class="post-grid">
+      {recent.map(post => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.data.slug}
+          pubDate={post.data.pubDate}
+          category={post.data.category}
+          tags={post.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 72px 0 56px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 56px);
+    line-height: 1.08;
+    margin: 0 0 24px;
+    color: var(--text);
+  }
+  .hero-lead {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+  .section-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .featured {
+    padding-top: 56px;
+    padding-bottom: 24px;
+  }
+  .recent {
+    padding-top: 24px;
+    padding-bottom: 64px;
+  }
+  .post-grid {
+    display: grid;
+    gap: 24px;
+  }
+</style>

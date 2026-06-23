@@ -1,0 +1,58 @@
+:root {
+  --bg: #06080A;
+  --surface: #0B0F0D;
+  --surface-2: #111815;
+  --text: #E7EEEA;
+  --text-muted: #9aa39e;
+  --text-dim: #6a736e;
+  --accent: #56E8B8;
+  --accent-dim: rgba(86, 232, 184, 0.12);
+  --border: rgba(255, 255, 255, 0.08);
+  --radius: 12px;
+  --font-sans: 'Instrument Sans', 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 840px;
+  }
+}
