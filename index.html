@@ -30,8 +30,8 @@
   "url": "https://aagman-website-work.vercel.app/",
   "logo": "https://aagman-website-work.vercel.app/uploads/aagman-logo.png",
   "sameAs": [
-    "https://www.linkedin.com/company/aagman",
-    "https://x.com/aagman_in"
+    "https://dub.sh/lp-linkedin",
+    "https://dub.sh/x-aagman"
   ],
   "identifier": {
     "@type": "PropertyValue",
@@ -91,6 +91,14 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "No. It does not provide stock tips, trade alerts, or copy-trading signals. It supports your own strategy and decision process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Aagman regulated by SEBI or NSE?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Aagman is a SEBI-registered Investment Adviser (INA000021951) and an NSE-empanelled algo provider under NSE Circular Ref. 40/2026 (3 Jun 2026)."
       }
     },
     {
@@ -655,9 +663,9 @@
       <div style="padding:28px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;background:#080B0D;display:flex;flex-direction:column;gap:14px;transition:transform 0.18s ease,box-shadow 0.18s ease" style-hover="transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.35)">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
           <div style="font-weight:600;font-size:15.5px;color:#E7EEEA">Execution algorithms</div>
-          <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;color:#8a938e;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:3px 8px;white-space:nowrap">✓ TWAP / VWAP</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;color:#56E8B8;background:rgba(86,232,184,0.08);border:1px solid rgba(86,232,184,0.25);border-radius:4px;padding:3px 8px;white-space:nowrap">● LIVE</div>
         </div>
-        <div style="font-size:13.5px;line-height:1.6;color:#8a938e">Slice large orders across the day with TWAP or VWAP. Iceberg and POV next.</div>
+        <div style="font-size:13.5px;line-height:1.6;color:#8a938e">TWAP and VWAP are live. Slice large orders intelligently across the session. Iceberg and POV coming next.</div>
       </div>
 
     </div>
@@ -726,9 +734,9 @@
             </div>
           </div>
 
-          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#2f3a36;text-align:center;letter-spacing:.06em;margin-bottom:16px">↓ &nbsp; [ strategy submits order ] &nbsp; ↓</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#E7EEEA;text-align:center;letter-spacing:.06em;margin-bottom:16px">↓ &nbsp; [ strategy submits order ] &nbsp; ↓</div>
           <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
-            <span style="font-size:12px;color:#4a534f">Persisted · 4 scopes · Survives restarts</span>
+            <span style="font-size:12px;color:#E7EEEA">Persisted · 4 scopes · Survives restarts</span>
           </div>
         </div>
         </sc-if>
@@ -772,7 +780,7 @@
           </div>
 
           <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
-            <span style="font-size:12px;color:#4a534f">No one else has this · SEBI compliant by design</span>
+            <span style="font-size:12px;color:#E7EEEA">No one else has this · Registered with NSE</span>
           </div>
         </div>
         </sc-if>
@@ -902,6 +910,17 @@
           <p style="font-size:{{ faqASize }};line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">No. It does not provide stock tips, trade alerts, or copy-trading signals. It supports your own strategy and decision process.</p>
         </details>
 
+        <details style="border-top:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:{{ faqQSize }};font-weight:600;color:#E7EEEA;line-height:1.3">Is Aagman regulated by SEBI or NSE?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <p style="font-size:{{ faqASize }};line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">Yes. Aagman is a SEBI-registered Investment Adviser (INA000021951) and an NSE-empanelled algo provider under NSE Circular Ref. 40/2026 (3 Jun 2026).</p>
+        </details>
+
         <details style="border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
           <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
             <span style="font-size:{{ faqQSize }};font-weight:600;color:#E7EEEA;line-height:1.3">What happens during high volatility?</span>
@@ -964,13 +983,13 @@
       <div style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
         <span style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#4a534f">© 2026 Āagman · Koti Labs Private Limited · Markets carry risk</span>
         <div style="display:flex;align-items:center;gap:16px">
-          <a href="https://www.linkedin.com/company/aagman" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+          <a href="https://dub.sh/lp-linkedin" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
-          <a href="https://x.com/aagman_in" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+          <a href="https://dub.sh/x-aagman" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
-          <a href="https://www.instagram.com/aagman.in" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+          <a href="https://dub.sh/insta-lp" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </a>
         </div>
