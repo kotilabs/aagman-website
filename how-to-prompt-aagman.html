@@ -17,6 +17,115 @@
 <meta name="twitter:title" content="How to Prompt Aagman">
 <meta name="twitter:description" content="A practical guide to writing prompts in Aagman — from your first backtest to multi-leg options and live trade deployment on NSE.">
 <meta name="twitter:image" content="https://www.aagman.ai/uploads/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Āagman",
+      "legalName": "Koti Labs Private Limited",
+      "url": "https://www.aagman.ai/",
+      "logo": "https://www.aagman.ai/uploads/aagman-logo.png",
+      "sameAs": [
+        "https://dub.sh/lp-linkedin",
+        "https://dub.sh/x-lp",
+        "https://dub.sh/insta-lp"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.aagman.ai/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How to Prompt Aagman",
+          "item": "https://www.aagman.ai/how-to-prompt-aagman.html"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to Prompt Aagman",
+      "description": "Learn how to write natural language prompts in Aagman to backtest equity and options strategies, run stock screeners, build portfolios, and deploy live trades on NSE.",
+      "totalTime": "PT5M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Deploy a Live or Paper Trade",
+          "text": "Say 'live' and Aagman places the order after confirming. Say 'paper' to simulate. Specify intraday or delivery/CNC.",
+          "url": "https://www.aagman.ai/how-to-prompt-aagman.html#deploy"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Backtest a Strategy",
+          "text": "Give a date range instead of 'live'. Aagman runs historically and returns a performance report.",
+          "url": "https://www.aagman.ai/how-to-prompt-aagman.html#backtest"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Build a Portfolio",
+          "text": "Define a universe, tell Aagman how to rank and select, set a rebalance schedule.",
+          "url": "https://www.aagman.ai/how-to-prompt-aagman.html#portfolio"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Run a Screener",
+          "text": "Describe what you're filtering for. No date range or sizing needed.",
+          "url": "https://www.aagman.ai/how-to-prompt-aagman.html#screener"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need perfect syntax to prompt Aagman?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. 'Buy SBIN when EMA 20 crosses EMA 50' works as well as the formal version."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do BUY and SELL mean for options?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For options, BUY and SELL mean the option leg itself — not your view on the underlying."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is starting capital required?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Starting capital is optional for basic backtests but needed for return percentages or percentage-based sizing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Hindi or Hinglish?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can prompt in English, Hindi, Hinglish, Tamil, Telugu, or any language you think in."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -106,6 +215,20 @@
 </style>
 </helmet>
 
+<!-- nav -->
+<nav style="display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.06)">
+  <a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:#E7EEEA">
+    <img src="uploads/aagman-logo.png" width="28" height="28" style="width:28px;height:28px;border-radius:7px;display:block" alt="Āagman">
+    <span style="font-weight:700;font-size:17px;letter-spacing:-.01em">Āagman</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:24px;font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e">
+    <a href="/" style="color:#8a938e;text-decoration:none;transition:color .2s" style-hover="color:#E7EEEA">Home</a>
+    <a href="pricing.html" style="color:#8a938e;text-decoration:none;transition:color .2s" style-hover="color:#E7EEEA">Pricing</a>
+    <a href="how-to-prompt-aagman.html" style="color:#8a938e;text-decoration:none;transition:color .2s" style-hover="color:#E7EEEA">How to Prompt</a>
+    <a href="https://app.aagman.ai/login" style="padding:8px 16px;border-radius:6px;background:#56E8B8;color:#04150F;font-weight:600;text-decoration:none">Get started</a>
+  </div>
+</nav>
+
 <main class="doc">
 
   <!-- Cover -->
@@ -150,7 +273,7 @@
     <div>
 
       <!-- 1. Live / Paper Trade -->
-      <h2><span class="section-num">01</span>Deploy a Live or Paper Trade</h2>
+      <h2 id="deploy"><span class="section-num">01</span>Deploy a Live or Paper Trade</h2>
       <p>Say <strong>"live"</strong> and Aagman places the order after confirming. Say <strong>"paper"</strong> to simulate. Specify <strong>intraday</strong> (auto-squares off at EOD) or <strong>delivery/CNC</strong> (carries overnight).</p>
 
       <h3>Simple bracket order</h3>
@@ -172,7 +295,7 @@
       <div class="prompt">Live deploy karo — NIFTY ka RSI 30 ke neeche jaaye toh BankNifty mein bull call spread daal do. Weekly expiry, 1 lot.</div>
 
       <!-- 2. Backtest -->
-      <h2><span class="section-num">02</span>Backtest a Strategy</h2>
+      <h2 id="backtest"><span class="section-num">02</span>Backtest a Strategy</h2>
       <p>Same structure as a live deploy — instead of "live," give a <strong>date range</strong>. Aagman runs historically and returns a performance report.</p>
 
       <h3>Basic equity backtest</h3>
@@ -191,7 +314,7 @@
     <div>
 
       <!-- 3. Portfolio -->
-      <h2><span class="section-num">03</span>Build a Portfolio</h2>
+      <h2 id="portfolio"><span class="section-num">03</span>Build a Portfolio</h2>
       <p>Define a universe, tell Aagman how to rank and select, set a rebalance schedule.</p>
 
       <div class="prompt">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN, WIPRO, LT ranked by momentum score, monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
@@ -203,7 +326,7 @@
       <div class="prompt">Equal weight portfolio of RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, no rebalancing, buy and hold, 10 lakh capital.</div>
 
       <!-- 4. Screener -->
-      <h2><span class="section-num">04</span>Run a Screener</h2>
+      <h2 id="screener"><span class="section-num">04</span>Run a Screener</h2>
       <p>Simplest prompts — just describe what you're filtering for. No date range or sizing needed.</p>
 
       <h3>Technical</h3>
@@ -233,6 +356,54 @@
   </div>
 
 </main>
+
+<!-- footer -->
+<footer style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 28px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+      <div>
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
+          <img src="uploads/aagman-logo.png" width="28" height="28" style="width:28px;height:28px;border-radius:7px;display:block" alt="Āagman">
+          <span style="font-weight:700;font-size:17px">Āagman</span>
+        </div>
+        <p style="font-size:13px;line-height:1.6;color:#6f7873;max-width:260px;margin:0">An AI trading team for Indian markets. You brief, they work, you approve.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">COMPANY</div>
+        <a href="#" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Careers</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">RESOURCES</div>
+        <a href="pricing.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Pricing</a>
+        <a href="how-to-prompt-aagman.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">How to Prompt</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">LEGAL</div>
+        <a href="terms.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Terms &amp; Conditions</a>
+        <a href="privacy-policy.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Privacy Policy</a>
+        <a href="risk-disclosure.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Risk Disclosure</a>
+        <a href="mailto:growth@kotilabs.com" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Contact Us</a>
+        <a href="cancellation-refunds.html" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Cancellations &amp; Refunds</a>
+      </div>
+    </div>
+    <div style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#4a534f">© 2026 Āagman · Koti Labs Private Limited · Markets carry risk</span>
+      <div style="display:flex;align-items:center;gap:16px">
+        <a href="https://dub.sh/lp-linkedin" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://dub.sh/x-lp" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://dub.sh/insta-lp" target="_blank" rel="noopener" style="color:#4a534f;display:flex" style-hover="color:#56E8B8">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+    </div>
+    <p style="margin-top:24px;font-size:11px;line-height:1.6;color:#3a4541">Disclaimer: Āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
+  </div>
+</footer>
+
 </x-dc>
 </body>
 </html>

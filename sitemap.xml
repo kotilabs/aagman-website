@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aagman-website-work.vercel.app/</loc>
+    <loc>https://www.aagman.ai/</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://aagman-website-work.vercel.app/pricing.html</loc>
+    <loc>https://www.aagman.ai/pricing.html</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aagman-website-work.vercel.app/founders-letter.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aagman-website-work.vercel.app/privacy-policy.html</loc>
+    <loc>https://www.aagman.ai/privacy-policy.html</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://aagman-website-work.vercel.app/terms.html</loc>
+    <loc>https://www.aagman.ai/terms.html</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://aagman-website-work.vercel.app/risk-disclosure.html</loc>
+    <loc>https://www.aagman.ai/risk-disclosure.html</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://aagman-website-work.vercel.app/cancellation-refunds.html</loc>
+    <loc>https://www.aagman.ai/cancellation-refunds.html</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
