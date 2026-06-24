@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #07090A; }
+  .doc { max-width: 8.5in; margin: 0 auto; background: inherit; padding: 32px clamp(20px,5vw,0.72in) 48px; font-family: 'Hanken Grotesk', sans-serif; font-size: 11.5px; line-height: 1.65; color: #E7EEEA; }
+  h1, h2, h3 { font-family: 'Bricolage Grotesque', sans-serif; margin: 0; text-wrap: balance; }
+  p, li { margin: 0 0 5px; color: #8a938e; line-height: 1.65; text-wrap: pretty; }
+  p strong, li strong { color: #C4CFC9; font-weight: 600; }
+
+  /* Cover */
+  .cover { padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .cover-eyebrow { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #56E8B8; margin-bottom: 8px; }
+  .cover h1 { font-size: 34px; font-weight: 800; line-height: 1.05; letter-spacing: -.03em; color: #E7EEEA; margin-bottom: 6px; }
+  .cover-meta { font-family: 'Geist Mono', monospace; font-size: 8px; color: #2e3d37; letter-spacing: .07em; }
+  .cover-right { max-width: 300px; }
+  .cover-right p { font-size: 11.5px; color: #8a938e; line-height: 1.6; margin: 0; }
+
+  /* Section labels */
+  h2 { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-family: 'Geist Mono', monospace; color: #56E8B8; margin-top: 18px; margin-bottom: 7px; padding-bottom: 4px; border-bottom: 1px solid rgba(86,232,184,0.12); }
+  h3 { font-size: 12px; font-weight: 700; color: #C4CFC9; margin-top: 10px; margin-bottom: 4px; font-family: 'Hanken Grotesk', sans-serif; }
+
+  /* Layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Pieces table */
+  table.pieces { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 10.5px; }
+  table.pieces th { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; color: #56E8B8; padding: 5px 9px; text-align: left; border-bottom: 1px solid rgba(86,232,184,0.15); background: #0B1711; font-weight: 500; }
+  table.pieces td { padding: 5px 9px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #8a938e; vertical-align: top; line-height: 1.5; }
+  table.pieces td:first-child { color: #C4CFC9; font-weight: 600; white-space: nowrap; }
+  table.pieces td:last-child { font-family: 'Geist Mono', monospace; font-size: 9px; color: #56E8B8; }
+  table.pieces tr:last-child td { border-bottom: none; }
+
+  /* Prompt blocks */
+  .prompt { background: #0B1711; border-left: 2px solid #56E8B8; border-radius: 0 4px 4px 0; padding: 6px 10px; margin: 4px 0 8px; font-family: 'Geist Mono', monospace; font-size: 9.5px; line-height: 1.6; color: #C4CFC9; white-space: pre-wrap; word-break: break-word; }
+
+  /* Numbered sections */
+  .section-num { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 8px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 3px; padding: 1px 5px; margin-right: 6px; vertical-align: middle; }
+
+  /* Tips */
+  .tips { display: flex; flex-direction: column; gap: 3px; margin-top: 5px; }
+  .tip { display: flex; gap: 7px; padding: 5px 9px; background: #0B1711; border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; }
+  .tip-tag { font-family: 'Geist Mono', monospace; font-size: 7px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.12); border-radius: 3px; padding: 1px 4px; flex-shrink: 0; height: fit-content; white-space: nowrap; margin-top: 1px; }
+  .tip p { margin: 0; font-size: 10px; line-height: 1.5; }
+
+  /* Tablet */
+  @media only screen and (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .doc { padding: 28px 32px 48px; }
+    .cover { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .cover-right { max-width: 100%; }
+    .cover h1 { font-size: 28px; }
+  }
+  /* Mobile */
+  @media only screen and (max-width: 560px) {
+    .doc { padding: 20px 16px 40px; font-size: 13px; line-height: 1.7; }
+    .cover h1 { font-size: 26px; line-height: 1.1; }
+    .cover-right p { font-size: 13px; }
+    h2 { font-size: 10px; margin-top: 22px; }
+    h3 { font-size: 13px; margin-top: 14px; }
+    .prompt { font-size: 11.5px; line-height: 1.65; padding: 8px 12px; }
+    .tip p { font-size: 12px; }
+    /* Stack pieces table on mobile */
+    table.pieces thead { display: none; }
+    table.pieces, table.pieces tbody, table.pieces tr, table.pieces td { display: block; width: 100%; }
+    table.pieces tr { border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; margin-bottom: 8px; padding: 8px 10px; background: #0B1711; }
+    table.pieces td { border: none; padding: 2px 0; }
+    table.pieces td:first-child { font-size: 12px; color: #56E8B8; margin-bottom: 2px; }
+    table.pieces td:last-child { display: none; }
+    p, li { font-size: 13px; }
+  }
+  @page { size: letter; margin: 0; }
+  @media print {
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html, body { margin: 0; padding: 0; background: #07090A !important; }
+    .doc { max-width: none !important; margin: 0 !important; padding: 0.5in 0.6in !important; }
+    h2, h3 { break-after: avoid; }
+    .prompt, .tip, tr { break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+  }
+</style>
+</helmet>
+
+<main class="doc">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div>
+      <div class="cover-eyebrow">Aagman Guide</div>
+      <h1>How to Prompt<br>Aagman</h1>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap;">
+        <a href="https://app.aagman.ai" target="_blank" style="display:inline-block;background:#56E8B8;color:#04150F;font-family:'Geist Mono',monospace;font-size:10px;font-weight:700;padding:7px 18px;border-radius:6px;text-decoration:none;letter-spacing:.04em;">→ Get Started</a>
+        <span class="cover-meta">June 2026 · SEBI INA000021951</span>
+      </div>
+    </div>
+    <div class="cover-right">
+      <p>Aagman understands natural language — describe what you want the way you'd explain it to another trader. No forms, no dropdowns. You can prompt in English, Hindi, Hinglish, Tamil, Telugu, or any language you think in.</p>
+    </div>
+  </div>
+
+  <!-- First prompt -->
+  <h2>Start Here: Your First Prompt</h2>
+  <p style="margin-bottom:8px;">Here's the same idea expressed four ways — one for each thing Aagman does:</p>
+  <div class="prompt">Backtest a long-only EMA crossover on RELIANCE, daily, Jan to Dec 2025. Buy when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. 50 shares per trade.</div>
+  <div class="prompt">Find NIFTY 50 stocks where RSI(14) is above 70.</div>
+  <div class="prompt">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK ranked by momentum, monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
+  <div class="prompt">Buy 50 shares of RELIANCE at market, live. Stop-loss 1% below, target 2% above.</div>
+  <p style="margin-top:4px;">Different goals, same principle. Each prompt tells Aagman <strong>what instrument, what condition, what risk, and what mode.</strong> What changes is how specific you get with each piece.</p>
+
+  <!-- Five pieces -->
+  <h2>The Five Pieces of a Prompt</h2>
+  <table class="pieces" role="table">
+    <thead><tr><th>Piece</th><th>What Aagman needs</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Symbol</td><td>Which stock, index, or contract — applies to trades, backtests, and screeners</td><td>RELIANCE / NIFTY 50 universe / BANKNIFTY 24500 CE</td></tr>
+      <tr><td>Direction &amp; size</td><td>Buy or sell, and how much — for trades and backtests; screeners skip this</td><td>Buy 50 shares / Sell 1 lot / Use 10% of capital</td></tr>
+      <tr><td>Entry rule</td><td>The condition that triggers action — price, indicator, or screener filter</td><td>At market / When RSI crosses above 30 / ROE above 15%</td></tr>
+      <tr><td>Exit &amp; risk</td><td>How the position closes — for trades and backtests; screeners skip this</td><td>Stop-loss 2%, target 5% / Trailing stop 3% / Exit after 5 bars</td></tr>
+      <tr><td>Mode</td><td>Backtest, live trade, paper trade, or screen</td><td>Live / Paper / Backtest Jan–Dec 2024 / Screen now</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-bottom:14px;">If you skip a piece, Aagman asks for it rather than guessing. The more complete your prompt, the faster you get to results.</p>
+
+  <div class="two-col">
+    <div>
+
+      <!-- 1. Live / Paper Trade -->
+      <h2><span class="section-num">01</span>Deploy a Live or Paper Trade</h2>
+      <p>Say <strong>"live"</strong> and Aagman places the order after confirming. Say <strong>"paper"</strong> to simulate. Specify <strong>intraday</strong> (auto-squares off at EOD) or <strong>delivery/CNC</strong> (carries overnight).</p>
+
+      <h3>Simple bracket order</h3>
+      <div class="prompt">Go live: sell 100 SBIN intraday with a 0.5% stop and 1.5% take-profit.</div>
+
+      <h3>Indicator-driven intraday</h3>
+      <div class="prompt">Deploy live: buy NIFTYBEES intraday when RSI(14) crosses above 30, exit when it crosses 70. 1% stop-loss.</div>
+
+      <h3>Positional with trailing stop</h3>
+      <div class="prompt">Deploy live as delivery (CNC): buy 30 ITC if weekly RSI is below 40, hold with a 5% trailing stop.</div>
+
+      <h3>Options — single leg</h3>
+      <div class="prompt">Buy 1 lot of NIFTY 24500 CE at market, live. Stop-loss 30%, target 60%.</div>
+
+      <h3>Options — multi-leg straddle</h3>
+      <div class="prompt">Deploy a live BANKNIFTY short straddle at ATM, 1 lot each leg, combined stop-loss ₹6,000, square-off at 3:15.</div>
+
+      <h3>Hinglish works natively</h3>
+      <div class="prompt">Live deploy karo — NIFTY ka RSI 30 ke neeche jaaye toh BankNifty mein bull call spread daal do. Weekly expiry, 1 lot.</div>
+
+      <!-- 2. Backtest -->
+      <h2><span class="section-num">02</span>Backtest a Strategy</h2>
+      <p>Same structure as a live deploy — instead of "live," give a <strong>date range</strong>. Aagman runs historically and returns a performance report.</p>
+
+      <h3>Basic equity backtest</h3>
+      <div class="prompt">Backtest a long-only EMA crossover on RELIANCE, daily, Jan to Dec 2025. Go LONG when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. Buy 50 shares per trade.</div>
+
+      <h3>Chained indicators</h3>
+      <div class="prompt">Buy SBIN when EMA(10) of RSI(14) crosses above 50, daily, Jan to Dec 2024. Exit when it crosses below 45. 100 shares. Stop loss 4%.</div>
+
+      <h3>Exit types</h3>
+      <p style="margin-bottom:4px;">Say <strong>"trailing stop at 2%"</strong> to track the high since entry. <strong>"Exit after 5 bars"</strong> for a time stop. <strong>"Use 10% of capital per trade"</strong> for percentage sizing. Combine freely.</p>
+
+      <h3>Options backtest</h3>
+      <div class="prompt">Backtest a short straddle on NIFTY, Jan to Apr 2025. SELL ATM call and ATM put when INDIA VIX > 20. Monthly expiry. Close when VIX drops below 15.</div>
+
+    </div>
+    <div>
+
+      <!-- 3. Portfolio -->
+      <h2><span class="section-num">03</span>Build a Portfolio</h2>
+      <p>Define a universe, tell Aagman how to rank and select, set a rebalance schedule.</p>
+
+      <div class="prompt">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN, WIPRO, LT ranked by momentum score, monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
+
+      <p>Rank by momentum, Sortino ratio, period returns, or lowest volatility. Add a dynamic filter at each rebalance:</p>
+      <div class="prompt">…but only include stocks where RSI(14) is below 50 at each rebalance.</div>
+
+      <h3>Buy and hold</h3>
+      <div class="prompt">Equal weight portfolio of RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, no rebalancing, buy and hold, 10 lakh capital.</div>
+
+      <!-- 4. Screener -->
+      <h2><span class="section-num">04</span>Run a Screener</h2>
+      <p>Simplest prompts — just describe what you're filtering for. No date range or sizing needed.</p>
+
+      <h3>Technical</h3>
+      <div class="prompt">Find NIFTY 50 stocks at their 52-week high.</div>
+      <div class="prompt">Find NIFTY 50 stocks where 50 SMA just crossed above 200 SMA.</div>
+      <div class="prompt">Show me NIFTY 50 stocks that gapped up more than 1%.</div>
+
+      <h3>Fundamental</h3>
+      <div class="prompt">Value stocks with PE below 12, price to book below 1, dividend yield above 4%.</div>
+      <div class="prompt">Find stocks with promoter holding above 70% and FII above 10%.</div>
+
+      <h3>Hybrid — Aagman's strongest</h3>
+      <div class="prompt">ROE > 10 stocks showing bullish MACD crossover.</div>
+      <div class="prompt">High margin stocks (operating margin > 25%) near 52-week lows — price &lt; EMA 200.</div>
+      <p style="font-size:10px;">Use <strong>AND</strong> for all conditions to match, <strong>OR</strong> when any one is enough.</p>
+
+      <!-- Tips -->
+      <h2>Tips</h2>
+      <div class="tips">
+        <div class="tip"><span class="tip-tag">syntax</span><p><strong>No perfect syntax needed.</strong> "Buy SBIN when EMA 20 crosses EMA 50" works as well as the formal version.</p></div>
+        <div class="tip"><span class="tip-tag">options</span><p><strong>For options, BUY and SELL mean the option leg</strong> itself — not your view on the underlying.</p></div>
+        <div class="tip"><span class="tip-tag">capital</span><p><strong>Starting capital is optional</strong> for basic backtests but needed for return percentages or percentage-based sizing.</p></div>
+        <div class="tip"><span class="tip-tag">context</span><p><strong>A longer prompt rarely breaks anything.</strong> A missing piece sometimes does — when in doubt, be explicit.</p></div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+</x-dc>
+</body>
+</html>
