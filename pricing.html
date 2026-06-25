@@ -221,7 +221,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1200px&quot;,&quot;height&quot;:&quot;100vh&quot;},&quot;whatsappLink&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://wa.me/919876543210?text=Hi%20Āagman%2C%20I'm%20interested%20in%20early%20access&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;previewLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;desktop&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;tsType&quot;:&quot;'desktop'|'tablet'|'mobile'&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1200px&quot;,&quot;height&quot;:&quot;100vh&quot;},&quot;whatsappLink&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://chat.whatsapp.com/JglEOeeQTF6AcmJCxenkzW?s=cl&p=a&ilr=2&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;previewLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;desktop&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;tsType&quot;:&quot;'desktop'|'tablet'|'mobile'&quot;}}">
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -235,7 +235,7 @@ class Component extends DCLogic {
     window.removeEventListener('resize', this._resize);
   }
   renderVals() {
-    const whatsappLink = this.props.whatsappLink || "https://wa.me/919876543210?text=Hi%20Āagman%2C%20I'm%20interested%20in%20early%20access";
+    const whatsappLink = this.props.whatsappLink || "https://chat.whatsapp.com/JglEOeeQTF6AcmJCxenkzW?s=cl&p=a&ilr=2";
     const previewLayout = this.props.previewLayout ?? 'desktop';
     
     // Preview frame dimensions
