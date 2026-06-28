@@ -9,6 +9,8 @@ This folder is the complete Āagman marketing site as plain static HTML. No buil
 | `index.html` | Landing page (home) | `/` |
 | `landing-gradient.html` | Alternate landing — gradient headline variant | `/landing-gradient.html` |
 | `pricing.html` | Pricing | `/pricing.html` |
+| `how-to-prompt-aagman.html` | Prompting guide | `/how-to-prompt-aagman` |
+| `connect-zerodha.html` | Broker setup guide — connect Zerodha | `/connect-zerodha` |
 | `founders-letter.html` | Founders Letter | `/founders-letter.html` |
 | `terms.html` | Terms & Conditions | `/terms.html` |
 | `privacy-policy.html` | Privacy Policy | `/privacy-policy.html` |

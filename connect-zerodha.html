@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
+<!-- End Google Tag Manager -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    var text = (el.textContent || '').trim().substring(0, 50);
+    window.dataLayer = window.dataLayer || [];
+    if (href.indexOf('app.aagman.ai') !== -1) {
+      window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href });
+    } else if (href.indexOf('linkedin.com/company/aagman-ai/jobs') !== -1) {
+      window.dataLayer.push({ event: 'careers_click', text: text, href: href });
+    } else if (href.indexOf('dub.sh/lp-linkedin') !== -1 || href.indexOf('dub.sh/x-lp') !== -1 || href.indexOf('dub.sh/insta-lp') !== -1) {
+      var platform = href.indexOf('linkedin') !== -1 ? 'linkedin' : (href.indexOf('x-lp') !== -1 ? 'x' : 'instagram');
+      window.dataLayer.push({ event: 'social_click', platform: platform, href: href });
+    } else if (href.indexOf('mailto:') === 0) {
+      window.dataLayer.push({ event: 'contact_click', href: href });
+    }
+  });
+});
+</script>
+<title>Connect Zerodha with Āagman | Broker Setup Guide</title>
+<meta name="description" content="Step-by-step guide to link your Zerodha trading account with Āagman via Kite Connect and pair the Āagman Relay Chrome extension for live order routing.">
+<link rel="canonical" href="https://www.aagman.ai/connect-zerodha">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta property="og:title" content="Connect Zerodha with Āagman">
+<meta property="og:description" content="Link your Zerodha account to Āagman and pair the Relay extension so you can place live orders by prompt.">
+<meta property="og:image" content="https://www.aagman.ai/uploads/og-image.png">
+<meta property="og:url" content="https://www.aagman.ai/connect-zerodha">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Connect Zerodha with Āagman">
+<meta name="twitter:description" content="Link your Zerodha account to Āagman and pair the Relay extension so you can place live orders by prompt.">
+<meta name="twitter:image" content="https://www.aagman.ai/uploads/og-image.png">
+<script src="./support.js"></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #07090A; }
+  .doc { max-width: 8.5in; margin: 0 auto; background: inherit; padding: 32px clamp(20px,5vw,0.72in) 48px; font-family: 'Hanken Grotesk', sans-serif; font-size: 11.5px; line-height: 1.65; color: #E7EEEA; }
+  h1, h2, h3 { font-family: 'Bricolage Grotesque', sans-serif; margin: 0; text-wrap: balance; }
+  p, li { margin: 0 0 5px; color: #8a938e; line-height: 1.65; text-wrap: pretty; }
+  p strong, li strong { color: #C4CFC9; font-weight: 600; }
+
+  /* Cover */
+  .cover { padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .cover-eyebrow { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #56E8B8; margin-bottom: 8px; }
+  .cover h1 { font-size: 34px; font-weight: 800; line-height: 1.05; letter-spacing: -.03em; color: #E7EEEA; margin-bottom: 6px; }
+  .cover-meta { font-family: 'Geist Mono', monospace; font-size: 8px; color: #2e3d37; letter-spacing: .07em; }
+  .cover-right { max-width: 300px; }
+  .cover-right p { font-size: 11.5px; color: #8a938e; line-height: 1.6; margin: 0; }
+
+  /* Section labels */
+  h2 { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-family: 'Geist Mono', monospace; color: #56E8B8; margin-top: 18px; margin-bottom: 7px; padding-bottom: 4px; border-bottom: 1px solid rgba(86,232,184,0.12); }
+  h3 { font-size: 12px; font-weight: 700; color: #C4CFC9; margin-top: 10px; margin-bottom: 4px; font-family: 'Hanken Grotesk', sans-serif; }
+
+  /* Layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Steps */
+  .step { margin: 10px 0 14px; padding: 12px 14px; background: #0B1711; border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; }
+  .step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(86,232,184,0.1); border: 1px solid rgba(86,232,184,0.2); color: #56E8B8; font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 600; margin-right: 8px; }
+  .step h3 { display: inline; margin: 0; }
+  .step ol, .step ul { margin: 8px 0 0; padding-left: 18px; }
+  .step li { margin-bottom: 4px; }
+
+  /* Prerequisites */
+  .req-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 10px 0 14px; }
+  .req { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: #0B1711; border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; }
+  .req-icon { width: 26px; height: 26px; border-radius: 6px; background: rgba(86,232,184,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #56E8B8; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; }
+  .req-title { font-weight: 600; color: #C4CFC9; font-size: 11px; margin-bottom: 2px; }
+  .req p { margin: 0; font-size: 10.5px; line-height: 1.5; }
+
+  /* Notes / success */
+  .note { display: flex; gap: 8px; padding: 8px 12px; background: rgba(86,232,184,0.05); border: 1px solid rgba(86,232,184,0.12); border-radius: 6px; margin: 8px 0; }
+  .note-tag { font-family: 'Geist Mono', monospace; font-size: 7px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.12); border-radius: 3px; padding: 1px 4px; flex-shrink: 0; height: fit-content; white-space: nowrap; margin-top: 1px; }
+  .note p { margin: 0; font-size: 10.5px; line-height: 1.5; }
+  .success { display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 6px; margin-top: 8px; }
+  .ckcircle { width: 18px; height: 18px; border-radius: 50%; background: #56E8B8; color: #04150F; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .success span:last-child { font-size: 10.5px; color: #C4CFC9; }
+
+  /* CTA button */
+  .link-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: #56E8B8; color: #04150F; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; text-decoration: none; border-radius: 6px; margin: 6px 0 8px; }
+  .link-btn .arr { font-size: 12px; }
+
+  /* Path breadcrumb */
+  .path { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #C4CFC9; }
+  .path .arr { color: #8a938e; font-weight: 400; }
+
+  /* Next page card */
+  .next { margin-top: 24px; padding: 16px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; background: #0B1711; display: flex; align-items: center; justify-content: space-between; gap: 16px; text-decoration: none; }
+  .next-label { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: #56E8B8; margin-bottom: 4px; }
+  .next-title { font-weight: 700; color: #E7EEEA; font-size: 13px; }
+  .next-arr { color: #56E8B8; font-size: 18px; }
+
+  /* Tablet */
+  @media only screen and (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .doc { padding: 28px 32px 48px; }
+    .cover { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .cover-right { max-width: 100%; }
+    .cover h1 { font-size: 28px; }
+    .req-grid { grid-template-columns: 1fr; }
+  }
+  /* Mobile */
+  @media only screen and (max-width: 560px) {
+    .doc { padding: 20px 16px 40px; font-size: 13px; line-height: 1.7; }
+    .cover h1 { font-size: 26px; line-height: 1.1; }
+    .cover-right p { font-size: 13px; }
+    h2 { font-size: 10px; margin-top: 22px; }
+    h3 { font-size: 13px; margin-top: 14px; }
+    .step { padding: 14px 16px; }
+    .step li, .note p, .success span:last-child { font-size: 12px; }
+    p, li { font-size: 13px; }
+  }
+  @page { size: letter; margin: 0; }
+  @media print {
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html, body { margin: 0; padding: 0; background: #07090A !important; }
+    .doc { max-width: none !important; margin: 0 !important; padding: 0.5in 0.6in !important; }
+    h2, h3 { break-after: avoid; }
+    .step, .req, .note, .success, .next { break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+  }
+</style>
+</helmet>
+
+<main class="doc">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div>
+      <div class="cover-eyebrow">Āagman Guide</div>
+      <h1>Connect Zerodha<br>with Āagman</h1>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap;">
+        <a href="https://app.aagman.ai" target="_blank" style="display:inline-block;background:#56E8B8;color:#04150F;font-family:'Geist Mono',monospace;font-size:10px;font-weight:700;padding:7px 18px;border-radius:6px;text-decoration:none;letter-spacing:.04em;">→ Open Āagman</a>
+        <span class="cover-meta">June 2026 · SEBI INA000021951</span>
+      </div>
+    </div>
+    <div class="cover-right">
+      <p>Link your Zerodha trading account to Āagman so you can place and manage live orders by prompt. Setup has two parts — connecting through Kite Connect, then pairing the Āagman Relay.</p>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <p style="margin-bottom:12px;">Connecting a broker is only required to <strong>place and manage live orders</strong> from Āagman. Backtesting, screening, charts, and options analysis all work without a broker connection.</p>
+  <p>Setup has two parts — linking your Zerodha account through Kite Connect, then pairing the Āagman Relay so orders can be routed to the broker through your local machine.</p>
+
+  <!-- Prerequisites -->
+  <h2>Prerequisites</h2>
+  <p style="margin-bottom:8px;">A few things you'll want on hand before you start.</p>
+  <div class="req-grid">
+    <div class="req">
+      <div class="req-icon">Z</div>
+      <div>
+        <div class="req-title">Zerodha account</div>
+        <p>An active trading account with Zerodha — your Client Code starts with two letters.</p>
+      </div>
+    </div>
+    <div class="req">
+      <div class="req-icon">K</div>
+      <div>
+        <div class="req-title">Kite Connect access</div>
+        <p>A one-time signup at developers.kite.trade to issue API credentials.</p>
+      </div>
+    </div>
+    <div class="req">
+      <div class="req-icon">C</div>
+      <div>
+        <div class="req-title">Google Chrome</div>
+        <p>The Āagman Relay ships as a Chrome extension. Chromium-based browsers (Brave, Arc) also work.</p>
+      </div>
+    </div>
+    <div class="req">
+      <div class="req-icon">A</div>
+      <div>
+        <div class="req-title">Āagman account</div>
+        <p>If you're new, sign up at app.aagman.ai — takes about a minute.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+
+      <!-- Part 01 -->
+      <h2><span class="step-badge" style="width:auto;height:auto;padding:2px 6px;border-radius:3px;margin-right:6px;">PART 01</span>Connect your Zerodha account</h2>
+      <p style="margin-bottom:10px;">Āagman talks to Zerodha through Zerodha's official Kite Connect API. You'll create a personal API app on the Kite Connect developer portal, then plug those credentials into Āagman.</p>
+
+      <div class="step">
+        <span class="step-badge">01</span>
+        <h3>Create an API app on Kite Connect</h3>
+        <ol>
+          <li>Sign in to the Kite Connect developer portal at <a href="https://developers.kite.trade" target="_blank" style="color:#56E8B8;text-decoration:none;">developers.kite.trade</a>.</li>
+          <li>Click <strong>Create a new app</strong>.</li>
+          <li>For <strong>Type</strong>, choose <strong>Personal</strong>. Do not pick Connect — the Personal type is what Āagman expects for an individual trading account.</li>
+          <li>Fill in the app details:
+            <ul style="margin-top:4px;">
+              <li><strong>App name</strong> — anything you'll recognize (e.g. Āagman).</li>
+              <li><strong>Redirect URL</strong> — open Āagman in another tab, go to <span class="path"><b>Settings</b><span class="arr">→</span><b>Broker Account</b></span>, and your redirect URL is listed there. Copy it and paste it in exactly as shown.</li>
+              <li><strong>Description, icon, postback URL</strong> — fill in as Zerodha requires.</li>
+            </ul>
+          </li>
+          <li>Submit the form and complete payment if Zerodha prompts. Zerodha will then issue your <strong>API Key</strong> and <strong>API Secret</strong>.</li>
+        </ol>
+        <div class="note">
+          <span class="note-tag">Note</span>
+          <p>Keep the Kite Connect portal tab open — you'll need to paste the API Key and API Secret into Āagman in the next step.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-badge">02</span>
+        <h3>Add your credentials to Āagman</h3>
+        <p style="margin-bottom:6px;">In Āagman, go to <span class="path"><b>Settings</b><span class="arr">→</span><b>Broker Account</b><span class="arr">→</span><b>Zerodha</b></span> and enter the following:</p>
+        <ul>
+          <li><strong>API Key</strong> — from your Kite Connect app.</li>
+          <li><strong>API Secret</strong> — from your Kite Connect app.</li>
+          <li><strong>Client Code</strong> — your Zerodha trading account client ID (e.g. AB1234).</li>
+          <li><strong>Account Label</strong> — any label that helps you identify this account (e.g. Primary, Spouse account, Algo testing). For your reference only.</li>
+        </ul>
+        <p>Hit <strong>Save</strong> to store the credentials.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-badge">03</span>
+        <h3>Authenticate with Zerodha</h3>
+        <ol>
+          <li>On the Zerodha account screen in Āagman, click <strong>Authenticate</strong>.</li>
+          <li>You'll be redirected to the Zerodha login page. Sign in with your Zerodha credentials.</li>
+          <li>When prompted, authorize Āagman to access your account.</li>
+        </ol>
+        <div class="success">
+          <span class="ckcircle">✓</span>
+          <span>Once authorization succeeds, you're returned to Āagman and your Zerodha account is connected.</span>
+        </div>
+      </div>
+
+    </div>
+    <div>
+
+      <!-- Part 02 -->
+      <h2><span class="step-badge" style="width:auto;height:auto;padding:2px 6px;border-radius:3px;margin-right:6px;">PART 02</span>Pair the Āagman Relay</h2>
+      <p style="margin-bottom:10px;">The Āagman Relay is a <strong>Chrome extension</strong> that lets Āagman communicate with your broker through your local machine. It routes orders out to Zerodha and relays responses back to Āagman. The relay must be installed and paired before you can place live orders.</p>
+
+      <div class="step">
+        <span class="step-badge">01</span>
+        <h3>Install the Relay extension</h3>
+        <p>Install the <strong>Āagman Relay</strong> from the Chrome Web Store.</p>
+        <a href="#" class="link-btn" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3.5"></circle><path d="M12 3v6M3.5 8l5.2 3M3.5 16l5.2-3"></path></svg>
+          Get Āagman Relay
+          <span class="arr">↗</span>
+        </a>
+        <p>Once installed, you'll see the Āagman Relay icon in your Chrome toolbar.</p>
+      </div>
+
+      <div class="step">
+        <span class="step-badge">02</span>
+        <h3>Pair the extension with Āagman</h3>
+        <ol>
+          <li>In Āagman, go to <span class="path"><b>Settings</b><span class="arr">→</span><b>Relay Agent</b></span>.</li>
+          <li>Click <strong>Install and Pair</strong>.</li>
+          <li>Click <strong>Pair the Extension</strong>.</li>
+          <li>When Chrome prompts, <strong>authorize the requested permissions</strong>.</li>
+          <li>Wait a few seconds for the handshake to complete.</li>
+        </ol>
+        <div class="success">
+          <span class="ckcircle">✓</span>
+          <span>You'll see a confirmation in Āagman once pairing is successful.</span>
+        </div>
+      </div>
+
+      <!-- You're set -->
+      <h2>You're set</h2>
+      <p>Your broker account and relay are both connected. Head to <strong>Live</strong> to start placing and managing orders from Āagman by prompt.</p>
+
+      <!-- Troubleshooting -->
+      <h2>Troubleshooting</h2>
+      <p style="margin-bottom:8px;">If something doesn't work end-to-end, double-check the following.</p>
+      <ul>
+        <li><strong>Redirect URL match.</strong> The Redirect URL in your Kite app should match the one shown in <span class="path"><b>Settings</b><span class="arr">→</span><b>Broker Account</b></span> in Āagman, character-for-character.</li>
+        <li><strong>Relay enabled and paired.</strong> The Āagman Relay extension is enabled in Chrome and shows as paired in <span class="path"><b>Settings</b><span class="arr">→</span><b>Relay Agent</b></span>.</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- Next page -->
+  <a href="./how-to-prompt-aagman" class="next">
+    <div>
+      <div class="next-label">Next →</div>
+      <div class="next-title">How to Prompt Āagman</div>
+    </div>
+    <div class="next-arr">→</div>
+  </a>
+
+</main>
+</x-dc>
+</body>
+</html>
