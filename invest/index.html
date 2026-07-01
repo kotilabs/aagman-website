@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
+<!-- End Google Tag Manager -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    var text = (el.textContent || '').trim().substring(0, 50);
+    window.dataLayer = window.dataLayer || [];
+    if (href.indexOf('app.aagman.ai') !== -1) {
+      window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href });
+    } else if (href.indexOf('linkedin.com/company/aagman') !== -1 || href.indexOf('x.com/aagman_in') !== -1 || href.indexOf('instagram.com/aagman.in') !== -1) {
+      var platform = href.indexOf('linkedin') !== -1 ? 'linkedin' : (href.indexOf('instagram') !== -1 ? 'instagram' : 'x');
+      window.dataLayer.push({ event: 'social_click', platform: platform, href: href });
+    } else if (href.indexOf('dub.sh/fZsnb0w') !== -1) {
+      window.dataLayer.push({ event: 'talk_to_founders_click', text: text, href: href });
+    }
+  });
+});
+</script>
+<title>Āagman — Your AI Investing Desk for Indian Markets</title>
+<meta name="description" content="An AI investing desk for Indian markets. Screen funds and stocks, backtest ideas, paper trade, and place orders in plain words. You approve every move.">
+<link rel="canonical" href="https://www.aagman.ai/invest">
+<meta property="og:title" content="Āagman — Your AI Investing Desk for Indian Markets">
+<meta property="og:description" content="An AI investing desk for Indian markets. Screen funds and stocks, backtest ideas, paper trade, and place orders in plain words. You approve every move.">
+<meta property="og:image" content="https://www.aagman.ai/uploads/og-image.png">
+<meta property="og:url" content="https://www.aagman.ai/invest">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Āagman — Your AI Investing Desk for Indian Markets">
+<meta name="twitter:description" content="An AI investing desk for Indian markets. Screen funds and stocks, backtest ideas, paper trade, and place orders in plain words. You approve every move.">
+<meta name="twitter:image" content="https://www.aagman.ai/uploads/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --shell-bg: #06080A;
+    --frame-width: 100%;
+    --frame-shadow: none;
+    --nav-pad: 20px 44px;
+    --nav-links-display: flex;
+    --nav-links-gap: 22px;
+    --nav-links-font-size: 12.5px;
+    --hero-outer-pad: 0 44px;
+    --hero-grid-pad: 90px 0 100px;
+    --hero-grid-cols: 1.05fr 1fr;
+    --h1-size: 60px;
+    --h1-max-w: 620px;
+    --subhead-size: 17px;
+    --subhead-max-w: 480px;
+    --hero-terminal-display: block;
+    --mobile-hero-display: none;
+    --hero-cta-btn-flex: 0 0 auto;
+    --hero-cta-gap: 13px;
+    --hero-cta-icon-gap: 9px;
+    --hero-cta-btn-pad: 13px 22px;
+    --hero-cta-font-size: 15px;
+    --section-pad-md: 80px 44px;
+    --section-pad-lg: 110px 44px;
+    --trust-section-pad: 110px 44px;
+    --cta-pad: 120px 44px;
+    --h2-size: 52px;
+    --h2-size-56: 56px;
+    --h2-size-72: 72px;
+    --h2-size-46: 46px;
+    --money-grid-cols: 1fr 1fr;
+    --proofs-dir: row;
+    --proofs-max-w: 920px;
+    --proofs-card1-radius: 10px 0 0 10px;
+    --proofs-card3-radius: 0 10px 10px 0;
+    --proofs-arrow-pad: 0 4px;
+    --proofs-arrow-deg: 0deg;
+    --trust-h2: 72px;
+    --trust-cols: 1fr 1fr;
+    --trust-card-h3: 24px;
+    --illustr-grid-cols: 1fr 1fr;
+    --quote-size: 46px;
+    --gets-size: 32px;
+    --quote-min-h: 110px;
+    --feat4-cols: repeat(4,1fr);
+    --founders-grid-cols: 1fr 1.2fr;
+    --founders-gap: 80px;
+    --founders-left-pos: sticky;
+    --founders-pull-size: 38px;
+    --founders-body-size: 17px;
+    --founders-closing-size: 18px;
+    --founders-dir-row: row;
+    --footer-grid-cols: 1.8fr 1fr 1fr 1fr;
+    --footer-pad: 64px 44px 40px;
+    --faq-q-size: 17px;
+    --faq-a-size: 15px;
+  }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    :root {
+      --shell-bg: #0E1214;
+      --frame-width: 768px;
+      --frame-shadow: 0 0 0 1px rgba(255,255,255,0.07),0 24px 60px -10px rgba(0,0,0,0.8);
+      --nav-pad: 18px 28px;
+      --nav-links-gap: 14px;
+      --nav-links-font-size: 11.5px;
+      --hero-outer-pad: 0 28px;
+      --hero-grid-pad: 56px 0 70px;
+      --hero-grid-cols: 1fr;
+      --h1-size: 46px;
+      --h1-max-w: 640px;
+      --subhead-size: 17px;
+      --subhead-max-w: 560px;
+      --hero-terminal-display: block;
+      --mobile-hero-display: none;
+      --hero-cta-btn-flex: 0 0 auto;
+      --section-pad-md: 56px 28px;
+      --section-pad-lg: 72px 28px;
+      --trust-section-pad: 72px 28px;
+      --cta-pad: 80px 28px;
+      --h2-size: 38px;
+      --h2-size-56: 38px;
+      --h2-size-72: 48px;
+      --h2-size-46: 36px;
+      --proofs-dir: column;
+      --proofs-max-w: 100%;
+      --proofs-card1-radius: 10px 10px 0 0;
+      --proofs-card3-radius: 0 0 10px 10px;
+      --proofs-arrow-pad: 4px 0;
+      --proofs-arrow-deg: 90deg;
+      --trust-h2: 52px;
+      --trust-card-h3: 24px;
+      --illustr-grid-cols: 1fr;
+      --quote-size: 34px;
+      --gets-size: 26px;
+      --quote-min-h: 90px;
+      --feat4-cols: repeat(2,1fr);
+      --founders-grid-cols: 1fr;
+      --founders-gap: 24px;
+      --founders-left-pos: static;
+      --founders-pull-size: 30px;
+      --founders-body-size: 16px;
+      --founders-closing-size: 18px;
+      --founders-dir-row: row;
+      --footer-grid-cols: 1fr 1fr;
+      --footer-pad: 48px 28px 32px;
+    }
+  }
+  @media (max-width: 639px) {
+    :root {
+      --shell-bg: #0E1214;
+      --frame-width: 390px;
+      --frame-shadow: 0 0 0 1px rgba(255,255,255,0.07),0 24px 60px -10px rgba(0,0,0,0.8);
+      --nav-pad: 14px 20px;
+      --nav-links-display: none;
+      --nav-links-gap: 22px;
+      --nav-links-font-size: 12.5px;
+      --hero-outer-pad: 0 20px;
+      --hero-grid-pad: 44px 0 60px;
+      --hero-grid-cols: 1fr;
+      --h1-size: 32px;
+      --h1-max-w: 100%;
+      --subhead-size: 14px;
+      --subhead-max-w: 100%;
+      --hero-terminal-display: none;
+      --mobile-hero-display: block;
+      --hero-cta-btn-flex: 1;
+      --hero-cta-gap: 9px;
+      --hero-cta-icon-gap: 6px;
+      --hero-cta-btn-pad: 12px 10px;
+      --hero-cta-font-size: 13px;
+      --section-pad-md: 60px 22px;
+      --section-pad-lg: 80px 22px;
+      --trust-section-pad: 80px 22px 40px;
+      --cta-pad: 80px 22px;
+      --h2-size: 28px;
+      --h2-size-56: 28px;
+      --h2-size-72: 32px;
+      --h2-size-46: 28px;
+      --money-grid-cols: 1fr;
+      --proofs-dir: column;
+      --proofs-max-w: 100%;
+      --proofs-card1-radius: 10px 10px 0 0;
+      --proofs-card3-radius: 0 0 10px 10px;
+      --proofs-arrow-pad: 4px 0;
+      --proofs-arrow-deg: 90deg;
+      --trust-h2: 36px;
+      --trust-cols: 1fr;
+      --trust-card-h3: 20px;
+      --illustr-grid-cols: 1fr;
+      --quote-size: 24px;
+      --gets-size: 22px;
+      --quote-min-h: 70px;
+      --feat4-cols: 1fr;
+      --founders-grid-cols: 1fr;
+      --founders-gap: 24px;
+      --founders-left-pos: static;
+      --founders-pull-size: 22px;
+      --founders-body-size: 15px;
+      --founders-closing-size: 16px;
+      --founders-dir-row: column;
+      --footer-grid-cols: 1fr 1fr;
+      --footer-pad: 56px 22px 32px;
+      --faq-q-size: 15px;
+      --faq-a-size: 14px;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#06080A}
+  body{font-family:'Schibsted Grotesk',-apple-system,'Segoe UI',sans-serif;color:#E7EEEA;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  @keyframes revUp{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  details>summary{list-style:none;cursor:pointer}
+  details>summary::-webkit-details-marker{display:none}
+  details[open] .faq-icon-plus{display:none}
+  details:not([open]) .faq-icon-minus{display:none}
+  a{color:inherit;text-decoration:none}
+  .gradient-text{background:linear-gradient(100deg,#8CF0BC 0%,#6FE6CD 28%,#67C7F1 52%,#93B6F4 76%,#C2A9F2 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .nav-link{color:#8a938e;transition:color .2s;white-space:nowrap}
+  .nav-link:hover{color:#E7EEEA}
+  .nav-link.active{color:#E7EEEA;font-weight:600}
+  .ghost-link{display:inline-flex;align-items:center;justify-content:center;border-radius:7px;background:transparent;border:1px solid rgba(255,255,255,0.16);color:#D7E0DC;cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s}
+  .ghost-link:hover{border-color:rgba(255,255,255,0.3);color:#E7EEEA}
+  .footer-link{font-size:13.5px;color:#8a938e;text-decoration:none;transition:color .2s}
+  .footer-link:hover{color:#E7EEEA}
+  .founder-link{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.06em;color:#4a534f;text-decoration:none;transition:color .2s}
+  .founder-link:hover{color:#56E8B8}
+  .social-link{color:#4a534f;display:flex;transition:color .2s}
+  .social-link:hover{color:#56E8B8}
+  .tab-btn{position:relative;overflow:hidden;flex:1;padding:12px 16px;border-radius:9px;cursor:pointer;font-family:'Geist Mono',monospace;font-size:12.5px;font-weight:600;white-space:nowrap;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#8a938e;transition:background .2s,border-color .2s,color .2s}
+  .tab-btn.active{background:rgba(86,232,184,0.08);border-color:rgba(86,232,184,0.35);color:#56E8B8}
+  .tab-bar{position:absolute;left:0;bottom:0;height:2px;background:#56E8B8}
+  .trust-tab-btn{flex:1;padding:11px;border-radius:8px;cursor:pointer;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;background:transparent;border:1px solid rgba(255,255,255,0.08);color:#6f7873;transition:background .2s,border-color .2s,color .2s}
+  .trust-tab-btn.active{background:rgba(86,232,184,0.1);border-color:rgba(86,232,184,0.3);color:#56E8B8}
+  .panel{display:none !important}
+  .panel.active{display:flex !important}
+  @media (min-width: 640px) {
+    .panel.show-tablet-desktop{display:flex !important}
+  }
+  @media (min-width: 1024px) {
+    .panel.show-desktop{display:flex !important}
+  }
+  .hero-row{opacity:0;transform:translateY(8px);transition:opacity 0.45s ease,transform 0.45s ease}
+  .hero-row.visible{opacity:1;transform:translateY(0)}
+  .hero-approve{opacity:0;transform:translateY(8px);transition:opacity 0.5s ease,transform 0.5s ease}
+  .hero-approve.visible{opacity:1;transform:translateY(0)}
+  .cursor-blink{color:#56E8B8;animation:blink 0.9s step-end infinite}
+  .cursor-blink.hidden{display:none}
+  .quote-wrap{min-height:var(--quote-min-h);opacity:1;transform:translateY(0);transition:opacity 0.46s ease,transform 0.46s ease}
+  .quote-wrap.fade-out{opacity:0;transform:translateY(10px)}
+  .nav-cta{opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .3s;pointer-events:none}
+  .nav-cta.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+  .progress-track{height:2px;border-radius:2px;background:rgba(255,255,255,0.06);margin-bottom:20px;overflow:hidden}
+  .progress-fill{height:100%;width:0%;background:#56E8B8;border-radius:2px}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Āagman",
+  "legalName": "Koti Labs Private Limited",
+  "url": "https://www.aagman.ai/",
+  "logo": "https://www.aagman.ai/uploads/aagman-logo.png",
+  "sameAs": [
+    "https://www.linkedin.com/company/aagman",
+    "https://x.com/aagman_in",
+    "https://www.instagram.com/aagman.in"
+  ],
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "SEBI RIA Registration Number",
+    "value": "INA000021951"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "F-130, JUNIPER BRIGADE ORCHARDS",
+    "addressLocality": "Devanahalli",
+    "addressRegion": "Bangalore Rural, Karnataka",
+    "addressCountry": "IN",
+    "postalCode": "562110"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Aagman a broker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It connects to your existing broker to support execution. It does not custody funds or replace your brokerage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Aagman predict markets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does not attempt to forecast price direction. It helps you structure, test, and maintain your own trading logic under live conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't I just use ChatGPT, Claude, or Grok?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because they don't operate inside a live market state. They respond to prompts. They don't track evolving positions, ingest real-time feeds as a trading system, compute indicators continuously, or stay synchronized with your execution account. Aagman is connected to live market data, technical structures, and your brokerage environment. It works inside an active trading context — not outside it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Aagman trade autonomously with my capital?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Aagman does not take discretionary control of your money. It connects to your brokerage account to support execution within your defined strategy. You retain control over capital and decision authority."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Aagman a signal or tip platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does not provide stock tips, trade alerts, or copy-trading signals. It supports your own strategy and decision process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens during high volatility?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aagman continues to operate within the parameters you've defined. It does not override your strategy based on emotion or external noise."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How Aagman validates an idea before live capital",
+  "description": "Every idea on Aagman is proven twice — with historical backtests and real-time paper trading — before you approve it for live execution.",
+  "totalTime": "P1D",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Backtest",
+      "text": "Prove it on history. See how your idea would have performed over real market data. Not hypothetical. Actual prices, actual drawdowns, actual returns.",
+      "url": "https://www.aagman.ai/invest#section-backtest"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Paper trade",
+      "text": "Prove it live. Run it live with no real money. Watch it play out in real-time before you commit a single rupee.",
+      "url": "https://www.aagman.ai/invest#section-backtest"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Live",
+      "text": "Then go live. Only when you've seen the numbers yourself.",
+      "url": "https://www.aagman.ai/invest#section-backtest"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Āagman",
+  "url": "https://www.aagman.ai/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Koti Labs Private Limited",
+    "logo": "https://www.aagman.ai/uploads/aagman-logo.png"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ajit Kumar",
+  "jobTitle": "Co-founder",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Koti Labs Private Limited"
+  },
+  "sameAs": "https://www.linkedin.com/in/ajitk2003/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Amit Kumar",
+  "jobTitle": "Co-founder",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Koti Labs Private Limited"
+  },
+  "sameAs": "https://www.linkedin.com/in/kumaamit/"
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div style="background:var(--shell-bg);min-height:100vh;display:flex;flex-direction:column;align-items:center">
+
+  <!-- sticky nav header -->
+  <div style="position:sticky;top:0;z-index:50;width:var(--frame-width);max-width:100%;background:#06080A;font-family:'Schibsted Grotesk',-apple-system,'Segoe UI',sans-serif;color:#E7EEEA;">
+    <nav style="display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:var(--nav-pad);border-bottom:1px solid rgba(255,255,255,0.06)">
+      <div style="display:flex;align-items:center;gap:11px;flex-shrink:0">
+        <img src="../uploads/aagman-logo.png" style="width:28px;height:28px;border-radius:7px;display:block" alt="Āagman">
+        <span style="font-weight:700;font-size:17px;letter-spacing:-.01em">Āagman</span>
+        <span class="for-investors-badge" style="display:var(--nav-links-display);font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.08em;color:#6f7873;border:1px solid rgba(255,255,255,0.14);padding:6px 13px;border-radius:999px;white-space:nowrap;flex-shrink:0">FOR INVESTORS</span>
+      </div>
+      <div style="display:var(--nav-links-display);align-items:center;gap:var(--nav-links-gap);font-family:'Geist Mono',monospace;font-size:var(--nav-links-font-size);color:#8a938e;flex-wrap:nowrap">
+        <a href="#section-screener" data-target="section-screener" class="nav-link">Screener</a>
+        <a href="#section-backtest" data-target="section-backtest" class="nav-link">Backtest</a>
+        <a href="#section-invest" data-target="section-invest" class="nav-link">Invest</a>
+        <a href="#section-trust" data-target="section-trust" class="nav-link">Trust</a>
+        <a href="#section-portfolio" data-target="section-portfolio" class="nav-link">Portfolio</a>
+        <a href="#section-signals" data-target="section-signals" class="nav-link">Signals</a>
+        <a href="../pricing.html" class="nav-link">Pricing</a>
+      </div>
+      <a href="https://app.aagman.ai" class="nav-cta" id="navCta" style="padding:9px 18px;border-radius:6px;background:#56E8B8;color:#04150F;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Geist Mono',monospace;flex-shrink:0;white-space:nowrap;text-decoration:none">Get started</a>
+    </nav>
+  </div>
+
+  <!-- main content frame -->
+  <div style="width:var(--frame-width);max-width:100%;background:#06080A;font-family:'Schibsted Grotesk',-apple-system,'Segoe UI',sans-serif;color:#E7EEEA;overflow:hidden;box-shadow:var(--frame-shadow);">
+
+    <!-- ===== HERO ===== -->
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:var(--hero-outer-pad)">
+      <div style="position:absolute;top:-40px;right:0;width:560px;height:480px;background:radial-gradient(circle,rgba(86,232,184,0.14),transparent 65%);filter:blur(12px);pointer-events:none"></div>
+      <div style="position:relative;display:grid;grid-template-columns:var(--hero-grid-cols);gap:48px;padding:var(--hero-grid-pad);align-items:flex-start">
+        <div>
+          <h1 style="font-size:var(--h1-size);line-height:1.04;letter-spacing:-.04em;font-weight:700;margin:0 0 26px;max-width:var(--h1-max-w)">Research. Plan. Invest. <span class="gradient-text">Go to work.</span></h1>
+          <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:var(--subhead-max-w);margin:0 0 34px">Screen funds and stocks, place your orders in plain words, and go about your day. Āagman watches the market so you don't have to.</p>
+          <div style="display:flex;flex-direction:row;gap:var(--hero-cta-gap);align-items:center">
+            <a href="https://app.aagman.ai" style="display:inline-flex;align-items:center;justify-content:center;gap:var(--hero-cta-icon-gap);padding:var(--hero-cta-btn-pad);border-radius:7px;background:#56E8B8;color:#04150F;font-weight:600;font-size:var(--hero-cta-font-size);border:none;cursor:pointer;flex:var(--hero-cta-btn-flex);white-space:nowrap;text-decoration:none">Get started
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            <a href="https://dub.sh/fZsnb0w" target="_blank" rel="noopener" class="ghost-link" style="gap:var(--hero-cta-icon-gap);padding:var(--hero-cta-btn-pad);font-size:var(--hero-cta-font-size);flex:var(--hero-cta-btn-flex);white-space:nowrap">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="#25D366"><path d="M12.01 2C6.48 2 2 6.36 2 11.75c0 1.96.58 3.78 1.6 5.32L2 22l5.13-1.56a10.2 10.2 0 0 0 4.88 1.23h.01c5.52 0 10-4.36 10-9.75C22 6.36 17.53 2 12.01 2zm5.85 13.88c-.25.68-1.44 1.3-1.99 1.38-.51.08-1.14.11-1.84-.12-.42-.14-.97-.32-1.66-.62-2.93-1.25-4.84-4.13-4.98-4.32-.15-.19-1.19-1.56-1.19-2.98 0-1.41.75-2.11 1.02-2.4.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.42-.07.65.49.25.6.85 2.08.92 2.23.07.15.12.32.02.51-.09.19-.14.3-.28.46-.14.16-.29.36-.42.48-.14.13-.28.28-.12.55.16.28.72 1.17 1.54 1.89 1.06.93 1.94 1.22 2.22 1.36.28.14.44.12.61-.07.16-.19.7-.79.89-1.06.19-.28.37-.23.62-.14.25.09 1.62.75 1.9.89.28.14.46.21.53.32.07.12.07.68-.18 1.36z"/></svg>
+              Join on WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- desktop/tablet terminal illustration -->
+        <div class="hero-terminal" style="border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 70px -25px rgba(0,0,0,0.8);display:var(--hero-terminal-display)">
+          <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)">
+            <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+            <span style="margin-left:10px;font-family:'Geist Mono',monospace;font-size:11.5px;color:#6f7873">āagman — brief</span>
+          </div>
+          <div style="padding:24px 22px 28px;font-family:'Geist Mono',monospace;font-size:13px;line-height:1.75;display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="color:#56E8B8;flex-shrink:0;margin-top:1px">›</span>
+              <span style="color:#E7EEEA"><span id="typedPrompt"></span><span id="heroCursor" class="cursor-blink hidden">|</span></span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;padding-left:24px">
+              <div id="heroScreener" class="hero-row" style="display:flex;align-items:flex-start;gap:10px">
+                <span style="font-size:10px;letter-spacing:.09em;color:#56E8B8;margin-top:2px;flex-shrink:0">SCREENER</span>
+                <span style="color:#8a938e">Scanned 1,842 names · 14 matches · top pick ASIANPAINT</span>
+              </div>
+              <div id="heroBacktest" class="hero-row" style="display:flex;align-items:flex-start;gap:10px">
+                <span style="font-size:10px;letter-spacing:.09em;color:#56E8B8;margin-top:2px;flex-shrink:0">BACKTEST</span>
+                <span style="color:#8a938e">5Y history · <span style="color:#56E8B8">+19.8% CAGR</span> · Sharpe 1.58 · max DD −11.4%</span>
+              </div>
+              <div id="heroPaper" class="hero-row" style="display:flex;align-items:flex-start;gap:10px">
+                <span style="font-size:10px;letter-spacing:.09em;color:#56E8B8;margin-top:2px;flex-shrink:0">PAPER</span>
+                <span style="color:#8a938e">Running live prices · 5 days · tracking real fills</span>
+              </div>
+            </div>
+            <div id="heroApprove" class="hero-approve" style="margin-top:4px;padding:14px 16px;border-radius:8px;background:rgba(86,232,184,0.05);border:1px solid rgba(86,232,184,0.15);display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <span style="color:#C8D4CF;font-size:12px">Place order? ASIANPAINT · CNC · ₹75,000</span>
+              <span style="padding:5px 12px;border-radius:5px;background:#56E8B8;color:#04150F;font-size:11px;font-weight:700;letter-spacing:.06em">PLACE ORDER</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- mobile mini illustration -->
+        <div class="mobile-hero" style="display:var(--mobile-hero-display);border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1)">
+          <div style="display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)">
+            <span style="width:9px;height:9px;border-radius:50%;background:#ff5f57"></span>
+            <span style="width:9px;height:9px;border-radius:50%;background:#febc2e"></span>
+            <span style="width:9px;height:9px;border-radius:50%;background:#28c840"></span>
+            <span style="margin-left:8px;font-family:'Geist Mono',monospace;font-size:11px;color:#6f7873">āagman — brief</span>
+          </div>
+          <div style="padding:14px 16px 18px;font-family:'Geist Mono',monospace;font-size:12px;line-height:1.7">
+            <div style="margin-bottom:13px"><span style="color:#56E8B8">›</span> <span style="color:#e7eeea">"Screen for quality compounders — companies above 1,000 Cr market cap with consistently high ROE and ROCE, low leverage, and steady revenue and profit growth over the last 3-5 years."</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:flex-start;gap:9px">
+                <span style="width:6px;height:6px;border-radius:50%;background:#56E8B8;margin-top:5px;flex:none;box-shadow:0 0 5px #56E8B8"></span>
+                <div><div style="font-size:10px;letter-spacing:.08em;color:#56E8B8;margin-bottom:2px">SCREENER</div><div style="color:#8a938e">Scanned 1,842 names · 14 matches · top pick ASIANPAINT</div></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px">
+                <span style="width:6px;height:6px;border-radius:50%;background:#56E8B8;margin-top:5px;flex:none;box-shadow:0 0 5px #56E8B8"></span>
+                <div><div style="font-size:10px;letter-spacing:.08em;color:#56E8B8;margin-bottom:2px">BACKTEST</div><div style="color:#8a938e">5Y history · +19.8% CAGR · Sharpe 1.58</div></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px">
+                <span style="width:6px;height:6px;border-radius:50%;background:#56E8B8;margin-top:5px;flex:none;box-shadow:0 0 5px #56E8B8"></span>
+                <div><div style="font-size:10px;letter-spacing:.08em;color:#56E8B8;margin-bottom:2px">PAPER</div><div style="color:#8a938e">Running live prices · 5 days</div></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:9px">
+                <span style="width:6px;height:6px;border-radius:50%;background:#F59E0B;margin-top:5px;flex:none;box-shadow:0 0 5px #F59E0B"></span>
+                <div><div style="font-size:10px;letter-spacing:.08em;color:#F59E0B;margin-bottom:2px">PLACE ORDER</div><div style="color:#8a938e">ASIANPAINT · CNC · ₹75,000</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FIND WHAT'S WORTH YOUR MONEY ===== -->
+    <div id="section-screener" data-cta-start="1" style="border-top:1px solid rgba(255,255,255,0.06);background:#080B0D">
+      <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-md)">
+        <h2 style="font-size:var(--h2-size);line-height:1.05;letter-spacing:-.035em;font-weight:700;margin:0 0 16px">Find what's <span class="gradient-text">worth your money.</span></h2>
+        <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:560px;margin:0 0 40px">Mutual funds or stocks. Just ask for what you want.</p>
+
+        <div class="money-tabs-mobile" style="display:none;gap:8px;margin-bottom:16px">
+          <button class="tab-btn" id="moneyTabFunds" data-target="moneyFundsPanel">
+            Mutual Funds
+            <span class="tab-bar" id="moneyFundsBar" style="width:0%"></span>
+          </button>
+          <button class="tab-btn" id="moneyTabStocks" data-target="moneyStocksPanel">
+            Stocks
+            <span class="tab-bar" id="moneyStocksBar" style="width:0%"></span>
+          </button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:var(--money-grid-cols);gap:20px">
+
+          <!-- Mutual Funds card -->
+          <div id="moneyFundsPanel" class="panel show-tablet-desktop" style="border-radius:16px;background:#0C1012;border:1px solid rgba(255,255,255,0.09);padding:28px 24px 24px;display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+              <div style="width:36px;height:36px;border-radius:9px;background:rgba(86,232,184,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#56E8B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+              </div>
+              <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.18em;color:#6f7873">MUTUAL FUNDS</div>
+            </div>
+            <p style="font-size:15px;line-height:1.7;color:#C8D4CF;margin:0 0 22px">Say what you want in a fund — low fees, strong returns, a specific sector. Āagman finds it.</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">01</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;Best large cap mutual funds by 1-year return&rdquo;</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">02</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;Low expense ratio flexi cap funds&rdquo;</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">03</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;ELSS funds with 5+ year track record sorted by returns&rdquo;</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">04</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;Which mutual funds hold RELIANCE?&rdquo;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stocks card -->
+          <div id="moneyStocksPanel" class="panel show-tablet-desktop" style="border-radius:16px;background:#0C1012;border:1px solid rgba(255,255,255,0.09);padding:28px 24px 24px;display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+              <div style="width:36px;height:36px;border-radius:9px;background:rgba(86,232,184,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#56E8B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"></polyline><polyline points="14 6 21 6 21 13"></polyline></svg>
+              </div>
+              <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.18em;color:#6f7873">STOCKS</div>
+            </div>
+            <p style="font-size:15px;line-height:1.7;color:#C8D4CF;margin:0 0 22px">No formulas. No spreadsheets. Just describe the kind of stock you want, and Āagman screens 80+ fundamentals for it.</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">01</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;Stocks with ROE above 15% and debt-to-equity below 0.5&rdquo;</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">02</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;High quality stocks — ROE above 18, ROCE above 20, net profit margin above 12&rdquo;</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07)">
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#56E8B8;flex-shrink:0;margin-top:2px">03</span>
+                <span style="font-size:13.5px;line-height:1.5;color:#E7EEEA">&ldquo;Ache fundamentals wale stocks — ROE 15% se zyada, low debt&rdquo;</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07);font-family:'Geist Mono',monospace;font-size:13px;letter-spacing:.02em;color:#6f7873">No formulas. No spreadsheets. Just ask.</div>
+      </div>
+    </div>
+
+    <!-- ===== TEST BEFORE YOU INVEST ===== -->
+    <div id="section-backtest" style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+      <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-md)">
+        <h2 style="font-size:var(--h2-size-56);line-height:1.05;letter-spacing:-.04em;font-weight:700;margin:0 0 22px">Two proofs before your <span class="gradient-text">money goes in.</span></h2>
+        <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:560px;margin:0 0 56px">Found a stock you like? Don't buy it on gut feeling. Run it through history first.</p>
+
+        <div style="display:flex;flex-direction:var(--proofs-dir);align-items:stretch;gap:0;max-width:var(--proofs-max-w);margin:0;text-align:left">
+          <div style="flex:1;padding:26px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--proofs-card1-radius);background:rgba(255,255,255,0.02)">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:50%;background:#56E8B8;box-shadow:0 0 10px #56E8B8"></span><span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;color:#56E8B8">01 · BACKTEST</span></div>
+            <div style="font-weight:600;font-size:16px;margin-bottom:6px">Prove it on history</div>
+            <div style="font-size:13px;line-height:1.5;color:#8a938e">See how your idea would have performed over real market data. Not hypothetical. Actual prices, actual drawdowns, actual returns.</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#3a4541;padding:var(--proofs-arrow-pad)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(var(--proofs-arrow-deg))"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></div>
+          <div style="flex:1;padding:26px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.02)">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:50%;background:#56E8B8;box-shadow:0 0 10px #56E8B8"></span><span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;color:#56E8B8">02 · PAPER TRADE</span></div>
+            <div style="font-weight:600;font-size:16px;margin-bottom:6px">Prove it live</div>
+            <div style="font-size:13px;line-height:1.5;color:#8a938e">Run it live with no real money. Watch it play out in real-time before you commit a single rupee.</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#3a4541;padding:var(--proofs-arrow-pad)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(var(--proofs-arrow-deg))"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></div>
+          <div style="flex:1;padding:26px;border:1px solid rgba(86,232,184,0.4);border-radius:var(--proofs-card3-radius);background:rgba(86,232,184,0.06)">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:50%;background:#56E8B8;box-shadow:0 0 10px #56E8B8"></span><span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;color:#56E8B8">03 · LIVE</span></div>
+            <div style="font-weight:600;font-size:16px;margin-bottom:6px">Then go live</div>
+            <div style="font-size:13px;line-height:1.5;color:#8a938e">Only when you've seen the numbers yourself.</div>
+          </div>
+        </div>
+        <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#6f7873;margin-top:36px">Backtest → Paper → Live. That's the order. No shortcuts.</div>
+      </div>
+    </div>
+
+    <!-- ===== YOU SET THE PLAN ===== -->
+    <div id="section-invest" style="border-top:1px solid rgba(255,255,255,0.06);background:#080B0D">
+      <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-md)">
+        <h2 style="font-size:var(--h2-size);line-height:1.05;letter-spacing:-.035em;font-weight:700;margin:0 0 16px">You set the plan. <span class="gradient-text">Āagman watches the market.</span></h2>
+        <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:560px;margin:0">Your price. Your stop-loss. Your rules. Āagman just doesn't blink.</p>
+
+        <div style="margin-top:56px;padding-top:44px;border-top:1px solid rgba(255,255,255,0.07)">
+          <span style="display:inline-block;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;color:#56E8B8;border:1px solid rgba(86,232,184,0.35);padding:8px 16px;border-radius:6px;margin-bottom:44px;white-space:nowrap;flex-shrink:0">YOU SAY</span>
+
+          <div class="quote-wrap" id="quoteWrap">
+            <div style="font-size:var(--quote-size);line-height:1.15;letter-spacing:-.03em;font-weight:700;color:#E7EEEA;margin:0 0 20px">&ldquo;<span id="heroQuote">Buy 10 Reliance shares if the price drops to 2900.</span>&rdquo;</div>
+          </div>
+          <div style="font-size:var(--gets-size);line-height:1.15;letter-spacing:-.03em;font-weight:700;color:#56E8B8;margin:36px 0 56px">Āagman gets that.</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:var(--feat4-cols);gap:36px;border-top:1px solid rgba(255,255,255,0.08);padding-top:36px">
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;margin-bottom:14px">01</div>
+            <div style="font-weight:600;font-size:18px;color:#EAF2EE;margin-bottom:10px">Any language</div>
+            <div style="font-size:14px;line-height:1.6;color:#8a938e">Hindi, English, Hinglish, Tamil, Bengali — say it however you think in. Āagman parses all of it.</div>
+          </div>
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;margin-bottom:14px">02</div>
+            <div style="font-weight:600;font-size:18px;color:#EAF2EE;margin-bottom:10px">Your rules, your conditions</div>
+            <div style="font-size:14px;line-height:1.6;color:#8a938e">Set your price, stop-loss, target, and trailing stop. Āagman watches the market and acts when your conditions hit.</div>
+          </div>
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;margin-bottom:14px">03</div>
+            <div style="font-weight:600;font-size:18px;color:#EAF2EE;margin-bottom:10px">No jargon needed</div>
+            <div style="font-size:14px;line-height:1.6;color:#8a938e">Say it like you'd say it to a friend. The agents handle the rest.</div>
+          </div>
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:13px;color:#56E8B8;margin-bottom:14px">04</div>
+            <div style="font-weight:600;font-size:18px;color:#EAF2EE;margin-bottom:10px">No screen-watching required</div>
+            <div style="font-size:14px;line-height:1.6;color:#8a938e">Set your order before the market opens. Go about your day. Āagman doesn't need you online to do its job.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BUILT FOR REAL MONEY / COMPLIANCE BY DESIGN ===== -->
+    <div id="section-trust" style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+      <div style="max-width:1200px;margin:0 auto;padding:var(--trust-section-pad)">
+
+        <h2 style="font-size:var(--trust-h2);line-height:1.05;letter-spacing:-.04em;font-weight:700;margin:0 0 28px;color:#E7EEEA">Built for real money.<br><span class="gradient-text">Compliance by design.</span></h2>
+
+        <p style="font-size:var(--subhead-size);line-height:1.65;color:#8a938e;max-width:600px;margin:0 0 68px;text-align:left">In-platform risk gates stop bad orders before they go out. And every order routes through a machine you control — so even Āagman can't trade behind your back.</p>
+
+        <div class="trust-tabs-mobile" style="display:none;gap:8px;margin-bottom:16px">
+          <button class="trust-tab-btn" id="trustTabOur" data-target="trustOurPanel">OUR SIDE</button>
+          <button class="trust-tab-btn" id="trustTabYour" data-target="trustYourPanel">YOUR SIDE</button>
+        </div>
+        <div class="trust-progress-mobile progress-track" style="display:none">
+          <div class="progress-fill" id="trustBar" style="width:0%"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:var(--trust-cols);gap:20px">
+
+          <div id="trustOurPanel" class="panel show-tablet-desktop" style="border-radius:16px;background:#0C1012;border:1px solid rgba(255,255,255,0.09);padding:28px 24px 24px;display:flex;flex-direction:column;gap:0">
+            <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.18em;color:#6f7873;margin-bottom:14px">OUR SIDE</div>
+            <h3 style="font-size:var(--trust-card-h3);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin:0 0 10px;color:#E7EEEA">Four layers between you and a bad order.</h3>
+            <p style="font-size:13px;line-height:1.55;color:#6f7873;margin:0 0 24px">One trip is enough. No bad order leaves.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
+              <div style="padding:16px 10px 14px;border-radius:12px;background:#0A0E10;border:1px solid rgba(239,68,68,0.25);display:flex;flex-direction:column;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:9px;background:rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+                <span style="font-size:11.5px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Kill switch</span>
+              </div>
+              <div style="padding:16px 10px 14px;border-radius:12px;background:#0A0E10;border:1px solid rgba(86,232,184,0.2);display:flex;flex-direction:column;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:9px;background:rgba(86,232,184,0.1);display:flex;align-items:center;justify-content:center">
+                  <span style="width:9px;height:9px;border-radius:50%;background:#56E8B8;box-shadow:0 0 8px #56E8B8"></span>
+                </div>
+                <span style="font-size:11.5px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Loss caps</span>
+              </div>
+              <div style="padding:16px 10px 14px;border-radius:12px;background:#0A0E10;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke="#8a938e"></circle><path d="M12 3a9 9 0 0 1 0 18" fill="rgba(138,147,142,0.2)" stroke="none"></path></svg>
+                </div>
+                <span style="font-size:11.5px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Breakers</span>
+              </div>
+              <div style="padding:16px 10px 14px;border-radius:12px;background:#0A0E10;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8a938e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle></svg>
+                </div>
+                <span style="font-size:11.5px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Margin</span>
+              </div>
+            </div>
+
+            <div style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#2f3a36;text-align:center;letter-spacing:.06em;margin-bottom:16px">↓ &nbsp; [ strategy submits order ] &nbsp; ↓</div>
+            <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
+              <span style="font-size:12px;color:#4a534f">Persisted · 4 scopes · Survives restarts</span>
+            </div>
+          </div>
+
+          <div id="trustYourPanel" class="panel show-tablet-desktop" style="border-radius:16px;background:#0C1012;border:1px solid rgba(255,255,255,0.09);padding:28px 24px 24px;display:flex;flex-direction:column;gap:0">
+            <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.18em;color:#6f7873;margin-bottom:14px">YOUR SIDE</div>
+            <h3 style="font-size:var(--trust-card-h3);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin:0 0 10px;color:#E7EEEA">Orders route through <em>your</em> machine.</h3>
+            <p style="font-size:13px;line-height:1.55;color:#6f7873;margin:0 0 24px">Your IP. Your session. We can't bypass it.</p>
+
+            <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin-bottom:20px">
+              <div style="padding:14px 8px;border-radius:12px;background:#0A0E10;border:1px solid rgba(100,180,255,0.25);display:flex;flex-direction:column;align-items:center;gap:8px">
+                <div style="width:34px;height:34px;border-radius:8px;background:rgba(100,180,255,0.1);display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6BB5FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Your brief</span>
+              </div>
+              <span style="color:#2f3a36;font-size:14px;text-align:center">→</span>
+              <div style="padding:14px 8px;border-radius:12px;background:#0A0E10;border:1px solid rgba(160,120,255,0.25);display:flex;flex-direction:column;align-items:center;gap:8px">
+                <div style="width:34px;height:34px;border-radius:8px;background:rgba(160,120,255,0.1);display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A07BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Āagman cloud</span>
+              </div>
+              <span style="color:#2f3a36;font-size:14px;text-align:center">→</span>
+              <div style="padding:14px 8px;border-radius:12px;background:rgba(86,232,184,0.07);border:1px solid rgba(86,232,184,0.35);display:flex;flex-direction:column;align-items:center;gap:8px">
+                <div style="width:34px;height:34px;border-radius:8px;background:rgba(86,232,184,0.12);display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#56E8B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:#56E8B8;text-align:center;line-height:1.3">Relay</span>
+              </div>
+              <span style="color:#2f3a36;font-size:14px;text-align:center">→</span>
+              <div style="padding:14px 8px;border-radius:12px;background:#0A0E10;border:1px solid rgba(251,191,36,0.25);display:flex;flex-direction:column;align-items:center;gap:8px">
+                <div style="width:34px;height:34px;border-radius:8px;background:rgba(251,191,36,0.1);display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:#E7EEEA;text-align:center;line-height:1.3">Your broker</span>
+              </div>
+            </div>
+
+            <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
+              <span style="font-size:12px;color:#4a534f">No one else has this · SEBI compliant by design</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PORTFOLIO TRACKING & TAX INSIGHTS — COMING SOON ===== -->
+    <div id="section-portfolio" style="border-top:1px solid rgba(255,255,255,0.06);background:#080B0D">
+      <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-md)">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.1em;color:#F59E0B;border:1px solid rgba(245,158,11,0.35);padding:7px 14px;border-radius:999px;margin-bottom:22px;white-space:nowrap;flex-shrink:0"><span style="width:6px;height:6px;border-radius:50%;background:#F59E0B"></span>COMING SOON</span>
+
+        <h2 style="font-size:var(--h2-size);line-height:1.05;letter-spacing:-.035em;font-weight:700;margin:0 0 16px">Portfolio tracking &amp; <span class="gradient-text">tax insights.</span></h2>
+        <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:560px;margin:0 0 48px">One upload. A health check for your portfolio and a tax check before you sell.</p>
+
+        <div class="health-tabs-mobile" style="display:none;gap:10px;margin-bottom:20px">
+          <button class="tab-btn" id="healthTabPortfolio" data-target="healthPortfolioPanel">
+            Portfolio Health
+            <span class="tab-bar" id="healthPortfolioBar" style="width:0%"></span>
+          </button>
+          <button class="tab-btn" id="healthTabTax" data-target="healthTaxPanel">
+            Tax Insights
+            <span class="tab-bar" id="healthTaxBar" style="width:0%"></span>
+          </button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:var(--illustr-grid-cols);gap:24px;align-items:stretch">
+
+          <!-- ILLUSTRATION: Portfolio health report -->
+          <div id="healthPortfolioPanel" class="panel show-desktop" style="border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)">
+              <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+              <span style="margin-left:10px;font-family:'Geist Mono',monospace;font-size:11.5px;color:#6f7873">āagman — portfolio health</span>
+            </div>
+            <div style="padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;gap:18px">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6f7873">OVERALL SCORE</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:20px;color:#56E8B8;font-weight:600">72 <span style="font-size:12px;color:#6f7873;font-weight:400">/ 100</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Diversification</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:82%;border-radius:4px;background:#56E8B8"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">82</span>
+                </div>
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Concentration</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:61%;border-radius:4px;background:#F59E0B"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">61</span>
+                </div>
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Cost efficiency</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:91%;border-radius:4px;background:#56E8B8"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">91</span>
+                </div>
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Overlap</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:58%;border-radius:4px;background:#F59E0B"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">58</span>
+                </div>
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Risk profile</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:76%;border-radius:4px;background:#56E8B8"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">76</span>
+                </div>
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Tax efficiency</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:42%;border-radius:4px;background:#ff6b6b"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">42</span>
+                </div>
+                <div style="display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center">
+                  <span style="font-size:12.5px;color:#C8D4CF">Options exposure</span>
+                  <div style="height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden">
+                    <div style="height:100%;width:88%;border-radius:4px;background:#56E8B8"></div>
+                  </div>
+                  <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a938e;text-align:right">88</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:13px 15px;border-radius:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
+                <span style="font-size:12.5px;line-height:1.55;color:#C8D4CF">Tax efficiency and overlap are dragging your score down — 3 holdings are days away from a lower tax rate.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ILLUSTRATION: Tax insights -->
+          <div id="healthTaxPanel" class="panel show-desktop" style="border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)">
+              <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+              <span style="margin-left:10px;font-family:'Geist Mono',monospace;font-size:11.5px;color:#6f7873">āagman — tax insights</span>
+            </div>
+            <div style="padding:20px 20px 22px;flex:1;display:flex;flex-direction:column;gap:10px">
+              <div style="padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-weight:600;font-size:13.5px;color:#E7EEEA">RELIANCE</span>
+                  <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#F59E0B;border:1px solid rgba(245,158,11,0.35);padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0">18 DAYS TO LTCG</span>
+                </div>
+                <div style="font-size:12.5px;color:#8a938e">Held 11.4 months · sell today 20% STCG (₹42,000) · wait 18 days → 12.5% LTCG (₹26,250) · save ₹15,750</div>
+              </div>
+              <div style="padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-weight:600;font-size:13.5px;color:#E7EEEA">INFY</span>
+                  <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#56E8B8;border:1px solid rgba(86,232,184,0.3);padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0">LTCG</span>
+                </div>
+                <div style="font-size:12.5px;color:#8a938e">Held 2.3 years · 12.5% LTCG applies · ₹1L exemption available this FY</div>
+              </div>
+              <div style="padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-weight:600;font-size:13.5px;color:#E7EEEA">HDFCBANK</span>
+                  <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#8a938e;border:1px solid rgba(255,255,255,0.12);padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0">126 DAYS TO LTCG</span>
+                </div>
+                <div style="font-size:12.5px;color:#8a938e">Held 8 months · sell today 20% STCG (₹18,400)</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07);font-family:'Geist Mono',monospace;font-size:13px;letter-spacing:.02em;color:#6f7873">Don't let a hasty sale cost you lakhs. See the impact before you hit sell.</div>
+      </div>
+    </div>
+
+    <!-- ===== MARKET NEWS WITHOUT THE NOISE ===== -->
+    <div id="section-signals" style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+      <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-md)">
+        <h2 style="font-size:var(--h2-size);line-height:1.05;letter-spacing:-.035em;font-weight:700;margin:0 0 16px">Market news <span class="gradient-text">without the noise.</span></h2>
+        <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:560px;margin:0 0 40px">The news that moves your money. Skip the rest.</p>
+
+        <!-- ILLUSTRATION: filtered news feed -->
+        <div style="border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1);max-width:720px">
+          <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)">
+            <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+            <span style="margin-left:10px;font-family:'Geist Mono',monospace;font-size:11.5px;color:#6f7873">āagman — your feed</span>
+          </div>
+          <div style="padding:8px 8px 10px;display:flex;flex-direction:column">
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 14px;border-bottom:1px solid rgba(255,255,255,0.05)">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;color:#56E8B8;border:1px solid rgba(86,232,184,0.35);padding:4px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:1px">RELIANCE</span>
+              <div style="flex:1">
+                <div style="font-size:14px;line-height:1.5;color:#E7EEEA;margin-bottom:4px">Jio announces price hike across all prepaid plans</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:#56E8B8">LIKELY POSITIVE · YOU HOLD THIS</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 14px;border-bottom:1px solid rgba(255,255,255,0.05)">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;color:#ff6b6b;border:1px solid rgba(255,107,107,0.35);padding:4px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:1px">HDFCBANK</span>
+              <div style="flex:1">
+                <div style="font-size:14px;line-height:1.5;color:#E7EEEA;margin-bottom:4px">RBI flags asset quality concerns in Q4 review</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:#ff6b6b">LIKELY NEGATIVE · YOU HOLD THIS</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 14px;border-bottom:1px solid rgba(255,255,255,0.05)">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;color:#8a938e;border:1px solid rgba(255,255,255,0.15);padding:4px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:1px">MACRO</span>
+              <div style="flex:1">
+                <div style="font-size:14px;line-height:1.5;color:#E7EEEA;margin-bottom:4px">RBI holds repo rate at 6.5% for fourth straight meeting</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:#8a938e">NEUTRAL · AFFECTS YOUR PORTFOLIO</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 14px">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;color:#56E8B8;border:1px solid rgba(86,232,184,0.35);padding:4px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:1px">INFY</span>
+              <div style="flex:1">
+                <div style="font-size:14px;line-height:1.5;color:#E7EEEA;margin-bottom:4px">Wins $2B multi-year cloud deal from European bank</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:#56E8B8">LIKELY POSITIVE · YOU HOLD THIS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOUNDERS LETTER ===== -->
+  <div id="section-founders" style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+    <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-lg)">
+      <div style="display:grid;grid-template-columns:var(--founders-grid-cols);gap:var(--founders-gap);align-items:flex-start">
+
+        <!-- left: label + quote + divider -->
+        <div style="position:var(--founders-left-pos);top:100px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#56E8B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 5"></path><path d="M3 20h18"></path></svg>
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#56E8B8;font-weight:500">NOTE FROM THE FOUNDERS</span>
+          </div>
+          <blockquote style="margin:0 0 28px;padding:0">
+            <p style="font-size:var(--founders-pull-size);line-height:1.1;letter-spacing:-.04em;font-weight:700;margin:0;color:#E7EEEA;text-wrap:balance">&ldquo;Most of what hits your screen isn't signal. It's a distraction designed to make you react.&rdquo;</p>
+          </blockquote>
+          <div style="width:40px;height:2px;background:#56E8B8;border-radius:2px;margin-bottom:8px"></div>
+        </div>
+
+        <!-- right: body + founders -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <p style="margin:0;font-size:var(--founders-body-size);line-height:1.75;color:#8a938e">We've both spent years around markets, in different roles. One of us traded institutional books where decisions had immediate consequences. The other built financial infrastructure.</p>
+          <p style="margin:0;font-size:var(--founders-body-size);line-height:1.75;color:#8a938e">Those paths didn't lead to a grand insight. They just made certain things hard to unsee.</p>
+          <p style="margin:0;font-size:var(--founders-body-size);line-height:1.75;color:#8a938e">How quickly context slips when positions move. How hard it becomes to tell what you chose to pay attention to, and what simply forced its way in.</p>
+          <p style="margin:0;font-size:var(--founders-body-size);line-height:1.75;color:#8a938e">Most systems make it easier to act inside that noise. We built <span style="color:#E7EEEA;font-weight:500">Āagman</span> to help you step back from it.</p>
+          <p style="margin:0;font-size:var(--founders-body-size);line-height:1.75;color:#8a938e">No urgency bait. No performative certainty. Just a way to keep your original thinking intact when pressure sets in.</p>
+          <p style="margin:0;font-size:var(--founders-closing-size);line-height:1.7;color:#C8D4CF;font-weight:500">If you recognize yourself in this, we built it for you.</p>
+
+          <div style="display:flex;flex-direction:var(--founders-dir-row);gap:40px;margin-top:32px;align-items:flex-start;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:18px">
+              <img src="../uploads/ajit-lp.jpeg" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:1px solid rgba(86,232,184,0.2);flex:none;display:block" alt="Ajit Kumar">
+              <div>
+                <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;font-weight:600;color:#E7EEEA">AJIT KUMAR</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;color:#56E8B8;margin-top:4px">CO-FOUNDER</div>
+                <a href="https://www.linkedin.com/in/ajitk2003/" target="_blank" rel="noopener" class="founder-link"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>LinkedIn</a>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:18px">
+              <img src="../uploads/auc0WBLWXQgFk2g0GKOIqOpOaH0.webp" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:1px solid rgba(86,232,184,0.2);flex:none;display:block" alt="Amit Kumar">
+              <div>
+                <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;font-weight:600;color:#E7EEEA">AMIT KUMAR</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;color:#56E8B8;margin-top:4px">CO-FOUNDER</div>
+                <a href="https://www.linkedin.com/in/kumaamit/" target="_blank" rel="noopener" class="founder-link"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FAQ ===== -->
+  <div style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+    <div style="max-width:1200px;margin:0 auto;padding:var(--section-pad-md)">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:20px">
+        <div>
+          <h2 style="font-size:var(--h2-size-46);line-height:1.04;letter-spacing:-.035em;font-weight:700;margin:0">Common questions.</h2>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;max-width:820px">
+
+        <details style="border-top:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:var(--faq-q-size);font-weight:600;color:#E7EEEA;line-height:1.3">Is Aagman a broker?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">No. It connects to your existing broker to support execution. It does not custody funds or replace your brokerage.</p>
+        </details>
+
+        <details style="border-top:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:var(--faq-q-size);font-weight:600;color:#E7EEEA;line-height:1.3">Does Aagman predict markets?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">No. It does not attempt to forecast price direction. It helps you structure, test, and maintain your own trading logic under live conditions.</p>
+        </details>
+
+        <details style="border-top:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:var(--faq-q-size);font-weight:600;color:#E7EEEA;line-height:1.3">Why can't I just use ChatGPT, Claude, or Grok?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <div style="padding-right:48px;margin-bottom:24px">
+            <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0 0 12px">Because they don't operate inside a live market state. They respond to prompts. They don't track evolving positions, ingest real-time feeds as a trading system, compute indicators continuously, or stay synchronized with your execution account.</p>
+            <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0">Aagman is connected to live market data, technical structures, and your brokerage environment. It works inside an active trading context — not outside it.</p>
+          </div>
+        </details>
+
+        <details style="border-top:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:var(--faq-q-size);font-weight:600;color:#E7EEEA;line-height:1.3">Does Aagman trade autonomously with my capital?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">No. Aagman does not take discretionary control of your money. It connects to your brokerage account to support execution within your defined strategy. You retain control over capital and decision authority.</p>
+        </details>
+
+        <details style="border-top:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:var(--faq-q-size);font-weight:600;color:#E7EEEA;line-height:1.3">Is Aagman a signal or tip platform?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">No. It does not provide stock tips, trade alerts, or copy-trading signals. It supports your own strategy and decision process.</p>
+        </details>
+
+        <details style="border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
+          <summary style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;user-select:none">
+            <span style="font-size:var(--faq-q-size);font-weight:600;color:#E7EEEA;line-height:1.3">What happens during high volatility?</span>
+            <span style="flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:#56E8B8">
+              <span class="faq-icon-plus" style="font-size:16px;line-height:1">+</span>
+              <span class="faq-icon-minus" style="font-size:16px;line-height:1">−</span>
+            </span>
+          </summary>
+          <p style="font-size:var(--faq-a-size);line-height:1.72;color:#8a938e;margin:0 0 24px;padding-right:48px">Aagman continues to operate within the parameters you've defined. It does not override your strategy based on emotion or external noise.</p>
+        </details>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FINAL CTA ===== -->
+  <div style="position:relative;border-top:1px solid rgba(255,255,255,0.06);background:#080B0D;overflow:hidden">
+    <div style="position:absolute;bottom:-160px;left:18%;transform:translateX(-50%);width:760px;height:420px;background:radial-gradient(circle,rgba(86,232,184,0.16),transparent 65%);filter:blur(14px);pointer-events:none"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:var(--cta-pad)">
+      <h2 style="font-size:var(--h2-size-72);line-height:1.0;letter-spacing:-.045em;font-weight:700;margin:0 0 22px">Invest like you have a <span class="gradient-text">team.</span></h2>
+      <p style="font-size:var(--subhead-size);line-height:1.6;color:#8a938e;max-width:480px;margin:0 0 38px">Tell the team what you want. They screen it, test it, and watch the market for you. Free to try, no credit card.</p>
+      <div style="display:flex;flex-direction:row;gap:var(--hero-cta-gap);align-items:center">
+        <a href="https://app.aagman.ai" style="display:inline-flex;align-items:center;justify-content:center;gap:var(--hero-cta-icon-gap);padding:var(--hero-cta-btn-pad);border-radius:7px;background:#56E8B8;color:#04150F;font-weight:600;font-size:var(--hero-cta-font-size);border:none;cursor:pointer;flex:var(--hero-cta-btn-flex);white-space:nowrap;text-decoration:none">Get started
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="https://dub.sh/fZsnb0w" target="_blank" rel="noopener" class="ghost-link" style="padding:var(--hero-cta-btn-pad);font-size:var(--hero-cta-font-size);flex:var(--hero-cta-btn-flex);white-space:nowrap">Talk to founders</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
+    <div style="max-width:1200px;margin:0 auto;padding:var(--footer-pad)">
+      <div style="display:grid;grid-template-columns:var(--footer-grid-cols);gap:32px">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
+            <img src="../uploads/aagman-logo.png" style="width:28px;height:28px;border-radius:7px;display:block" alt="Āagman">
+            <span style="font-weight:700;font-size:17px">Āagman</span>
+          </div>
+          <p style="font-size:13px;line-height:1.6;color:#6f7873;max-width:260px;margin:0">An AI trading team for Indian markets. You brief, they work, you approve.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">COMPANY</div>
+          <a href="#section-founders" data-target="section-founders" class="footer-link">Founders letter</a>
+          <a href="#" class="footer-link">Careers</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">RESOURCES</div>
+          <a href="../pricing.html" class="footer-link">Pricing</a>
+          <a href="#" class="footer-link">Sitemap</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">LEGAL</div>
+          <a href="../terms.html" class="footer-link">Terms &amp; Conditions</a>
+          <a href="../privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="../risk-disclosure.html" class="footer-link">Risk Disclosure</a>
+          <a href="#" class="footer-link">Contact Us</a>
+          <a href="../cancellation-refunds.html" class="footer-link">Cancellations &amp; Refunds</a>
+        </div>
+      </div>
+      <div style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#4a534f">© 2026 Āagman · Koti Labs Private Limited · Markets carry risk</span>
+        <div style="display:flex;align-items:center;gap:16px">
+          <a href="https://www.linkedin.com/company/aagman" target="_blank" rel="noopener" class="social-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="https://x.com/aagman_in" target="_blank" rel="noopener" class="social-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+          <a href="https://www.instagram.com/aagman.in" target="_blank" rel="noopener" class="social-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        </div>
+      </div>
+      <p style="margin-top:24px;font-size:11px;line-height:1.6;color:#3a4541">Disclaimer: Āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
+    </div>
+  </footer>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== Smooth scroll + scroll spy =====
+  var sectionIds = ['section-screener','section-backtest','section-invest','section-trust','section-portfolio','section-signals'];
+  var navLinks = document.querySelectorAll('.nav-link[data-target]');
+  var footerLinks = document.querySelectorAll('.footer-link[data-target]');
+
+  function scrollToId(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  [].forEach.call(navLinks, function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      scrollToId(link.dataset.target);
+    });
+  });
+  [].forEach.call(footerLinks, function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      scrollToId(link.dataset.target);
+    });
+  });
+
+  var navCta = document.getElementById('navCta');
+  var ctaStart = document.querySelector('[data-cta-start]');
+
+  function onScroll() {
+    if (ctaStart) {
+      var visible = ctaStart.getBoundingClientRect().top <= 60;
+      navCta.classList.toggle('visible', visible);
+    }
+    var active = '';
+    for (var i = 0; i < sectionIds.length; i++) {
+      var el = document.getElementById(sectionIds[i]);
+      if (el && el.getBoundingClientRect().top <= 100) active = sectionIds[i];
+    }
+    [].forEach.call(navLinks, function(link) {
+      link.classList.toggle('active', link.dataset.target === active);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ===== Hero terminal typewriter + sequential reveal =====
+  var fullPrompt = '"Screen for quality compounders — companies above 1,000 Cr market cap with consistently high ROE and ROCE, low leverage, and steady revenue and profit growth over the last 3-5 years."';
+  var typedPrompt = document.getElementById('typedPrompt');
+  var heroCursor = document.getElementById('heroCursor');
+  var heroScreener = document.getElementById('heroScreener');
+  var heroBacktest = document.getElementById('heroBacktest');
+  var heroPaper = document.getElementById('heroPaper');
+  var heroApprove = document.getElementById('heroApprove');
+  var heroTimers = [];
+
+  function clearHeroTimers() {
+    heroTimers.forEach(function(t) { clearTimeout(t); });
+    heroTimers = [];
+  }
+
+  function setRows(step) {
+    heroScreener.classList.toggle('visible', step >= 2);
+    heroBacktest.classList.toggle('visible', step >= 3);
+    heroPaper.classList.toggle('visible', step >= 4);
+    heroApprove.classList.toggle('visible', step >= 5);
+  }
+
+  function startHeroAnim() {
+    clearHeroTimers();
+    typedPrompt.textContent = '';
+    heroCursor.classList.remove('hidden');
+    setRows(1);
+    var idx = 0;
+    function type() {
+      idx++;
+      typedPrompt.textContent = fullPrompt.slice(0, idx);
+      if (idx < fullPrompt.length) {
+        heroTimers.push(setTimeout(type, 26));
+      } else {
+        heroTimers.push(setTimeout(function() { setRows(2); }, 900));
+        heroTimers.push(setTimeout(function() { setRows(3); }, 2000));
+        heroTimers.push(setTimeout(function() { setRows(4); }, 3100));
+        heroTimers.push(setTimeout(function() { setRows(5); }, 4100));
+        heroTimers.push(setTimeout(function() {
+          heroCursor.classList.add('hidden');
+          setRows(0);
+          heroTimers.push(setTimeout(startHeroAnim, 900));
+        }, 10000));
+      }
+    }
+    heroTimers.push(setTimeout(type, 700));
+  }
+  startHeroAnim();
+
+  // ===== Quote rotator =====
+  var quotes = [
+    "Buy 10 Reliance shares if the price drops to 2900.",
+    "SBIN 10 shares 700 pe khareedo, stop loss 680 rakho, target 750.",
+    "RELIANCE 10 shares vikkikko, 2800-il irangi vandhaal.",
+    "RELIANCE kine nao ebong trailing stop loss 5%-e set koro.",
+    "100 RELIANCE market price par khareedi lo."
+  ];
+  var quoteIdx = 0;
+  var heroQuote = document.getElementById('heroQuote');
+  var quoteWrap = document.getElementById('quoteWrap');
+  setInterval(function() {
+    quoteWrap.classList.add('fade-out');
+    setTimeout(function() {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      heroQuote.textContent = quotes[quoteIdx];
+      quoteWrap.classList.remove('fade-out');
+    }, 300);
+  }, 3000);
+
+  // ===== Tab switcher helpers =====
+  function createSwitcher(options) {
+    var container = options.container;
+    var buttons = options.buttons;
+    var panels = options.panels;
+    var bars = options.bars;
+    var dwell = options.dwell;
+    var onChange = options.onChange;
+    var activeIndex = 0;
+    var barStart = Date.now();
+    var timer = null;
+    var raf = null;
+
+    function updateUI() {
+      buttons.forEach(function(btn, i) {
+        btn.classList.toggle('active', i === activeIndex);
+      });
+      panels.forEach(function(panel, i) {
+        panel.classList.toggle('active', i === activeIndex);
+      });
+      if (onChange) onChange(activeIndex);
+    }
+
+    function animateBar() {
+      var pct = Math.min(100, ((Date.now() - barStart) / dwell) * 100);
+      bars.forEach(function(bar, i) {
+        bar.style.width = (i === activeIndex ? pct : 0) + '%';
+      });
+      raf = requestAnimationFrame(animateBar);
+    }
+
+    function restartTimer() {
+      clearInterval(timer);
+      barStart = Date.now();
+      timer = setInterval(function() {
+        barStart = Date.now();
+        activeIndex = (activeIndex + 1) % buttons.length;
+        updateUI();
+      }, dwell);
+    }
+
+    buttons.forEach(function(btn, i) {
+      btn.addEventListener('click', function() {
+        activeIndex = i;
+        updateUI();
+        restartTimer();
+      });
+    });
+
+    updateUI();
+    restartTimer();
+    animateBar();
+  }
+
+  // Funds / Stocks mobile tabs
+  var moneyTabs = document.querySelector('.money-tabs-mobile');
+  if (moneyTabs) {
+    createSwitcher({
+      container: moneyTabs,
+      buttons: [document.getElementById('moneyTabFunds'), document.getElementById('moneyTabStocks')],
+      panels: [document.getElementById('moneyFundsPanel'), document.getElementById('moneyStocksPanel')],
+      bars: [document.getElementById('moneyFundsBar'), document.getElementById('moneyStocksBar')],
+      dwell: 4000
+    });
+  }
+
+  // Trust mobile tabs
+  var trustTabs = document.querySelector('.trust-tabs-mobile');
+  if (trustTabs) {
+    createSwitcher({
+      container: trustTabs,
+      buttons: [document.getElementById('trustTabOur'), document.getElementById('trustTabYour')],
+      panels: [document.getElementById('trustOurPanel'), document.getElementById('trustYourPanel')],
+      bars: [document.getElementById('trustBar')],
+      dwell: 3200
+    });
+  }
+
+  // Health mobile+tablet tabs
+  var healthTabs = document.querySelector('.health-tabs-mobile');
+  if (healthTabs) {
+    createSwitcher({
+      container: healthTabs,
+      buttons: [document.getElementById('healthTabPortfolio'), document.getElementById('healthTabTax')],
+      panels: [document.getElementById('healthPortfolioPanel'), document.getElementById('healthTaxPanel')],
+      bars: [document.getElementById('healthPortfolioBar'), document.getElementById('healthTaxBar')],
+      dwell: 4500
+    });
+  }
+
+  // ===== Responsive tab visibility =====
+  // Show mobile-only tab bars only on the breakpoints where they are needed.
+  function refreshTabVisibility() {
+    var w = window.innerWidth;
+    if (moneyTabs) moneyTabs.style.display = w <= 639 ? 'flex' : 'none';
+    if (trustTabs) {
+      trustTabs.style.display = w <= 639 ? 'flex' : 'none';
+      document.querySelector('.trust-progress-mobile').style.display = w <= 639 ? 'block' : 'none';
+    }
+    if (healthTabs) healthTabs.style.display = w <= 1023 ? 'flex' : 'none';
+  }
+  window.addEventListener('resize', refreshTabVisibility);
+  refreshTabVisibility();
+})();
+</script>
+
+</body>
+</html>
