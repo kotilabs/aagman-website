@@ -290,6 +290,110 @@
   body.vp-mobile .ostep { padding-left: 36px !important; }
   body.vp-mobile .ostep .num { width: 26px !important; height: 26px !important; font-size: 10px !important; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is backtesting in Āagman?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Backtesting in Āagman means describing a trading or investment strategy in plain English or Hindi, then running it against years of historical market data to see how it would have performed before risking real capital."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to know coding to backtest a strategy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. You can write prompts like 'Buy SBIN when EMA 20 crosses above EMA 50 and exit on a 5% stop loss.' Āagman parses natural language into a backtest."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes a good backtest prompt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A good prompt clearly states the instrument, entry condition, exit condition, position size, and time frame. Being explicit about each piece improves the quality of the result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I backtest options strategies in Āagman?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can backtest single-leg options, multi-leg strategies such as straddles, strangles, iron condors, and spreads, as well as systematic entries and exits on option legs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if a backtest result is reliable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check metrics such as CAGR, max drawdown, Sharpe ratio, win rate, and number of trades. A reliable result covers multiple market regimes and has enough trades to be statistically meaningful."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to run your first backtest in Āagman",
+  "description": "Describe a trading strategy in natural language and run it against historical Indian market data to see simulated performance.",
+  "totalTime": "PT10M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Pick an instrument",
+      "text": "Choose a stock, index, basket, mutual fund, or options underlying you want to test.",
+      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Write the entry rule",
+      "text": "Describe when to enter in plain words, for example 'Buy when RSI crosses below 30 and then crosses back above 30.'",
+      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Add the exit rule",
+      "text": "State when to close the position, such as a target profit, stop loss, trailing stop, or opposing indicator signal.",
+      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Set capital and sizing",
+      "text": "Tell Āagman how much capital to use and whether to size by fixed quantity, amount, or percentage of capital.",
+      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Run and read the report",
+      "text": "Run the backtest and review CAGR, drawdown, Sharpe, win rate, and trade list to decide whether to refine the strategy.",
+      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#reading-results"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SpeakableSpecification",
+  "cssSelector": [
+    ".hero-quote",
+    ".prose"
+  ]
+}
+</script>
 </head>
 
 <input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
@@ -388,6 +492,7 @@
         </button>
       </div>
       <p class="subtitle">A practical guide to testing trading and investment strategies with natural language in Āagman.</p>
+<p class="last-updated" style="font-size:12px;color:#4a5550;margin-top:-8px;margin-bottom:20px;font-family:'Geist Mono',monospace;letter-spacing:.04em;">Last updated: 3 July 2026</p>
 
       <!-- Hero — quote -->
       <div class="hero">
