@@ -49,6 +49,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.aagman.ai/docs/backtesting-playbook.html</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.aagman.ai/docs/research-handbook.html</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.aagman.ai/docs/connect-zerodha.html</loc>
     <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>

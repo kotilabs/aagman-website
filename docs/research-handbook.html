@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Āagman Research Handbook | Āagman Docs</title>
+<meta name="description" content="A practical guide to screening and researching stocks, indices, and funds with natural language in Āagman.">
+<link rel="canonical" href="https://www.aagman.ai/docs/research-handbook.html">
+<meta property="og:title" content="The Āagman Research Handbook | Āagman Docs">
+<meta property="og:description" content="A practical guide to screening and researching stocks, indices, and funds with natural language in Āagman.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.aagman.ai/docs/research-handbook.html">
+<meta property="og:image" content="https://www.aagman.ai/uploads/aagman-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Āagman Research Handbook | Āagman Docs">
+<meta name="twitter:description" content="A practical guide to screening and researching stocks, indices, and funds with natural language in Āagman.">
+<meta name="twitter:image" content="https://www.aagman.ai/uploads/aagman-og.png">
+<link rel="icon" type="image/png" href="/uploads/aagman-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: #07090A; color: #E7EEEA; font-family: 'Hanken Grotesk', sans-serif; }
+  a { color: inherit; text-decoration: none; }
+</style>
+<style>
+  html { scroll-behavior: smooth; }
+  .shell { display: grid; grid-template-rows: 64px 1fr; min-height: 100vh; }
+  .topbar { display: flex; align-items: center; height: 64px; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 24px 0 0; background: #07090A; position: sticky; top: 0; z-index: 10; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 0 24px; height: 64px; border-right: 1px solid rgba(255,255,255,0.06); }
+  .brand-mark { width: 30px; height: 30px; border-radius: 8px; background: #34D399 url('/uploads/aagman-logo.png') center/cover no-repeat; box-shadow: 0 4px 16px -2px rgba(86,232,184,0.55); flex-shrink: 0; }
+  .brand-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 700; color: #E7EEEA; letter-spacing: -.01em; }
+  .brand-section { font-family: 'Geist Mono', monospace; font-size: 10px; color: #56E8B8; letter-spacing: .14em; padding-left: 12px; margin-left: 4px; border-left: 1px solid rgba(255,255,255,0.08); }
+  .topright { display: flex; align-items: center; gap: 8px; margin-left: auto; padding-right: 20px; }
+  .cta-dash { display: inline-flex; align-items: center; gap: 6px; background: #56E8B8; color: #04150F; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; padding: 7px 14px; border-radius: 6px; letter-spacing: .03em; }
+  .body { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 64px); }
+  .content { min-width: 0; overflow-x: hidden; }
+  .sidebar { border-right: 1px solid rgba(255,255,255,0.06); padding: 28px 18px 60px; overflow-y: auto; position: sticky; top: 64px; align-self: start; max-height: calc(100vh - 64px); }
+  .side-group { margin-bottom: 22px; }
+  .side-group-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .14em; color: #4a5550; text-transform: uppercase; padding: 0 10px; margin-bottom: 8px; }
+  .side-item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; font-size: 13px; color: #8a938e; border-radius: 5px; line-height: 1.3; }
+  .side-item:hover { color: #E7EEEA; background: rgba(255,255,255,0.03); }
+  .side-item.active { color: #56E8B8; background: rgba(86,232,184,0.07); }
+  .side-item .ico { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .side-item .soon { margin-left: auto; font-family: 'Geist Mono', monospace; font-size: 8.5px; color: #4a5550; letter-spacing: .08em; }
+  .side-item.disabled { color: #4a5550; cursor: not-allowed; pointer-events: none; }
+  .side-item.disabled:hover { color: #4a5550; background: transparent; }
+  .side-item.disabled .brand-ico { opacity: 0.55; filter: saturate(0.55); }
+  .brand-ico { width: 18px; height: 18px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-family: 'Geist', sans-serif; font-size: 10.5px; font-weight: 700; color: #fff; flex-shrink: 0; letter-spacing: -.02em; line-height: 1; }
+  .brand-ico.zerodha { background: #EB4438; }
+  .brand-ico.upstox { background: #642F9F; }
+  .brand-ico.dhan { background: #1B7AE5; }
+  .brand-ico.mo { background: #C20A0A; }
+  .brand-ico.groww { background: #00B386; }
+  .side-subs { display: flex; flex-direction: column; padding: 4px 0 6px 0; margin: 2px 0 6px 24px; border-left: 1px solid rgba(86,232,184,0.18); }
+  .side-subs a { font-size: 12px; color: #6b7570; padding: 5px 12px; border-radius: 0 4px 4px 0; line-height: 1.3; }
+  .side-subs a:hover { color: #C4CFC9; background: rgba(255,255,255,0.03); }
+  .side-subs a.active { color: #56E8B8; }
+  .nav-toggle-input { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+  .nav-toggle-btn { display: none; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 6px; color: #C4CFC9; background: transparent; cursor: pointer; }
+  .nav-toggle-btn:hover { background: rgba(255,255,255,0.05); }
+  .nav-toggle-btn .ico-open { display: block; }
+  .nav-toggle-btn .ico-close { display: none; }
+  .nav-toggle-input:checked ~ .shell .nav-toggle-btn .ico-open { display: none; }
+  .nav-toggle-input:checked ~ .shell .nav-toggle-btn .ico-close { display: block; }
+  .nav-overlay { display: none; }
+  .content { padding: 48px clamp(24px, 6vw, 88px); max-width: 920px; }
+  .crumb { display: flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .14em; color: #56E8B8; text-transform: uppercase; margin-bottom: 14px; }
+  .crumb .sep { color: #2e3d37; }
+  h1.title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 44px; line-height: 1.05; letter-spacing: -.03em; font-weight: 800; color: #E7EEEA; margin: 0 0 12px; }
+  .subtitle { font-size: 16px; color: #8a938e; line-height: 1.55; margin: 0 0 28px; max-width: 640px; }
+  .title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 7px; font-family: 'Geist Mono', monospace; font-size: 11px; color: #C4CFC9; background: #0B1711; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 7px 12px; cursor: pointer; flex-shrink: 0; }
+  .copy-btn:hover { border-color: rgba(86,232,184,0.3); color: #E7EEEA; }
+  .hero { position: relative; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; background: radial-gradient(ellipse at 50% 110%, rgba(86,232,184,0.14) 0%, rgba(86,232,184,0.04) 40%, transparent 70%), #0A0E0D; margin: 8px 0 28px; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(86,232,184,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(86,232,184,0.05) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 80%); }
+  .hero-inner { position: relative; padding: 40px clamp(20px, 4vw, 44px) 36px; text-align: center; }
+  .hero-corner { position: absolute; top: 14px; left: 18px; font-family: 'Geist Mono', monospace; font-size: 10px; color: #4a5550; letter-spacing: .12em; }
+  .hero-quote { font-family: 'Bricolage Grotesque', sans-serif; font-size: 23px; font-weight: 600; color: #E7EEEA; line-height: 1.45; max-width: 620px; margin: 10px auto 0; letter-spacing: -.01em; }
+  .hero-quote span { color: #56E8B8; }
+  .prose p { color: #a0a8a4; line-height: 1.7; font-size: 14.5px; margin: 0 0 14px; }
+  .prose p strong { color: #E7EEEA; font-weight: 600; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose code, .tok { font-family: 'Geist Mono', monospace; font-size: 12.5px; color: #C4CFC9; background: rgba(86,232,184,0.06); border: 1px solid rgba(86,232,184,0.12); border-radius: 4px; padding: 1px 6px; }
+  h2.h-section { font-family: 'Bricolage Grotesque', sans-serif; font-size: 26px; font-weight: 700; color: #E7EEEA; letter-spacing: -.02em; margin: 48px 0 6px; scroll-margin-top: 80px; }
+  .h-section-sub { font-size: 14.5px; color: #8a938e; line-height: 1.6; margin: 0 0 18px; max-width: 660px; }
+  h3.h-thing { font-family: 'Hanken Grotesk', sans-serif; font-size: 19px; font-weight: 700; color: #E7EEEA; margin: 0; scroll-margin-top: 80px; letter-spacing: -.01em; }
+  h4.h-mini { font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #C4CFC9; margin: 18px 0 6px; }
+  .prompt-block { position: relative; margin: 8px 0 14px; }
+  .prompt { background: #0B1711; border-left: 2px solid #56E8B8; border-radius: 0 6px 6px 0; padding: 11px 46px 11px 16px; margin: 0; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.65; color: #C4CFC9; white-space: pre-wrap; word-break: break-word; }
+  .prompt.italics { font-style: italic; }
+  .prompt-stack { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 14px; }
+  .prompt-stack .prompt-block { margin: 0; }
+  .prompt-copy { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.09); border-radius: 6px; color: #8a938e; cursor: pointer; flex-shrink: 0; }
+  .prompt-copy:hover { color: #E7EEEA; border-color: rgba(86,232,184,0.3); }
+  .prompt-copy.copied { color: #56E8B8; border-color: rgba(86,232,184,0.4); background: rgba(86,232,184,0.08); }
+  .prompt-copy .ico-check { display: none; }
+  .prompt-copy.copied .ico-copy { display: none; }
+  .prompt-copy.copied .ico-check { display: block; }
+  .cmp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 16px; }
+  .cmp-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; color: #4a5550; }
+  .cmp-col.good .cmp-label { color: #56E8B8; }
+  .cmp-col.bad .prompt { border-left-color: #4a5550; opacity: .8; }
+  .pieces-wrap { overflow-x: auto; margin: 8px 0 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.07); }
+  table.pieces { width: 100%; border-collapse: collapse; min-width: 600px; }
+  table.pieces th { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: #56E8B8; padding: 11px 16px; text-align: left; border-bottom: 1px solid rgba(86,232,184,0.15); background: #0B1711; font-weight: 500; }
+  table.pieces td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #a0a8a4; vertical-align: top; line-height: 1.55; font-size: 13.5px; background: #0A0E0D; }
+  table.pieces td:first-child { color: #E7EEEA; font-weight: 600; white-space: nowrap; }
+  table.pieces td:last-child { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: #56E8B8; }
+  table.pieces tr:last-child td { border-bottom: none; }
+  .patt { padding-top: 22px; margin: 22px 0 0; border-top: 1px solid rgba(255,255,255,0.06); }
+  .patt:first-of-type { border-top: none; padding-top: 0; }
+  .patt-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .patt-num { font-family: 'Geist Mono', monospace; font-size: 11px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 4px; padding: 2px 7px; flex-shrink: 0; }
+  ul.dash { list-style: none; padding: 0; margin: 6px 0 10px; }
+  ul.dash li { position: relative; padding-left: 16px; margin-bottom: 5px; font-size: 13.5px; color: #8a938e; line-height: 1.6; }
+  ul.dash li::before { content: ""; position: absolute; left: 0; top: 11px; width: 7px; height: 1px; background: rgba(86,232,184,0.45); }
+  ul.dash li strong { color: #C4CFC9; font-weight: 600; }
+  .callout { display: flex; gap: 12px; padding: 14px 16px; background: rgba(86,232,184,0.04); border: 1px solid rgba(86,232,184,0.18); border-left-width: 2px; border-radius: 8px; margin: 12px 0 16px; }
+  .callout .cal-tag { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #56E8B8; flex-shrink: 0; padding-top: 1px; }
+  .callout p { margin: 0; font-size: 13.5px; color: #C4CFC9; line-height: 1.55; }
+  .callout.warn { background: rgba(196,207,201,0.04); border-color: rgba(196,207,201,0.22); }
+  .callout.warn .cal-tag { color: #C4CFC9; }
+  .ostep { position: relative; padding-left: 44px; margin: 18px 0; }
+  .ostep .num { position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 8px; background: #0B1711; border: 1px solid rgba(86,232,184,0.25); color: #56E8B8; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .ostep p { margin: 0; font-size: 14px; color: #a0a8a4; line-height: 1.6; }
+  .ostep p strong { color: #E7EEEA; font-weight: 600; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 16px; }
+  .tag-chip { font-family: 'Geist Mono', monospace; font-size: 11px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 20px; padding: 4px 12px; letter-spacing: .01em; }
+  ul.checks { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+  ul.checks li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; font-size: 13.5px; line-height: 1.55; color: #a0a8a4; }
+  ul.checks li::before { content: ""; width: 14px; height: 14px; border: 1px solid rgba(86,232,184,0.4); border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
+  ul.checks li strong { color: #E7EEEA; font-weight: 600; }
+  .tips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .tip { padding: 14px 16px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+  .tip .tip-tag { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 8.5px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 3px; padding: 1px 6px; letter-spacing: .08em; margin-bottom: 8px; }
+  .tip p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #a0a8a4; }
+  .tip p strong { color: #E7EEEA; font-weight: 600; }
+  .page-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .page-nav a { flex: 1; padding: 14px 18px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+  .page-nav a:hover { border-color: rgba(86,232,184,0.25); }
+  .page-nav .pn-dir { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #4a5550; text-transform: uppercase; }
+  .page-nav .pn-title { font-size: 14px; color: #E7EEEA; font-weight: 600; margin-top: 4px; }
+  .page-nav .next { text-align: right; }
+  @media (max-width: 1024px) {
+    .topbar { padding-left: 8px; }
+    .brand { padding: 0 12px 0 10px; border-right: none; gap: 8px; }
+    .brand-section { display: none; }
+    .nav-toggle-btn { display: inline-flex; margin-left: 14px; }
+    .body { grid-template-columns: 1fr; }
+    .sidebar { position: fixed; top: 64px; left: 0; width: 280px; height: calc(100vh - 64px); background: #07090A; z-index: 20; transform: translateX(-100%); transition: transform .25s ease; border-right: 1px solid rgba(255,255,255,0.08); box-shadow: 12px 0 30px -10px rgba(0,0,0,0.6); max-height: none; }
+    .nav-overlay { display: block; position: fixed; inset: 64px 0 0 0; background: rgba(4,21,15,0.55); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 15; }
+    .nav-toggle-input:checked ~ .shell .sidebar { transform: translateX(0); }
+    .nav-toggle-input:checked ~ .nav-overlay { opacity: 1; pointer-events: auto; }
+    body { overflow-x: hidden; }
+    .content { padding: 40px clamp(20px, 5vw, 56px); }
+    .tips { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .content { padding: 28px 18px 56px; max-width: 100%; }
+    .crumb { font-size: 9px; }
+    h1.title { font-size: 28px; line-height: 1.08; }
+    .subtitle { font-size: 14.5px; margin-bottom: 22px; }
+    .title-row { flex-direction: column; align-items: flex-start; }
+    .copy-btn { align-self: flex-start; font-size: 10px; padding: 6px 10px; }
+    .hero-inner { padding: 26px 16px 24px; }
+    .hero-quote { font-size: 18px; }
+    h2.h-section { font-size: 21px; margin-top: 36px; }
+    h3.h-thing { font-size: 16.5px; }
+    .h-section-sub { font-size: 13.5px; }
+    .prompt { font-size: 12px; padding: 10px 40px 10px 13px; }
+    .prompt-copy { width: 26px; height: 26px; top: 6px; right: 6px; }
+    .patt-num { font-size: 10px; }
+    .cmp-row { grid-template-columns: 1fr; }
+    table.pieces td { font-size: 12.5px; padding: 10px 12px; }
+    table.pieces th { font-size: 9px; padding: 9px 12px; }
+    .tip p { font-size: 12.5px; }
+    .cta-dash { padding: 6px 11px; font-size: 10px; }
+    .brand-name { font-size: 16px; }
+    .brand-mark { width: 26px; height: 26px; }
+    .sidebar { width: 86vw; max-width: 320px; padding: 22px 14px 60px; }
+    .page-nav { flex-direction: column; }
+    .page-nav .next { text-align: left; }
+    .ostep { padding-left: 36px; }
+    .ostep .num { width: 26px; height: 26px; font-size: 10px; }
+  }
+  body.vp-tablet, body.vp-mobile { overflow-x: hidden; }
+  body.vp-tablet { max-width: 768px; margin: 0 auto; }
+  body.vp-mobile { max-width: 390px; margin: 0 auto; }
+  body.vp-tablet .nav-toggle-btn, body.vp-mobile .nav-toggle-btn { display: inline-flex !important; }
+  body.vp-tablet .body, body.vp-mobile .body { grid-template-columns: 1fr !important; }
+  body.vp-tablet .content, body.vp-mobile .content { padding: 40px clamp(20px, 5vw, 56px) !important; }
+  body.vp-tablet .tips, body.vp-mobile .tips { grid-template-columns: 1fr !important; }
+  body.vp-tablet .nav-overlay, body.vp-mobile .nav-overlay { display: block; position: fixed; inset: 64px 0 0 0; background: rgba(4,21,15,0.55); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 15; }
+  .nav-toggle-input:checked ~ .nav-overlay { opacity: 1 !important; pointer-events: auto !important; }
+  .nav-toggle-input:checked ~ .shell .sidebar { transform: translateX(0) !important; }
+  body.vp-tablet .sidebar, body.vp-mobile .sidebar {
+    position: fixed !important; top: 64px; left: 0; width: 280px;
+    height: calc(100vh - 64px) !important; background: #07090A;
+    z-index: 20; transform: translateX(-100%); transition: transform .25s ease;
+    border-right: 1px solid rgba(255,255,255,0.06); max-height: none !important;
+  }
+  body.vp-mobile .content { padding: 28px 18px 56px !important; max-width: 100% !important; }
+  body.vp-mobile .crumb { font-size: 9px !important; }
+  body.vp-mobile h1.title { font-size: 28px !important; line-height: 1.08 !important; }
+  body.vp-mobile .subtitle { font-size: 14.5px !important; margin-bottom: 22px !important; }
+  body.vp-mobile .title-row { flex-direction: column !important; align-items: flex-start !important; }
+  body.vp-mobile .copy-btn { align-self: flex-start !important; font-size: 10px !important; padding: 6px 10px !important; }
+  body.vp-mobile .hero-inner { padding: 26px 16px 24px !important; }
+  body.vp-mobile .hero-quote { font-size: 18px !important; }
+  body.vp-mobile h2.h-section { font-size: 21px !important; margin-top: 36px !important; }
+  body.vp-mobile h3.h-thing { font-size: 16.5px !important; }
+  body.vp-mobile .h-section-sub { font-size: 13.5px !important; }
+  body.vp-mobile .prompt { font-size: 12px !important; padding: 10px 40px 10px 13px !important; }
+  body.vp-mobile .prompt-copy { width: 26px !important; height: 26px !important; top: 6px !important; right: 6px !important; }
+  body.vp-mobile .patt-num { font-size: 10px !important; }
+  body.vp-mobile .cmp-row { grid-template-columns: 1fr !important; }
+  body.vp-mobile table.pieces td { font-size: 12.5px !important; padding: 10px 12px !important; }
+  body.vp-mobile table.pieces th { font-size: 9px !important; padding: 9px 12px !important; }
+  body.vp-mobile .tip p { font-size: 12.5px !important; }
+  body.vp-mobile .cta-dash { padding: 6px 11px !important; font-size: 10px !important; }
+  body.vp-mobile .brand-name { font-size: 16px !important; }
+  body.vp-mobile .brand-mark { width: 26px !important; height: 26px !important; }
+  body.vp-mobile .sidebar { width: 86vw !important; max-width: 320px !important; padding: 22px 14px 60px !important; }
+  body.vp-mobile .page-nav { flex-direction: column !important; }
+  body.vp-mobile .page-nav .next { text-align: left !important; }
+  body.vp-mobile .ostep { padding-left: 36px !important; }
+  body.vp-mobile .ostep .num { width: 26px !important; height: 26px !important; font-size: 10px !important; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Āagman Research Handbook",
+  "description": "A practical guide to screening and researching stocks, indices, and funds with natural language in Āagman.",
+  "author": {"@type": "Organization", "name": "Āagman"},
+  "publisher": {"@type": "Organization", "name": "Āagman", "logo": {"@type": "ImageObject", "url": "https://www.aagman.ai/uploads/aagman-logo.png"}},
+  "datePublished": "2026-07-04",
+  "dateModified": "2026-07-04",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.aagman.ai/docs/research-handbook.html"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Docs", "item": "https://www.aagman.ai/docs/"},
+    {"@type": "ListItem", "position": 2, "name": "The Āagman Research Handbook", "item": "https://www.aagman.ai/docs/research-handbook.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
+    <rect width="240" height="160" fill="#07090A"></rect>
+    <circle cx="60" cy="50" r="16" fill="#34D399"></circle>
+    <path d="M60 42 L60 58 M52 50 L68 50" stroke="#000" stroke-width="2" opacity="0.8"></path>
+    <g opacity="0.6">
+      <circle cx="150" cy="55" r="20" fill="none" stroke="#56E8B8" stroke-width="4"></circle>
+      <line x1="164" y1="69" x2="182" y2="87" stroke="#56E8B8" stroke-width="4" stroke-linecap="round"></line>
+    </g>
+    <rect x="40" y="110" width="160" height="1.5" fill="#56E8B8" opacity="0.4"></rect>
+  </svg>
+</template>
+<input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
+<label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
+
+<div class="shell">
+  <div class="topbar">
+    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Open navigation">
+      <svg class="ico-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      <svg class="ico-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"></path></svg>
+    </label>
+    <a class="brand" href="#">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Āagman</span>
+      <span class="brand-section">DOCS</span>
+    </a>
+    <div class="topright">
+      <a class="cta-dash" href="https://app.aagman.ai" target="_blank">Open App</a>
+    </div>
+  </div>
+
+  <div class="body">
+    <aside class="sidebar">
+      <div class="side-group">
+        <div class="side-group-label">Getting Started</div>
+        <a class="side-item" href="/docs/how-to-prompt.html">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5h14v11H9l-4 4z"></path><path d="M9 10h6M9 13h4"></path></svg></span>
+          How to Prompt Āagman
+        </a>
+        <a class="side-item" href="/docs/backtesting-playbook.html">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"></path></svg></span>
+          Backtesting Playbook
+        </a>
+        <a class="side-item active" href="/docs/research-handbook.html">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg></span>
+          Research Handbook
+        </a>
+        <div class="side-subs">
+          <a href="#mental-model">The mental model</a>
+          <a href="#two-intents">Screening vs analyzing</a>
+          <a href="#first-screener">Your first screener</a>
+          <a href="#screener-anatomy">Screener anatomy</a>
+          <a href="#screener-patterns">Screener patterns</a>
+          <a href="#first-research">Your first research query</a>
+          <a href="#research-anatomy">Research anatomy</a>
+          <a href="#research-scores">Research scores</a>
+          <a href="#research-patterns">Research patterns</a>
+          <a href="#prompt-engineering">Prompt engineering</a>
+          <a href="#reading-results">Reading the results</a>
+          <a href="#iterate">How to iterate</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+          <a href="#appendix">Appendix</a>
+        </div>
+      </div>
+      <div class="side-group">
+        <div class="side-group-label">Brokers</div>
+        <a class="side-item" href="/docs/connect-zerodha.html">
+          <span class="brand-ico zerodha">Z</span>
+          Zerodha
+        </a>
+        <a class="side-item disabled" href="#" aria-disabled="true"><span class="brand-ico upstox">U</span>Upstox<span class="soon">SOON</span></a>
+        <a class="side-item disabled" href="#" aria-disabled="true"><span class="brand-ico dhan">d</span>Dhan<span class="soon">SOON</span></a>
+        <a class="side-item disabled" href="#" aria-disabled="true"><span class="brand-ico mo">M</span>Motilal Oswal<span class="soon">SOON</span></a>
+        <a class="side-item disabled" href="#" aria-disabled="true"><span class="brand-ico groww">G</span>Groww<span class="soon">SOON</span></a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="crumb"><span>Getting Started</span><span class="sep">/</span><span style="color:#8a938e;">Research Handbook</span></div>
+      <div class="title-row">
+        <h1 class="title">The Āagman Research Handbook</h1>
+        <button class="copy-btn" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+          Copy page
+        </button>
+      </div>
+      <p class="subtitle">A practical guide to discovering and analyzing stocks, options, mutual funds, and commodities with natural language in Āagman's Research section.</p>
+
+      <div class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+          <span class="hero-corner">// research</span>
+          <p class="hero-quote">Screening answers <span>"what matches?"</span> Analysis answers <span>"what do I think?"</span></p>
+        </div>
+      </div>
+
+      <!-- 1 -->
+      <h2 class="h-section" id="mental-model">1. The mental model</h2>
+      <div class="prose">
+        <p>Āagman's Research section handles two kinds of questions from the same workspace. <strong>Screening</strong> answers "Which instruments match this rule?" and returns a table. <strong>Analysis</strong> answers "What do I think about this instrument?" and returns scores, scenarios, and written reasoning.</p>
+        <p>You don't need to switch tabs or open a different tool. Type your prompt in the Research workspace, and Āagman figures out whether you're screening or analyzing based on what you ask.</p>
+      </div>
+      <h4 class="h-mini">What happens under the hood</h4>
+      <div class="ostep"><span class="num">1</span><p>You type a prompt in the Research workspace.</p></div>
+      <div class="ostep"><span class="num">2</span><p>Āagman classifies your intent — screening or analysis.</p></div>
+      <div class="ostep"><span class="num">3</span><p>The system resolves symbols, universes, metrics, and indicators.</p></div>
+      <div class="ostep"><span class="num">4</span><p>It fetches market data and runs the query.</p></div>
+      <div class="ostep"><span class="num">5</span><p>It returns a structured response: a filterable table for screens, a score card and written analysis for research.</p></div>
+      <h4 class="h-mini">A caution on what Research can and can't tell you</h4>
+      <div class="prose">
+        <p>A screen finds instruments that match a rule <strong>right now</strong>. It doesn't tell you whether the rule has predictive value, whether the match will persist tomorrow, or whether you should act on it.</p>
+      </div>
+      <div class="callout"><span class="cal-tag">Note</span><p>An analysis is not a recommendation. The score summarizes evidence across multiple dimensions, not a buy/sell signal. Scores change as prices and fundamentals change — treat them as one input alongside your own judgment.</p></div>
+
+      <!-- 2 -->
+      <h2 class="h-section" id="two-intents">2. Screening or analyzing? Two intents, one workspace</h2>
+      <p class="h-section-sub">Both happen inside the Research section. Āagman reads your prompt and decides which mode to use.</p>
+      <div class="pieces-wrap">
+        <table class="pieces">
+          <thead><tr><th>You want to...</th><th>What to type</th><th>What you get</th></tr></thead>
+          <tbody>
+            <tr><td>Find stocks matching a technical condition</td><td>Screen NIFTY 50 for RSI below 30</td><td>Filterable table</td></tr>
+            <tr><td>Find stocks matching a fundamental condition</td><td>Show me stocks with PE below 15, ROE above 20%</td><td>Filterable table</td></tr>
+            <tr><td>Get options with unusual IV or OI</td><td>Show unusual IV Rank on NIFTY options</td><td>Filterable table</td></tr>
+            <tr><td>Filter mutual funds</td><td>Show me large-cap mutual funds</td><td>Filterable table</td></tr>
+            <tr><td>Understand one stock in depth</td><td>Research on RELIANCE</td><td>Score card + analysis</td></tr>
+            <tr><td>Compare stocks head-to-head</td><td>Compare RELIANCE and TCS</td><td>Comparison + recommendation</td></tr>
+            <tr><td>Get bull / bear / base scenarios</td><td>Bull bear base case for RELIANCE</td><td>Three scenarios</td></tr>
+            <tr><td>Score a mutual fund</td><td>Score SBI Bluechip Fund</td><td>Score card + analysis</td></tr>
+            <tr><td>Decide between two investments</td><td>Which is better: SBIN or ICICIBANK?</td><td>Comparison + recommendation</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><span class="cal-tag">Workflow</span><p>Start with a screening prompt to build a short list, then follow up with an analysis prompt on the finalists — all in the same workspace.</p></div>
+
+      <!-- 3 -->
+      <h2 class="h-section" id="first-screener">3. Your first screener query</h2>
+      <p class="h-section-sub">Open the Research section and paste this.</p>
+      <div class="prompt-block">
+        <div class="prompt">Screen NIFTY 50 for RSI below 30 on daily timeframe.</div>
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button>
+      </div>
+      <div class="prose"><p>You'll see a criteria summary, a paginated table of matching stocks with RSI values, sortable headers, a CSV export button, and a coverage note telling you how many stocks were screened.</p></div>
+      <h4 class="h-mini">What to notice</h4>
+      <div class="prose"><p>RSI below 30 is a classic oversold signal. In a bull market, this list may be short or empty. In a correction, it may be long. The screen tells you <strong>what</strong> is oversold; it doesn't tell you <strong>whether to buy</strong>. Follow up with an analysis prompt on any stock that looks interesting.</p></div>
+
+      <!-- 4 -->
+      <h2 class="h-section" id="screener-anatomy">4. Anatomy of a screener prompt</h2>
+      <p class="h-section-sub">Every screener prompt contains at least three parts.</p>
+      <h4 class="h-mini">4.1 The universe</h4>
+      <div class="prose"><p>The pool of instruments the filter runs over.</p></div>
+      <ul class="dash">
+        <li><strong>Index:</strong> NIFTY 50, BANKNIFTY, FINNIFTY</li>
+        <li><strong>Sector:</strong> IT stocks, banking stocks, pharma stocks</li>
+        <li><strong>Market-cap bucket:</strong> large-cap stocks, mid-cap stocks</li>
+        <li><strong>Custom list:</strong> RELIANCE TCS INFY HDFCBANK SBIN</li>
+        <li><strong>All equities:</strong> all NSE stocks</li>
+      </ul>
+      <div class="callout"><span class="cal-tag">Note</span><p>Always specify the universe. "Screen for RSI below 30" is ambiguous — Āagman doesn't know whether you mean 50 stocks or 2,000.</p></div>
+      <h4 class="h-mini">4.2 The filter</h4>
+      <div class="pieces-wrap">
+        <table class="pieces">
+          <thead><tr><th>Filter type</th><th>Examples</th></tr></thead>
+          <tbody>
+            <tr><td>Technical</td><td>RSI below 30, MACD bullish crossover, close above 200-day SMA</td></tr>
+            <tr><td>Fundamental</td><td>PE below 15, ROE above 20%, Piotroski score above 7</td></tr>
+            <tr><td>Options</td><td>IV rank above 80, unusual OI buildup</td></tr>
+            <tr><td>Mutual fund</td><td>large-cap funds, flexi-cap funds with 3-year return above 15%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 class="h-mini">4.3 The condition</h4>
+      <ul class="dash"><li>below 30</li><li>above 20%</li><li>crossed above</li><li>any time in the last month</li></ul>
+      <h4 class="h-mini">4.4 Optional modifiers</h4>
+      <ul class="dash"><li>top 10 or bottom 5</li><li>sorted by return</li><li>with market cap above ₹50,000 crore</li></ul>
+
+      <!-- 5 -->
+      <h2 class="h-section" id="screener-patterns">5. Screener pattern library</h2>
+      <p class="h-section-sub">Each pattern gets a concept, a prompt, variations, and a common failure mode.</p>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.1</span><h3 class="h-thing">RSI oversold</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find stocks that have been sold off aggressively and may be due for a bounce.</p></div>
+        <div class="prompt-block"><div class="prompt">Screen NIFTY 50 for RSI below 30 on daily timeframe.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Add a trend filter: ...and price above 200-day SMA</li><li>Use RSI(21) for smoother signals</li><li>Look for exits: RSI above 70</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Oversold stocks can stay oversold. Without a trend filter, this list can catch falling knives.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.2</span><h3 class="h-thing">MACD crossover</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find stocks where short-term momentum is turning up relative to longer-term momentum.</p></div>
+        <div class="prompt-block"><div class="prompt">Show me NIFTY 50 stocks with MACD bullish crossover today.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Add a trend filter: ...and price above SMA(200)</li><li>Use the zero-line crossover</li><li>Look for bearish crossovers</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>MACD crossovers are lagging. In choppy markets they fire constantly and most signals are false.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.3</span><h3 class="h-thing">Breakout</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find stocks breaking above a recent resistance level.</p></div>
+        <div class="prompt-block"><div class="prompt">Screen NIFTY 50 stocks that crossed above their 20-day high today.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Add volume: ...and volume is 1.5x the 20-day average</li><li>Use 52-week high</li><li>Short breakouts: crossed below their 20-day low</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>False breakouts are common. Volume confirmation helps but doesn't eliminate the problem.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.4</span><h3 class="h-thing">Candlestick pattern</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Use price-pattern recognition to find potential reversal or continuation signals.</p></div>
+        <div class="prompt-block"><div class="prompt">Which NIFTY 50 stocks formed a Doji today?</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Bullish engulfing pattern today</li><li>Hammer pattern and RSI below 40</li><li>Morning Star pattern this week</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Candlestick patterns are rare and produce very few matches on any given day. Combine with support/resistance or trend filters.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.5</span><h3 class="h-thing">PE + ROE</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find reasonably priced, profitable companies.</p></div>
+        <div class="prompt-block"><div class="prompt">Show me stocks with PE below 15, ROE above 20%.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Add market cap: ...and market cap above ₹10,000 crore</li><li>Add debt filter: debt-to-equity below 0.5</li><li>Use PEG ratio below 1</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Low PE can mean a "value trap." ROE alone doesn't reveal excessive leverage — add a debt filter.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.6</span><h3 class="h-thing">Piotroski score</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Joseph Piotroski's F-score identifies financially strong companies using nine binary tests across profitability, leverage, and operating efficiency.</p></div>
+        <div class="prompt-block"><div class="prompt">Stocks with Piotroski score above 7.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Combine with a PE filter</li><li>Combine with RSI on the survivors</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Piotroski scores are backward-looking. A perfect historical score can still face future headwinds.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.7</span><h3 class="h-thing">Cross-screener</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Use fundamental filters for quality, then technical filters for timing.</p></div>
+        <div class="prompt-block"><div class="prompt">From stocks with Piotroski above 7, show me which ones have RSI below 40.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Combining filters can leave zero results. Loosen the technical filter first — timing is harder to force than quality.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.8</span><h3 class="h-thing">Historical scan</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find stocks that met a condition at any point during a lookback window, not just today.</p></div>
+        <div class="prompt-block"><div class="prompt">Which NIFTY 50 stocks had RSI below 25 any time in the last month?</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Historical scans can return many symbols — add a recency or severity filter to narrow results.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.9</span><h3 class="h-thing">Custom universe screen</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Run a filter only on symbols you already care about.</p></div>
+        <div class="prompt-block"><div class="prompt">Screen RELIANCE TCS INFY HDFCBANK SBIN for RSI below 50.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>If a symbol in your list has no data for the period, it's skipped and noted in the coverage caption.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.10</span><h3 class="h-thing">Options — IV rank</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find options where implied volatility is unusually high or low relative to the past year.</p></div>
+        <div class="prompt-block"><div class="prompt">Show unusual IV Rank on NIFTY options.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>IV rank tells you volatility is high or low relative to history — not direction, or whether current IV is justified.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.11</span><h3 class="h-thing">Options — OI buildup</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Identify strikes where option traders are building significant positions.</p></div>
+        <div class="prompt-block"><div class="prompt">Show unusual OI buildup on BANKNIFTY options, current expiry.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>OI buildup shows activity, not direction. Combine with price action for context.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">5.12</span><h3 class="h-thing">Mutual fund screen</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Find mutual funds by category, AMC, or performance.</p></div>
+        <div class="prompt-block"><div class="prompt">Show me large-cap mutual funds.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li>Flexi-cap funds with 3-year return above 15%</li><li>Top 5 mid-cap funds by 5-year return</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Sorting by past returns is the most common mistake in fund selection — a top-returning fund may have taken the most risk to get there.</p></div>
+      </div>
+
+      <!-- 6 -->
+      <h2 class="h-section" id="first-research">6. Your first research query</h2>
+      <p class="h-section-sub">In the same Research workspace, paste this.</p>
+      <div class="prompt-block"><div class="prompt">Research on RELIANCE</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+      <div class="prose"><p>You'll see an overall score (e.g., 72/100), a written analysis, dimension breakdowns (momentum, valuation, quality, risk), bull/bear/base scenarios, and a SEBI disclaimer at the bottom.</p></div>
+      <div class="callout"><span class="cal-tag">Note</span><p>The analysis doesn't give a buy or sell recommendation. The score summarizes the opinion; the text explains it. Your job is to weigh the evidence against your own thesis.</p></div>
+
+      <!-- 7 -->
+      <h2 class="h-section" id="research-anatomy">7. Anatomy of a research prompt</h2>
+      <h4 class="h-mini">7.1 The instrument</h4>
+      <ul class="dash"><li><strong>Single stock:</strong> RELIANCE, HDFCBANK, TCS</li><li><strong>Multiple stocks:</strong> RELIANCE vs TCS</li><li><strong>Mutual fund:</strong> SBI Bluechip Fund</li><li><strong>Index:</strong> NIFTY 50</li></ul>
+      <h4 class="h-mini">7.2 The output shape</h4>
+      <div class="pieces-wrap">
+        <table class="pieces">
+          <thead><tr><th>Shape</th><th>Example prompt</th><th>What you get</th></tr></thead>
+          <tbody>
+            <tr><td>Score card</td><td>Analyze RELIANCE</td><td>Overall score + dimension breakdown</td></tr>
+            <tr><td>Scenarios</td><td>Bull bear base case for RELIANCE</td><td>Three probability-weighted outcomes</td></tr>
+            <tr><td>Comparison</td><td>Compare RELIANCE and TCS</td><td>Side-by-side scores + recommended pick</td></tr>
+            <tr><td>Ranking</td><td>Rank RELIANCE, TCS, INFY</td><td>Ordered list with edge for each</td></tr>
+            <tr><td>Valuation</td><td>Is IRCTC overvalued?</td><td>Valuation-focused analysis</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 class="h-mini">7.3 The depth</h4>
+      <ul class="dash"><li><strong>Quick:</strong> Score RELIANCE</li><li><strong>Deep:</strong> Deep dive on TCS — fundamentals, technicals, and outlook</li><li><strong>Focused:</strong> RELIANCE ka valuation analysis do</li></ul>
+      <div class="prose"><p>If you don't specify depth, Āagman defaults to a standard score card. Ask for a deep dive when you want the full picture.</p></div>
+
+      <!-- 8 -->
+      <h2 class="h-section" id="research-scores">8. Understanding research scores</h2>
+      <p class="h-section-sub">Analysis prompts return an overall score out of 100 and a breakdown across dimensions.</p>
+      <div class="pieces-wrap">
+        <table class="pieces">
+          <thead><tr><th>Dimension</th><th>What it measures</th><th>High score means</th><th>Watch out for</th></tr></thead>
+          <tbody>
+            <tr><td>Momentum</td><td>Price trend strength, relative performance</td><td>Uptrend, outperforming peers</td><td>Momentum reverses hardest at turning points</td></tr>
+            <tr><td>Valuation</td><td>PE, PB, earnings yield vs. growth</td><td>Cheap relative to fundamentals</td><td>"Cheap" can mean the market sees problems</td></tr>
+            <tr><td>Quality</td><td>ROE, ROCE, margin stability</td><td>Strong, stable fundamentals</td><td>Doesn't protect against sector disruption</td></tr>
+            <tr><td>Risk</td><td>Drawdown history, volatility, beta</td><td>Relatively low risk</td><td>Low historical risk ≠ future stability</td></tr>
+            <tr><td>Growth</td><td>Revenue and earnings growth trajectory</td><td>Growing meaningfully</td><td>Growth at any price often disappoints</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><span class="cal-tag">How it works</span><p>The overall score is a weighted average, not a buy/sell threshold — a score of 80 isn't necessarily better than 65 if the 65 has lower risk and better valuation for your portfolio. Scores change: a stock scored 75 last week can be 68 this week. Don't anchor on a number — recheck before acting.</p></div>
+
+      <!-- 9 -->
+      <h2 class="h-section" id="research-patterns">9. Research pattern library</h2>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.1</span><h3 class="h-thing">Single-stock research</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Get a full picture of one stock — fundamentals, technicals, catalysts, and risks.</p></div>
+        <div class="prompt-block"><div class="prompt">Research on Paradeep Phosphates</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>For thinly traded or newly listed stocks, data may be sparse and the analysis less reliable.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.2</span><h3 class="h-thing">Bull / bear / base case</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Get three probability-weighted scenarios instead of a single verdict.</p></div>
+        <div class="prompt-block"><div class="prompt">Give me bull bear base case for RELIANCE</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <ul class="dash"><li><strong>Bull</strong> — upside target and the reasoning behind it</li><li><strong>Bear</strong> — downside target and the reasoning behind it</li><li><strong>Base</strong> — most likely outcome with a target price</li></ul>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Scenario targets are estimates, not forecasts — useful for the range of outcomes, not as price predictions to trade against.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.3</span><h3 class="h-thing">Stock comparison</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Compare two or more stocks on the same dimensions and surface a recommended pick.</p></div>
+        <div class="prompt-block"><div class="prompt">Compare Reliance vs Adani Green vs Tata Power — who is the best energy bet?</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>The "winner" depends on the dimensions Āagman weights. State your priority explicitly: "...prioritize valuation."</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.4</span><h3 class="h-thing">Stock ranking</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Rank a list of stocks by a common criterion.</p></div>
+        <div class="prompt-block"><div class="prompt">IRFC, IREDA, PFC, REC — rank these PSU financiers</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Rankings require comparable data. Newly listed or missing-data stocks can be ranked unfairly.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.5</span><h3 class="h-thing">Deep dive</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Combine fundamentals, technicals, and outlook into one comprehensive report.</p></div>
+        <div class="prompt-block"><div class="prompt">Deep dive on TCS — fundamentals, technicals, and outlook</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Deep dives are long. If you only care about one angle, ask for that specifically for a sharper answer.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.6</span><h3 class="h-thing">Mutual fund research</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Score a mutual fund across multiple dimensions and get an investment opinion.</p></div>
+        <div class="prompt-block"><div class="prompt">Score SBI Bluechip Fund — is it still worth investing?</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Fund names can be ambiguous — "SBI Bluechip" could mean direct or regular plan. Use the full scheme name.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.7</span><h3 class="h-thing">Valuation question</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Ask whether a stock is over- or undervalued at current levels.</p></div>
+        <div class="prompt-block"><div class="prompt">Is IRCTC overvalued at current levels? Score it.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Valuation is inherently subjective. Āagman gives a structured opinion, not a fact.</p></div>
+      </div>
+
+      <div class="patt"><div class="patt-head"><span class="patt-num">9.8</span><h3 class="h-thing">Hinglish research</h3></div>
+        <div class="prose"><p><strong>Concept.</strong> Ask in Hindi-English mixed language.</p></div>
+        <div class="prompt-block"><div class="prompt">HDFC Bank ka fundamental analysis do</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+        <div class="callout"><span class="cal-tag">Pitfall</span><p>Very informal or broken Hinglish may not resolve correctly — keep the stock name clear.</p></div>
+      </div>
+
+      <!-- 10 -->
+      <h2 class="h-section" id="prompt-engineering">10. Prompt engineering</h2>
+      <h4 class="h-mini">10.1 Be explicit about the universe</h4>
+      <div class="cmp-row">
+        <div class="cmp-col bad"><span class="cmp-label">Bad</span><div class="prompt-block"><div class="prompt">Screen for RSI below 30</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div></div>
+        <div class="cmp-col good"><span class="cmp-label">Better</span><div class="prompt-block"><div class="prompt">Screen NIFTY 50 stocks for RSI below 30 on daily timeframe.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div></div>
+      </div>
+      <h4 class="h-mini">10.2 Use standard indicator names</h4>
+      <div class="tag-row"><span class="tag-chip">RSI</span><span class="tag-chip">MACD</span><span class="tag-chip">EMA</span><span class="tag-chip">SMA</span><span class="tag-chip">ATR</span><span class="tag-chip">ADX</span><span class="tag-chip">BBANDS</span><span class="tag-chip">STOCH</span><span class="tag-chip">CDLHAMMER</span><span class="tag-chip">CDLENGULFING</span></div>
+      <h4 class="h-mini">10.3 Ask for the output shape you want</h4>
+      <ul class="dash"><li><strong>Screen ...</strong> → table</li><li><strong>Analyze ...</strong> → score card + text</li><li><strong>Bull bear base case for ...</strong> → scenarios</li><li><strong>Compare A vs B</strong> → comparison table</li><li><strong>Rank ...</strong> → ordered list</li></ul>
+      <h4 class="h-mini">10.4 Avoid ambiguity</h4>
+      <div class="cmp-row">
+        <div class="cmp-col bad"><span class="cmp-label">Bad</span><div class="prompt-block"><div class="prompt">Show me good banking stocks</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div></div>
+        <div class="cmp-col good"><span class="cmp-label">Better</span><div class="prompt-block"><div class="prompt">Show me banking stocks with ROE above 15% and P/E below 20</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div></div>
+      </div>
+      <h4 class="h-mini">10.5 For analysis, state what you care about</h4>
+      <div class="cmp-row">
+        <div class="cmp-col bad"><span class="cmp-label">Bad</span><div class="prompt-block"><div class="prompt">Analyze RELIANCE</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div></div>
+        <div class="cmp-col good"><span class="cmp-label">Better</span><div class="prompt-block"><div class="prompt">Analyze RELIANCE's valuation and momentum — is it worth buying after the recent correction?</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div></div>
+      </div>
+      <h4 class="h-mini">10.6 For comparisons, state your priority</h4>
+      <div class="prompt-block"><div class="prompt">Compare SBIN and ICICIBANK — I care most about valuation and asset quality</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+      <h4 class="h-mini">10.7 Handle empty screener results</h4>
+      <div class="prompt-block"><div class="prompt">Screen NIFTY 50 for RSI below 20. If no stocks match, relax to RSI below 30.</div><button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt"><svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg><svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg></button></div>
+
+      <!-- 11 -->
+      <h2 class="h-section" id="reading-results">11. Reading the results</h2>
+      <h4 class="h-mini">11.1 Screener output</h4>
+      <ul class="dash"><li><strong>Criteria summary</strong> — what was screened</li><li><strong>Paginated table</strong> — ticker + requested metrics</li><li><strong>Sortable headers</strong> — click to reorder</li><li><strong>Best-in-column highlight</strong> — top value marked</li><li><strong>CSV export</strong> — download full results</li><li><strong>Row quick-look</strong> — click a row for a sparkline and indicator snapshot</li><li><strong>Coverage note</strong> — how many symbols screened and how many skipped</li></ul>
+      <h4 class="h-mini">11.2 Analysis output</h4>
+      <ul class="dash"><li><strong>Overall score</strong> — e.g., 72/100</li><li><strong>Dimension scores</strong> — momentum, valuation, quality, risk, growth</li><li><strong>Written analysis</strong> — structured reasoning</li><li><strong>Scenarios</strong> — bull / bear / base (if asked)</li><li><strong>Comparison table</strong> — for multi-instrument queries</li><li><strong>Confidence level</strong> — how much data backed the opinion</li><li><strong>SEBI disclaimer</strong> — not investment advice</li></ul>
+      <h4 class="h-mini">11.3 Red flags</h4>
+      <ul class="checks">
+        <li><strong>Empty screener result</strong> — your filter may be too strict or the condition hasn't occurred in this universe</li>
+        <li><strong>Very few matches with extreme values</strong> — the result may be noise rather than signal</li>
+        <li><strong>Analysis score without reasoning</strong> — ask for a deeper explanation; the score alone is not actionable</li>
+        <li><strong>One stock dominating a ranking</strong> — check whether it's genuinely better or just more volatile</li>
+      </ul>
+
+      <!-- 12 -->
+      <h2 class="h-section" id="iterate">12. How to iterate</h2>
+      <h4 class="h-mini">Screener iteration</h4>
+      <div class="ostep"><span class="num">1</span><p><strong>Start broad.</strong> One filter, one universe. See what comes back.</p></div>
+      <div class="ostep"><span class="num">2</span><p><strong>Add filters one at a time.</strong> If RSI &lt; 30 gives you 15 stocks, add a trend filter and see how many survive.</p></div>
+      <div class="ostep"><span class="num">3</span><p><strong>If you get zero results, loosen the technical filter first.</strong> Quality and valuation filters are worth keeping strict; timing filters are more flexible.</p></div>
+      <div class="ostep"><span class="num">4</span><p><strong>Export and track.</strong> Download your screen as CSV. Run it again a week later and compare.</p></div>
+      <div class="ostep"><span class="num">5</span><p><strong>Feed finalists into analysis.</strong> A screen gives you a list — follow up with Analyze or Compare in the same workspace.</p></div>
+      <h4 class="h-mini">Analysis iteration</h4>
+      <div class="ostep"><span class="num">1</span><p><strong>Start with a quick score</strong> before going deep.</p></div>
+      <div class="ostep"><span class="num">2</span><p><strong>If the score is interesting, ask for scenarios.</strong> Bull bear base case tells you the range of outcomes.</p></div>
+      <div class="ostep"><span class="num">3</span><p><strong>If you're comparing, do it explicitly</strong> — use Compare A vs B vs C in one prompt.</p></div>
+      <div class="ostep"><span class="num">4</span><p><strong>Recheck before acting.</strong> Scores move with markets.</p></div>
+      <div class="ostep"><span class="num">5</span><p><strong>Challenge the opinion.</strong> The output is an input, not an instruction.</p></div>
+
+      <!-- 13 -->
+      <h2 class="h-section" id="troubleshooting">13. Troubleshooting</h2>
+      <h4 class="h-mini">"No results found"</h4>
+      <ul class="dash"><li>Filter is too strict</li><li>Condition hasn't occurred in the requested universe</li><li>Data is missing for the period</li></ul>
+      <div class="prose"><p><strong>Fix:</strong> loosen the filter, widen the universe, or extend the date range.</p></div>
+      <h4 class="h-mini">"Too many results"</h4>
+      <div class="prose"><p>Filter is too loose, or universe is too broad. <strong>Fix:</strong> add a secondary filter or limit to top 10.</p></div>
+      <h4 class="h-mini">"Symbol not found"</h4>
+      <ul class="dash"><li>Use exact NSE symbols: RELIANCE, not Reliance Industries</li><li>For mutual funds, use the full scheme name: SBI Bluechip Fund Direct Plan Growth</li></ul>
+      <h4 class="h-mini">"Ambiguous query"</h4>
+      <div class="prose"><p>Āagman may ask for clarification. Answer with specifics — universe, timeframe, indicator parameters.</p></div>
+      <h4 class="h-mini">Analysis returns a generic answer</h4>
+      <div class="prose"><p>Your prompt was probably too open-ended. Instead of "Analyze RELIANCE," try "Analyze RELIANCE's valuation and momentum." Add context: "...after the recent 15% correction."</p></div>
+      <h4 class="h-mini">Unsupported asset</h4>
+      <div class="prose"><p>Āagman covers Indian equities, options, mutual funds, and MCX commodities. It doesn't cover international stocks, crypto, forex, or bonds.</p></div>
+
+      <!-- 14 -->
+      <h2 class="h-section" id="appendix">14. Appendix</h2>
+      <h4 class="h-mini">14.1 Supported asset classes</h4>
+      <ul class="dash"><li>Equities &amp; indices (NSE/BSE)</li><li>Options (NIFTY, BANKNIFTY, FINNIFTY, MIDCPNIFTY, SENSEX, BANKEX, stock options)</li><li>Mutual funds (AMFI scheme codes)</li><li>Commodities (MCX futures)</li></ul>
+      <h4 class="h-mini">14.2 Supported screener metrics</h4>
+      <div class="prose"><p><strong>Technical:</strong> RSI, MACD, EMA, SMA, ATR, ADX, Bollinger Bands, Stochastic, OBV, candlestick patterns, MAX/MIN, z-score</p><p><strong>Fundamental:</strong> P/E, ROE, ROCE, debt-to-equity, Piotroski score, market cap, dividend yield, earnings quality</p><p><strong>Options:</strong> IV rank, open interest, PCR</p></div>
+      <h4 class="h-mini">14.3 Supported analysis outputs</h4>
+      <ul class="dash"><li>Single-stock score card</li><li>Bull / bear / base scenarios</li><li>Multi-stock comparison and ranking</li><li>Mutual fund score card</li><li>Valuation-focused analysis</li></ul>
+
+      <div class="page-nav">
+        <a href="/docs/backtesting-playbook.html"><div class="pn-dir">← Previous</div><div class="pn-title">The Āagman Backtesting Playbook</div></a>
+        <a href="/docs/connect-zerodha.html" class="next"><div class="pn-dir">Next →</div><div class="pn-title">Connect Zerodha</div></a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+(function() {
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  function flash(btn) {
+    btn.classList.add('copied');
+    setTimeout(function() { btn.classList.remove('copied'); }, 1600);
+  }
+  function copyBlock(btn) {
+    var block = btn.closest('.prompt-block, .prompt');
+    var text = '';
+    if (block) {
+      var promptText = block.querySelector('.prompt, .prompt-text');
+      if (promptText) text = promptText.innerText;
+      else text = block.innerText;
+    }
+    text = text.trim();
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() { flash(btn); }, function() { fallbackCopy(text); flash(btn); });
+    } else { fallbackCopy(text); flash(btn); }
+  }
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.prompt-copy, .copy-btn');
+    if (btn) { e.preventDefault(); copyBlock(btn); }
+  });
+
+  // Sidebar toggle close on overlay click
+  var overlay = document.querySelector('.nav-overlay');
+  var toggle = document.getElementById('nav-toggle');
+  if (overlay && toggle) {
+    overlay.addEventListener('click', function() { toggle.checked = false; });
+  }
+})();
+</script>
+</body>
+</html>
