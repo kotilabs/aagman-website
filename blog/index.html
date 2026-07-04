@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog | Āagman</title>
+<meta name="description" content="Deep guides on the strategies Indian traders actually use — options plays, equity systems, order execution, and the psychology behind sticking with them.">
+<link href="https://www.aagman.ai/blog/" rel="canonical">
+<link href="/uploads/aagman-logo.png" rel="icon" type="image/png">
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+<meta content="Blog | Āagman" property="og:title">
+<meta content="Deep guides on the strategies Indian traders actually use — options plays, equity systems, order execution, and the psychology behind sticking with them." property="og:description">
+<meta content="https://www.aagman.ai/blog/" property="og:url">
+<meta content="https://www.aagman.ai/uploads/og-image.png" property="og:image">
+<meta content="website" property="og:type">
+<meta content="Āagman" property="og:site_name">
+<meta content="summary_large_image" name="twitter:card">
+<meta content="Blog | Āagman" name="twitter:title">
+<meta content="Deep guides on the strategies Indian traders actually use — options plays, equity systems, order execution, and the psychology behind sticking with them." name="twitter:description">
+<meta content="https://www.aagman.ai/uploads/og-image.png" name="twitter:image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: #07090A; color: #E7EEEA; font-family: 'Hanken Grotesk', sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  html { scroll-behavior: smooth; }
+  .shell { display: grid; grid-template-rows: 64px 1fr; min-height: 100vh; }
+  .topbar { display: flex; align-items: center; height: 64px; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 24px 0 0; background: #07090A; position: sticky; top: 0; z-index: 10; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 0 24px; height: 64px; border-right: 1px solid rgba(255,255,255,0.06); }
+  .brand-mark { width: 30px; height: 30px; border-radius: 8px; background: #34D399 url('/uploads/aagman-logo.png') center/cover no-repeat; box-shadow: 0 4px 16px -2px rgba(86,232,184,0.55); flex-shrink: 0; }
+  .brand-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 700; color: #E7EEEA; letter-spacing: -.01em; }
+  .brand-section { font-family: 'Geist Mono', monospace; font-size: 10px; color: #56E8B8; letter-spacing: .14em; padding-left: 12px; margin-left: 4px; border-left: 1px solid rgba(255,255,255,0.08); }
+  .topnav { display: flex; align-items: center; gap: 6px; padding-left: 28px; flex: 1; }
+  .topnav a { font-size: 13px; color: #8a938e; padding: 8px 14px; border-radius: 6px; transition: color .15s, background .15s; }
+  .topnav a:hover { color: #E7EEEA; }
+  .topnav a.active { color: #E7EEEA; background: rgba(86,232,184,0.08); }
+  .topright { display: flex; align-items: center; gap: 8px; margin-left: auto; padding-right: 20px; }
+  .search { display: flex; align-items: center; gap: 8px; background: #0B1711; border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 6px 10px; min-width: 200px; cursor: text; }
+  .search .icn { width: 13px; height: 13px; opacity: .55; }
+  .search input { background: transparent; border: 0; outline: none; color: #C4CFC9; font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; flex: 1; min-width: 0; }
+  .search input::placeholder { color: #4a5550; }
+  .search .kbd { font-family: 'Geist Mono', monospace; font-size: 9.5px; color: #4a5550; border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; padding: 1px 5px; }
+  .icon-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; color: #8a938e; border: 1px solid rgba(255,255,255,0.07); background: #0B1711; cursor: pointer; }
+  .icon-btn:hover { color: #E7EEEA; }
+  .cta-dash { display: inline-flex; align-items: center; gap: 6px; background: #56E8B8; color: #04150F; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; padding: 7px 14px; border-radius: 6px; letter-spacing: .03em; }
+
+  .body { display: grid; grid-template-columns: 264px 1fr; min-height: calc(100vh - 64px); }
+  .content { min-width: 0; overflow-x: hidden; padding: 48px clamp(24px, 5vw, 64px) 80px; max-width: 1180px; }
+  .sidebar { border-right: 1px solid rgba(255,255,255,0.06); padding: 28px 18px 60px; overflow-y: auto; position: sticky; top: 64px; align-self: start; max-height: calc(100vh - 64px); }
+  .side-group { margin-bottom: 26px; }
+  .side-group-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .14em; color: #4a5550; text-transform: uppercase; padding: 0 10px; margin-bottom: 8px; }
+  .side-item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; font-size: 13px; color: #8a938e; border-radius: 5px; line-height: 1.3; cursor: pointer; border: none; background: transparent; width: 100%; text-align: left; font-family: inherit; }
+  .side-item:hover { color: #E7EEEA; background: rgba(255,255,255,0.03); }
+  .side-item.active { color: #56E8B8; background: rgba(86,232,184,0.07); }
+  .side-item .count { margin-left: auto; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: #4a5550; }
+  .side-item.active .count { color: #56E8B8; opacity: .7; }
+  .side-author { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 6px; }
+  .side-author:hover { background: rgba(255,255,255,0.03); }
+  .side-avatar { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: 'Geist', sans-serif; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .side-author-name { font-size: 12.5px; color: #C4CFC9; }
+  .side-author-count { margin-left: auto; font-family: 'Geist Mono', monospace; font-size: 10px; color: #4a5550; }
+  .side-note { font-size: 11.5px; color: #4a5550; line-height: 1.5; padding: 0 10px; margin-top: 4px; }
+
+  .nav-toggle-input { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+  .nav-toggle-btn { display: none; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 6px; color: #C4CFC9; background: transparent; cursor: pointer; }
+  .nav-toggle-btn:hover { background: rgba(255,255,255,0.05); }
+  .nav-toggle-btn .ico-open { display: block; }
+  .nav-toggle-btn .ico-close { display: none; }
+  .nav-toggle-input:checked ~ .shell .nav-toggle-btn .ico-open { display: none; }
+  .nav-toggle-input:checked ~ .shell .nav-toggle-btn .ico-close { display: block; }
+  .nav-overlay { display: none; }
+
+  .eyebrow { display: flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .14em; color: #56E8B8; text-transform: uppercase; margin-bottom: 14px; }
+  h1.title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 44px; line-height: 1.05; letter-spacing: -.03em; font-weight: 800; color: #E7EEEA; margin: 0 0 12px; }
+  .subtitle { font-size: 16px; color: #8a938e; line-height: 1.55; margin: 0 0 30px; max-width: 620px; }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .filter-trigger { display: none; align-items: center; gap: 9px; width: 100%; background: #0B1711; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px 14px; color: #8a938e; font-family: 'Geist Mono', monospace; font-size: 12px; cursor: pointer; margin-bottom: 14px; }
+  .filter-trigger span { flex: 1; text-align: left; color: #E7EEEA; font-weight: 600; }
+  .filter-trigger .chev { flex-shrink: 0; transition: transform .2s ease; }
+  .filter-trigger .chev.rotated { transform: rotate(180deg); }
+  .pill { font-family: 'Geist Mono', monospace; font-size: 11px; color: #8a938e; background: #0B1711; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 7px 14px; cursor: pointer; letter-spacing: .02em; }
+  .pill:hover { color: #E7EEEA; border-color: rgba(86,232,184,0.25); }
+  .pill.active { color: #04150F; background: #56E8B8; border-color: #56E8B8; font-weight: 700; }
+
+  .featured { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; margin-bottom: 40px; background: #0A0E0D; }
+  .featured-main { padding: 36px clamp(20px,3vw,40px); display: flex; flex-direction: column; justify-content: center; }
+  .featured-tag { display: inline-flex; align-self: flex-start; font-family: 'Geist Mono', monospace; font-size: 10px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.2); border-radius: 4px; padding: 3px 9px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+  .featured-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 30px; line-height: 1.15; letter-spacing: -.02em; font-weight: 700; color: #E7EEEA; margin: 0 0 12px; }
+  .featured-excerpt { font-size: 14.5px; color: #8a938e; line-height: 1.6; margin: 0 0 22px; max-width: 460px; }
+  .featured-visual { position: relative; background: radial-gradient(ellipse at 60% 40%, rgba(86,232,184,0.16) 0%, rgba(86,232,184,0.03) 45%, transparent 75%), #0C0F0E; border-left: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .featured-visual-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(86,232,184,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(86,232,184,0.06) 1px, transparent 1px); background-size: 42px 42px; mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 80%); -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 80%); }
+  .featured-chart { position: relative; width: 100%; }
+
+  .meta-row { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #6b7570; }
+  .meta-row .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: #3a453f; }
+  .meta-author { display: flex; align-items: center; gap: 8px; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: 'Geist', sans-serif; font-size: 9.5px; font-weight: 700; flex-shrink: 0; }
+  .meta-author-name { color: #C4CFC9; }
+  a.meta-author:hover .meta-author-name { color: #56E8B8; }
+
+  .grid-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; }
+  h2.h-section { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 700; color: #E7EEEA; letter-spacing: -.01em; margin: 0; }
+  .result-count { font-family: 'Geist Mono', monospace; font-size: 11px; color: #4a5550; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+  .card { display: flex; flex-direction: column; gap: 14px; padding: 22px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; }
+  .card:hover { border-color: rgba(86,232,184,0.25); }
+  .card-tag { display: inline-flex; align-self: flex-start; font-family: 'Geist Mono', monospace; font-size: 9.5px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 4px; padding: 2px 8px; letter-spacing: .08em; text-transform: uppercase; }
+  .card-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 18px; font-weight: 700; color: #E7EEEA; line-height: 1.3; letter-spacing: -.01em; margin: 0; }
+  .card:hover .card-title { color: #56E8B8; }
+  .card-excerpt { font-size: 13.5px; color: #8a938e; line-height: 1.55; margin: -6px 0 0; }
+  .card .meta-row { margin-top: auto; padding-top: 4px; }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: #4a5550; font-size: 14px; display: none; }
+
+  .newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 48px; padding: 30px 34px; border-radius: 14px; border: 1px solid rgba(86,232,184,0.18); background: radial-gradient(ellipse at 0% 0%, rgba(86,232,184,0.08), transparent 60%), #0A0E0D; flex-wrap: wrap; }
+  .newsletter-copy h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 19px; font-weight: 700; margin: 0 0 6px; color: #E7EEEA; }
+  .newsletter-copy p { font-size: 13px; color: #8a938e; margin: 0; max-width: 420px; line-height: 1.5; }
+  .newsletter-form { display: flex; gap: 8px; flex-shrink: 0; }
+  .newsletter-form input { background: #0B1711; border: 1px solid rgba(255,255,255,0.09); border-radius: 7px; padding: 11px 14px; color: #E7EEEA; font-size: 13px; width: 240px; font-family: 'Hanken Grotesk', sans-serif; }
+  .newsletter-form input::placeholder { color: #4a5550; }
+  .newsletter-form input:focus { outline: none; border-color: rgba(86,232,184,0.4); }
+  .newsletter-form button { background: #56E8B8; color: #04150F; border: none; border-radius: 7px; padding: 0 18px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: 'Geist Mono', monospace; }
+
+  @media (max-width: 1024px) {
+    .topbar { padding-left: 8px; }
+    .brand { padding: 0 12px 0 10px; border-right: none; gap: 8px; }
+    .brand-section { display: none; }
+    .nav-toggle-btn { display: inline-flex; margin-left: 14px; }
+    .topnav { display: none; }
+    .search { display: none; }
+    .topright .icon-btn { display: none; }
+    .body { grid-template-columns: 1fr; }
+    .sidebar { position: fixed; top: 64px; left: 0; width: 280px; height: calc(100vh - 64px); background: #07090A; z-index: 20; transform: translateX(-100%); transition: transform .25s ease; border-right: 1px solid rgba(255,255,255,0.08); box-shadow: 12px 0 30px -10px rgba(0,0,0,0.6); max-height: none; }
+    .nav-overlay { display: block; position: fixed; inset: 64px 0 0 0; background: rgba(4,21,15,0.55); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 15; }
+    .nav-toggle-input:checked ~ .shell .sidebar { transform: translateX(0); }
+    .nav-toggle-input:checked ~ .nav-overlay { opacity: 1; pointer-events: auto; }
+    body { overflow-x: hidden; }
+    .featured { grid-template-columns: 1fr; }
+    .featured-visual { display: none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .content { padding: 28px 18px 56px; }
+    h1.title { font-size: 28px; }
+    .subtitle { font-size: 14px; }
+    .featured-title { font-size: 22px; }
+    .grid { grid-template-columns: 1fr; }
+    .filter-trigger { display: flex; }
+    .pill-row { display: none; margin-bottom: 22px; }
+    .pill-row.open { display: flex; }
+    .newsletter { flex-direction: column; align-items: flex-start; }
+    .newsletter-form { width: 100%; }
+    .newsletter-form input { width: 100%; flex: 1; }
+    .sidebar { width: 86vw; max-width: 320px; padding: 22px 14px 60px; }
+  }
+</style>
+</head>
+<body>
+<input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
+<label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
+
+<div class="shell">
+  <div class="topbar">
+    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Open navigation">
+      <svg class="ico-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      <svg class="ico-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"></path></svg>
+    </label>
+    <a class="brand" href="/">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Āagman</span>
+      <span class="brand-section">BLOG</span>
+    </a>
+    <nav class="topnav">
+      <a href="/blog/" class="active">All Posts</a>
+      <a href="/blog/author.html">Authors</a>
+      <a href="/docs/">Docs</a>
+    </nav>
+    <div class="topright">
+      <div class="search">
+        <svg class="icn" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"></circle><path d="M11 11l3 3"></path></svg>
+        <input type="text" placeholder="Search articles…">
+        <span class="kbd">⌘ K</span>
+      </div>
+      <a class="icon-btn" href="#" aria-label="Support">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.7-2.5 2-2.5 3.5"></path><circle cx="12" cy="17" r=".5" fill="currentColor"></circle></svg>
+      </a>
+      <a class="cta-dash" href="https://app.aagman.ai" target="_blank">Open App</a>
+    </div>
+  </div>
+
+  <div class="body">
+    <aside class="sidebar">
+      <div class="side-group">
+        <div class="side-group-label">Categories</div>
+        <button class="side-item active" data-filter="All" type="button">All Posts <span class="count">9</span></button>
+        <button class="side-item" data-filter="Strategies &amp; Systems" type="button">Strategies &amp; Systems <span class="count">3</span></button>
+        <button class="side-item" data-filter="Execution &amp; Order Types" type="button">Execution &amp; Order Types <span class="count">2</span></button>
+        <button class="side-item" data-filter="Market Conditions &amp; Setups" type="button">Market Conditions &amp; Setups <span class="count">2</span></button>
+        <button class="side-item" data-filter="Psychology, Risk &amp; Process" type="button">Psychology, Risk &amp; Process <span class="count">2</span></button>
+      </div>
+      <div class="side-group">
+        <div class="side-group-label">Authors</div>
+        <a class="side-author" href="/blog/author.html">
+          <span class="side-avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+          <span class="side-author-name">Āagman Desk</span>
+          <span class="side-author-count">9</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="eyebrow"><span>The Āagman Blog</span></div>
+      <h1 class="title">Trade smarter, not harder.</h1>
+      <p class="subtitle">Deep guides on the strategies Indian traders actually use — options plays, equity systems, order execution, and the psychology behind sticking with them.</p>
+
+      <button class="filter-trigger" type="button" id="filter-trigger" aria-expanded="false">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M7 12h10M10 19h4"></path></svg>
+        <span id="filter-trigger-label">All categories</span>
+        <svg class="chev" id="filter-trigger-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="pill-row" id="pill-row">
+        <button class="pill active" data-filter="All" type="button">All</button>
+        <button class="pill" data-filter="Strategies &amp; Systems" type="button">Strategies &amp; Systems</button>
+        <button class="pill" data-filter="Execution &amp; Order Types" type="button">Execution &amp; Order Types</button>
+        <button class="pill" data-filter="Market Conditions &amp; Setups" type="button">Market Conditions &amp; Setups</button>
+        <button class="pill" data-filter="Psychology, Risk &amp; Process" type="button">Psychology, Risk &amp; Process</button>
+      </div>
+
+      <div class="featured" id="featured" data-category="Strategies &amp; Systems">
+        <div class="featured-main">
+          <span class="featured-tag">Strategies &amp; Systems</span>
+          <h2 class="featured-title"><a href="/blog/article.html">Why Most Mean-Reversion Strategies Die in Backtests</a></h2>
+          <p class="featured-excerpt">They post a beautiful equity curve in-sample and fall apart the moment the regime shifts. Here is what the curve is hiding.</p>
+          <div class="meta-row">
+            <a class="meta-author" href="/blog/author.html">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </a>
+            <span class="dot-sep"></span>
+            <span>Jun 28, 2026</span>
+            <span class="dot-sep"></span>
+            <span>9 min read</span>
+          </div>
+        </div>
+        <div class="featured-visual">
+          <div class="featured-visual-grid"></div>
+          <svg class="featured-chart" viewBox="0 0 240 140" preserveAspectRatio="none">
+            <defs><linearGradient id="fg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(86,232,184,0.3)"></stop><stop offset="1" stop-color="rgba(86,232,184,0)"></stop></linearGradient></defs>
+            <polygon points="0,90 20,96 40,80 60,86 80,64 100,72 120,50 140,58 160,36 180,44 200,26 220,32 240,18 240,140 0,140" fill="url(#fg1)"></polygon>
+            <polyline points="0,90 20,96 40,80 60,86 80,64 100,72 120,50 140,58 160,36 180,44 200,26 220,32 240,18" fill="none" stroke="#56E8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-head">
+        <h2 class="h-section" id="grid-heading">Latest</h2>
+        <span class="result-count" id="result-count">8 articles</span>
+      </div>
+
+      <div class="grid" id="article-grid">
+        <a class="card" href="/blog/article.html" data-category="Strategies &amp; Systems">
+          <span class="card-tag">Strategies &amp; Systems</span>
+          <h3 class="card-title">Walk-Forward Testing: The Backtest You're Probably Skipping</h3>
+          <p class="card-excerpt">A single in-sample run tells you almost nothing about how a strategy behaves on data it has never seen.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>Jun 24, 2026</span>
+            <span class="dot-sep"></span>
+            <span>7 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Market Conditions &amp; Setups">
+          <span class="card-tag">Market Conditions &amp; Setups</span>
+          <h3 class="card-title">Reading IV Rank Before You Sell a Straddle</h3>
+          <p class="card-excerpt">Premium looks rich for a reason. IV rank tells you whether you are being paid to take the risk, or just taking it.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>Jun 19, 2026</span>
+            <span class="dot-sep"></span>
+            <span>6 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Execution &amp; Order Types">
+          <span class="card-tag">Execution &amp; Order Types</span>
+          <h3 class="card-title">Building a Screener That Doesn't Lag the Market</h3>
+          <p class="card-excerpt">Most screeners are built on yesterday's close. Here is how to think about latency in a filter, not just a trade.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>Jun 14, 2026</span>
+            <span class="dot-sep"></span>
+            <span>8 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Strategies &amp; Systems">
+          <span class="card-tag">Strategies &amp; Systems</span>
+          <h3 class="card-title">Momentum vs Low-Volatility: A Decade of Indian Equities</h3>
+          <p class="card-excerpt">Two factor portfolios, ten years, the same universe. The results depend entirely on which decade you started in.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>Jun 9, 2026</span>
+            <span class="dot-sep"></span>
+            <span>10 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Market Conditions &amp; Setups">
+          <span class="card-tag">Market Conditions &amp; Setups</span>
+          <h3 class="card-title">What Changes in Market Structure After a Circuit Filter</h3>
+          <p class="card-excerpt">Liquidity does not come back the way it left. A short guide to trading the session after a halt.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>Jun 3, 2026</span>
+            <span class="dot-sep"></span>
+            <span>5 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Psychology, Risk &amp; Process">
+          <span class="card-tag">Psychology, Risk &amp; Process</span>
+          <h3 class="card-title">Slippage: The Tax Backtests Don't Show You</h3>
+          <p class="card-excerpt">A strategy that clears costs on paper by two points can lose money live. Model the friction, not just the fill.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>May 28, 2026</span>
+            <span class="dot-sep"></span>
+            <span>6 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Psychology, Risk &amp; Process">
+          <span class="card-tag">Psychology, Risk &amp; Process</span>
+          <h3 class="card-title">Three Position-Sizing Rules Before You Go Live</h3>
+          <p class="card-excerpt">Entry and exit get all the attention. Sizing is usually what decides whether you survive to see if you were right.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>May 22, 2026</span>
+            <span class="dot-sep"></span>
+            <span>7 min read</span>
+          </div>
+        </a>
+        <a class="card" href="/blog/article.html" data-category="Execution &amp; Order Types">
+          <span class="card-tag">Execution &amp; Order Types</span>
+          <h3 class="card-title">New: Multi-Leg Options Backtesting Is Live</h3>
+          <p class="card-excerpt">Straddles, spreads, and iron condors now backtest as a single unit, with combined stop-loss across legs.</p>
+          <div class="meta-row">
+            <span class="meta-author">
+              <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+              <span class="meta-author-name">Āagman Desk</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>May 18, 2026</span>
+            <span class="dot-sep"></span>
+            <span>3 min read</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="empty-state" id="empty-state">No articles in this category yet.</div>
+
+      <div class="newsletter">
+        <div class="newsletter-copy">
+          <h3>Get the next one in your inbox</h3>
+          <p>One email when we publish — strategy breakdowns, backtesting notes, and what's new in Āagman. No spam.</p>
+        </div>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" id="newsletter-email" placeholder="you@email.com" required>
+          <button type="submit" id="newsletter-btn">Subscribe</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+(function() {
+  const categories = ['All', 'Strategies & Systems', 'Execution & Order Types', 'Market Conditions & Setups', 'Psychology, Risk & Process'];
+  const categoryCounts = { 'All': 9 };
+  document.querySelectorAll('.side-item[data-filter]').forEach(btn => {
+    const cat = btn.getAttribute('data-filter');
+    if (cat !== 'All') categoryCounts[cat] = parseInt(btn.querySelector('.count').textContent, 10);
+  });
+
+  const featured = document.getElementById('featured');
+  const grid = document.getElementById('article-grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const gridHeading = document.getElementById('grid-heading');
+  const resultCount = document.getElementById('result-count');
+  const emptyState = document.getElementById('empty-state');
+  const pillRow = document.getElementById('pill-row');
+  const filterTrigger = document.getElementById('filter-trigger');
+  const filterTriggerLabel = document.getElementById('filter-trigger-label');
+  const filterTriggerChev = document.getElementById('filter-trigger-chev');
+  const sidebarBtns = document.querySelectorAll('.side-item[data-filter]');
+  const pillBtns = document.querySelectorAll('.pill[data-filter]');
+
+  let activeCategory = 'All';
+  let filtersOpen = false;
+
+  function updateFilter(category) {
+    activeCategory = category;
+    filtersOpen = false;
+
+    sidebarBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+    });
+    pillBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+    });
+
+    if (category === 'All') {
+      featured.style.display = 'grid';
+      gridHeading.textContent = 'Latest';
+    } else {
+      featured.style.display = 'none';
+      gridHeading.textContent = category;
+    }
+
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const match = category === 'All' || card.getAttribute('data-category') === category;
+      card.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+
+    resultCount.textContent = visibleCount + ' article' + (visibleCount === 1 ? '' : 's');
+    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+
+    filterTriggerLabel.textContent = category === 'All' ? 'All categories' : category;
+    pillRow.classList.toggle('open', filtersOpen);
+    filterTriggerChev.classList.toggle('rotated', filtersOpen);
+    filterTrigger.setAttribute('aria-expanded', String(filtersOpen));
+  }
+
+  sidebarBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      updateFilter(this.getAttribute('data-filter'));
+      const toggle = document.getElementById('nav-toggle');
+      if (toggle) toggle.checked = false;
+    });
+  });
+
+  pillBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      updateFilter(this.getAttribute('data-filter'));
+    });
+  });
+
+  filterTrigger.addEventListener('click', function() {
+    filtersOpen = !filtersOpen;
+    pillRow.classList.toggle('open', filtersOpen);
+    filterTriggerChev.classList.toggle('rotated', filtersOpen);
+    filterTrigger.setAttribute('aria-expanded', String(filtersOpen));
+  });
+
+  const form = document.getElementById('newsletter-form');
+  const emailInput = document.getElementById('newsletter-email');
+  const submitBtn = document.getElementById('newsletter-btn');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (emailInput.value) {
+      emailInput.value = '';
+      submitBtn.textContent = 'Subscribed ✓';
+      setTimeout(function() { submitBtn.textContent = 'Subscribe'; }, 2000);
+    }
+  });
+
+  const overlay = document.querySelector('.nav-overlay');
+  const toggle = document.getElementById('nav-toggle');
+  if (overlay && toggle) {
+    overlay.addEventListener('click', function() { toggle.checked = false; });
+  }
+})();
+</script>
+</body>
+</html>
