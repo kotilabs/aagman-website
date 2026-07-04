@@ -111,22 +111,47 @@ Each of these deserves its own article, but the core idea stays the same: you ar
 
 ## Test this strategy on Aagman
 
-The fastest way to know whether covered calls suit your portfolio is to backtest the exact rules on the stocks you already own.
+The fastest way to know whether covered calls suit your portfolio is to run them through Aagman: backtest the rules, then paper trade, then deploy live.
 
-**1. Backtest it on historical data.** Paste this into Aagman:
+### Backtesting
 
-```
-Backtest a covered call strategy on [STOCK TICKER] from 1 January 2023 to 1 January 2026.
+1. Log into Āagman.
+2. Type the strategy in plain language. For a covered call programme, use a prompt like this:
+
+```text
+Backtest a covered call strategy on RELIANCE from 1 January 2023 to 1 January 2026.
 Own 1 lot throughout. Sell one monthly call at a strike about 3% above the current
 price, 30 days to expiry. Hold to expiry, then roll into a new call the next trading day.
 Starting capital Rs 10,00,000. Include STT and brokerage.
 ```
 
-You will get the actual premium collected each cycle, how often you got assigned, the effect on your stock returns, and the monthly income profile. Tweak anything, strike distance, expiry, underlying, and it re-runs.
+3. Āagman shows you a strategy card — a plain summary of what it understood: symbol, timeframe, entry, exit, sizing.
+4. Check the card matches what you meant. If something is off, edit the prompt and resend rather than fixing it after the run.
+5. Click "Run Risk Checks."
+6. Click "Run Backtest."
+7. Read the results — total return, max drawdown, win rate, trade count, equity curve, trade table.
+8. Check the trade table if anything looks off.
+9. Tweak one thing and rerun — strike distance, expiry, underlying.
+10. Compare the covered-call return against buy-and-hold for the same stock over the same period.
 
-**2. Paper trade it before risking real money.** A backtest assumes clean fills at end-of-day prices. Real covered call writing has its own rhythm: when to sell (often the day after expiry, when premiums reset), how to react when the stock approaches your strike mid-month, when to roll versus let assignment happen. Paper trade two or three cycles to build that feel.
+### Live Execution
 
-**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker and ask Aagman to deploy a covered call on [STOCK TICKER] with your chosen strike-distance, expiry, and position-size rules. Risk checks run before every order, and you get a fill alert each time a new call is sold. Start small.
+1. Log into Āagman.
+2. Head to the execution agent.
+3. Type your order, in any language — including conditional orders. Example:
+
+```text
+Deploy a covered call on [STOCK TICKER]. Own 1 lot. Sell one monthly call about 3%
+above the current price, 30 days to expiry. Roll at expiry. Start with 1 lot.
+```
+
+4. Āagman asks: paper trade or place live?
+5. If paper trade — it simulates the order without touching your broker account. Run two or three expiry cycles to learn the rhythm of when to sell, when to roll, and when to let assignment happen.
+6. If live — before it can place the order, you need:
+   - **Broker setup** — your broker account connected to Āagman (Zerodha or whichever broker you use).
+   - **Relay extension setup** — installed and running, since this is what relays the order through to your broker.
+7. Once both are set up, confirm and place the order. Āagman sends it through to your broker.
+8. Track the order status the same way you would track it directly on your broker.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
@@ -152,12 +177,3 @@ You usually do not need fresh cash equal to a naked call margin because you can 
 
 ### How are covered call premiums taxed in India?
 It depends on how you classify the activity. If you are a passive investor holding the stock as a capital asset, the premium is usually added to the sale consideration on assignment (reducing the effective capital gain) or treated as income if the option expires worthless. If you write calls actively and frequently, the taxman may treat the premium as business income taxed at your slab. The classification depends on facts, so check with a chartered accountant before you scale.
-
-## Related reads
-
-- [Cash-secured put: getting paid to buy stocks you want](/blog/cash-secured-put)
-- [Bull call spread: directional bets with defined risk](/blog/bull-call-spread)
-- [How to trade an iron condor on Nifty](/blog/iron-condor-nifty)
-- [Best strategies for a sideways market](/blog/best-strategies-sideways-market)
-- [Why most options buyers lose money](/blog/why-options-buyers-lose-money)
-- [Market vs limit orders: the entry decision](/blog/market-vs-limit-orders)
