@@ -1,0 +1,28 @@
+---
+title: "New: Multi-Leg Options Backtesting Is Live"
+description: "Straddles, spreads, and iron condors now backtest as a single unit, with combined stop-loss across legs."
+slug: "new-multi-leg-options-backtesting-is-live"
+pubDate: 2026-05-18
+author: "Āagman Desk"
+authorSlug: "aagman-desk"
+category: "Execution & Order Types"
+tags: ["Options", "Backtesting", "Multi-Leg", "Straddles", "Spreads"]
+featured: false
+readingTime: 3
+---
+
+Until now, backtesting multi-leg options strategies meant approximating each leg separately and hoping the combined result matched reality. That changes today.
+
+## What multi-leg backtesting means
+
+You can now describe an entire options structure — straddles, strangles, spreads, iron condors — in one prompt and backtest it as a single position. Entry, exit, and stop-loss apply to the combined strategy, not individual legs.
+
+## Combined stop-loss
+
+The most important improvement is risk measurement. Instead of stopping out one leg and leaving another exposed, the stop-loss is calculated on the strategy's net P&L. This matches how you actually manage a multi-leg trade.
+
+## What to test first
+
+Start with simple structures: a long straddle into an event, or a short iron condor in a range-bound market. Compare the combined backtest to your old leg-by-leg approximation. The difference is usually larger than expected.
+
+Multi-leg backtesting is now available in Āagman. Try it on your next options strategy.

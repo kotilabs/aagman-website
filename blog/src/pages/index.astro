@@ -1,0 +1,172 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import Newsletter from '../components/Newsletter.astro';
+
+const allPosts = await getCollection('posts');
+const featured = allPosts.find(p => p.data.featured) || allPosts[0];
+const latest = allPosts.filter(p => p.data.slug !== featured.data.slug).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const categories = ['All', 'Strategies & Systems', 'Execution & Order Types', 'Market Conditions & Setups', 'Psychology, Risk & Process'];
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<Base
+  title="Blog | Āagman"
+  description="Deep guides on the strategies Indian traders actually use — options plays, equity systems, order execution, and the psychology behind sticking with them."
+  canonical="https://www.aagman.ai/blog/"
+  activeNav="posts"
+  activeCategory="All"
+  sidebarMode="filter"
+>
+  <div class="eyebrow"><span>The Āagman Blog</span></div>
+  <h1 class="title">Trade smarter, not harder.</h1>
+  <p class="subtitle">Deep guides on the strategies Indian traders actually use — options plays, equity systems, order execution, and the psychology behind sticking with them.</p>
+
+  <button class="filter-trigger" type="button" id="filter-trigger" aria-expanded="false">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M7 12h10M10 19h4"></path></svg>
+    <span id="filter-trigger-label">All categories</span>
+    <svg class="chev" id="filter-trigger-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </button>
+  <div class="pill-row" id="pill-row">
+    {categories.map(cat => (
+      <button class={`pill ${cat === 'All' ? 'active' : ''}`} data-filter={cat} type="button">{cat}</button>
+    ))}
+  </div>
+
+  <div class="featured" id="featured" data-category={featured.data.category}>
+    <div class="featured-main">
+      <span class="featured-tag">{featured.data.category}</span>
+      <h2 class="featured-title"><a href={`/blog/${featured.data.slug}/`}>{featured.data.title}</a></h2>
+      <p class="featured-excerpt">{featured.data.description}</p>
+      <div class="meta-row">
+        <a class="meta-author" href="/blog/author/">
+          <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+          <span class="meta-author-name">{featured.data.author}</span>
+        </a>
+        <span class="dot-sep"></span>
+        <span>{fmtDate(featured.data.pubDate)}</span>
+        <span class="dot-sep"></span>
+        <span>{featured.data.readingTime ?? 6} min read</span>
+      </div>
+    </div>
+    <div class="featured-visual">
+      <div class="featured-visual-grid"></div>
+      <svg class="featured-chart" viewBox="0 0 240 140" preserveAspectRatio="none">
+        <defs><linearGradient id="fg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(86,232,184,0.3)"></stop><stop offset="1" stop-color="rgba(86,232,184,0)"></stop></linearGradient></defs>
+        <polygon points="0,90 20,96 40,80 60,86 80,64 100,72 120,50 140,58 160,36 180,44 200,26 220,32 240,18 240,140 0,140" fill="url(#fg1)"></polygon>
+        <polyline points="0,90 20,96 40,80 60,86 80,64 100,72 120,50 140,58 160,36 180,44 200,26 220,32 240,18" fill="none" stroke="#56E8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      </svg>
+    </div>
+  </div>
+
+  <div class="grid-head">
+    <h2 class="h-section" id="grid-heading">Latest</h2>
+    <span class="result-count" id="result-count">{latest.length} articles</span>
+  </div>
+
+  <div class="grid" id="article-grid">
+    {latest.map(post => <PostCard post={post} />)}
+  </div>
+
+  <div class="empty-state" id="empty-state">No articles in this category yet.</div>
+
+  <Newsletter />
+
+  <script is:inline>
+  (function() {
+    const categories = ['All', 'Strategies & Systems', 'Execution & Order Types', 'Market Conditions & Setups', 'Psychology, Risk & Process'];
+
+    const featured = document.getElementById('featured');
+    const grid = document.getElementById('article-grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    const gridHeading = document.getElementById('grid-heading');
+    const resultCount = document.getElementById('result-count');
+    const emptyState = document.getElementById('empty-state');
+    const pillRow = document.getElementById('pill-row');
+    const filterTrigger = document.getElementById('filter-trigger');
+    const filterTriggerLabel = document.getElementById('filter-trigger-label');
+    const filterTriggerChev = document.getElementById('filter-trigger-chev');
+    const sidebarBtns = document.querySelectorAll('.side-item[data-filter]');
+    const pillBtns = document.querySelectorAll('.pill[data-filter]');
+
+    let activeCategory = 'All';
+    let filtersOpen = false;
+
+    function updateFilter(category) {
+      activeCategory = category;
+      filtersOpen = false;
+
+      sidebarBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+      });
+      pillBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+      });
+
+      if (category === 'All') {
+        featured.style.display = 'grid';
+        gridHeading.textContent = 'Latest';
+      } else {
+        featured.style.display = 'none';
+        gridHeading.textContent = category;
+      }
+
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const match = category === 'All' || card.getAttribute('data-category') === category;
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      resultCount.textContent = visibleCount + ' article' + (visibleCount === 1 ? '' : 's');
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+
+      filterTriggerLabel.textContent = category === 'All' ? 'All categories' : category;
+      pillRow.classList.toggle('open', filtersOpen);
+      filterTriggerChev.classList.toggle('rotated', filtersOpen);
+      filterTrigger.setAttribute('aria-expanded', String(filtersOpen));
+
+      if (history.replaceState) {
+        const url = new URL(window.location.href);
+        if (category === 'All') {
+          url.searchParams.delete('category');
+        } else {
+          url.searchParams.set('category', category);
+        }
+        history.replaceState(null, '', url.toString());
+      }
+    }
+
+    sidebarBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        updateFilter(this.getAttribute('data-filter'));
+        const toggle = document.getElementById('nav-toggle');
+        if (toggle) toggle.checked = false;
+      });
+    });
+
+    pillBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        updateFilter(this.getAttribute('data-filter'));
+      });
+    });
+
+    filterTrigger.addEventListener('click', function() {
+      filtersOpen = !filtersOpen;
+      pillRow.classList.toggle('open', filtersOpen);
+      filterTriggerChev.classList.toggle('rotated', filtersOpen);
+      filterTrigger.setAttribute('aria-expanded', String(filtersOpen));
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const paramCat = params.get('category');
+    if (paramCat && categories.includes(paramCat)) {
+      updateFilter(paramCat);
+    }
+  })();
+  </script>
+</Base>

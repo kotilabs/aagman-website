@@ -1,0 +1,32 @@
+---
+title: "Slippage: The Tax Backtests Don't Show You"
+description: "A strategy that clears costs on paper by two points can lose money live. Model the friction, not just the fill."
+slug: "slippage-the-tax-backtests-dont-show-you"
+pubDate: 2026-05-28
+author: "Āagman Desk"
+authorSlug: "aagman-desk"
+category: "Psychology, Risk & Process"
+tags: ["Slippage", "Execution", "Backtesting", "Costs"]
+featured: false
+readingTime: 6
+---
+
+Backtests assume you get the price on the screen. Live trading gives you the price the market is willing to offer. The gap between those two is slippage, and it is often the difference between a profitable strategy and a losing one.
+
+## Where slippage hides
+
+**Entry slippage** happens when your order moves the market, or when the price gaps between signal and fill.
+
+**Exit slippage** is usually worse because exits often happen during stress — stop-losses cluster, liquidity disappears, and spreads widen.
+
+**Impact slippage** grows with position size. A strategy that works on one lot may not work on ten.
+
+## How to model it
+
+Don't use a flat number like "0.1% per trade." Model slippage by time of day, by volatility regime, and by position size. A breakout entry at 9:20 AM has very different slippage from a midday mean-reversion entry.
+
+## The honest test
+
+If your strategy's edge is smaller than your estimated slippage, the strategy is not an edge. It's a hope dressed up in backtested clothing.
+
+Slippage is not a footnote. It's a primary input.

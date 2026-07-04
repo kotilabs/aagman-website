@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  activeCategory?: string;
+  activeAuthor?: string;
+  mode?: 'filter' | 'link';
+}
+
+const { activeCategory = 'All', activeAuthor, mode = 'link' } = Astro.props;
+const allPosts = await getCollection('posts');
+const categories = ['All', 'Strategies & Systems', 'Execution & Order Types', 'Market Conditions & Setups', 'Psychology, Risk & Process'];
+
+const counts: Record<string, number> = { All: allPosts.length };
+categories.slice(1).forEach(cat => {
+  counts[cat] = allPosts.filter(p => p.data.category === cat).length;
+});
+
+const authorSlug = 'aagman-desk';
+const authorName = 'Āagman Desk';
+const authorCount = allPosts.length;
+---
+
+<aside class="sidebar">
+  <div class="side-group">
+    <div class="side-group-label">Categories</div>
+    {categories.map(cat => (
+      mode === 'filter' ? (
+        <button
+          class={`side-item ${activeCategory === cat ? 'active' : ''}`}
+          data-filter={cat}
+          type="button"
+        >
+          {cat} <span class="count">{counts[cat]}</span>
+        </button>
+      ) : (
+        <a
+          class={`side-item ${activeCategory === cat ? 'active' : ''}`}
+          href="/blog/"
+        >
+          {cat} <span class="count">{counts[cat]}</span>
+        </a>
+      )
+    ))}
+  </div>
+  <div class="side-group">
+    <div class="side-group-label">Authors</div>
+    <a class={`side-author ${activeAuthor === authorSlug ? 'active' : ''}`} href="/blog/author/">
+      <span class="side-avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+      <span class="side-author-name">{authorName}</span>
+      <span class="side-author-count">{authorCount}</span>
+    </a>
+  </div>
+</aside>

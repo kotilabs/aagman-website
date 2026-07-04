@@ -1,0 +1,34 @@
+---
+export interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div class={`newsletter ${compact ? 'newsletter-compact' : ''}`}>
+  <div class="newsletter-copy">
+    <h3>Get the next one in your inbox</h3>
+    <p>{compact ? 'Strategy breakdowns and backtesting notes, straight from the team building Āagman.' : 'One email when we publish — strategy breakdowns, backtesting notes, and what\'s new in Āagman. No spam.'}</p>
+  </div>
+  <form class="newsletter-form" id="newsletter-form">
+    <input type="email" id="newsletter-email" placeholder="you@email.com" required>
+    <button type="submit" id="newsletter-btn">Subscribe</button>
+  </form>
+</div>
+
+<script is:inline>
+(function() {
+  var form = document.getElementById('newsletter-form');
+  var emailInput = document.getElementById('newsletter-email');
+  var submitBtn = document.getElementById('newsletter-btn');
+  if (!form || !emailInput || !submitBtn) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (emailInput.value) {
+      emailInput.value = '';
+      submitBtn.textContent = 'Subscribed ✓';
+      setTimeout(function() { submitBtn.textContent = 'Subscribe'; }, 2000);
+    }
+  });
+})();
+</script>

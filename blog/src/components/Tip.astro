@@ -1,0 +1,18 @@
+---
+export interface Props {
+  tag: string;
+}
+const { tag } = Astro.props;
+---
+
+<div class="tip">
+  <span class="tip-tag">{tag}</span>
+  <p><slot /></p>
+</div>
+
+<style>
+.tip { padding: 14px 16px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+.tip .tip-tag { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 8.5px; color: #56E8B8; background: rgba(86,232,184,0.08); border: 1px solid rgba(86,232,184,0.18); border-radius: 3px; padding: 1px 6px; letter-spacing: .08em; margin-bottom: 8px; }
+.tip p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #a0a8a4; }
+.tip p :global(strong) { color: #E7EEEA; font-weight: 600; }
+</style>
