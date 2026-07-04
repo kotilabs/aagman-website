@@ -1,0 +1,163 @@
+---
+title: Covered Call Strategy for Indian Stocks: A Complete Guide
+description: Learn the covered call strategy for Indian stocks: how it works, when to use it, strike selection, risks, taxes, and how to backtest it on Aagman.
+slug: covered-call-strategy-indian-stocks
+pubDate: 2026-07-05
+author: Āagman Desk
+authorSlug: aagman-desk
+category: Strategies & Systems
+tags: 
+  - Covered
+  - Call
+  - Strategies
+featured: false
+readingTime: 13
+---
+
+# Covered Call Strategy for Indian Stocks: A Complete Guide
+
+A covered call is a strategy where you own a stock and sell a call option against it, earning premium income in exchange for capping your upside above the strike price. It is one of the few options strategies that is genuinely conservative. Your downside is no worse than just holding the stock, and you collect option premium regardless of what happens. In Indian markets, covered calls work best on liquid stocks you already plan to hold for the medium term, like Reliance, Infosys, HDFC Bank, or ITC. The standard setup involves owning at least one lot of the underlying stock and selling a slightly out-of-the-money monthly call, typically targeting 1–3% of the stock price as monthly premium income.
+
+## Why this strategy exists in the first place
+
+Let us walk through the logic carefully: it sounds confusing the first time and obvious the second.
+
+Imagine you own one lot of Reliance. You are holding because you believe in the long-term story: refining, retail, Jio. You are not planning to sell soon. But in the meantime the stock just sits there. Some months it rises, some months it falls, some months it does nothing. Your capital is locked in, earning only the occasional dividend.
+
+Now another trader thinks Reliance will rally hard this month. They want to buy a call option — the right to purchase Reliance at, say, ₹1,450, expiring at month-end. They will pay a premium for that right. Let us say ₹25 per share.
+
+You think to yourself: "I already own the stock. I am not going anywhere. If Reliance does not cross ₹1,450 by month-end, that option expires worthless and I just pocket ₹25 per share for doing nothing. And even if Reliance does cross ₹1,450, I have to sell my shares at ₹1,450, but I bought them lower, so I still make money on the stock plus I keep the ₹25 premium."
+
+That is a covered call. You are "covered" because you own the stock (unlike a naked call, which has unlimited risk). The premium is yours whatever happens. You only give up the upside above ₹1,450 for this month.
+
+This is why covered calls are sometimes described as "renting out your stock." You are not selling it. You are just letting someone else have the upside above a certain price, in exchange for rent.
+
+## When does a covered call strategy make sense?
+
+Covered calls work best in three situations, and poorly in two.
+
+**Best for:**
+- Stocks you genuinely plan to hold long term, where the monthly premium is essentially bonus income on top of capital appreciation.
+- Range-bound or mildly rising markets, where the stock drifts up but does not explode.
+- Stocks with reasonable implied volatility: too low and the premium is not worth collecting; too high and you are likely to get called away.
+
+**Avoid for:**
+- Stocks you are holding because you expect a sharp rally, since covered calls cap exactly the upside you are hoping for.
+- Highly volatile or news-driven stocks where a single event can blow past your strike. Adani Enterprises in January 2023 would have been a terrible covered call candidate.
+
+The most common mistake is selling calls on stocks you secretly want to keep all the upside on. If you would be upset to sell Reliance at ₹1,450 because you think it is going to ₹1,600, do not sell the ₹1,450 call. Sell the ₹1,500 call, or wait. Never sell a call at a strike you would resent being assigned at.
+
+## The mechanics, with real numbers
+
+1. **Own the underlying.** On the NSE, stock options trade in fixed lots. As of mid-2026, one Reliance lot is 500 shares, so you need to own 500 shares. At ₹1,320, that is roughly ₹6,60,000 tied up. NSE revises lot sizes periodically to keep contract values in line with SEBI norms, so verify the current lot size before trading.
+
+2. **Choose your strike.** This is the most important decision in the whole strategy.
+
+| Strike type | Example (Reliance at ₹1,320) | Premium | Assignment risk | Best for |
+|---|---|---|---|---|
+| Slightly OTM (1–2% above) | ₹1,340 strike | Higher | Higher | Income focus, willing to be called away |
+| Moderately OTM (3–5% above) | ₹1,370 strike | Moderate | Moderate | Balanced, most common choice |
+| Deep OTM (6%+ above) | ₹1,400 strike | Lower | Low | Mostly want premium, rarely get called |
+
+A reasonable default for someone learning the strategy: pick a strike about 3–4% above the current price, with about 25–30 days to expiry. This gives you a decent premium while leaving room for the stock to rise.
+
+Stock options on the NSE expire on the last Tuesday of the month, shifted from Thursday in September 2025. If Tuesday is a holiday, expiry moves to the previous trading day.
+
+3. **Sell the call.** You collect the premium immediately. It sits in your account from the moment the order fills. This is your income for the month, yours regardless of what happens next.
+
+4. **Wait for expiry.** Three things can happen. The stock stays below the strike, the call expires worthless, you keep the premium and the stock, and you can sell another call next month. Or the stock rises above the strike, the call gets exercised, your shares are sold at the strike, and you keep the premium plus the gain up to the strike. Or the stock crashes, the call expires worthless, you keep the premium, but you still own a stock now worth less than you paid. The premium cushions some of that loss but does not erase it. That is the strategy's real risk: you are long the stock, full stop.
+
+5. **Roll the position (optional).** If expiry is approaching and the stock is near or above your strike, you can buy back the current call and sell a new one further out in time or at a higher strike. This is how income-focused traders keep the strategy running without ever giving up the shares.
+
+## Payoff math, made simple
+
+Let us say you bought Reliance at ₹1,300 and now sell a one-month ₹1,370 call for ₹25 per share. With Reliance's current 500-share lot, one covered call covers 500 shares.
+
+If Reliance stays below ₹1,370 at expiry: you keep ₹25 × 500 = ₹12,500, you still own the stock, and the option leg returned about 1.9% on your stock capital for the month.
+
+If Reliance closes at exactly ₹1,370: you keep the ₹12,500 premium, and your stock is sold at ₹1,370 against a ₹1,300 cost for a ₹70 per share gain. Total profit is ₹70 + ₹25 = ₹95 per share, or ₹47,500 on the lot.
+
+If Reliance closes at ₹1,450: you keep ₹12,500, your stock is still sold at the ₹1,370 strike for a ₹70 per share gain, but you missed the move from ₹1,370 to ₹1,450, another ₹80 per share you left on the table.
+
+| Scenario at expiry | What happens | Your P&L (per share) |
+|---|---|---|
+| Reliance stays below ₹1,370 | Call expires worthless, you keep stock and premium | +₹25 premium |
+| Reliance closes at exactly ₹1,370 | Stock sold at strike, you keep premium and gain | +₹70 stock gain + ₹25 premium = +₹95 |
+| Reliance closes above ₹1,370 (e.g., ₹1,450) | Stock sold at ₹1,370, you keep premium but miss upside above strike | +₹70 gain + ₹25 premium; miss ₹80 above strike |
+
+That last scenario is the psychological challenge of covered calls. You will sometimes feel like you lost money even when you made money, because you can see the upside you gave up. Experienced writers learn to think in terms of consistent monthly income rather than maximum possible profit per trade. If you cannot make peace with capped upside, this strategy will frustrate you.
+
+## What can go wrong with covered calls?
+
+**Selling calls too close to the money for the premium:** a ₹1,330 call on Reliance at ₹1,320 pays well, but you have almost no room before assignment. You are agreeing to sell your stock for ₹10 of upside. Rarely worth it for a long-term holder.
+
+**Selling calls before known catalysts:** writing a call right before quarterly results or an RBI policy day is asking for trouble. Implied volatility is high because the market expects a move. You think you are collecting fat premium; you are actually being paid appropriately for binary risk.
+
+**Forgetting physical settlement:** In India, stock options are physically settled. If your call finishes in the money, you must deliver the shares. If you do not own them, you end up in an auction penalty. With a covered call you do own them, but assignment still means your shares leave your demat account. Check ex-dividend dates too. Deep ITM calls are sometimes exercised early, usually just before the ex-dividend date, so the buyer can capture the dividend. If you are writing calls around dividend season, know the ex-date and consider rolling or choosing a strike with lower assignment probability.
+
+**Treating the premium as free money:** it is not. It is payment for the obligation to sell at the strike. If you would not sell at that strike, you are being paid to do something you do not actually want to do.
+
+**Ignoring transaction costs:** STT on options premium is 0.1% for the seller (hiked in Budget 2024). Add brokerage, exchange charges, GST, and the demat debit fee if you get assigned. If you are assigned, the share sale is a delivery transaction, so you also pay 0.1% STT on the strike-value turnover. They are small per trade but real, and they compound across a monthly program.
+
+## Variations worth knowing
+
+**The poor man's covered call:** instead of owning the stock, you own a deep in-the-money long-dated call and sell shorter-dated calls against it. Much less capital, similar payoff shape, more to manage.
+
+**The covered call ladder:** you split your lot across strikes to smooth assignment risk.
+
+**The collar:** you use the premium from the covered call to buy a protective put, capping your downside as well as your upside. This turns the strategy from income-only into a tighter risk-defined position.
+
+Each of these deserves its own article, but the core idea stays the same: you are trading upside you were not using for premium you can keep.
+
+## Test this strategy on Aagman
+
+The fastest way to know whether covered calls suit your portfolio is to backtest the exact rules on the stocks you already own.
+
+**1. Backtest it on historical data.** Paste this into Aagman:
+
+```
+Backtest a covered call strategy on [STOCK TICKER] from 1 January 2023 to 1 January 2026.
+Own 1 lot throughout. Sell one monthly call at a strike about 3% above the current
+price, 30 days to expiry. Hold to expiry, then roll into a new call the next trading day.
+Starting capital Rs 10,00,000. Include STT and brokerage.
+```
+
+You will get the actual premium collected each cycle, how often you got assigned, the effect on your stock returns, and the monthly income profile. Tweak anything, strike distance, expiry, underlying, and it re-runs.
+
+**2. Paper trade it before risking real money.** A backtest assumes clean fills at end-of-day prices. Real covered call writing has its own rhythm: when to sell (often the day after expiry, when premiums reset), how to react when the stock approaches your strike mid-month, when to roll versus let assignment happen. Paper trade two or three cycles to build that feel.
+
+**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker and ask Aagman to deploy a covered call on [STOCK TICKER] with your chosen strike-distance, expiry, and position-size rules. Risk checks run before every order, and you get a fill alert each time a new call is sold. Start small.
+
+Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
+
+## FAQ
+
+### How much capital do I need to start covered calls in India?
+Enough to own at least one lot of an options-listed stock. The notional value of one lot for large-cap stocks is typically in the ₹4–8 lakh range, depending on the stock price and the current lot size set by the NSE. Below roughly ₹4–5 lakh there is no practical way to write a single-stock covered call.
+
+### Can I do covered calls on Nifty or Bank Nifty?
+Not in the traditional sense, because you cannot own an index. The nearest equivalent is owning a Nifty ETF while selling index calls, but the lot sizes do not line up cleanly, so the hedge is approximate. For most people, single-stock covered calls are the practical route.
+
+### What happens if my call gets assigned?
+Your shares are sold at the strike on expiry and you receive the proceeds, keeping the premium. You no longer own the stock. If you want it back you buy again the next day, mindful of the tax on the realised gain and the demat debit charges.
+
+### Is selling weekly calls better than monthly?
+Weeklies pay less per cycle but more per year if everything goes right, at the cost of four decisions a month instead of one. On Indian stock options, weeklies are not available. Only Nifty and Bank Nifty index options have weekly expiries, so stock covered calls are monthly by default.
+
+### What is the role of implied volatility in covered calls?
+Higher implied volatility means higher premiums, which sounds good. But it also means the market is pricing in a larger move, so you are more likely to be assigned. The best covered call environment is moderate volatility: enough premium to be worth selling, not so much that the stock is likely to gap through your strike.
+
+### Do I need extra margin to sell the call if I already own the shares?
+You usually do not need fresh cash equal to a naked call margin because you can pledge the underlying shares as collateral. Most brokers still require part of the margin in cash or cash equivalents, and delivery margins can spike in the last few days. Check your broker's margin calculator before expiry.
+
+### How are covered call premiums taxed in India?
+It depends on how you classify the activity. If you are a passive investor holding the stock as a capital asset, the premium is usually added to the sale consideration on assignment (reducing the effective capital gain) or treated as income if the option expires worthless. If you write calls actively and frequently, the taxman may treat the premium as business income taxed at your slab. The classification depends on facts, so check with a chartered accountant before you scale.
+
+## Related reads
+
+- [Cash-secured put: getting paid to buy stocks you want](/blog/cash-secured-put)
+- [Bull call spread: directional bets with defined risk](/blog/bull-call-spread)
+- [How to trade an iron condor on Nifty](/blog/iron-condor-nifty)
+- [Best strategies for a sideways market](/blog/best-strategies-sideways-market)
+- [Why most options buyers lose money](/blog/why-options-buyers-lose-money)
+- [Market vs limit orders: the entry decision](/blog/market-vs-limit-orders)
