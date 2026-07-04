@@ -157,6 +157,7 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
       var btn = document.createElement('button');
       btn.className = 'code-copy';
       btn.setAttribute('aria-label', 'Copy code');
+      btn.setAttribute('title', 'Copy code');
       btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>';
       pre.appendChild(btn);
       btn.addEventListener('click', function() {
