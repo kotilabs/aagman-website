@@ -4,17 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Āagman Backtesting Playbook | Āagman Docs</title>
-<meta name="description" content="A practical guide to testing trading and investment strategies with natural language in Āagman. Learn prompt anatomy, exits, equity/options/allocation patterns, and how to read results.">
+<meta name="description" content="A practical guide to testing trading and investment strategies with natural language in Āagman.">
 <link rel="canonical" href="https://www.aagman.ai/docs/backtesting-playbook.html">
 <meta property="og:title" content="The Āagman Backtesting Playbook | Āagman Docs">
 <meta property="og:description" content="A practical guide to testing trading and investment strategies with natural language in Āagman.">
-<meta property="og:image" content="https://www.aagman.ai/uploads/og-image.png">
-<meta property="og:url" content="https://www.aagman.ai/docs/backtesting-playbook.html">
 <meta property="og:type" content="article">
+<meta property="og:url" content="https://www.aagman.ai/docs/backtesting-playbook.html">
+<meta property="og:image" content="https://www.aagman.ai/uploads/aagman-og.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"The Āagman Backtesting Playbook","description":"A practical guide to testing trading and investment strategies with natural language in Āagman.","author":{"@type":"Organization","name":"Āagman"},"publisher":{"@type":"Organization","name":"Āagman","logo":{"@type":"ImageObject","url":"https://www.aagman.ai/uploads/aagman-logo.png"}},"datePublished":"2026-07-03","dateModified":"2026-07-03","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.aagman.ai/docs/backtesting-playbook.html"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Docs","item":"https://www.aagman.ai/docs/"},{"@type":"ListItem","position":2,"name":"The Āagman Backtesting Playbook","item":"https://www.aagman.ai/docs/backtesting-playbook.html"}]}]</script>
+<meta name="twitter:title" content="The Āagman Backtesting Playbook | Āagman Docs">
+<meta name="twitter:description" content="A practical guide to testing trading and investment strategies with natural language in Āagman.">
+<meta name="twitter:image" content="https://www.aagman.ai/uploads/aagman-og.png">
+<link rel="icon" type="image/png" href="/uploads/aagman-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -30,7 +31,7 @@
   .shell { display: grid; grid-template-rows: 64px 1fr; min-height: 100vh; }
   .topbar { display: flex; align-items: center; height: 64px; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 24px 0 0; background: #07090A; position: sticky; top: 0; z-index: 10; }
   .brand { display: flex; align-items: center; gap: 10px; padding: 0 24px; height: 64px; border-right: 1px solid rgba(255,255,255,0.06); }
-  .brand-mark { width: 30px; height: 30px; border-radius: 8px; background: #34D399 url('./aagman-logo.png') center/cover no-repeat; box-shadow: 0 4px 16px -2px rgba(86,232,184,0.55); flex-shrink: 0; }
+  .brand-mark { width: 30px; height: 30px; border-radius: 8px; background: #34D399 url('/uploads/aagman-logo.png') center/cover no-repeat; box-shadow: 0 4px 16px -2px rgba(86,232,184,0.55); flex-shrink: 0; }
   .brand-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 700; color: #E7EEEA; letter-spacing: -.01em; }
   .brand-section { font-family: 'Geist Mono', monospace; font-size: 10px; color: #56E8B8; letter-spacing: .14em; padding-left: 12px; margin-left: 4px; border-left: 1px solid rgba(255,255,255,0.08); }
   .topnav { display: flex; align-items: center; gap: 6px; padding-left: 28px; flex: 1; }
@@ -293,109 +294,28 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is backtesting in Āagman?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Backtesting in Āagman means describing a trading or investment strategy in plain English or Hindi, then running it against years of historical market data to see how it would have performed before risking real capital."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to know coding to backtest a strategy?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. You can write prompts like 'Buy SBIN when EMA 20 crosses above EMA 50 and exit on a 5% stop loss.' Āagman parses natural language into a backtest."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What makes a good backtest prompt?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A good prompt clearly states the instrument, entry condition, exit condition, position size, and time frame. Being explicit about each piece improves the quality of the result."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I backtest options strategies in Āagman?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. You can backtest single-leg options, multi-leg strategies such as straddles, strangles, iron condors, and spreads, as well as systematic entries and exits on option legs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I know if a backtest result is reliable?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Check metrics such as CAGR, max drawdown, Sharpe ratio, win rate, and number of trades. A reliable result covers multiple market regimes and has enough trades to be statistically meaningful."
-      }
-    }
-  ]
+  "@type": "Article",
+  "headline": "The Āagman Backtesting Playbook",
+  "description": "A practical guide to testing trading and investment strategies with natural language in Āagman.",
+  "author": {"@type": "Organization", "name": "Āagman"},
+  "publisher": {"@type": "Organization", "name": "Āagman", "logo": {"@type": "ImageObject", "url": "https://www.aagman.ai/uploads/aagman-logo.png"}},
+  "datePublished": "2026-07-04",
+  "dateModified": "2026-07-04",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.aagman.ai/docs/backtesting-playbook.html"}
 }
 </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How to run your first backtest in Āagman",
-  "description": "Describe a trading strategy in natural language and run it against historical Indian market data to see simulated performance.",
-  "totalTime": "PT10M",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "position": 1,
-      "name": "Pick an instrument",
-      "text": "Choose a stock, index, basket, mutual fund, or options underlying you want to test.",
-      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 2,
-      "name": "Write the entry rule",
-      "text": "Describe when to enter in plain words, for example 'Buy when RSI crosses below 30 and then crosses back above 30.'",
-      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 3,
-      "name": "Add the exit rule",
-      "text": "State when to close the position, such as a target profit, stop loss, trailing stop, or opposing indicator signal.",
-      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 4,
-      "name": "Set capital and sizing",
-      "text": "Tell Āagman how much capital to use and whether to size by fixed quantity, amount, or percentage of capital.",
-      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#first-backtest"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 5,
-      "name": "Run and read the report",
-      "text": "Run the backtest and review CAGR, drawdown, Sharpe, win rate, and trade list to decide whether to refine the strategy.",
-      "url": "https://www.aagman.ai/docs/backtesting-playbook.html#reading-results"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SpeakableSpecification",
-  "cssSelector": [
-    ".hero-quote",
-    ".prose"
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Docs", "item": "https://www.aagman.ai/docs/"},
+    {"@type": "ListItem", "position": 2, "name": "The Āagman Backtesting Playbook", "item": "https://www.aagman.ai/docs/backtesting-playbook.html"}
   ]
 }
 </script>
 </head>
-
+<body>
 <input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
 <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
 
@@ -407,7 +327,7 @@
       <svg class="ico-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
       <svg class="ico-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"></path></svg>
     </label>
-    <a class="brand" href="./">
+    <a class="brand" href="#">
       <span class="brand-mark"></span>
       <span class="brand-name">Āagman</span>
       <span class="brand-section">DOCS</span>
@@ -425,11 +345,11 @@
 
       <div class="side-group">
         <div class="side-group-label">Getting Started</div>
-        <a class="side-item" href="./how-to-prompt.html">
+        <a class="side-item" href="/docs/how-to-prompt.html">
           <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5h14v11H9l-4 4z"></path><path d="M9 10h6M9 13h4"></path></svg></span>
           How to Prompt Āagman
         </a>
-        <a class="side-item active" href="./backtesting-playbook.html">
+        <a class="side-item active" href="/docs/backtesting-playbook.html">
           <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"></path></svg></span>
           Backtesting Playbook
         </a>
@@ -447,11 +367,15 @@
           <a href="#troubleshooting">Troubleshooting</a>
           <a href="#appendix">Appendix</a>
         </div>
+        <a class="side-item" href="/docs/research-handbook.html">
+          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg></span>
+          Research Handbook
+        </a>
       </div>
 
       <div class="side-group">
         <div class="side-group-label">Brokers</div>
-        <a class="side-item" href="./connect-zerodha.html">
+        <a class="side-item" href="/docs/connect-zerodha.html">
           <span class="brand-ico zerodha">Z</span>
           Zerodha
         </a>
@@ -492,7 +416,6 @@
         </button>
       </div>
       <p class="subtitle">A practical guide to testing trading and investment strategies with natural language in Āagman.</p>
-<p class="last-updated" style="font-size:12px;color:#4a5550;margin-top:-8px;margin-bottom:20px;font-family:'Geist Mono',monospace;letter-spacing:.04em;">Last updated: 3 July 2026</p>
 
       <!-- Hero — quote -->
       <div class="hero">
@@ -546,7 +469,7 @@ from January 2024 to December 2024.
 Entry: Buy when EMA(20) crosses above EMA(50).
 Exit: Sell when EMA(20) crosses below EMA(50).
 Position size: 50 shares.</div>
-        <button class="prompt-copy" type="button" aria-label="Copy prompt">
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
           <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
         </button>
@@ -654,7 +577,7 @@ Entry: Go LONG when EMA(20) crosses above EMA(50).
 Exit: Stop loss at 15 points below entry. Take profit at 45 points above entry.
 Starting capital ₹10,00,000. Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-        <button class="prompt-copy" type="button" aria-label="Copy prompt">
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
           <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
         </button>
@@ -670,7 +593,7 @@ Exit: No fixed stop loss. Trailing stop loss at 2% below the highest price reach
 Take profit at 6% above entry.
 Starting capital ₹10,00,000. Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-        <button class="prompt-copy" type="button" aria-label="Copy prompt">
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
           <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
         </button>
@@ -685,7 +608,7 @@ Entry: Go LONG when EMA(20) crosses above EMA(50).
 Exit: No stop loss. No take profit. Exit after 5 bars from entry.
 Starting capital ₹10,00,000. Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-        <button class="prompt-copy" type="button" aria-label="Copy prompt">
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
           <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
         </button>
@@ -697,7 +620,7 @@ Fees 5 bps, slippage 3 bps.</div>
         <div class="prompt">Buy TCS when RSI(14) crosses below 30, daily, Jan to Jun 2024.
 Exit when RSI(14) crosses above 60.
 Position size 100 shares. Stop loss 5%.</div>
-        <button class="prompt-copy" type="button" aria-label="Copy prompt">
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
           <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
         </button>
@@ -709,7 +632,7 @@ Position size 100 shares. Stop loss 5%.</div>
         <div class="prompt">Buy TCS when RSI(14) crosses below 30, daily, Jan to Jun 2024.
 Exit after 10 bars or when RSI crosses above 60, whichever comes first.
 Position size 100 shares. Stop loss 5%.</div>
-        <button class="prompt-copy" type="button" aria-label="Copy prompt">
+        <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
           <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
         </button>
@@ -743,7 +666,7 @@ Entry: Go LONG when EMA(20) crosses above EMA(50) on the daily close.
 Exit: Stop loss at 1.5% below entry. Take profit at 4.5% above entry.
 Position sizing: Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -772,7 +695,7 @@ Entry: Go LONG when RSI(14) crosses above 30, AND the closing price is above SMA
 Exit: Stop loss at 2% below entry. Take profit at 6% above entry.
 Position sizing: Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -801,7 +724,7 @@ AND the closing price is above SMA(200).
 Exit: Stop loss at 1.5% below entry. Take profit at 4.5% above entry.
 Position sizing: Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -827,7 +750,7 @@ Fees 5 bps, slippage 3 bps.</div>
           <div class="prompt">Buy HDFCBANK when close crosses above the 20-day high, daily, Jan to Dec 2024.
 Exit when close crosses below 10-day low.
 Position size 100 shares. Stop loss 3%.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -856,7 +779,7 @@ AND RSI(14) is below 50, AND the closing price is above SMA(200).
 Exit: Stop loss at 2% below entry. Take profit at 4% above entry.
 Starting capital ₹10,00,000. Buy 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -885,7 +808,7 @@ AND the closing price is below SMA(100).
 Exit: Stop loss at 1.5% above entry. Take profit at 4.5% below entry.
 Starting capital ₹10,00,000. Sell 50 shares per trade.
 Fees 5 bps, slippage 3 bps.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -910,7 +833,7 @@ Fees 5 bps, slippage 3 bps.</div>
           <div class="prompt">Buy HDFCBANK when zscore of RSI(14) over 20 bars crosses above 1.5, daily, Jan to Jun 2024.
 Exit when zscore crosses below -0.5.
 Position size 100 shares. Stop loss 3%.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -921,7 +844,7 @@ Position size 100 shares. Stop loss 3%.</div>
           <div class="prompt">Buy INFY when SMA(20) crosses above SMA(50), daily, Jan to Dec 2024.
 Exit when close drops below EMA(20) multiplied by 0.97.
 Position size 100 shares.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -933,7 +856,7 @@ Position size 100 shares.</div>
           <div class="prompt">Buy SBIN only on Mondays (day of week equals 1), daily, Jan to Jun 2024.
 Exit when RSI(14) goes above 70.
 Position size 200 shares. Stop loss 3%.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -944,7 +867,7 @@ Position size 200 shares. Stop loss 3%.</div>
           <div class="prompt">Buy SBIN when EMA(10) of RSI(14) crosses above 50, daily, Jan to Dec 2024.
 Exit when EMA(10) of RSI(14) crosses below 45.
 Position size 100 shares. Stop loss 4%.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -975,7 +898,7 @@ Expiry: Monthly. Bars: 1-day timeframe.
 Exit: Close both legs when INDIA VIX drops below 15.
 Position sizing: 1 lot per leg per trade. Execution: NRML, market orders.
 No fees, no slippage.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -994,7 +917,7 @@ No fees, no slippage.</div>
           <div class="prompt">Sell 1 lot short strangle on NIFTY, 200 points OTM call and put, monthly expiry,
 daily Oct to Dec 2024, 100% SL on premium.
 Only enter when ATR(14) divided by close is greater than 0.015.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1016,7 +939,7 @@ Expiry: Monthly. Bars: 1-day timeframe.
 Exit: Exit all four legs when the position reaches 3 days to expiry (DTE).
 Position sizing: Fixed 1 lot per leg per trade. Execution: NRML, market orders.
 No fees, no slippage.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1038,7 +961,7 @@ Expiry: Weekly. Bars: 1-day timeframe.
 Exit: Take profit at 50% of net premium paid. Stop loss at 50% of net premium paid.
 Position sizing: 1 lot per leg per trade. Execution: NRML, market orders.
 No fees, no slippage.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1059,7 +982,7 @@ Expiry: Current month. Bars: 1-day timeframe.
 Exit: Take profit at 50% of premium collected. Stop loss at 100% of premium collected.
 Position sizing: 1 lot per trade. Execution: NRML, market orders.
 No fees, no slippage.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1074,7 +997,7 @@ No fees, no slippage.</div>
           <div class="prompt-block">
             <div class="prompt">Sell 1 lot short straddle on NIFTY, ATM strike, monthly expiry, daily Oct to Dec 2024,
 100% SL on premium. Exit when underlying RSI(14) goes above 70.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1082,7 +1005,7 @@ No fees, no slippage.</div>
           <div class="prompt-block">
             <div class="prompt">Sell 1 lot short straddle on NIFTY, ATM, monthly expiry, daily Oct to Dec 2024,
 50% SL on premium. Enter only when zscore of RSI(14) over 20 bars is above 1.5 on the underlying.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1097,7 +1020,7 @@ No fees, no slippage.</div>
           <div class="prompt-block">
             <div class="prompt">Sell 1 lot short straddle on NIFTY, ATM, monthly expiry, daily Oct to Dec 2024,
 50% SL on premium. Only enter on Mondays (day of week equals 1).</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1105,7 +1028,7 @@ No fees, no slippage.</div>
           <div class="prompt-block">
             <div class="prompt">Sell 1 lot short straddle on NIFTY, ATM, monthly expiry, daily Oct to Dec 2024,
 80% SL on premium. Only enter when day of month is less than or equal to 5.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1126,7 +1049,7 @@ No fees, no slippage.</div>
         <div class="prompt-block">
           <div class="prompt">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN, WIPRO, LT
 ranked by momentum score, monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1144,7 +1067,7 @@ ranked by momentum score, monthly rebalance, 10 lakh capital, Jan 2023 to Dec 20
           <div class="prompt-block">
             <div class="prompt">Backtest portfolio picking top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN, WIPRO, LT
 ranked by Sortino ratio, quarterly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1152,7 +1075,7 @@ ranked by Sortino ratio, quarterly rebalance, equal weight, 10 lakh capital, Jan
           <div class="prompt-block">
             <div class="prompt">Backtest portfolio of top 3 lowest volatility stocks from RELIANCE, TCS, INFY, HDFCBANK,
 ICICIBANK, SBIN, WIPRO, LT, monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1166,7 +1089,7 @@ ICICIBANK, SBIN, WIPRO, LT, monthly rebalance, equal weight, 10 lakh capital, Ja
         <div class="prompt-block">
           <div class="prompt">Backtest equal weight portfolio of RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK
 with no rebalancing, buy and hold, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1180,7 +1103,7 @@ with no rebalancing, buy and hold, 10 lakh capital, Jan 2023 to Dec 2024.</div>
           <div class="prompt">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN
 by 6-month return, but only include stocks where RSI(14) is below 50 at each rebalance.
 Monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1197,7 +1120,7 @@ Monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
         <div class="prompt-block">
           <div class="prompt">Backtest market cap weighted portfolio of RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK,
 monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-          <button class="prompt-copy" type="button" aria-label="Copy prompt">
+          <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
             <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
             <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
           </button>
@@ -1209,14 +1132,14 @@ monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
         <div class="prompt-stack">
           <div class="prompt-block">
             <div class="prompt">Backtest a monthly SIP of ₹10,000 into SBI Bluechip Fund from Jan 2023 to Dec 2024.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
           </div>
           <div class="prompt-block">
             <div class="prompt">Backtest a monthly SIP of ₹10,000 into large-cap funds from Jan 2023 to Dec 2024.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1224,7 +1147,7 @@ monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
           <div class="prompt-block">
             <div class="prompt">Backtest a monthly SIP of ₹10,000 into Nifty 50 index funds, step up by 10% every year,
 from Jan 2020 to Dec 2024.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1241,7 +1164,7 @@ from Jan 2020 to Dec 2024.</div>
           <span class="cmp-label">Bad</span>
           <div class="prompt-block">
             <div class="prompt">Backtest RSI strategy on RELIANCE.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1253,7 +1176,7 @@ from Jan 2020 to Dec 2024.</div>
             <div class="prompt">Backtest a long-only RSI mean-reversion strategy on RELIANCE (NSE) on a daily timeframe
 from Jan 2024 to Dec 2024. Entry: RSI(14) crosses above 30. Exit: RSI(14) crosses below 70.
 Buy 50 shares per trade.</div>
-            <button class="prompt-copy" type="button" aria-label="Copy prompt">
+            <button class="prompt-copy" type="button" onClick="{{ copyPrompt }}" aria-label="Copy prompt">
               <svg class="ico-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               <svg class="ico-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -1453,11 +1376,11 @@ Buy 50 shares per trade.</div>
 
       <!-- Page nav -->
       <div class="page-nav">
-        <a href="./how-to-prompt.html">
+        <a href="/docs/how-to-prompt.html">
           <div class="pn-dir">← Previous</div>
           <div class="pn-title">How to Prompt Āagman</div>
         </a>
-        <a href="./connect-zerodha.html" class="next">
+        <a href="/docs/connect-zerodha.html" class="next">
           <div class="pn-dir">Next →</div>
           <div class="pn-title">Connect Zerodha</div>
         </a>
@@ -1468,58 +1391,48 @@ Buy 50 shares per trade.</div>
   </div>
 </div>
 
-
-
-
 <script>
 (function() {
   function fallbackCopy(text) {
     var ta = document.createElement('textarea');
     ta.value = text;
+    ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
-    ta.style.opacity = '0';
+    ta.style.left = '-9999px';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); } catch (err) {}
+    try { document.execCommand('copy'); } catch (e) {}
     document.body.removeChild(ta);
   }
-
   function flash(btn) {
     btn.classList.add('copied');
-    if (btn._copyTimer) clearTimeout(btn._copyTimer);
-    btn._copyTimer = setTimeout(function() { btn.classList.remove('copied'); }, 1600);
+    setTimeout(function() { btn.classList.remove('copied'); }, 1600);
   }
-
-  function copyPrompt(btn) {
-    var wrap = btn.closest('.prompt-block');
-    var el = wrap ? wrap.querySelector('.prompt') : null;
-    var text = el ? el.innerText : '';
+  function copyBlock(btn) {
+    var block = btn.closest('.prompt-block, .prompt');
+    var text = '';
+    if (block) {
+      var promptText = block.querySelector('.prompt, .prompt-text');
+      if (promptText) text = promptText.innerText;
+      else text = block.innerText;
+    }
+    text = text.trim();
+    if (!text) return;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function() { flash(btn); }).catch(function() {
-        fallbackCopy(text);
-        flash(btn);
-      });
-    } else {
-      fallbackCopy(text);
-      flash(btn);
-    }
+      navigator.clipboard.writeText(text).then(function() { flash(btn); }, function() { fallbackCopy(text); flash(btn); });
+    } else { fallbackCopy(text); flash(btn); }
   }
-
   document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.prompt-copy');
-    if (btn) {
-      e.preventDefault();
-      copyPrompt(btn);
-    }
+    var btn = e.target.closest('.prompt-copy, .copy-btn');
+    if (btn) { e.preventDefault(); copyBlock(btn); }
   });
 
-  // Close mobile drawer when clicking an anchor link
-  document.querySelectorAll('.side-subs a[href^="#"]').forEach(function(link) {
-    link.addEventListener('click', function() {
-      var toggle = document.getElementById('nav-toggle');
-      if (toggle) toggle.checked = false;
-    });
-  });
+  // Sidebar toggle close on overlay click
+  var overlay = document.querySelector('.nav-overlay');
+  var toggle = document.getElementById('nav-toggle');
+  if (overlay && toggle) {
+    overlay.addEventListener('click', function() { toggle.checked = false; });
+  }
 })();
 </script>
 </body>
