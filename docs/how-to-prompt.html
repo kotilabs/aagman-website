@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How to Prompt Āagman | Āagman Docs</title>
-<meta name="description" content="Learn to write natural-language prompts for Āagman: backtests, screeners, portfolios, and live trades in English, Hindi, or Hinglish.">
-<link rel="canonical" href="https://www.aagman.ai/docs/how-to-prompt.html">
-<meta property="og:title" content="How to Prompt Āagman | Āagman Docs">
-<meta property="og:description" content="Learn to write natural-language prompts for Āagman: backtests, screeners, portfolios, and live trades in English, Hindi, or Hinglish.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://www.aagman.ai/docs/how-to-prompt.html">
-<meta property="og:image" content="https://www.aagman.ai/uploads/aagman-og.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How to Prompt Āagman | Āagman Docs">
-<meta name="twitter:description" content="Learn to write natural-language prompts for Āagman: backtests, screeners, portfolios, and live trades in English, Hindi, or Hinglish.">
-<meta name="twitter:image" content="https://www.aagman.ai/uploads/aagman-og.png">
-<link rel="icon" type="image/png" href="/uploads/aagman-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>How to Prompt Āagman: A Practical Guide</title>
+<meta content="Learn how to write clear, effective prompts for backtesting, screening, and analysis in Āagman, in any language. Patterns and examples included." name="description"/>
+<link href="https://www.aagman.ai/docs/how-to-prompt" rel="canonical"/>
+<meta content="How to Prompt Āagman: A Practical Guide" property="og:title"/>
+<meta content="Learn how to write clear, effective prompts for backtesting, screening, and analysis in Āagman, in any language. Patterns and examples included." property="og:description"/>
+<meta content="article" property="og:type"/><meta content="Āagman" property="og:site_name"/>
+<meta content="https://www.aagman.ai/docs/how-to-prompt" property="og:url"/>
+<meta content="https://www.aagman.ai/uploads/og-how-to-prompt.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="How to Prompt Āagman: A Practical Guide" name="twitter:title"/>
+<meta content="Learn how to write clear, effective prompts for backtesting, screening, and analysis in Āagman, in any language. Patterns and examples included." name="twitter:description"/>
+<meta content="https://www.aagman.ai/uploads/og-how-to-prompt.png" name="twitter:image"/>
+<link href="/uploads/aagman-logo.png" rel="icon" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; background: #07090A; color: #E7EEEA; font-family: 'Hanken Grotesk', sans-serif; }
@@ -233,351 +233,410 @@
     border-right: 1px solid rgba(255,255,255,0.06);
   }
 </style>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "How to Prompt Āagman",
-  "description": "Learn to write natural-language prompts for Āagman: backtests, screeners, portfolios, and live trades in English, Hindi, or Hinglish.",
-  "author": {"@type": "Organization", "name": "Āagman"},
-  "publisher": {"@type": "Organization", "name": "Āagman", "logo": {"@type": "ImageObject", "url": "https://www.aagman.ai/uploads/aagman-logo.png"}},
+  "headline": "How to Prompt Āagman: A Practical Guide",
+  "description": "Learn how to write clear, effective prompts for backtesting, screening, and analysis in Āagman, in any language. Patterns and examples included.",
+  "author": {
+    "@type": "Organization",
+    "name": "Āagman",
+    "sameAs": [
+      "https://www.linkedin.com/company/aagman-ai/",
+      "https://www.linkedin.com/company/aagman-ai/jobs/",
+      "https://dub.sh/lp-linkedin",
+      "https://dub.sh/x-lp"
+    ],
+    "url": "https://www.aagman.ai/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Āagman",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.aagman.ai/uploads/aagman-logo.png"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/aagman-ai/",
+      "https://www.linkedin.com/company/aagman-ai/jobs/",
+      "https://dub.sh/lp-linkedin",
+      "https://dub.sh/x-lp"
+    ],
+    "url": "https://www.aagman.ai/"
+  },
   "datePublished": "2026-07-04",
   "dateModified": "2026-07-04",
-  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.aagman.ai/docs/how-to-prompt.html"}
-}
-</script>
-<script type="application/ld+json">
-{
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.aagman.ai/docs/how-to-prompt"
+  }
+}</script>
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Docs", "item": "https://www.aagman.ai/docs/"},
-    {"@type": "ListItem", "position": 2, "name": "How to Prompt Āagman", "item": "https://www.aagman.ai/docs/how-to-prompt.html"}
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Docs",
+      "item": "https://www.aagman.ai/docs/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "How to Prompt Āagman",
+      "item": "https://www.aagman.ai/docs/how-to-prompt"
+    }
   ]
-}
-</script>
-</head>
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Āagman",
+  "legalName": "Koti Labs Private Limited",
+  "url": "https://www.aagman.ai/",
+  "logo": "https://www.aagman.ai/uploads/aagman-logo.png",
+  "sameAs": [
+    "https://www.linkedin.com/company/aagman-ai/",
+    "https://www.linkedin.com/company/aagman-ai/jobs/",
+    "https://dub.sh/lp-linkedin",
+    "https://dub.sh/x-lp"
+  ]
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I write prompts in Hindi or Hinglish?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Āagman understands English, Hindi, Hinglish, and other Indian languages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a broker account to use prompts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Backtesting, screening, and analysis work without a broker. You only need a broker connection to place live trades."
+      }
+    }
+  ]
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to write your first prompt in Āagman",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Open the Āagman chat",
+      "text": "Start a new conversation from the dashboard."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Describe your idea",
+      "text": "Say what you want to test or trade in plain language."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Add constraints",
+      "text": "Mention timeframes, instruments, risk limits, and exit rules."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Send and review",
+      "text": "Āagman parses the prompt into a strategy you can backtest or paper trade."
+    }
+  ]
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "SpeakableSpecification",
+  "cssSelector": [
+    ".article-body h2",
+    ".article-body p"
+  ]
+}</script></head>
 <body>
-<input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
-<label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
-
+<input aria-label="Toggle navigation" class="nav-toggle-input" id="nav-toggle" type="checkbox"/>
+<label aria-hidden="true" class="nav-overlay" for="nav-toggle"></label>
 <div class="shell">
-
-  <!-- ============= TOP BAR ============= -->
-  <div class="topbar">
-    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Open navigation">
-      <svg class="ico-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-      <svg class="ico-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"></path></svg>
-    </label>
-    <a class="brand" href="#">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Āagman</span>
-      <span class="brand-section">DOCS</span>
-    </a>
-    <nav class="topnav">
-      <a href="#" class="active">Guides</a>
-      <a href="#">Changelog</a>
-      <a href="#">Wiki</a>
-    </nav>
-    <div class="topright">
-      <div class="search">
-        <svg class="icn" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"></circle><path d="M11 11l3 3"></path></svg>
-        <input type="text" placeholder="Search docs…">
-        <span class="kbd">⌘ K</span>
-      </div>
-      <a class="icon-btn" href="#" aria-label="Support">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.7-2.5 2-2.5 3.5"></path><circle cx="12" cy="17" r=".5" fill="currentColor"></circle></svg>
-      </a>
-      <a class="cta-dash" href="https://app.aagman.ai" target="_blank">Open App</a>
-    </div>
-  </div>
-
-  <!-- ============= BODY ============= -->
-  <div class="body">
-
-    <!-- =========== SIDEBAR =========== -->
-    <aside class="sidebar">
-
-      <div class="side-group">
-        <div class="side-group-label">Getting Started</div>
-        <a class="side-item active" href="/docs/how-to-prompt.html">
-          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5h14v11H9l-4 4z"></path><path d="M9 10h6M9 13h4"></path></svg></span>
+<!-- ============= TOP BAR ============= -->
+<div class="topbar">
+<label aria-label="Open navigation" class="nav-toggle-btn" for="nav-toggle">
+<svg class="ico-open" fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+<svg class="ico-close" fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18"><path d="M6 6l12 12M18 6l-12 12"></path></svg>
+</label>
+<a class="brand" href="#">
+<span class="brand-mark"></span>
+<span class="brand-name">Āagman</span>
+<span class="brand-section">DOCS</span>
+</a>
+<nav class="topnav">
+<a class="active" href="#">Guides</a>
+<a href="#">Changelog</a>
+<a href="#">Wiki</a>
+</nav>
+<div class="topright">
+<div class="search">
+<svg class="icn" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 16 16"><circle cx="7" cy="7" r="5"></circle><path d="M11 11l3 3"></path></svg>
+<input placeholder="Search docs…" type="text"/>
+<span class="kbd">⌘ K</span>
+</div>
+<a aria-label="Support" class="icon-btn" href="#">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.7-2.5 2-2.5 3.5"></path><circle cx="12" cy="17" fill="currentColor" r=".5"></circle></svg>
+</a>
+<a class="cta-dash" href="https://app.aagman.ai" target="_blank">Open App</a>
+</div>
+</div>
+<!-- ============= BODY ============= -->
+<div class="body">
+<!-- =========== SIDEBAR =========== -->
+<aside class="sidebar">
+<div class="side-group">
+<div class="side-group-label">Getting Started</div>
+<a class="side-item active" href="/docs/how-to-prompt.html">
+<span class="ico"><svg fill="none" height="14" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24" width="14"><path d="M5 5h14v11H9l-4 4z"></path><path d="M9 10h6M9 13h4"></path></svg></span>
           How to Prompt Āagman
         </a>
-        <div class="side-subs">
-          <a href="#first-prompt">Your first prompt</a>
-          <a href="#five-pieces">The five pieces</a>
-          <a href="#live-paper">Live &amp; paper trades</a>
-          <a href="#backtest">Backtest a strategy</a>
-          <a href="#portfolio">Build a portfolio</a>
-          <a href="#screener">Run a screener</a>
-          <a href="#tips">Tips</a>
-        </div>
-        <a class="side-item" href="/docs/backtesting-playbook.html">
-          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"></path></svg></span>
+<div class="side-subs">
+<a href="#first-prompt">Your first prompt</a>
+<a href="#five-pieces">The five pieces</a>
+<a href="#live-paper">Live &amp; paper trades</a>
+<a href="#backtest">Backtest a strategy</a>
+<a href="#portfolio">Build a portfolio</a>
+<a href="#screener">Run a screener</a>
+<a href="#tips">Tips</a>
+</div>
+<a class="side-item" href="/docs/backtesting-playbook.html">
+<span class="ico"><svg fill="none" height="14" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24" width="14"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"></path></svg></span>
           Backtesting Playbook
         </a>
-        <a class="side-item" href="/docs/research-handbook.html">
-          <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg></span>
+<a class="side-item" href="/docs/research-handbook.html">
+<span class="ico"><svg fill="none" height="14" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24" width="14"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg></span>
           Research Handbook
         </a>
-      </div>
-
-      <div class="side-group">
-        <div class="side-group-label">Brokers</div>
-        <a class="side-item" href="/docs/connect-zerodha.html">
-          <span class="brand-ico zerodha">Z</span>
+</div>
+<div class="side-group">
+<div class="side-group-label">Brokers</div>
+<a class="side-item" href="/docs/connect-zerodha.html">
+<span class="brand-ico zerodha">Z</span>
           Zerodha
         </a>
-        <a class="side-item disabled" href="#" aria-disabled="true">
-          <span class="brand-ico upstox">U</span>
+<a aria-disabled="true" class="side-item disabled" href="#">
+<span class="brand-ico upstox">U</span>
           Upstox
           <span class="soon">SOON</span>
-        </a>
-        <a class="side-item disabled" href="#" aria-disabled="true">
-          <span class="brand-ico dhan">d</span>
+</a>
+<a aria-disabled="true" class="side-item disabled" href="#">
+<span class="brand-ico dhan">d</span>
           Dhan
           <span class="soon">SOON</span>
-        </a>
-        <a class="side-item disabled" href="#" aria-disabled="true">
-          <span class="brand-ico mo">M</span>
+</a>
+<a aria-disabled="true" class="side-item disabled" href="#">
+<span class="brand-ico mo">M</span>
           Motilal Oswal
           <span class="soon">SOON</span>
-        </a>
-        <a class="side-item disabled" href="#" aria-disabled="true">
-          <span class="brand-ico groww">G</span>
+</a>
+<a aria-disabled="true" class="side-item disabled" href="#">
+<span class="brand-ico groww">G</span>
           Groww
           <span class="soon">SOON</span>
-        </a>
-      </div>
-
-    </aside>
-
-    <!-- =========== CONTENT =========== -->
-    <main class="content">
-
-      <div class="crumb"><span>Getting Started</span><span class="sep">/</span><span style="color:#8a938e;">How to Prompt Āagman</span></div>
-
-      <div class="title-row">
-        <h1 class="title">How to Prompt Āagman</h1>
-        <button class="copy-btn" type="button">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+</a>
+</div>
+</aside>
+<!-- =========== CONTENT =========== -->
+<main class="content">
+<div class="crumb"><span>Getting Started</span><span class="sep">/</span><span style="color:#8a938e;">How to Prompt Āagman</span></div>
+<div class="title-row">
+<h1 class="title">How to Prompt Āagman: A Practical Guide</h1><div style="font-size:13px;color:#6b7570;margin-bottom:22px;">By the Āagman team · Last updated: 4 July 2026</div>
+<button class="copy-btn" type="button">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="1.7" viewbox="0 0 24 24" width="13"><rect height="12" rx="2" width="12" x="8" y="8"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
           Copy page
         </button>
-      </div>
-      <p class="subtitle">Āagman understands natural language — describe what you want the way you'd explain it to another trader. No forms, no dropdowns. Prompt in whatever language you think in.</p>
-
-      <!-- Hero — terminal -->
-      <div class="hero">
-        <div class="hero-grid"></div>
-        <div class="hero-inner">
-          <span class="hero-corner">// prompt</span>
-          <div class="term">
-            <div class="term-chrome">
-              <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
-              <span class="title-t">āagman — brief</span>
-            </div>
-            <div class="term-body">
-              <div class="term-line">
-                <span class="term-prompt-glyph">›</span>
-                <p class="term-text">Backtest a long-only EMA crossover on <span class="hl">RELIANCE</span>, daily, Jan to Dec 2025. Buy when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. 50 shares per trade.<span class="term-cursor"></span></p>
-              </div>
-            </div>
-          </div>
-          <div class="lang-chips">
-            <span class="chip">English</span>
-            <span class="chip">हिन्दी</span>
-            <span class="chip">Hinglish</span>
-            <span class="chip">தமிழ்</span>
-            <span class="chip">తెలుగు</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============= START HERE ============= -->
-      <h2 class="h-section" id="first-prompt">Start here: your first prompt</h2>
-      <p class="h-section-sub">Here's the same idea expressed four different ways — one for each thing Āagman does.</p>
-
-      <div class="prompt-stack">
-        <div class="prompt italics">Backtest a long-only EMA crossover on RELIANCE, daily, Jan to Dec 2025. Buy when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. 50 shares per trade.</div>
-        <div class="prompt italics">Find NIFTY 50 stocks where RSI(14) is above 70.</div>
-        <div class="prompt italics">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK ranked by momentum, monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-        <div class="prompt italics">Buy 50 shares of RELIANCE at market, live. Stop-loss 1% below, target 2% above.</div>
-      </div>
-
-      <div class="prose">
-        <p>Different goals, same principle. Each prompt tells Āagman <strong>what instrument, what condition, what risk, and what mode</strong> — whether that's a historical backtest, a live order, a stock screen, or a portfolio. What changes across the four is how specific you get with each piece.</p>
-      </div>
-
-      <!-- ============= FIVE PIECES ============= -->
-      <h2 class="h-section" id="five-pieces">The five pieces of a prompt</h2>
-      <p class="h-section-sub">Every Āagman prompt has up to five components. The more complete, the faster you get to results.</p>
-
-      <div class="pieces-wrap">
-        <table class="pieces">
-          <thead>
-            <tr><th>Piece</th><th>What Āagman needs to know</th><th>Example fragment</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Symbol</td>
-              <td>Which stock, index, or contract — applies to trades, backtests, and screeners alike</td>
-              <td>RELIANCE / NIFTY 50 universe / BANKNIFTY 24500 CE</td>
-            </tr>
-            <tr>
-              <td>Direction &amp; size</td>
-              <td>Buy or sell, and how much — for trades and backtests; screeners skip this</td>
-              <td>Buy 50 shares / Sell 1 lot / Use 10% of capital</td>
-            </tr>
-            <tr>
-              <td>Entry rule</td>
-              <td>The condition that triggers action — a price, an indicator signal, or a screener filter</td>
-              <td>At market / When RSI crosses above 30 / ROE above 15%</td>
-            </tr>
-            <tr>
-              <td>Exit &amp; risk</td>
-              <td>How the position closes — for trades and backtests; screeners skip this</td>
-              <td>Stop-loss 2%, target 5% / Trailing stop 3% / Exit after 5 bars</td>
-            </tr>
-            <tr>
-              <td>Mode</td>
-              <td>Backtest, live trade, paper trade, or screen / research</td>
-              <td>Live / Paper / Backtest Jan–Dec 2024 / Screen now</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="prose"><p>If you skip a piece, Āagman asks you for it rather than guessing. The more complete your prompt, the faster you get to results.</p></div>
-
-      <!-- ============= FOUR THINGS ============= -->
-      <h2 class="h-section">Four things you can do</h2>
-      <p class="h-section-sub">The same prompt structure adapts to live trading, backtesting, portfolios, and screeners.</p>
-
-      <!-- 1. Live / Paper Trade -->
-      <div class="thing-row" id="live-paper">
-        <span class="thing-num">01</span>
-        <h3 class="h-thing">Deploy a live or paper trade</h3>
-      </div>
-      <div class="prose">
-        <p>This is real execution. Say <strong>"live"</strong> and Āagman places the order after confirming with you. Say <strong>"paper"</strong> to simulate. Specify <strong>intraday</strong> (auto-squares-off at EOD) or <strong>delivery/CNC</strong> (carries overnight).</p>
-      </div>
-
-      <h4 class="h-mini">A simple bracket order</h4>
-      <div class="prompt italics">Go live: sell 100 SBIN intraday with a 0.5% stop and 1.5% take-profit.</div>
-
-      <h4 class="h-mini">Indicator-driven intraday entry</h4>
-      <div class="prompt italics">Deploy live: buy NIFTYBEES intraday when RSI(14) crosses above 30, exit when it crosses 70. 1% stop-loss.</div>
-
-      <h4 class="h-mini">Positional with a trailing stop</h4>
-      <div class="prompt italics">Deploy live as delivery (CNC): buy 30 ITC if weekly RSI is below 40, hold with a 5% trailing stop.</div>
-
-      <div class="prose"><p>Options work the same way — name the structure, strike, expiry, and premium-based exits.</p></div>
-      <div class="prompt italics">Buy 1 lot of NIFTY 24500 CE at market, live. Stop-loss 30%, target 60%.</div>
-
-      <div class="prose"><p>For multi-leg strategies, describe each leg with BUY or SELL. Āagman places all legs together and exits them as a unit.</p></div>
-      <div class="prompt italics">Deploy a live BANKNIFTY short straddle at ATM, 1 lot each leg, combined stop-loss ₹6,000, square-off at 3:15.</div>
-
-      <h4 class="h-mini">Hinglish works natively</h4>
-      <div class="prompt italics">Live deploy karo — NIFTY ka RSI 30 ke neeche jaaye toh BankNifty mein bull call spread daal do. Weekly expiry, 1 lot.</div>
-
-      <!-- 2. Backtest -->
-      <div class="thing-row" id="backtest">
-        <span class="thing-num">02</span>
-        <h3 class="h-thing">Backtest a strategy</h3>
-      </div>
-      <div class="prose">
-        <p>Same structure as a live deploy, but instead of saying "live," give a <strong>date range</strong>. Āagman runs the strategy historically and returns a performance report.</p>
-      </div>
-
-      <h4 class="h-mini">A simple equity backtest</h4>
-      <div class="prompt italics">Backtest a long-only EMA crossover on RELIANCE, daily, Jan to Dec 2025. Go LONG when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. Buy 50 shares per trade.</div>
-
-      <div class="prose">
-        <p>You can layer conditions with AND, chain indicators (like EMA of RSI), use z-scores, arithmetic on indicators, or filter by day-of-week — all in plain language.</p>
-      </div>
-      <div class="prompt italics">Buy SBIN when EMA(10) of RSI(14) crosses above 50, daily, Jan to Dec 2024. Exit when it crosses below 45. 100 shares. Stop loss 4%.</div>
-
-      <div class="prose">
-        <p>Exits go beyond fixed stop/target. Say <strong>"trailing stop at 2%"</strong> and Āagman tracks the high since entry. Say <strong>"exit after 5 bars"</strong> for a time stop. Say <strong>"use 10% of capital per trade"</strong> for percentage-based sizing. Combine them freely.</p>
-        <p>Options backtests add strike selection, expiry, and premium-based exits.</p>
-      </div>
-      <div class="prompt italics">Backtest a short straddle on NIFTY, Jan to Apr 2025. SELL ATM call and ATM put when INDIA VIX &gt; 20. Monthly expiry. Close when VIX drops below 15.</div>
-
-      <!-- 3. Portfolio -->
-      <div class="thing-row" id="portfolio">
-        <span class="thing-num">03</span>
-        <h3 class="h-thing">Build a portfolio</h3>
-      </div>
-      <div class="prose">
-        <p>Define a universe of stocks, tell Āagman how to rank and select, and set a rebalance schedule.</p>
-      </div>
-      <div class="prompt italics">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN, WIPRO, LT ranked by momentum score, monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
-
-      <div class="prose">
-        <p>You can rank by momentum, Sortino ratio, returns over a period, or lowest volatility. Weighting can be equal or market-cap based. Add a dynamic filter so only qualifying stocks enter at each rebalance.</p>
-      </div>
-      <div class="prompt italics">…but only include stocks where RSI(14) is below 50 at each rebalance.</div>
-
-      <div class="prose"><p>Or skip ranking entirely for a buy-and-hold.</p></div>
-      <div class="prompt italics">Equal weight portfolio of RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, no rebalancing, buy and hold, 10 lakh capital.</div>
-
-      <!-- 4. Screener -->
-      <div class="thing-row" id="screener">
-        <span class="thing-num">04</span>
-        <h3 class="h-thing">Run a screener</h3>
-      </div>
-      <div class="prose">
-        <p>Screeners are the simplest prompts — just describe what you're filtering for. No date range or sizing needed.</p>
-      </div>
-
-      <h4 class="h-mini">Technical — filter on indicators, patterns, or price action</h4>
-      <div class="prompt italics">Find NIFTY 50 stocks at their 52-week high.</div>
-
-      <h4 class="h-mini">Fundamental — filter on ratios, margins, shareholding, or cash flow</h4>
-      <div class="prompt italics">Value stocks with PE below 12, price to book below 1, dividend yield above 4%.</div>
-
-      <h4 class="h-mini">Hybrid — combine both in one sentence (this is where Āagman is strongest)</h4>
-      <div class="prompt-stack">
-        <div class="prompt italics">ROE &gt; 10 stocks showing bullish MACD crossover.</div>
-        <div class="prompt italics">High margin stocks (operating margin &gt; 25%) near 52-week lows — price &lt; EMA 200.</div>
-      </div>
-
-      <div class="prose"><p>Use <strong>AND</strong> for all conditions to match, <strong>OR</strong> when any one is enough.</p></div>
-
-      <!-- ============= TIPS ============= -->
-      <h2 class="h-section" id="tips">Tips</h2>
-      <div class="tips">
-        <div class="tip">
-          <span class="tip-tag">SYNTAX</span>
-          <p><strong>You don't need perfect syntax.</strong> "Buy SBIN when EMA 20 crosses EMA 50" works as well as the formal version.</p>
-        </div>
-        <div class="tip">
-          <span class="tip-tag">OPTIONS</span>
-          <p><strong>For options, BUY and SELL mean the option leg itself</strong>, not your view on the underlying.</p>
-        </div>
-        <div class="tip">
-          <span class="tip-tag">CAPITAL</span>
-          <p><strong>Starting capital is optional</strong> for basic backtests but needed for return percentages or percentage-based sizing.</p>
-        </div>
-        <div class="tip">
-          <span class="tip-tag">CONTEXT</span>
-          <p><strong>A longer prompt rarely breaks anything.</strong> A missing piece sometimes does — when in doubt, be explicit.</p>
-        </div>
-      </div>
-
-      <!-- Page nav -->
-      <div class="page-nav">
-        <a href="/docs/backtesting-playbook.html" class="next" style="margin-left:auto;">
-          <div class="pn-dir">Next →</div>
-          <div class="pn-title">The Āagman Backtesting Playbook</div>
-        </a>
-      </div>
-
-    </main>
-
-  </div>
 </div>
-
+<p class="subtitle">Āagman understands natural language — describe what you want the way you'd explain it to another trader. No forms, no dropdowns. Prompt in whatever language you think in.</p>
+<!-- Hero — terminal -->
+<div class="hero">
+<div class="hero-grid"></div>
+<div class="hero-inner">
+<span class="hero-corner">// prompt</span>
+<div class="term">
+<div class="term-chrome">
+<span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+<span class="title-t">āagman — brief</span>
+</div>
+<div class="term-body">
+<div class="term-line">
+<span class="term-prompt-glyph">›</span>
+<p class="term-text">Backtest a long-only EMA crossover on <span class="hl">RELIANCE</span>, daily, Jan to Dec 2025. Buy when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. 50 shares per trade.<span class="term-cursor"></span></p>
+</div>
+</div>
+</div>
+<div class="lang-chips">
+<span class="chip">English</span>
+<span class="chip">हिन्दी</span>
+<span class="chip">Hinglish</span>
+<span class="chip">தமிழ்</span>
+<span class="chip">తెలుగు</span>
+</div>
+</div>
+</div>
+<!-- ============= START HERE ============= -->
+<h2 class="h-section" id="first-prompt">How do I write my first prompt?</h2><p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 20px;max-width:640px;">Write your first prompt as a plain-English instruction describing what you want Āagman to research, test, or trade.</p>
+<p class="h-section-sub">Here's the same idea expressed four different ways — one for each thing Āagman does.</p>
+<div class="prompt-stack">
+<div class="prompt italics">Backtest a long-only EMA crossover on RELIANCE, daily, Jan to Dec 2025. Buy when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. 50 shares per trade.</div>
+<div class="prompt italics">Find NIFTY 50 stocks where RSI(14) is above 70.</div>
+<div class="prompt italics">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK ranked by momentum, monthly rebalance, 10 lakh capital, Jan 2023 to Dec 2024.</div>
+<div class="prompt italics">Buy 50 shares of RELIANCE at market, live. Stop-loss 1% below, target 2% above.</div>
+</div>
+<div class="prose">
+<p>Different goals, same principle. Each prompt tells Āagman <strong>what instrument, what condition, what risk, and what mode</strong> — whether that's a historical backtest, a live order, a stock screen, or a portfolio. What changes across the four is how specific you get with each piece.</p>
+</div>
+<!-- ============= FIVE PIECES ============= -->
+<h2 class="h-section" id="five-pieces">What are the five pieces of a prompt?</h2><p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 20px;max-width:640px;">Every prompt has intent, instrument, condition, action, and constraint. Get them right and the agent knows exactly what to do.</p>
+<p class="h-section-sub">Every Āagman prompt has up to five components. The more complete, the faster you get to results.</p>
+<div class="pieces-wrap">
+<table class="pieces">
+<thead>
+<tr><th>Piece</th><th>What Āagman needs to know</th><th>Example fragment</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Symbol</td>
+<td>Which stock, index, or contract — applies to trades, backtests, and screeners alike</td>
+<td>RELIANCE / NIFTY 50 universe / BANKNIFTY 24500 CE</td>
+</tr>
+<tr>
+<td>Direction &amp; size</td>
+<td>Buy or sell, and how much — for trades and backtests; screeners skip this</td>
+<td>Buy 50 shares / Sell 1 lot / Use 10% of capital</td>
+</tr>
+<tr>
+<td>Entry rule</td>
+<td>The condition that triggers action — a price, an indicator signal, or a screener filter</td>
+<td>At market / When RSI crosses above 30 / ROE above 15%</td>
+</tr>
+<tr>
+<td>Exit &amp; risk</td>
+<td>How the position closes — for trades and backtests; screeners skip this</td>
+<td>Stop-loss 2%, target 5% / Trailing stop 3% / Exit after 5 bars</td>
+</tr>
+<tr>
+<td>Mode</td>
+<td>Backtest, live trade, paper trade, or screen / research</td>
+<td>Live / Paper / Backtest Jan–Dec 2024 / Screen now</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="prose"><p>If you skip a piece, Āagman asks you for it rather than guessing. The more complete your prompt, the faster you get to results.</p></div>
+<!-- ============= FOUR THINGS ============= -->
+<h2 class="h-section">What can I do with prompts?</h2><p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 20px;max-width:640px;">Use prompts to backtest strategies, run screeners, build portfolios, and place live or paper trades.</p>
+<p class="h-section-sub">The same prompt structure adapts to live trading, backtesting, portfolios, and screeners.</p>
+<!-- 1. Live / Paper Trade -->
+<div class="thing-row" id="live-paper">
+<span class="thing-num">01</span>
+<h3 class="h-thing">Deploy a live or paper trade</h3>
+</div>
+<div class="prose">
+<p>This is real execution. Say <strong>"live"</strong> and Āagman places the order after confirming with you. Say <strong>"paper"</strong> to simulate. Specify <strong>intraday</strong> (auto-squares-off at EOD) or <strong>delivery/CNC</strong> (carries overnight).</p>
+</div>
+<h4 class="h-mini">A simple bracket order</h4>
+<div class="prompt italics">Go live: sell 100 SBIN intraday with a 0.5% stop and 1.5% take-profit.</div>
+<h4 class="h-mini">Indicator-driven intraday entry</h4>
+<div class="prompt italics">Deploy live: buy NIFTYBEES intraday when RSI(14) crosses above 30, exit when it crosses 70. 1% stop-loss.</div>
+<h4 class="h-mini">Positional with a trailing stop</h4>
+<div class="prompt italics">Deploy live as delivery (CNC): buy 30 ITC if weekly RSI is below 40, hold with a 5% trailing stop.</div>
+<div class="prose"><p>Options work the same way — name the structure, strike, expiry, and premium-based exits.</p></div>
+<div class="prompt italics">Buy 1 lot of NIFTY 24500 CE at market, live. Stop-loss 30%, target 60%.</div>
+<div class="prose"><p>For multi-leg strategies, describe each leg with BUY or SELL. Āagman places all legs together and exits them as a unit.</p></div>
+<div class="prompt italics">Deploy a live BANKNIFTY short straddle at ATM, 1 lot each leg, combined stop-loss ₹6,000, square-off at 3:15.</div>
+<h4 class="h-mini">Hinglish works natively</h4>
+<div class="prompt italics">Live deploy karo — NIFTY ka RSI 30 ke neeche jaaye toh BankNifty mein bull call spread daal do. Weekly expiry, 1 lot.</div>
+<!-- 2. Backtest -->
+<div class="thing-row" id="backtest">
+<span class="thing-num">02</span>
+<h3 class="h-thing">Backtest a strategy</h3>
+</div>
+<div class="prose">
+<p>Same structure as a live deploy, but instead of saying "live," give a <strong>date range</strong>. Āagman runs the strategy historically and returns a performance report.</p>
+</div>
+<h4 class="h-mini">A simple equity backtest</h4>
+<div class="prompt italics">Backtest a long-only EMA crossover on RELIANCE, daily, Jan to Dec 2025. Go LONG when EMA(20) crosses above EMA(50). Stop loss 1.5%, take profit 4.5%. Buy 50 shares per trade.</div>
+<div class="prose">
+<p>You can layer conditions with AND, chain indicators (like EMA of RSI), use z-scores, arithmetic on indicators, or filter by day-of-week — all in plain language.</p>
+</div>
+<div class="prompt italics">Buy SBIN when EMA(10) of RSI(14) crosses above 50, daily, Jan to Dec 2024. Exit when it crosses below 45. 100 shares. Stop loss 4%.</div>
+<div class="prose">
+<p>Exits go beyond fixed stop/target. Say <strong>"trailing stop at 2%"</strong> and Āagman tracks the high since entry. Say <strong>"exit after 5 bars"</strong> for a time stop. Say <strong>"use 10% of capital per trade"</strong> for percentage-based sizing. Combine them freely.</p>
+<p>Options backtests add strike selection, expiry, and premium-based exits.</p>
+</div>
+<div class="prompt italics">Backtest a short straddle on NIFTY, Jan to Apr 2025. SELL ATM call and ATM put when INDIA VIX &gt; 20. Monthly expiry. Close when VIX drops below 15.</div>
+<!-- 3. Portfolio -->
+<div class="thing-row" id="portfolio">
+<span class="thing-num">03</span>
+<h3 class="h-thing">Build a portfolio</h3>
+</div>
+<div class="prose">
+<p>Define a universe of stocks, tell Āagman how to rank and select, and set a rebalance schedule.</p>
+</div>
+<div class="prompt italics">Backtest portfolio of top 3 stocks from RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, SBIN, WIPRO, LT ranked by momentum score, monthly rebalance, equal weight, 10 lakh capital, Jan 2023 to Dec 2024.</div>
+<div class="prose">
+<p>You can rank by momentum, Sortino ratio, returns over a period, or lowest volatility. Weighting can be equal or market-cap based. Add a dynamic filter so only qualifying stocks enter at each rebalance.</p>
+</div>
+<div class="prompt italics">…but only include stocks where RSI(14) is below 50 at each rebalance.</div>
+<div class="prose"><p>Or skip ranking entirely for a buy-and-hold.</p></div>
+<div class="prompt italics">Equal weight portfolio of RELIANCE, TCS, INFY, HDFCBANK, ICICIBANK, no rebalancing, buy and hold, 10 lakh capital.</div>
+<!-- 4. Screener -->
+<div class="thing-row" id="screener">
+<span class="thing-num">04</span>
+<h3 class="h-thing">Run a screener</h3>
+</div>
+<div class="prose">
+<p>Screeners are the simplest prompts — just describe what you're filtering for. No date range or sizing needed.</p>
+</div>
+<h4 class="h-mini">Technical — filter on indicators, patterns, or price action</h4>
+<div class="prompt italics">Find NIFTY 50 stocks at their 52-week high.</div>
+<h4 class="h-mini">Fundamental — filter on ratios, margins, shareholding, or cash flow</h4>
+<div class="prompt italics">Value stocks with PE below 12, price to book below 1, dividend yield above 4%.</div>
+<h4 class="h-mini">Hybrid — combine both in one sentence (this is where Āagman is strongest)</h4>
+<div class="prompt-stack">
+<div class="prompt italics">ROE &gt; 10 stocks showing bullish MACD crossover.</div>
+<div class="prompt italics">High margin stocks (operating margin &gt; 25%) near 52-week lows — price &lt; EMA 200.</div>
+</div>
+<div class="prose"><p>Use <strong>AND</strong> for all conditions to match, <strong>OR</strong> when any one is enough.</p></div>
+<!-- ============= TIPS ============= -->
+<h2 class="h-section" id="tips">Tips</h2>
+<div class="tips">
+<div class="tip">
+<span class="tip-tag">SYNTAX</span>
+<p><strong>You don't need perfect syntax.</strong> "Buy SBIN when EMA 20 crosses EMA 50" works as well as the formal version.</p>
+</div>
+<div class="tip">
+<span class="tip-tag">OPTIONS</span>
+<p><strong>For options, BUY and SELL mean the option leg itself</strong>, not your view on the underlying.</p>
+</div>
+<div class="tip">
+<span class="tip-tag">CAPITAL</span>
+<p><strong>Starting capital is optional</strong> for basic backtests but needed for return percentages or percentage-based sizing.</p>
+</div>
+<div class="tip">
+<span class="tip-tag">CONTEXT</span>
+<p><strong>A longer prompt rarely breaks anything.</strong> A missing piece sometimes does — when in doubt, be explicit.</p>
+</div>
+</div>
+<!-- Page nav -->
+<div class="page-nav">
+<a class="next" href="/docs/backtesting-playbook.html" style="margin-left:auto;">
+<div class="pn-dir">Next →</div>
+<div class="pn-title">The Āagman Backtesting Playbook</div>
+</a>
+</div>
+</main>
+</div>
+</div>
 <script>
 (function() {
   function fallbackCopy(text) {
@@ -622,5 +681,5 @@
   }
 })();
 </script>
-</body>
+<div style="margin-top:56px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08);"><h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;color:#E7EEEA;margin:0 0 18px;">Related guides</h2><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;"><li><a href="./backtesting-playbook" style="font-size:15px;color:#56E8B8;text-decoration:none;">The Āagman Backtesting Playbook →</a></li><li><a href="./research-handbook" style="font-size:15px;color:#56E8B8;text-decoration:none;">Āagman Research Handbook →</a></li><li><a href="./connect-zerodha" style="font-size:15px;color:#56E8B8;text-decoration:none;">Connect Zerodha to Āagman →</a></li></ul></div></body>
 </html>
