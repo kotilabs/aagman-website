@@ -1,0 +1,251 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import Tip from '../components/Tip.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, category, pubDate, updatedDate, readingTime, author, authorSlug, tags } = post.data;
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+const allPosts = await getCollection('posts');
+const related = allPosts
+  .filter(p => p.data.slug !== post.data.slug && p.data.category === category)
+  .slice(0, 2);
+if (related.length < 2) {
+  const more = allPosts.filter(p => p.data.slug !== post.data.slug && !related.find(r => r.data.slug === p.data.slug)).slice(0, 2 - related.length);
+  related.push(...more);
+}
+
+const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
+---
+
+<Base
+  title={`${title} | Āagman Blog`}
+  description={description}
+  canonical={canonical}
+  ogType="article"
+  activeCategory={category}
+>
+  <div class="crumb">
+    <a href="/blog/">Blog</a><span class="sep">/</span>
+    <a href="/blog/">{category}</a><span class="sep">/</span>
+    <span class="cur">{title}</span>
+  </div>
+
+  <h1 class="a-title">{title}</h1>
+  <p class="a-dek">{description}</p>
+
+  <div class="byline">
+    <a class="byline-author" href="/blog/author/">
+      <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+      <div>
+        <div class="byline-name">{author}</div>
+        <div class="byline-meta">{fmtDate(pubDate)}{updatedDate ? ` (updated ${fmtDate(updatedDate)})` : ''} · {readingTime ?? 6} min read</div>
+      </div>
+    </a>
+    <div class="byline-actions">
+      <button class="copy-btn" type="button" id="copy-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+        <span id="copy-label">Copy link</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2L12 16.4 5.7 20.8 8 13.6l-6-4.4h7.6z"></path></svg></span>
+    <div>
+      <div class="callout-label">Key takeaway</div>
+      <p>{description}</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <Content components={{ Tip }} />
+  </div>
+
+  <div class="tag-row">
+    {tags.map(tag => <span class="tag-chip">{tag}</span>)}
+  </div>
+
+  <div class="author-card">
+    <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+    <div>
+      <div class="author-card-name">{author}</div>
+      <div class="author-card-role">EDITORIAL DESK</div>
+      <p class="author-card-bio">Notes on strategy, execution, and risk from the team building Āagman — how to brief it better, and where backtests lie to you.</p>
+      <a class="link" href="/blog/author/">View profile →</a>
+    </div>
+  </div>
+
+  {related.length > 0 && (
+    <>
+      <h2 class="h-related">Related reading</h2>
+      <div class="related-grid">
+        {related.map(r => (
+          <a class="r-card" href={`/blog/${r.data.slug}/`}>
+            <span class="r-tag">{r.data.category}</span>
+            <p class="r-title">{r.data.title}</p>
+          </a>
+        ))}
+      </div>
+    </>
+  )}
+
+  <Newsletter compact />
+
+  <div class="page-nav">
+    <a href="/blog/">
+      <div class="pn-dir">← Back to</div>
+      <div class="pn-title">All Posts</div>
+    </a>
+  </div>
+
+  <script is:inline>
+  (function() {
+    var copyBtn = document.getElementById('copy-btn');
+    var copyLabel = document.getElementById('copy-label');
+    var t;
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function() {
+        var url = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function() {
+            copyLabel.textContent = 'Copied ✓';
+            clearTimeout(t);
+            t = setTimeout(function() { copyLabel.textContent = 'Copy link'; }, 1600);
+          }, function() {
+            fallbackCopy(url);
+            copyLabel.textContent = 'Copied ✓';
+            clearTimeout(t);
+            t = setTimeout(function() { copyLabel.textContent = 'Copy link'; }, 1600);
+          });
+        } else {
+          fallbackCopy(url);
+          copyLabel.textContent = 'Copied ✓';
+          clearTimeout(t);
+          t = setTimeout(function() { copyLabel.textContent = 'Copy link'; }, 1600);
+        }
+      });
+    }
+  })();
+  </script>
+
+  <style is:global>
+    .content { padding: 48px clamp(24px, 5vw, 72px) 80px; max-width: 760px; }
+    .crumb { display: flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .14em; color: #56E8B8; text-transform: uppercase; margin-bottom: 18px; flex-wrap: wrap; }
+    .crumb .sep { color: #2e3d37; }
+    .crumb a:hover { color: #E7EEEA; }
+    .crumb .cur { color: #8a938e; text-transform: none; letter-spacing: 0; font-family: 'Hanken Grotesk', sans-serif; font-size: 12.5px; }
+
+    h1.a-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 40px; line-height: 1.08; letter-spacing: -.03em; font-weight: 800; color: #E7EEEA; margin: 0 0 14px; }
+    .a-dek { font-size: 16.5px; color: #8a938e; line-height: 1.55; margin: 0 0 22px; }
+
+    .byline { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 34px; flex-wrap: wrap; }
+    .byline-author { display: flex; align-items: center; gap: 10px; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .byline-name { font-size: 13.5px; font-weight: 600; color: #E7EEEA; }
+    .byline-name a:hover { color: #56E8B8; }
+    .byline-meta { font-size: 12px; color: #6b7570; margin-top: 1px; }
+    .byline-actions { display: flex; align-items: center; gap: 8px; }
+    .copy-btn { display: inline-flex; align-items: center; gap: 7px; font-family: 'Geist Mono', monospace; font-size: 11px; color: #C4CFC9; background: #0B1711; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+    .copy-btn:hover { border-color: rgba(86,232,184,0.3); color: #E7EEEA; }
+
+    .callout { display: flex; gap: 14px; background: #0A0E0D; border: 1px solid rgba(86,232,184,0.18); border-radius: 12px; padding: 20px 22px; margin: 8px 0 30px; }
+    .callout-ico { width: 30px; height: 30px; border-radius: 8px; background: rgba(86,232,184,0.1); border: 1px solid rgba(86,232,184,0.2); color: #56E8B8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .callout-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #56E8B8; margin-bottom: 6px; }
+    .callout p { margin: 0; font-size: 14px; line-height: 1.6; color: #C4CFC9; }
+
+    .prose p { color: #a0a8a4; line-height: 1.75; font-size: 15.5px; margin: 0 0 18px; }
+    .prose p strong { color: #E7EEEA; font-weight: 600; }
+    .prose ul { color: #a0a8a4; line-height: 1.75; font-size: 15.5px; margin: 0 0 18px; padding-left: 20px; }
+    .prose li { margin-bottom: 6px; }
+    .prose li strong { color: #E7EEEA; }
+    .prose h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 27px; font-weight: 700; color: #E7EEEA; letter-spacing: -.02em; margin: 42px 0 14px; scroll-margin-top: 80px; }
+    .prose h3 { font-family: 'Hanken Grotesk', sans-serif; font-size: 19px; font-weight: 700; color: #E7EEEA; margin: 26px 0 10px; letter-spacing: -.01em; }
+    .prose blockquote, .prose .pullquote { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; line-height: 1.4; color: #E7EEEA; font-weight: 600; letter-spacing: -.01em; border-left: 2px solid #56E8B8; padding: 4px 0 4px 22px; margin: 30px 0; }
+    .prose blockquote p { margin: 0; color: inherit; font-size: inherit; line-height: inherit; }
+
+    .pieces-wrap, .prose .table-wrap { overflow-x: auto; margin: 8px 0 24px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.07); }
+    table.pieces, .prose table { width: 100%; border-collapse: collapse; min-width: 480px; }
+    table.pieces th, .prose table th { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: #56E8B8; padding: 11px 16px; text-align: left; border-bottom: 1px solid rgba(86,232,184,0.15); background: #0B1711; font-weight: 500; }
+    table.pieces td, .prose table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #a0a8a4; vertical-align: top; line-height: 1.5; font-size: 13.5px; background: #0A0E0D; }
+    table.pieces td:first-child, .prose table td:first-child { color: #E7EEEA; font-weight: 600; white-space: nowrap; }
+    table.pieces tr:last-child td, .prose table tr:last-child td { border-bottom: none; }
+
+    .tips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 8px; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 44px 0 0; }
+    .tag-chip { font-family: 'Geist Mono', monospace; font-size: 10.5px; color: #8a938e; background: #0B1711; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 5px 13px; }
+
+    .author-card { display: flex; gap: 16px; align-items: flex-start; margin-top: 30px; padding: 24px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; }
+    .author-card .avatar { width: 48px; height: 48px; font-size: 17px; }
+    .author-card-name { font-size: 15px; font-weight: 700; color: #E7EEEA; }
+    .author-card-role { font-family: 'Geist Mono', monospace; font-size: 10.5px; color: #56E8B8; letter-spacing: .04em; margin: 2px 0 8px; }
+    .author-card-bio { font-size: 13px; color: #8a938e; line-height: 1.55; margin: 0 0 10px; }
+    .author-card a.link { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: #56E8B8; }
+    .author-card a.link:hover { text-decoration: underline; }
+
+    h2.h-related { font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 700; color: #E7EEEA; margin: 56px 0 16px; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .r-card { display: block; padding: 18px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+    .r-card:hover { border-color: rgba(86,232,184,0.25); }
+    .r-tag { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 9px; color: #56E8B8; margin-bottom: 8px; letter-spacing: .08em; text-transform: uppercase; }
+    .r-title { font-size: 14.5px; font-weight: 700; color: #E7EEEA; line-height: 1.35; margin: 0; }
+    .r-card:hover .r-title { color: #56E8B8; }
+
+    .newsletter-compact { padding: 28px 30px; }
+    .newsletter-compact h3 { font-size: 18px; }
+    .newsletter-compact input { width: 220px; }
+
+    .page-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .page-nav a { flex: 1; padding: 14px 18px; background: #0A0E0D; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+    .page-nav a:hover { border-color: rgba(86,232,184,0.25); }
+    .page-nav .pn-dir { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #4a5550; text-transform: uppercase; }
+    .page-nav .pn-title { font-size: 14px; color: #E7EEEA; font-weight: 600; margin-top: 4px; }
+    .page-nav .next { text-align: right; }
+
+    @media (max-width: 1024px) {
+      .content { padding: 40px clamp(20px, 5vw, 56px) 64px; }
+      .tips { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .content { padding: 28px 18px 56px; }
+      h1.a-title { font-size: 26px; }
+      .a-dek { font-size: 14.5px; }
+      .byline { flex-direction: column; align-items: flex-start; }
+      .byline-actions { align-self: flex-start; }
+      .prose h2 { font-size: 21px; margin-top: 32px; }
+      .pullquote { font-size: 18px; }
+      .newsletter-compact { flex-direction: column; align-items: flex-start; }
+      .newsletter-compact form { width: 100%; }
+      .newsletter-compact input { width: 100%; flex: 1; }
+      .page-nav { flex-direction: column; }
+      .page-nav .next { text-align: left; }
+    }
+  </style>
+</Base>

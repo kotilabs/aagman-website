@@ -1,0 +1,61 @@
+---
+title: "Why Most Mean-Reversion Strategies Die in Backtests"
+description: "They post a beautiful equity curve in-sample and fall apart the moment the regime shifts. Here's what the curve is hiding — and how to test for it before you go live."
+slug: "why-most-mean-reversion-strategies-die-in-backtests"
+pubDate: 2026-06-28
+author: "Āagman Desk"
+authorSlug: "aagman-desk"
+category: "Strategies & Systems"
+tags: ["Mean Reversion", "Backtesting", "Risk Management", "Regime Analysis"]
+featured: true
+readingTime: 9
+---
+
+Every trader who's built a mean-reversion strategy has seen this chart: a smooth, upward-sloping equity curve, a Sharpe ratio comfortably above 1.5, and a drawdown that looks almost boring. It's easy to look at that curve and start sizing up.
+
+Then you go live, or you extend the backtest window by six more months, and the strategy stops working — not gradually, but all at once. This isn't bad luck. It's usually a sign the backtest was measuring the wrong thing.
+
+## The setup that looks great on paper
+
+Most mean-reversion setups share the same skeleton: price deviates from a moving average or a Bollinger band, an oscillator confirms the extreme, and the strategy bets on reversion to the mean. Something like:
+
+> Buy when price is 2 standard deviations below the 20-day mean and RSI(14) is below 30. Exit at the mean or after 5 bars.
+
+Backtested over a range-bound year, this looks fantastic. Reversion strategies are, almost by definition, built to perform well in exactly the kind of market the sample was drawn from. That's the trap — **the backtest window and the strategy's edge are the same thing.**
+
+## Where the cracks show
+
+### 1. Survivorship in the universe
+
+If your universe is "today's NIFTY 50," you've already filtered out every stock that got removed from the index for underperforming. A mean-reversion strategy tested only on survivors will look like it always reverts — because the ones that didn't revert aren't in the sample anymore.
+
+### 2. Regime blindness
+
+Reversion works when volatility is range-bound and breaks down hard in a trending or high-volatility regime — exactly when a "deviation from the mean" stops being noise and starts being the new price. A single backtest window usually sits inside one regime.
+
+### 3. The exit no one designs for
+
+Most reversion backtests define an entry carefully and leave the exit as "revert to mean or time-stop." That's fine until price keeps moving away from the mean. Without a hard stop, one regime shift erases months of small wins in a single trade.
+
+## A simple fix: test across regimes, not just time
+
+Instead of one long backtest window, split your history into distinct volatility regimes — using something as simple as a rolling realized-volatility percentile — and report performance separately for each. A strategy worth trading should not fall apart entirely in the higher-volatility half.
+
+| Regime | Win rate | Sharpe | Max drawdown |
+|---|---|---|---|
+| Low volatility (bottom 50%) | 64% | 1.8 | -6.1% |
+| High volatility (top 50%) | 41% | -0.3 | -22.4% |
+
+That split is the whole point. A strategy that looks like a Sharpe of 1.5 blended is, in this case, actually two very different strategies stitched together — one you'd want to trade, and one you wouldn't. Splitting the report is what tells you which half you're in right now.
+
+## Tips before you trust a reversion backtest
+
+<Tip tag="UNIVERSE">**Use a point-in-time universe.** Backtest against the index membership as it existed then, not as it exists today.</Tip>
+
+<Tip tag="REGIME">**Split by volatility, not just by year.** Calendar years don't align with when regimes actually change.</Tip>
+
+<Tip tag="EXIT">**Always add a hard stop.** "Revert to mean" is not an exit — it's a hope. Cap the loss if reversion doesn't happen.</Tip>
+
+<Tip tag="SIZE">**Size down in high-volatility regimes.** The same position size means very different risk depending on the regime.</Tip>
+
+None of this means mean reversion doesn't work — it's one of the most reliable edges in liquid Indian equities when it's sized and tested honestly. It just means the smooth equity curve you see on the first run is rarely the whole story. Ask Āagman to split any backtest by volatility regime and it'll return both halves of the report automatically.

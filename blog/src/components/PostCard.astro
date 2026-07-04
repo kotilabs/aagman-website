@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, description, category, pubDate, readingTime, author } = post.data;
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<a class="card" href={`/blog/${post.data.slug}/`} data-category={category}>
+  <span class="card-tag">{category}</span>
+  <h3 class="card-title">{title}</h3>
+  <p class="card-excerpt">{description}</p>
+  <div class="meta-row">
+    <span class="meta-author">
+      <span class="avatar" style="background:rgba(86,232,184,0.16);color:#56E8B8">Ā</span>
+      <span class="meta-author-name">{author}</span>
+    </span>
+    <span class="dot-sep"></span>
+    <span>{fmtDate(pubDate)}</span>
+    <span class="dot-sep"></span>
+    <span>{readingTime ?? 6} min read</span>
+  </div>
+</a>

@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import TopBar from '../components/TopBar.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  activeNav?: 'posts' | 'authors' | 'docs';
+  activeCategory?: string;
+  activeAuthor?: string;
+  sidebarMode?: 'filter' | 'link';
+}
+
+const { title, description, canonical, ogImage = 'https://www.aagman.ai/uploads/og-image.png', ogType = 'website', activeNav, activeCategory, activeAuthor, sidebarMode = 'link' } = Astro.props;
+const site = 'https://www.aagman.ai';
+const url = canonical ? canonical : new URL(Astro.url.pathname, site).toString();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link href={url} rel="canonical">
+  <link href="/uploads/aagman-logo.png" rel="icon" type="image/png">
+  <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+  <meta content={title} property="og:title">
+  <meta content={description} property="og:description">
+  <meta content={url} property="og:url">
+  <meta content={ogImage} property="og:image">
+  <meta content={ogType} property="og:type">
+  <meta content="Āagman" property="og:site_name">
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content={title} name="twitter:title">
+  <meta content={description} name="twitter:description">
+  <meta content={ogImage} name="twitter:image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
+
+  <div class="shell">
+    <TopBar activeNav={activeNav} />
+    <div class="body">
+      <Sidebar activeCategory={activeCategory} activeAuthor={activeAuthor} mode={sidebarMode} />
+      <main class="content">
+        <slot />
+      </main>
+    </div>
+  </div>
+
+  <script is:inline>
+  (function() {
+    var overlay = document.querySelector('.nav-overlay');
+    var toggle = document.getElementById('nav-toggle');
+    if (overlay && toggle) {
+      overlay.addEventListener('click', function() { toggle.checked = false; });
+    }
+  })();
+  </script>
+</body>
+</html>
