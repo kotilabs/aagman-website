@@ -95,50 +95,69 @@ function fmtDate(d: Date) {
 
     let activeCategory = 'All';
     let filtersOpen = false;
+    let searchTerm = '';
+    const searchInput = document.getElementById('top-search');
 
-    function updateFilter(category) {
-      activeCategory = category;
-      filtersOpen = false;
+    function updateUrl() {
+      if (!history.replaceState) return;
+      const url = new URL(window.location.href);
+      if (activeCategory === 'All') {
+        url.searchParams.delete('category');
+      } else {
+        url.searchParams.set('category', activeCategory);
+      }
+      if (searchTerm) {
+        url.searchParams.set('search', searchTerm);
+      } else {
+        url.searchParams.delete('search');
+      }
+      history.replaceState(null, '', url.toString());
+    }
+
+    function applyFilters() {
+      const term = searchTerm.trim().toLowerCase();
+      const hasTerm = term.length > 0;
 
       sidebarBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === activeCategory);
       });
       pillBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === activeCategory);
       });
 
-      if (category === 'All') {
-        featured.style.display = 'grid';
-        gridHeading.textContent = 'Latest';
-      } else {
-        featured.style.display = 'none';
-        gridHeading.textContent = category;
-      }
+      const featuredCatMatch = activeCategory === 'All' || featured.getAttribute('data-category') === activeCategory;
+      const featuredTextMatch = !hasTerm || (featured.textContent || '').toLowerCase().includes(term);
+      const showFeatured = activeCategory === 'All' && !hasTerm ? true : (featuredCatMatch && featuredTextMatch);
+      featured.style.display = showFeatured ? 'grid' : 'none';
 
       let visibleCount = 0;
       cards.forEach(card => {
-        const match = category === 'All' || card.getAttribute('data-category') === category;
-        card.style.display = match ? '' : 'none';
-        if (match) visibleCount++;
+        const catMatch = activeCategory === 'All' || card.getAttribute('data-category') === activeCategory;
+        const textMatch = !hasTerm || (card.textContent || '').toLowerCase().includes(term);
+        const show = catMatch && textMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
       });
 
+      if (hasTerm) {
+        gridHeading.textContent = activeCategory === 'All' ? 'Search results' : activeCategory;
+      } else {
+        gridHeading.textContent = activeCategory === 'All' ? 'Latest' : activeCategory;
+      }
       resultCount.textContent = visibleCount + ' article' + (visibleCount === 1 ? '' : 's');
       emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-
-      filterTriggerLabel.textContent = category === 'All' ? 'All categories' : category;
+      filterTriggerLabel.textContent = activeCategory === 'All' ? 'All categories' : activeCategory;
       pillRow.classList.toggle('open', filtersOpen);
       filterTriggerChev.classList.toggle('rotated', filtersOpen);
       filterTrigger.setAttribute('aria-expanded', String(filtersOpen));
 
-      if (history.replaceState) {
-        const url = new URL(window.location.href);
-        if (category === 'All') {
-          url.searchParams.delete('category');
-        } else {
-          url.searchParams.set('category', category);
-        }
-        history.replaceState(null, '', url.toString());
-      }
+      updateUrl();
+    }
+
+    function updateFilter(category) {
+      activeCategory = category;
+      filtersOpen = false;
+      applyFilters();
     }
 
     sidebarBtns.forEach(btn => {
@@ -162,11 +181,24 @@ function fmtDate(d: Date) {
       filterTrigger.setAttribute('aria-expanded', String(filtersOpen));
     });
 
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        searchTerm = this.value;
+        applyFilters();
+      });
+    }
+
     const params = new URLSearchParams(window.location.search);
     const paramCat = params.get('category');
+    const paramSearch = params.get('search');
     if (paramCat && categories.includes(paramCat)) {
-      updateFilter(paramCat);
+      activeCategory = paramCat;
     }
+    if (paramSearch && searchInput) {
+      searchTerm = paramSearch;
+      searchInput.value = paramSearch;
+    }
+    applyFilters();
   })();
   </script>
 </Base>

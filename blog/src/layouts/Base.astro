@@ -65,6 +65,16 @@ const url = canonical ? canonical : new URL(Astro.url.pathname, site).toString()
     if (overlay && toggle) {
       overlay.addEventListener('click', function() { toggle.checked = false; });
     }
+
+    var searchInput = document.getElementById('top-search');
+    if (searchInput) {
+      document.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    }
   })();
   </script>
 </body>

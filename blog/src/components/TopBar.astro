@@ -23,7 +23,7 @@ const { activeNav = 'posts' } = Astro.props;
   <div class="topright">
     <div class="search">
       <svg class="icn" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"></circle><path d="M11 11l3 3"></path></svg>
-      <input type="text" placeholder="Search articles…">
+      <input id="top-search" type="text" placeholder="Search articles…" aria-label="Search articles" autocomplete="off">
       <span class="kbd">⌘ K</span>
     </div>
     <a class="icon-btn" href="#" aria-label="Support">
