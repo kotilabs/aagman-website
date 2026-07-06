@@ -88,11 +88,22 @@ Test whether buying options has worked in this setup before committing money. Di
 
 The same trader now sees theta as a line item. He buys 45-day options or uses spreads, sizes in lots he can afford to lose, and exits at his stop. When range-bound, he sells premium instead of buying it. His P&L is smaller, more consistent, and controlled.
 
-## Test your edge on Āagman
+## Backtesting
 
-The fastest way to know whether your options buying idea is any good is to backtest it. Paste this prompt into Āagman and compare the option leg against the underlying:
+The fastest way to know whether your options-buying idea is any good is to backtest it. Run it through Āagman instead of your live account.
 
-```
+1. Log into Āagman.
+2. Type your strategy in plain language — instrument, timeframe, dates, entry rule, exit rule.
+3. Āagman shows you a strategy card. Check that it matches what you meant.
+4. Click "Run Risk Checks."
+5. Click "Run Backtest."
+6. Read the results — total return, max drawdown, win rate, trade count, equity curve, trade table.
+7. Check the trade table for anything that looks off.
+8. Tweak one thing and rerun — a filter, a period, a symbol.
+9. Compare the option leg against the underlying for the same period.
+10. If the numbers do not beat the simpler alternative, do not trade the option leg.
+
+```text
 Backtest a long-only ATM call strategy on NIFTY from 1 January 2023 to 1 January 2026.
 Entry: BUY one ATM Nifty call on the first trading day of each monthly expiry cycle.
 Exit: Hold to expiry, then roll to the new monthly ATM call.
@@ -100,7 +111,9 @@ Position sizing: 1 lot per trade. Fees 5 bps, slippage 3 bps.
 Also show the buy-and-hold return of Nifty over the same period.
 ```
 
-You will see whether the option leg added any return after costs, or whether theta and volatility ate the profits. Paper trade the new structure before risking live capital. When results match, ask Āagman to deploy a directional options strategy on [STOCK TICKER / INDEX] with your chosen structure and risk rules. Start small.
+You will see whether the option leg added any return after costs, or whether theta and volatility ate the profits.
+
+When the backtest makes sense, paper trade the same structure on Āagman for one or two expiry cycles. If the paper results match, ask Āagman to deploy a directional options strategy on [STOCK TICKER / INDEX] with your chosen structure and risk rules. Start small.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
