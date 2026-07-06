@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { title, description, category, pubDate, updatedDate, readingTime, author, authorSlug, tags } = post.data;
+const { title, description, takeaway, category, pubDate, updatedDate, readingTime, author, authorSlug, tags } = post.data;
 
 function fmtDate(d: Date) {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -68,7 +68,7 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
     <span class="callout-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2L12 16.4 5.7 20.8 8 13.6l-6-4.4h7.6z"></path></svg></span>
     <div>
       <div class="callout-label">Key takeaway</div>
-      <p>{description}</p>
+      <p>{takeaway || description}</p>
     </div>
   </div>
 
@@ -178,6 +178,42 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
         }
       });
     });
+
+    // Auto-link every "Āagman" mention to the app
+    (function linkifyAagman() {
+      var skipTags = { A: 1, PRE: 1, CODE: 1, SCRIPT: 1, STYLE: 1, SVG: 1, NOSCRIPT: 1 };
+      var skipClasses = { 'a-title': 1, 'crumb': 1 };
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+      var nodes = [];
+      var node;
+      while ((node = walker.nextNode())) {
+        if (node.textContent.indexOf('Āagman') === -1) continue;
+        var parent = node.parentNode;
+        if (!parent || skipTags[parent.tagName]) continue;
+        if (parent.closest && parent.closest('a, pre, code, script, style, svg, noscript')) continue;
+        var cls = parent.className;
+        if (typeof cls === 'string' && skipClasses[cls]) continue;
+        nodes.push(node);
+      }
+      nodes.forEach(function(textNode) {
+        var text = textNode.textContent;
+        var parts = text.split(/(Āagman)/g);
+        if (parts.length < 3) return;
+        var frag = document.createDocumentFragment();
+        parts.forEach(function(part) {
+          if (part === 'Āagman') {
+            var a = document.createElement('a');
+            a.href = 'https://app.aagman.ai';
+            a.className = 'aagman-link';
+            a.textContent = part;
+            frag.appendChild(a);
+          } else {
+            frag.appendChild(document.createTextNode(part));
+          }
+        });
+        textNode.parentNode.replaceChild(frag, textNode);
+      });
+    })();
   })();
   </script>
 
@@ -225,6 +261,9 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
     .code-copy .ico-check { display: none; }
     .code-copy.copied .ico-copy { display: none; }
     .code-copy.copied .ico-check { display: block; }
+
+    a.aagman-link { color: #56E8B8; text-decoration: none; border-bottom: 1px solid rgba(86,232,184,0.35); }
+    a.aagman-link:hover { color: #E7EEEA; border-bottom-color: #56E8B8; }
 
     .pieces-wrap, .prose .table-wrap { overflow-x: auto; margin: 8px 0 24px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.07); }
     table.pieces, .prose table { width: 100%; border-collapse: collapse; min-width: 480px; }
