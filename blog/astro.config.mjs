@@ -13,4 +13,7 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  markdown: {
+    syntaxHighlight: false,
+  },
 });
