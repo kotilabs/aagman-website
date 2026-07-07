@@ -1,0 +1,206 @@
+---
+title: "How to trade an iron condor on NIFTY"
+description: "Learn the how to trade an iron condor on nifty for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
+takeaway: "Learn the how to trade an iron condor on nifty for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
+slug: "t1-trade-iron-condor-nifty"
+pubDate: 2026-07-07
+author: "Āagman Desk"
+authorSlug: "aagman-desk"
+category: "Strategies & Systems"
+tags: 
+  - "Trade"
+  - "Iron"
+  - "Condor"
+  - "Nifty"
+  - "Strategies"
+featured: false
+readingTime: 14
+---
+
+# How to Trade an Iron Condor on NIFTY: Setup, Risk, and a Worked Example
+
+A NIFTY iron condor is a four-legged, market-neutral credit spread made of two vertical spreads: an out-of-the-money put credit spread below the spot and an out-of-the-money call credit spread above it. All four options belong to the same NIFTY expiry on the NSE, usually the monthly expiry. You profit when NIFTY settles between the two short strikes. Your maximum gain is the net credit you collect upfront; your maximum loss is the width of one wing minus that credit, multiplied by the lot size. The core idea is that you are selling the expectation that NIFTY will stay quiet, you are capping your risk with the long wings, and you are sizing the position so one loss does not take you out of the book.
+
+The numbers below are illustrative. Verify the current NIFTY lot size, margin, and STT rates with your broker or the NSE before placing a trade.
+
+## What is a NIFTY iron condor and why trade it?
+
+Let us walk through the logic slowly, because an iron condor looks complicated the first time and simple the second.
+
+NIFTY does not usually move in a straight line. It drifts, pauses, reacts to Budget announcements, RBI policy days, FII flows, and quarterly earnings. Some months it breaks 5% in one direction; most months it stays within a range. That is the behavioural edge the iron condor trader is trying to capture.
+
+At the same time, there are traders who are scared of a sudden fall or hoping for a sudden rally. They buy out-of-the-money puts and calls as insurance or lottery tickets. They pay a premium for that protection. When you sell an iron condor, you are the one collecting those premiums. You sell the OTM put to the trader who is afraid of a crash, and you sell the OTM call to the trader betting on a melt-up.
+
+The problem with selling naked options is that a gap can ruin you. So you buy a further OTM put below the put you sold, and a further OTM call above the call you sold. Those long options are your insurance. If NIFTY breaks through one side, the loss on the short option is capped by the long option. That is why the strategy is called an iron condor: a credit spread on both sides of the market, held together in one expiry.
+
+In short, an iron condor is a way to say, “I think NIFTY is not going anywhere fast this month, and I am willing to take a small, defined loss if I am wrong.”
+
+## When does a NIFTY iron condor work best?
+
+Iron condors work best when NIFTY is quiet and the market is not pricing in a big move.
+
+Best for: low-to-moderate India VIX, a range-bound index, and expiries that do not overlap with major events like Budget day, RBI policy day, or a heavy foreign flow day. The ideal window is often when VIX is in the low teens to low-20s and NIFTY is hovering between clear support and resistance. This is broadly the [low-volatility NIFTY strategy](low-volatility-nifty-strategies) regime.
+
+Avoid for: high VIX, strong trending markets, or when an event is about to resolve. The Adani-Hindenburg episode in early 2023 was the kind of event that could have blown past both short strikes in a session. A NIFTY iron condor held through that kind of gap would have taken a full loss on one side.
+
+The win rate is part of the attraction. A backtest on Āagman can show you whether the baseline version wins often enough to justify the capped losses. The bigger point is the regime filter. If you skip the trade when India VIX is above, say, 22, you usually sidestep the worst months. The exact level depends on the period, which is why you should test it rather than assume it.
+
+## How to set up a NIFTY iron condor: step by step
+
+**Step 1: Pick the underlying and expiry.** NIFTY options on the NSE are European-style and cash-settled, so there is no physical delivery of shares at expiry. You settle in cash. Because NIFTY options are European-style, they are automatically cash-settled at expiry based on the closing index value; there is no early assignment, but STT on the settlement amount can differ from STT on premium received. Weekly and monthly options are available on NIFTY. Most iron condor traders use monthly expiries until they understand the gamma risk of the last few days.
+
+**Step 2: Choose the short strikes.** Sell an OTM put and an OTM call at roughly the same distance from the spot, often using delta as a guide. A common starting point is around 16 to 20 delta on each side. This means both short strikes have a similar probability of expiring in the money.
+
+**Step 3: Choose the long wings.** Buy a put further OTM than the short put, and buy a call further OTM than the short call. The distance between the short strike and the long strike is the wing width. Let us say the wing width is 100 points. This width determines your maximum risk.
+
+**Step 4: Collect the net credit.** The premium you receive from the two short options minus the premium you pay for the two long options is your net credit. That is your maximum profit.
+
+**Step 5: Know your breakevens and risk.** The lower breakeven is the short put strike minus the net credit. The upper breakeven is the short call strike plus the net credit. Your maximum loss is the wing width minus the net credit, multiplied by the lot size.
+
+Here is a worked set of numbers.
+
+Let us say NIFTY is at 22,750 and the lot size is 25. You build the following four-legged position for the same expiry:
+
+| Leg | Strike | Action | Premium (illustrative) |
+|---|---|---|---|
+| Long put | 22,400 | Buy | ₹20 |
+| Short put | 22,500 | Sell | ₹50 |
+| Short call | 23,000 | Sell | ₹40 |
+| Long call | 23,100 | Buy | ₹30 |
+
+The net credit per unit is ₹50 plus ₹40 minus ₹20 minus ₹30, which equals ₹40. On one lot, that is ₹40 × 25 = ₹1,000 of premium collected upfront.
+
+The wing width is 100 points. So your maximum risk per unit is ₹100 minus ₹40, which equals ₹60. On one lot, that is ₹60 × 25 = ₹1,500.
+
+The lower breakeven is 22,500 minus ₹40, which is 22,460. The upper breakeven is 23,000 plus ₹40, which is 23,040. If NIFTY expires anywhere between 22,460 and 23,040, you make money. Inside the two short strikes, you keep the full credit.
+
+Your broker will block margin. Because the iron condor is a defined-risk strategy, the margin is lower than for naked options, but it is still real. Let us say the SPAN plus Exposure margin for one lot is ₹65,000. Verify the exact figure with your broker, because it changes with volatility and NSE margin rules.
+
+![NIFTY iron condor payoff diagram showing profit zone and max loss](nifty-iron-condor-payoff-diagram.png)
+
+### Iron condor checklist
+
+| Check | Rule |
+|---|---|
+| Underlying | NIFTY 50, same expiry on NSE |
+| Short strikes | ~16–20 delta, OTM put and call |
+| Wing width | Typically 100–200 points |
+| Max profit | Net credit received |
+| Max loss | Wing width minus net credit |
+| Exit rules | 50% profit or 21 DTE |
+
+## A walked sample trade
+
+You open the trade on a Monday when NIFTY is at 22,750 and India VIX is at 16. There are 35 days to expiry. You sell the 22,500 put, buy the 22,400 put, sell the 23,000 call, and buy the 23,100 call. The net credit is ₹40 per unit, or ₹1,000 for one lot.
+
+Your broker blocks, let us say, ₹65,000. The capital at risk is ₹1,500, which is the maximum loss on one side. Your target is the ₹1,000 credit, but your realistic outcome is somewhere between a full profit and a full loss.
+
+Here is how the expiry P&L looks under different scenarios.
+
+| NIFTY at expiry | Put spread value | Call spread value | Net P&L per unit | Net P&L per lot |
+|---|---|---|---|---|
+| 22,800 | 0 | 0 | +₹40 | +₹1,000 |
+| 22,450 | ₹50 | 0 | -₹10 | -₹250 |
+| 22,350 | ₹100 | 0 | -₹60 | -₹1,500 |
+| 23,050 | 0 | ₹50 | -₹10 | -₹250 |
+| 23,150 | 0 | ₹100 | -₹60 | -₹1,500 |
+
+The first row is the dream outcome: NIFTY stays between the short strikes and you keep the full credit. The second and fourth rows show the trade losing a small amount because the short strike is tested but the long wing is not breached. The third and fifth rows show the maximum loss, where the underlying has moved beyond the long wing.
+
+Even in the maximum loss scenario, the loss is capped at ₹1,500. That is the point of the long wings. Without them, the loss on a short option could be much larger.
+
+## What can go wrong with a NIFTY iron condor?
+
+The iron condor is not a free-money trade. Here are the failure modes that actually show up.
+
+**The tested side and the widening trap.** NIFTY starts drifting toward your short put. You tell yourself it will bounce. Instead of taking the defined loss, you roll the short put further down or widen the wing. Now you have more risk on the same side and a smaller credit. The first adjustment is often the beginning of a much bigger problem.
+
+**VIX expansion during the trade.** You enter when VIX is 16. Two weeks later a global event pushes India VIX to 24. The value of your short options jumps, and the mark-to-market loss can be large even if the index is still inside your breakevens. You may not lose the maximum amount, but you can be forced to close at a loss.
+
+**Margin changes.** SEBI and the NSE set the SPAN and Exposure margin framework. As volatility rises, the margin required for your position can go up. If your account is already fully deployed, a margin hike can force you to close a position at the worst time.
+
+**Pin risk near the short strike.** If NIFTY expires close to your short put or short call, the settlement value can be uncertain until the final weighted average. The last-hour moves can turn a small profit into a full loss, or vice versa.
+
+**STT and settlement costs.** NIFTY options are cash-settled, but STT and other charges apply differently depending on whether the options expire worthless or in the money. A short option that is exercised at expiry can attract a higher STT burden than one that expires worthless. Check the exact current rates with your broker, because a small number can turn a breakeven trade into a loser.
+
+**The behavioural mistake.** The biggest risk is refusing to take the loss. An iron condor has a defined risk, but only if you let the position reach expiry or close it as planned. If you panic and close early, or if you keep adjusting until the trade is unrecognisable, the defined-risk feature no longer protects you.
+
+## Variations and adjustments
+
+The pure iron condor is the base model. Traders add their own twists.
+
+**The iron butterfly.** Instead of selling a put and a call at different strikes, you sell both at the same central strike, usually near the money. The credit is higher, but the profit zone is much narrower. It is an iron condor with the wings folded in. See the [iron butterfly on NIFTY](iron-butterfly-on-nifty) for a comparison.
+
+**Rolling the tested side.** If NIFTY drifts toward your short call, you can buy back the call spread and sell a new one further out in time or at a higher strike. This gives you more room, but it also increases the capital at risk and usually reduces the net credit.
+
+**Time-based exits.** Many traders close the trade at 50% of the maximum profit or at 21 days to expiry, whichever comes first. This captures most of the theta decay while avoiding the gamma risk of the last few days.
+
+**Asymmetric wings.** If you think the downside is more dangerous than the upside, you can make the put wing wider than the call wing. This changes the payoff profile and the margin.
+
+Every adjustment changes the payoff distribution. A wider wing lowers risk but also lowers credit. A time-based exit reduces gamma risk but leaves premium on the table. Rolling the tested side gives you more room but usually increases the capital at risk. The only way to know which version suits you is to run each on Āagman over the same period and compare the equity curves.
+
+## Test this on Āagman
+
+The best way to know whether a NIFTY iron condor fits your risk tolerance is to run it on history, then on paper, then live.
+
+### Backtest it
+
+Backtest the NIFTY iron condor first. On Āagman, type the strategy in plain language, check the strategy card, then run the backtest.
+
+```text
+Backtest a NIFTY iron condor on monthly options from Jan 2023 to Dec 2024. Enter 35 days to expiry. Sell the put and call strikes near 16 delta. Buy protective wings 150 points away. Exit at 50% of max profit or 21 days to expiry, whichever comes first. Report total return, max drawdown, win rate, and Sharpe ratio.
+```
+
+The report shows total return, max drawdown, win rate, and the trade table. Tweak the delta, wing width, or VIX filter and rerun.
+
+### Paper trade it
+
+Paper trade the same setup before risking capital. Āagman simulates the four-leg entry against live market data and tracks the mark-to-market P&L, margin, and Greeks.
+
+A backtest assumes perfect fills; paper trading shows you whether the spread fills as a single strategy, what your broker blocks as margin, and how STT and slippage affect the small credit.
+
+### Deploy it live
+
+When you are ready, connect your broker and ask Āagman to deploy the live trade:
+
+```text
+Ask Āagman to deploy a NIFTY iron condor on [EXPIRY] with [SHORT PUT DELTA] / [SHORT CALL DELTA] strikes and [WING WIDTH] point wings, using [NUMBER] lots. Start with one lot.
+```
+
+Risk checks run before any order is routed. Track the order status the same way you would on your broker terminal.
+
+Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
+
+## FAQ
+
+### What is the best VIX level for a NIFTY iron condor?
+
+Low-to-mid teens to low-20s is usually the sweet spot. Above about 25, the risk of NIFTY gapping through one of your short strikes rises sharply, and the credit may not compensate for the jump in tail risk.
+
+### How much margin is needed for one NIFTY iron condor?
+
+It depends on the lot size and the wing width. Because the strategy is defined-risk, the SPAN plus Exposure margin is lower than for naked short options. Verify the exact number with your broker before placing the trade.
+
+### Weekly or monthly NIFTY options for iron condors?
+
+Weekly options give you more trades and faster time decay, but they also carry more gamma risk near expiry. Monthly options give the trade more room to breathe but turn over more slowly. Most beginners do better with monthly until they understand the rhythm.
+
+### What is the biggest mistake beginners make?
+
+Widening the tested wing or adding lots to recover a loss instead of taking the defined loss. Once you change the structure, the defined-risk feature no longer protects you the way you designed it.
+
+### When should I close or adjust?
+
+Common rules are to take profit at 50% of the maximum credit, close at 21 days to expiry, or adjust when one side is tested. Each adjustment usually increases risk and reduces profitability, so keep the trade simple.
+
+### Can I trade a NIFTY iron condor with one lot?
+
+Yes, but transaction costs and STT take a larger bite out of the small credit. Scale up only after you have backtested and paper traded consistently.
+
+## Related reads
+
+- [Covered Call Strategy for Indian Stocks](covered-call-strategy-indian-stocks)
+- [Cash-Secured Put: Getting Paid to Buy Stocks](cash-secured-put-getting-paid-to-buy-stocks)
+- [Why Options Buyers Lose Money](why-options-buyers-lose-money)
+- [Vertical Spread Basics](vertical-spread-basics)
+- [Iron Butterfly vs. Iron Condor](iron-butterfly-vs-iron-condor)
