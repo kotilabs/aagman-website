@@ -26,7 +26,7 @@
 </style>
 <style>
   /* Layout shell */
-  .shell { display: grid; grid-template-rows: 64px 1fr; min-height: 100vh; }
+  .shell { display: grid; grid-template-rows: 64px auto; }
   .topbar {
     display: flex; align-items: center;
     height: 64px; border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -54,7 +54,7 @@
   .cta-dash { display: inline-flex; align-items: center; gap: 6px; background: #56E8B8; color: #04150F; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; padding: 7px 14px; border-radius: 6px; letter-spacing: .03em; }
 
   /* Body grid: sidebar + content */
-  .body { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 64px); }
+  .body { display: grid; grid-template-columns: 280px 1fr; }
   .sidebar { border-right: 1px solid rgba(255,255,255,0.06); padding: 28px 18px 60px; overflow-y: auto; position: sticky; top: 64px; align-self: start; max-height: calc(100vh - 64px); }
   .side-group { margin-bottom: 22px; }
   .side-group-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .14em; color: #4a5550; text-transform: uppercase; padding: 0 10px; margin-bottom: 8px; }
