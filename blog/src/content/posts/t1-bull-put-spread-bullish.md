@@ -1,0 +1,269 @@
+---
+title: "Bull put spread: the bullish credit play"
+description: "Learn the bull put spread: the bullish credit play for Indian traders: mechanics, risks, when to use it, and how to test it on \u0100agman."
+slug: "t1-bull-put-spread-bullish"
+pubDate: 2026-07-13
+author: "Ajit Kumar"
+authorSlug: "ajit-kumar"
+authorTitle: "Co-founder, Āagman"
+category: "Options Strategy"
+tags: ["options", "bull put spread", "nifty", "credit spread", "defined risk"]
+featured: false
+---
+
+# Bull put spread: the bullish credit play for Indian options traders
+
+A bull put spread is a bullish to neutral, defined-risk options strategy, also called a credit spread. You sell one put at a higher strike and buy one put at a lower strike, both in the same underlying and same expiry. You collect a net credit at entry. If the underlying stays above the short strike through expiry, you keep that credit. If it falls below the long strike, you lose the width of the spread minus the credit. The most you can make and the most you can lose are both known before you trade. It is the cleaner alternative to a naked short put: you give up some income to cap the tail risk.
+
+## Why use a bull put spread instead of a naked short put?
+
+Most traders start with the same idea. They look at a stock or an index they think will hold or rise, and they ask: can I get paid for that view? The first answer is usually to sell a put. You collect premium, and as long as the underlying does not fall below the strike, you keep the money.
+
+That works until it doesn't. A [naked short put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) has a large, open-ended risk. If the underlying gaps down hard, the loss can be many times the premium you received. In India, that risk is real. Think of a Budget day move, an RBI policy surprise, or a single-stock event like the Adani–Hindenburg episode. The price can move through your strike before you can react.
+
+The bull put spread fixes this by adding a long put below the short put. The long put is like a floor policy. It will not prevent a loss, but it turns an uncertain loss into a known one.
+
+Imagine Nifty 50 is at 22,500. You think it will stay above 22,000 over the next month. You consider selling a 22,000 put for income. But you also buy a 21,800 put as insurance. The premium you pay for the 21,800 put reduces your net credit, but it also caps your maximum loss at 200 points minus the credit. That is the trade-off at the heart of the strategy.
+
+That is a bull put spread. The short put funds the trade. The long put defines the risk. You are not betting on a massive rally. You are betting that the underlying will not fall much, or that it will fall slowly enough that time decay and the long put give you a controlled exit.
+
+This is why it is called a credit spread. You are the seller of net premium. Time works for you, and falling implied volatility usually helps you. Your margin is also lower than for a naked short put, because the exchange recognises the hedge between the two puts.
+
+## When does a bull put spread work?
+
+Bull put spreads work best when the underlying is in an uptrend, range-bound above your short strike, or only falling slowly. They also work better when implied volatility is elevated or expected to fall.
+
+**This works for:**
+
+- Bullish or neutral short-term views on Nifty 50, Bank Nifty, or liquid stock F&O names.
+- Markets where the price is above a clear support level or a rising 20-day EMA.
+- Periods when India VIX or IV rank is elevated, because the credit you collect is larger.
+- Traders who want defined risk and cannot watch a naked short put constantly.
+
+**This fails for:**
+
+- Sharp downtrends or gap-downs. The underlying can blow through both strikes.
+- Volatility expansions that widen the bid-ask spread and make exit expensive.
+- Bearish trend environments. Selling a credit spread into a falling market is catching a falling knife.
+- Early assignment risk on American-style stock options, especially around dividends or corporate actions. Index options like Nifty and Bank Nifty are European-style and cash-settled, so this does not apply to them.
+- Pin risk at expiry if the underlying closes very close to the short strike.
+
+The most common mistake is selling the short put too close to the current price because the credit looks attractive. A 0.40 delta put pays more than a 0.25 delta put, but it also assigns you faster. The second common mistake is widening the spread too far to chase more credit. A 300-point spread pays more than a 200-point spread, but your max loss is also larger.
+
+## How do you build a bull put spread?
+
+Let us walk through the setup with a Nifty 50 example. The numbers below are openly illustrative. Replace them with live quotes before you trade.
+
+**Step 1: Choose the underlying and expiry.**
+
+Let us say Nifty 50 is at 22,500. You pick the monthly expiry that is roughly 30 days away. Nifty and Bank Nifty also offer weekly expiries; the same strike-selection logic applies, but theta decays faster and gamma risk is higher near expiry. On Nifty 50, one lot is 75 units as per current NSE contract specifications. Verify the current lot size with your broker or the NSE F&O lot-size file before you trade.
+
+**Step 2: Choose the short put strike.**
+
+This is the put you sell. A common starting point is a strike with a delta around 0.25 to 0.30, meaning it is slightly out-of-the-money. Let us say you sell the 22,000 put.
+
+**Step 3: Choose the long put strike.**
+
+This is the put you buy as insurance. The distance between the strikes is your maximum risk. Let us say you buy the 21,800 put. The spread width is 200 points.
+
+**Step 4: Record the net credit.**
+
+Let us say the 22,000 put sells for ₹70 per unit and the 21,800 put costs ₹30 per unit. Your net credit is ₹40 per unit.
+
+**Step 5: Compute the payoff.**
+
+| Item | Calculation | Value |
+|---|---|---|
+| Spread width | 22,000 – 21,800 | 200 points |
+| Net credit per unit | ₹70 – ₹30 | ₹40 |
+| Max profit per lot | ₹40 × 75 | ₹3,000 |
+| Max loss per lot | (200 – 40) × 75 | ₹12,000 |
+| Breakeven at expiry | 22,000 – 40 | 21,960 |
+
+The breakeven is the level at which the short put becomes in-the-money by exactly the credit you received. Above that level, you make money at expiry. Below 21,800, you hit the maximum loss.
+
+All figures here are before brokerage, STT, GST, exchange charges, and SEBI fees. For a monthly-income strategy, these costs matter. They will reduce the net credit and the actual return.
+
+**Step 6: Check margin.**
+
+Because you are short a put, margin is required. But because you also own the long put, SPAN generally gives a hedge benefit, as NSE's SPAN framework recognises the hedge. The exact margin depends on the SPAN parameter file for the day and your broker. Check your broker's margin calculator before entering.
+
+**Step 7: Place both legs together.**
+
+On a liquid underlying, place both legs as a single spread order. Do not leg in separately. If you sell the short put first and the market drops before you buy the long put, your hedge is missing and your margin requirement spikes.
+
+Here is the payoff diagram for the trade.
+
+![Bull put spread payoff diagram showing max profit, breakeven, and max loss on Nifty 50 at expiry](/images/bull-put-spread-payoff.png)
+
+And here is the payoff at expiry for a few possible Nifty levels.
+
+| Nifty at expiry | Short 22,000 put value | Long 21,800 put value | Net P&L per lot |
+|---|---|---|---|
+| 22,500 | 0 | 0 | +₹3,000 |
+| 22,100 | 0 | 0 | +₹3,000 |
+| 21,960 | ₹40 | 0 | ₹0 |
+| 21,900 | ₹100 | 0 | –₹4,500 |
+| 21,800 | ₹200 | 0 | –₹12,000 |
+| 21,500 | ₹500 | ₹300 | –₹12,000 |
+
+Notice that once Nifty falls below 21,800, the loss stays flat at ₹12,000. The long put is doing exactly what you bought it for.
+
+## How do the Greeks affect a bull put spread?
+
+The spread behaves like this:
+
+- **Delta:** Net positive. You make money when the underlying rises or holds, and you lose money when it falls.
+- **Theta:** Net positive. Time decay works for you because the short put decays faster than the long put.
+- **Vega:** Net negative. Rising implied volatility hurts the spread; falling implied volatility helps. That is why elevated IV at entry is attractive.
+
+This is why the strategy is a bullish-income trade. You want the price to drift up or sideways, and you want volatility to come down.
+
+## What does a bull put spread trade look like from entry to exit?
+
+Let us run one trade through from entry to exit.
+
+**Entry**
+
+On 15 January, Nifty 50 is at 22,500. You are bullish to neutral over the next 30 days. You enter a bull put spread:
+
+- Sell one 22,000 put, expiry 15 February, for ₹70 per unit.
+- Buy one 21,800 put, same expiry, for ₹30 per unit.
+- Net credit: ₹40 per unit × 75 = ₹3,000.
+- Days to expiry: 30.
+
+**Management rules**
+
+Before you enter, you decide your rules:
+
+- Take profit if you can buy the spread back at 50% of the credit. So if the spread value falls to ₹20 per unit, you close for a profit of ₹20 per unit × 75 = ₹1,500.
+- Stop loss if the spread value doubles, meaning it reaches ₹80 per unit. That would be a loss of ₹40 per unit × 75 = ₹3,000.
+- Alternatively, close if Nifty closes below the long strike at 21,800.
+
+**Scenario A: a calm month**
+
+Two weeks later, Nifty has drifted up to 22,700. Implied volatility has fallen. The spread is now worth ₹20 per unit. You close the trade.
+
+- P&L: +₹1,500 per lot.
+- Days held: 14.
+
+You do not make the full ₹3,000, but you take the risk off the table and free the margin for the next trade.
+
+**Scenario B: a sharp drop**
+
+Ten days later, Nifty falls to 21,920 on a global risk-off move. The spread is now quoted at ₹80 per unit. Your stop rule is hit.
+
+- P&L: –₹3,000 per lot (₹40 loss per unit × 75).
+- Days held: 10.
+
+This is painful, but it is not the open-ended loss of a naked put. You can close, reassess, and move on.
+
+**Scenario C: hold to expiry**
+
+Nifty closes at 22,100 on expiry. Both puts expire worthless. You keep the full ₹3,000.
+
+The lesson is that the bull put spread is a probability trade. You will have many small wins, some full credits, and a few losses that can be sharp. The edge comes from keeping the losses smaller than the winners over time.
+
+## What can go wrong?
+
+**Gap risk.** The biggest danger is a gap below the long put strike. You can go from a small profit to maximum loss in one session. Budget day, RBI announcements, or global shocks can cause this.
+
+**Position sizing.** Defined risk only protects you if the max loss is sized correctly. A 200-point spread can still wipe out capital if over-sized. Size the trade so that the max loss on one spread is no more than 1–2% of your trading capital. For example, if the max loss per lot is ₹12,000, one lot needs at least ₹6,00,000–₹12,00,000 in allocated capital.
+
+**Early assignment on stock options.** Index options are cash-settled. Stock options can be American-style and exercised early, especially around dividends or corporate actions. If you are assigned on the short put, you may end up with a short stock position, which the long put can offset but not fully remove.
+
+**Margin spikes.** SPAN and exposure margins can rise during volatile sessions. If your account is close to full utilisation, a margin hike can trigger a shortfall or forced closure.
+
+**Pin risk.** For stock options, pin risk can leave you with an unexpected stock position. For index options like Nifty and Bank Nifty, settlement is cash-based, but the final P&L can still swing sharply if the index closes near the short strike.
+
+**Liquidity cost.** Illiquid strikes have wide bid-ask spreads. You may enter at a worse credit than you expected and exit at a worse loss than the model suggests. Stick to Nifty, Bank Nifty, or the most liquid stock options.
+
+**Widening the spread after a loss.** After one losing trade, it is tempting to sell a closer strike or widen the spread to recover the loss. This is usually how small losses become large ones. The structure is forgiving only if you keep the size and strike selection consistent.
+
+**Forgetting costs.** STT, GST, brokerage, exchange charges, and SEBI fees apply to both legs. STT rates on option premiums and settlement have changed in recent Budgets. Check the latest Finance Act or CBDT notification before trading. These costs are not large on a single trade, but they matter over a monthly program. Include them in your backtests.
+
+## What variations of a bull put spread should you know?
+
+Here is how the bull put spread compares to its closest sibling, the bull call spread.
+
+| Factor | Bull put spread | Bull call spread |
+|---|---|---|
+| Market view | Bullish to neutral | Bullish to strongly bullish |
+| Cash flow at entry | Net credit | Net debit |
+| Max profit | Net credit received | Width of spread minus debit paid |
+| Max loss | Width of spread minus credit | Net debit paid |
+| IV preference | Elevated or falling IV | Low or rising IV |
+| Margin requirement | SPAN plus Exposure, with hedge benefit | Limited to the debit paid |
+| Best for | Income in sideways or slow-up markets | Directional move with limited capital |
+
+**Bull call spread.** The debit version of the same idea. You buy a call and sell a higher-strike call. It costs money to enter but pays off better in a strong rally. Use it when implied volatility is low or when you want no short-option margin risk. Read more in the [bull call spread guide](/blog/t1-bull-call-spread-directional/).
+
+**Cash-secured put.** If you genuinely want to own the stock and can take assignment, selling a [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) without the long hedge can collect more premium. The risk is that you must buy the stock at the strike if it falls.
+
+**Covered call.** If you already own the stock, selling a call above the market is the income strategy. It is structurally different from a bull put spread, but it sits in the same bullish-income family. See the [covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/).
+
+**Short straddle and short strangle.** These collect more premium because you sell both calls and puts. But they have undefined risk on one side and require far more capital and monitoring.
+
+**Iron condor.** Combine a bull put spread with a bear call spread. You create a range in which you profit. The risk is lower, but you are betting on a quiet market on both sides. Read the [iron condor guide](/blog/t1-trade-iron-condor-nifty/).
+
+**Adjustments.** If the underlying drifts toward your short strike but you remain bullish, you can roll the spread down and out. You can also convert the bull put spread into an iron condor if a bear call spread starts to look attractive. Each adjustment costs money; do not adjust just to avoid a loss.
+
+## Test this strategy on Aagman
+
+The fastest way to know whether bull put spreads fit your style is to backtest the exact rules on real market data.
+
+**1. Backtest it on historical data.** Paste this into Aagman:
+
+```text
+Backtest a bull put spread on Nifty 50 from Jan 2023 to Jan 2025. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Enter only when Nifty 50 closes above its 20-day EMA. Take profit at 50% of the credit. Stop loss if the spread value doubles or if Nifty closes below the long strike. Include STT, brokerage, and GST.
+```
+
+You will get the actual credit collected each cycle, how often the spread hit the stop, and the return on margin. Tweak the delta rules, DTE, or entry filter and it re-runs.
+
+**2. Paper trade it before risking real money.** A backtest assumes clean fills at closing prices. Real credit spreads have bid-ask slippage, margin spikes on volatile days, and the emotional pull to move your stop. Paper trade two or three cycles to build that feel.
+
+**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker once and run it live:
+
+```text
+Deploy live: bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Take profit at 50% of the credit. Stop loss if the spread value doubles. Start with one lot.
+```
+
+Risk checks run before every order, and you get a fill alert each time a new spread is placed.
+
+Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
+
+## FAQ
+
+**What is the main difference between a bull put spread and a cash-secured put?**
+
+A bull put spread caps your loss by buying a lower-strike put. A [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) has no long put hedge, so you must take full assignment risk if the stock falls.
+
+**How much margin do I need for a bull put spread in India?**
+
+You need SPAN plus Exposure margin, but the exchange generally gives a hedge benefit for the long put. The exact amount depends on your broker and the SPAN parameter file for the day. Check your broker's margin calculator before trading.
+
+**When should I close a bull put spread early?**
+
+Close early if you have captured a large chunk of the credit, if the underlying breaks support, or if the spread value doubles. Whichever rule you set before entry, follow it.
+
+**Can I lose more than the strike width minus the net credit?**
+
+No, not at expiry. Your max loss is (strike width minus net credit) multiplied by the lot size, plus brokerage and statutory charges. A gap can take you to that cap quickly.
+
+**Is a bull put spread better than a bull call spread?**
+
+Not always. A bull put spread pays you a credit and works best when implied volatility is high or falling. A bull call spread costs a debit and can pay off more in strong rallies when implied volatility is low. See the comparison table above.
+
+**What happens if the short put is assigned before expiry?**
+
+For index options, assignment is cash-settled at expiry. For stock options, early assignment can happen, especially around dividends. You may end up with a short stock position, which the long put can partially offset.
+
+## Related reads
+
+- [Covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/)
+- [Cash-secured put: getting paid to buy stocks](/blog/cash-secured-put-getting-paid-to-buy-stocks/)
+- [Bull call spread: the directional debit alternative](/blog/t1-bull-call-spread-directional/)
+- [Short straddle: income with undefined risk](/blog/t1-short-straddle-nifty-income/)
+- [Iron condor: a neutral range play on Nifty](/blog/t1-trade-iron-condor-nifty/)
+
+<!-- Apply FAQPage schema markup in the published HTML for rich results -->
