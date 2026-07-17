@@ -19,7 +19,7 @@ A bull put spread is a bullish to neutral, defined-risk options strategy, also c
 
 Most traders start with the same idea. They look at a stock or an index they think will hold or rise, and they ask: can I get paid for that view? The first answer is usually to sell a put. You collect premium, and as long as the underlying does not fall below the strike, you keep the money.
 
-That works until it doesn't. A [naked short put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) has a large, open-ended risk. If the underlying gaps down hard, the loss can be many times the premium you received. In India, that risk is real. Think of a Budget day move, an RBI policy surprise, or a single-stock event like the Adani–Hindenburg episode. The price can move through your strike before you can react.
+That works until it doesn't. A naked short put has a large, open-ended risk. If the underlying gaps down hard, the loss can be many times the premium you received. In India, that risk is real. Think of a Budget day move, an RBI policy surprise, or a single-stock event like the Adani–Hindenburg episode. The price can move through your strike before you can react.
 
 The bull put spread fixes this by adding a long put below the short put. The long put is like a floor policy. It will not prevent a loss, but it turns an uncertain loss into a known one.
 
