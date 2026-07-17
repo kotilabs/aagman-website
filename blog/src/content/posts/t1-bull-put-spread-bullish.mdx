@@ -1,4 +1,5 @@
 ---
+
 title: "Bull put spread: the bullish credit play"
 description: "Learn the bull put spread: the bullish credit play for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
 takeaway: "Learn the bull put spread: the bullish credit play for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
@@ -16,10 +17,8 @@ tags:
   - "Play"
 featured: false
 readingTime: 18
----
 
-URL slug: `bull-put-spread-india`
-Meta description: A bull put spread is a defined-risk options strategy that pays a net credit. Learn how it works on Nifty 50 and Indian stocks, when to use it, and what can go wrong.
+---
 
 # Bull put spread: the bullish credit play for Indian options traders
 
@@ -29,7 +28,7 @@ A bull put spread is a bullish to neutral, defined-risk options strategy, also c
 
 Most traders start with the same idea. They look at a stock or an index they think will hold or rise, and they ask: can I get paid for that view? The first answer is usually to sell a put. You collect premium, and as long as the underlying does not fall below the strike, you keep the money.
 
-That works until it doesn't. A [naked short put](/blog/cash-secured-put-getting-paid-to-buy-stocks) has a large, open-ended risk. If the underlying gaps down hard, the loss can be many times the premium you received. In India, that risk is real. Think of a Budget day move, an RBI policy surprise, or a single-stock event like the Adani–Hindenburg episode. The price can move through your strike before you can react.
+That works until it doesn't. A naked short put has a large, open-ended risk. If the underlying gaps down hard, the loss can be many times the premium you received. In India, that risk is real. Think of a Budget day move, an RBI policy surprise, or a single-stock event like the Adani–Hindenburg episode. The price can move through your strike before you can react.
 
 The bull put spread fixes this by adding a long put below the short put. The long put is like a floor policy. It will not prevent a loss, but it turns an uncertain loss into a known one.
 
@@ -206,77 +205,39 @@ Here is how the bull put spread compares to its closest sibling, the bull call s
 | Margin requirement | SPAN plus Exposure, with hedge benefit | Limited to the debit paid |
 | Best for | Income in sideways or slow-up markets | Directional move with limited capital |
 
-**Bull call spread.** The debit version of the same idea. You buy a call and sell a higher-strike call. It costs money to enter but pays off better in a strong rally. Use it when implied volatility is low or when you want no short-option margin risk. Read more in the [bull call spread guide](/blog/t1-bull-call-spread-directional).
+**Bull call spread.** The debit version of the same idea. You buy a call and sell a higher-strike call. It costs money to enter but pays off better in a strong rally. Use it when implied volatility is low or when you want no short-option margin risk. Read more in the [bull call spread guide](/blog/t1-bull-call-spread-directional/).
 
-**Cash-secured put.** If you genuinely want to own the stock and can take assignment, selling a [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks) without the long hedge can collect more premium. The risk is that you must buy the stock at the strike if it falls.
+**Cash-secured put.** If you genuinely want to own the stock and can take assignment, selling a [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) without the long hedge can collect more premium. The risk is that you must buy the stock at the strike if it falls.
 
-**Covered call.** If you already own the stock, selling a call above the market is the income strategy. It is structurally different from a bull put spread, but it sits in the same bullish-income family. See the [covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks).
+**Covered call.** If you already own the stock, selling a call above the market is the income strategy. It is structurally different from a bull put spread, but it sits in the same bullish-income family. See the [covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/).
 
 **Short straddle and short strangle.** These collect more premium because you sell both calls and puts. But they have undefined risk on one side and require far more capital and monitoring.
 
-**Iron condor.** Combine a bull put spread with a bear call spread. You create a range in which you profit. The risk is lower, but you are betting on a quiet market on both sides. Read the [iron condor guide](/blog/t1-trade-iron-condor-nifty).
+**Iron condor.** Combine a bull put spread with a bear call spread. You create a range in which you profit. The risk is lower, but you are betting on a quiet market on both sides. Read the [iron condor guide](/blog/t1-trade-iron-condor-nifty/).
 
 **Adjustments.** If the underlying drifts toward your short strike but you remain bullish, you can roll the spread down and out. You can also convert the bull put spread into an iron condor if a bear call spread starts to look attractive. Each adjustment costs money; do not adjust just to avoid a loss.
 
-## How do you test a bull put spread on Āagman?
+## Test this strategy on Aagman
 
 The fastest way to know whether bull put spreads fit your style is to backtest the exact rules on real market data.
 
-### Backtest it on historical data
+**1. Backtest it on historical data.** Paste this into Aagman:
 
-```
-Backtesting
-
-1. Log into Āagman.
-2. Type the strategy in plain language, including the spread, entry filter, and exit rules. Example:
-   "Backtest a bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Enter only when Nifty 50 closes above its 20-day EMA. Take profit at 50% of the credit. Stop loss if the spread value doubles or if Nifty closes below the long strike. Use current STT, brokerage, and GST rates. Run from 1 January 2023 to 1 January 2025."
-3. Āagman returns a strategy card: underlying, short and long delta rules, DTE, entry filter, exit rules.
-4. Check the card matches your intent. If something is off, edit the prompt and resend.
-5. Click "Run Risk Checks."
-6. Click "Run Backtest."
-7. Read the results: total return, max drawdown, win rate, total trades, Sharpe, expectancy, and equity curve.
-8. Inspect the trade table for any odd fills, expiry pin risk, or gap-down exits.
-9. Tweak one variable and rerun. Try:
-   - "what if I use 15 days to expiry instead of 30?"
-   - "only enter when India VIX is above 18"
-   - "what if I widen the spread to 300 points?"
-10. Compare the results against a simple buy-and-hold of Nifty 50 over the same period.
+```text
+Backtest a bull put spread on Nifty 50 from Jan 2023 to Jan 2025. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Enter only when Nifty 50 closes above its 20-day EMA. Take profit at 50% of the credit. Stop loss if the spread value doubles or if Nifty closes below the long strike. Include STT, brokerage, and GST.
 ```
 
-You will get the actual credit collected each cycle, how often the spread hit the stop, and the return on margin. Use that to decide whether the income is worth the risk.
+You will get the actual credit collected each cycle, how often the spread hit the stop, and the return on margin. Tweak the delta rules, DTE, or entry filter and it re-runs.
 
-### Research it before you trade
+**2. Paper trade it before risking real money.** A backtest assumes clean fills at closing prices. Real credit spreads have bid-ask slippage, margin spikes on volatile days, and the emotional pull to move your stop. Paper trade two or three cycles to build that feel.
 
-```
-Research
+**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker once and run it live:
 
-1. Log into Āagman.
-2. Open the Research section.
-3. Ask for a screen or analysis. Example:
-   "Show me F&O names with high IV rank and price above the 50-day EMA."
-4. Review the criteria summary and the results table.
-5. Export to CSV if you want to track the shortlist.
-6. Recheck before acting — screens are a snapshot, not a standing recommendation.
+```text
+Deploy live: bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Take profit at 50% of the credit. Stop loss if the spread value doubles. Start with one lot.
 ```
 
-### Paper trade it before risking capital
-
-A backtest assumes clean fills at closing prices. Real options trading has its own rhythm: bid-ask spread, slippage, time to fill, and the temptation to change your stop mid-trade.
-
-1. Log into Āagman.
-2. Go to the execution agent.
-3. Type the same strategy but add "paper trade only." Example:
-   ```text
-   Paper trade a bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Take profit at 50% of the credit. Stop loss if the spread value doubles.
-   ```
-4. Track the fills, the mark-to-market, and the emotional response.
-5. Run two or three cycles before you commit capital.
-
-### Connect your broker and deploy live
-
-When your paper results match your backtest, you can deploy live. When you are ready, ask Āagman to deploy a bull put spread on [STOCK TICKER / INDEX] with [position size] and your stop/target rules. Start small.
-
-Risk checks run before any live order, and you get a fill alert each time a new spread is placed.
+Risk checks run before every order, and you get a fill alert each time a new spread is placed.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
@@ -284,7 +245,7 @@ Trading and investing in securities markets involves risk. Past performance does
 
 **What is the main difference between a bull put spread and a cash-secured put?**
 
-A bull put spread caps your loss by buying a lower-strike put. A [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks) has no long put hedge, so you must take full assignment risk if the stock falls.
+A bull put spread caps your loss by buying a lower-strike put. A [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) has no long put hedge, so you must take full assignment risk if the stock falls.
 
 **How much margin do I need for a bull put spread in India?**
 
@@ -313,4 +274,5 @@ For index options, assignment is cash-settled at expiry. For stock options, earl
 - [Bull call spread: the directional debit alternative](/blog/t1-bull-call-spread-directional/)
 - [Short straddle: income with undefined risk](/blog/t1-short-straddle-nifty-income/)
 - [Iron condor: a neutral range play on Nifty](/blog/t1-trade-iron-condor-nifty/)
+
 

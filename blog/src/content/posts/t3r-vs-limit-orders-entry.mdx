@@ -1,5 +1,6 @@
 ---
-title: "Market vs limit orders: the entry decision, through a real Reliance trade"
+
+title: "Market vs limit orders: the Reliance entry decision"
 description: "Learn the market vs limit orders: the entry decision, through a real reliance trade for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
 takeaway: "Learn the market vs limit orders: the entry decision, through a real reliance trade for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
 slug: "t3r-vs-limit-orders-entry"
@@ -16,10 +17,8 @@ tags:
   - "Through"
 featured: false
 readingTime: 11
----
 
-slug: market-vs-limit-order-reliance  
-meta: Market orders fill quickly but can slip; limit orders control price but may miss the move. Learn the difference on NSE with a Reliance trade example.
+---
 
 # Market vs limit orders: the entry decision, through an illustrative Reliance trade
 
@@ -108,35 +107,29 @@ Size is the other ceiling. One share of slippage is noise. One F&O lot is real m
 
 ## Up the ladder
 
-The retail order panel handles the basic market-or-limit entry. The ceiling we described — slippage on size, missed breakouts, and screen time — is what desk-tier order types solve: true trailing stops, market-if-touched, limit-if-touched, and VWAP/TWAP slicing. These run on the same broker account, but they are not in your broker's standard panel. We cover them in the [desk-tier companion](./desk-tier-order-types-market-limit).
+The retail order panel handles the basic market-or-limit entry. The ceiling we described — slippage on size, missed breakouts, and screen time — is what desk-tier order types solve: true trailing stops, market-if-touched, limit-if-touched, and VWAP/TWAP slicing. These run on the same broker account, but they are not in your broker's standard panel. We cover them in the desk-tier companion.
 
-## Run this on Āagman
+## Run this on Aagman
 
-Whatever broker you use, Āagman runs on the same account and lets you test and place these orders in plain language.
+The fastest way to settle the market-vs-limit question for your setup is to backtest the entry on real bid-ask data, then move up to desk-tier order types when size matters.
 
-Backtest the entry first. Paste this into Āagman:
+**1. Backtest the entry.** Paste this into Aagman:
 
 ```text
-Backtest a market-entry strategy on RELIANCE futures on a 15-minute timeframe from 1 Jan 2024 to 31 Dec 2024. Buy at market when the close crosses above the previous day high. Record the last traded price at the signal, the best offer, the actual market fill, and the slippage in bps.
+Backtest a market-entry strategy on RELIANCE futures on a 15-minute timeframe from 1 Jan 2024 to 31 Dec 2024. Buy at market when the close crosses above the previous day high. Record the LTP at the signal, the best offer, the actual market fill, and the slippage in bps.
 ```
 
 The report shows average slippage, fill rate, and how many breakouts you would have missed with a limit order.
 
-Then paper trade the same setup for a few sessions. Paper trading catches what a backtest cannot: your broker's latency, the real bid-ask spread at the breakout, and whether you can sit through a limit order that does not fill.
+**2. Paper trade it.** Paper trading catches what a backtest cannot: your broker's latency, the real bid-ask spread at the breakout, and whether you can sit through a limit order that does not fill.
 
-When you are ready to go live, ask Āagman in plain language:
-
-```text
-Buy 1 lot of RELIANCE futures at market if the price crosses above ₹2,950. Stop loss at ₹2,930.
-```
-
-Or for a limit entry:
+**3. Move up to desk-tier orders when size grows.** For larger size or tighter execution, Aagman can run market-if-touched, limit-if-touched, and VWAP/TWAP slices on your existing broker account. Start with:
 
 ```text
-Buy 1 lot of RELIANCE futures with a limit order at ₹2,950.50 if the price touches ₹2,950. Stop loss at ₹2,930.
+Paper trade a market-if-touched order on RELIANCE futures: buy 1 lot if the price touches ₹2,950, using a limit of ₹2,950.50. Stop loss at ₹2,930.
 ```
 
-Āagman checks your broker connection, verifies your risk limits, and then routes the order.
+Once the fill logic matches your plan, deploy live with the same order type.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
@@ -159,3 +152,12 @@ Not if missing the move is worse than paying a little extra. A limit order is a 
 
 **What if my limit order is only partially filled?**
 The unfilled portion stays in the order book as a limit order at your price. It fills only if the market comes back to that price. You can also cancel the rest or adjust the price. Partial fills are common in thin or fast markets.
+
+## Related reads
+
+- [Covered call strategy for Indian stocks](./covered-call-strategy-indian-stocks) — build the stock leg with a limit order, then rent the upside.
+- [Cash secured put: getting paid to buy stocks](./cash-secured-put-getting-paid-to-buy-stocks) — entry order matters when you want to be assigned at a strike.
+- [Bull call spread: directional debit spread](./t1-bull-call-spread-directional) — limit entry is critical when opening two legs at a target net debit.
+- [Short straddle on Nifty for income](./t1-short-straddle-nifty-income) — market vs limit execution when selling premium at the open.
+- [Iron condor on Nifty](./t1-trade-iron-condor-nifty) — order type choice for multi-leg entry at defined prices.
+- [Why options buyers lose money](./why-options-buyers-lose-money) — how entry slippage adds to the cost edge working against buyers.

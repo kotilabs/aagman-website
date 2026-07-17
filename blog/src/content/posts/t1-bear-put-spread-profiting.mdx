@@ -1,4 +1,5 @@
 ---
+
 title: "Bear put spread: profiting from a fall without naked shorts"
 description: "Learn the bear put spread: profiting from a fall without naked shorts for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
 takeaway: "Learn the bear put spread: profiting from a fall without naked shorts for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
@@ -16,20 +17,18 @@ tags:
   - "Naked"
 featured: false
 readingTime: 18
----
 
-URL: /bear-put-spread-strategy-india  
-Meta description: A bear put spread is a defined-risk, debit options strategy for a moderate fall. Learn how to build it on NIFTY, Bank Nifty, and F&O stocks in India.
+---
 
 # Bear Put Spread Strategy for Indian Markets: Profiting from a Fall Without Naked Shorts
 
-A bear put spread is a debit vertical spread where you buy a higher-strike put and sell a lower-strike put with the same expiry. It profits from a moderate fall in the underlying, and because the short put is fully covered by the long put, there is no naked short position. You pay a net premium upfront, and both your maximum profit and maximum loss are fixed before you trade. In Indian markets, the strategy is most useful on NIFTY, Bank Nifty, or liquid F&O stocks such as Reliance and HDFC Bank when you are bearish but want defined risk and lower capital outlay than a [long put](/blog/long-put-options-strategy-india) or a futures short.
+A bear put spread is a debit vertical spread where you buy a higher-strike put and sell a lower-strike put with the same expiry. It profits from a moderate fall in the underlying, and because the short put is fully covered by the long put, there is no naked short position. You pay a net premium upfront, and both your maximum profit and maximum loss are fixed before you trade. In Indian markets, the strategy is most useful on NIFTY, Bank Nifty, or liquid F&O stocks such as Reliance and HDFC Bank when you are bearish but want defined risk and lower capital outlay than a long put or a futures short.
 
 ## Why use a bear put spread instead of a long put or futures short?
 
 Let us walk through the actual decision tree, because the bear put spread is best understood as a compromise between two imperfect choices.
 
-Say you think NIFTY is going to fall over the next month. You have three ways to express that view. You can buy a naked [long put](/blog/long-put-options-strategy-india), you can short NIFTY futures, or you can put on a bear put spread.
+Say you think NIFTY is going to fall over the next month. You have three ways to express that view. You can buy a naked long put, you can short NIFTY futures, or you can put on a bear put spread.
 
 Buying a naked long put gives you full downside leverage. If NIFTY drops hard, your put explodes in value. But the premium is expensive, especially if implied volatility is already elevated. If the market drifts down slowly, you can still lose money because time decay eats the long put faster than the directional move pays you. If the market falls but then implied volatility collapses, you can also be right on direction and still lose. Many options buyers have felt this.
 
@@ -37,7 +36,7 @@ Shorting NIFTY futures is cleaner in some ways. You are short the index, and you
 
 The bear put spread sits between these two. You buy a put at a higher strike, the one that pays you if the market falls. Then you sell a put at a lower strike, the one where you tell the market: "I do not think it will fall below this level." The premium you collect from the short put subsidizes the long put. You still pay a net debit, but it is smaller than the cost of a naked long put. Your risk is capped to that debit. Your profit is capped to the spread width minus the debit. There is no naked short, because the long put is always there to cover the short put.
 
-Because the short put is hedged by the long put, a bear put spread attracts much lower margin than a [naked short put](/blog/selling-put-options-india) or a futures short. The exact margin depends on the strikes and your broker; use the NSE margin calculator or your broker's SPAN calculator to see the spread benefit before trading.
+Because the short put is hedged by the long put, a bear put spread attracts much lower margin than a naked short put or a futures short. The exact margin depends on the strikes and your broker; use the NSE margin calculator or your broker's SPAN calculator to see the spread benefit before trading.
 
 Think of it this way. You are selling the lower-strike put to a trader who is bullish or neutral; you collect premium for the downside you do not expect.
 
@@ -55,13 +54,13 @@ It works best when you have a moderately bearish view. You expect a fall, but yo
 
 It works poorly when the underlying rallies or stays flat. In that case both puts expire worthless and you lose the full net debit. It fails when the market falls too far too fast. That sounds strange, but the short put caps your profit below the lower strike. If NIFTY gaps through your short put and keeps falling, you are happy directionally but you miss the tail. It also fails when volatility collapses right after entry. A spread is less sensitive to a vol crush than a single long put, but it is still net long premium. And it fails when you choose too short an expiry. The move needs time to work.
 
-There are better tools for other regimes. If you are bullish or neutral and want income, a [covered call](/blog/covered-call-strategy-indian-stocks) makes more sense. If you are bullish but want limited risk, a [bull call spread](/blog/bull-call-spread-strategy-india) is the mirror image of this trade. If you expect a range-bound market, a [short straddle](/blog/short-straddle-strategy-india) or an [iron condor](/blog/iron-condor-strategy-india) is more appropriate. The bear put spread is the tool for "I think this goes down, but not to zero."
+There are better tools for other regimes. If you are bullish or neutral and want income, a [covered call](/blog/covered-call-strategy-indian-stocks/) makes more sense. If you are bullish but want limited risk, a bull call spread is the mirror image of this trade. If you expect a range-bound market, a short straddle or an iron condor is more appropriate. The bear put spread is the tool for "I think this goes down, but not to zero."
 
 ## How do you build a bear put spread on NIFTY?
 
 Let us build a NIFTY bear put spread step by step. The numbers here are illustrative. Run them on Āagman with real historical data to get the actual premiums for any period you want to trade.
 
-**Step 1: Choose the underlying and expiry.** NIFTY options are liquid across weekly and monthly expiries. The same logic works on [Bank Nifty](/blog/bank-nifty-options-strategy-india) or a liquid stock such as Reliance or HDFC Bank. Weekly expiries give faster action but less time for the move to play out. Monthly expiries give more room but cost more in absolute terms.
+**Step 1: Choose the underlying and expiry.** NIFTY options are liquid across weekly and monthly expiries. The same logic works on Bank Nifty or a liquid stock such as Reliance or HDFC Bank. Weekly expiries give faster action but less time for the move to play out. Monthly expiries give more room but cost more in absolute terms.
 
 **Step 2: Buy the higher-strike put.** This is the put that will pay you if the market falls. Let us say NIFTY is at 23,000. You might buy the 23,100 put, which is slightly in-the-money. Let us say you pay ₹200 per unit for it.
 
@@ -141,7 +140,7 @@ The point of the walkthrough is this: the spread does not need a crash to make m
 
 ## What are the common bear put spread variations and adjustments?
 
-**Long put alone.** If you think the market is going to crash and you want uncapped downside, buy a naked [long put](/blog/long-put-options-strategy-india). It costs more and decays faster, but the payoff below the short strike is yours.
+**Long put alone.** If you think the market is going to crash and you want uncapped downside, buy a naked long put. It costs more and decays faster, but the payoff below the short strike is yours.
 
 **Bear call spread.** This is the credit-spread cousin. You sell a lower-strike call and buy a higher-strike call. You collect premium upfront, and you profit if the market stays flat or falls. It is a different risk profile from a bear put spread.
 
@@ -155,64 +154,35 @@ The point of the walkthrough is this: the spread does not need a crash to make m
 
 **Convert to a butterfly.** If you become convinced the downside is capped at a specific level, you can convert the spread into a long put butterfly. With a bear put spread that is long the 12,000 put and short the 11,600 put, you would sell another 11,600 put and buy an 11,200 put, giving you long 12,000, short 2×11,600, long 11,200. This changes the payoff so the maximum profit is at the middle strike, but it also increases complexity and transaction costs.
 
-## How do you test a bear put spread on Āagman?
+## Test this strategy on Aagman
 
 The fastest way to know whether a bear put spread fits your bearish view is to backtest the exact rules on real NIFTY history.
 
-### Backtesting
+**1. Backtest it on historical data.** Paste this into Aagman:
 
-1. Log into Āagman.
-2. Type your strategy in plain language. Use the multi-leg options backtest capability:
-   ```text
-   Backtest a bear put spread on NIFTY 50 from Jan 2020 to Dec 2023 on a daily timeframe.
-   Enter when NIFTY closes below its 20-day SMA and RSI(14) is below 45.
-   Buy the nearest ATM put and sell the nearest OTM put with the same weekly expiry.
-   Exit at expiry, or if the spread value reaches 50% of max profit, or if the loss hits the full net debit.
-   Compare this to a naked long put with the same entry signal.
-   ```
-3. Review the strategy card: symbol, entry rule, exit rule, spread legs, and sizing.
-4. Click **Run Risk Checks**.
-5. Click **Run Backtest**.
-6. Read the report: Total Return, Max Drawdown, Win Rate, Sharpe, Total Trades, Avg Win / Avg Loss, and Expectancy.
-7. Inspect the Recent Trades table to see the actual entry and exit premiums.
-8. Tweak one variable and rerun. Try monthly expiry, a wider strike width, or an entry filter using India VIX.
-9. Compare the spread results against the long put-only backtest.
+```text
+Backtest a bear put spread on NIFTY 50 from Jan 2020 to Dec 2023 on a daily timeframe.
+Enter when NIFTY closes below its 20-day SMA and RSI(14) is below 45.
+Buy the nearest ATM put and sell the nearest OTM put with the same weekly expiry.
+Exit at expiry, or if the spread value reaches 50% of max profit, or if the loss hits the full net debit.
+Include STT and brokerage.
+```
 
-You can also iterate in chat:
-- "what if I widen the put strikes to 200 points on NIFTY?"
-- "only enter when India VIX is above 18"
-- "add a stop-loss at 100% of the net debit"
+You will get the actual premium collected each cycle, how often the spread hit the stop, and the return on the net debit. Tweak the strike width, expiry, or entry filter and it re-runs.
 
-### Research
+**2. Paper trade it before risking real money.** A backtest assumes clean fills at closing prices. Real options spreads have bid-ask slippage, pin risk at expiry, and the temptation to change your stop mid-trade. Paper trade two or three cycles to build that feel.
 
-1. Log into Āagman.
-2. Open the Research section.
-3. Type:
-   ```text
-   Screen F&O stocks in the NIFTY 50 universe that closed below their 20-day SMA with RSI below 45 and increasing volume over the last 5 sessions.
-   ```
-4. Review the criteria summary and the results table.
-5. For any candidate, ask for a written analysis or bull/bear/base scenarios.
-6. Export the shortlist to CSV if you want to track it.
+**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker once and run it live:
 
-### Live Execution
+```text
+Deploy live: bear put spread on NIFTY 50. Buy the nearest ATM put and sell the nearest OTM put, weekly expiry. Exit at 50% of max profit or if the loss hits the full net debit. Start with one lot.
+```
 
-1. Log into Āagman.
-2. Go to the execution agent.
-3. When you are ready to go live, ask Āagman to deploy a bear put spread on [STOCK TICKER / INDEX] with [quantity] lots, [higher-strike PE], [lower-strike PE], [expiry], and your stop/target rules. Start small.
-4. Āagman will ask: **paper trade or live?**
-5. Choose **paper trade** first to test the order logic without touching your broker account.
-6. For **live**, ensure:
-   - Your broker account is connected to Āagman (Zerodha / Upstox / Angel One / Motilal, or whichever broker you use).
-   - The relay extension is installed and running.
-7. Confirm and place the order. Āagman routes it through your existing broker.
-8. Track the order status the same way you would on your broker terminal.
+Risk checks run before every order, and you get a fill alert each time a new spread is placed.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
 ## FAQ
-
-
 
 **Is a bear put spread the same as a naked short put?**
 No. A naked short put is an uncovered short option with large margin and high risk. A bear put spread is fully hedged: the long put covers the short put, so risk is limited to the net debit paid.
@@ -240,5 +210,7 @@ Index and stock F&O gains are generally treated as non-speculative business inco
 
 ## Related reads
 
-- [Covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/)
-
+- [Covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/) — the bullish or neutral income counterpart.
+- [Bull call spread: the directional debit alternative](/blog/t1-bull-call-spread-directional/) — the mirror image for a moderate bullish view.
+- [Short straddle on Nifty for income](/blog/t1-short-straddle-nifty-income/) — a direction-neutral trade for range-bound markets.
+- [Iron condor on Nifty](/blog/t1-trade-iron-condor-nifty/) — a wider range-bound trade with defined risk.

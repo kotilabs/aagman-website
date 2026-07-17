@@ -1,4 +1,5 @@
 ---
+
 title: "What Changes When You Go from Paper Trading to Live Capital"
 description: "Paper trading looks profitable. Live capital isn't. Slippage, STT, SEBI margin rules, and your own reactions change the system. Here's how to fix the process before you fund."
 takeaway: "Paper trading looks profitable. Live capital isn't. Slippage, STT, SEBI margin rules, and your own reactions change the system. Here's how to fix the process before you fund."
@@ -16,6 +17,7 @@ tags:
   - "Trading Psychology"
 featured: false
 readingTime: 11
+
 ---
 
 # What Changes When You Go from Paper Trading to Live Capital
@@ -55,7 +57,7 @@ Now the emotional cascade starts. You see a cost-driven loss and move your stop 
 
 The numbers are illustrative, but the shape is what matters. Costs and slippage reduce the return, and they can also change the win rate and the drawdown profile, because the same stop level now gets hit by the real price and the same target now needs to overcome a higher cost basis.
 
-If you want a gentler first live experience, a defined-income strategy like a [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks) or a [covered call](/blog/covered-call-strategy-indian-stocks) forces you to think about lot size, strike selection, and assignment before you touch the order button.
+If you want a gentler first live experience, a defined-income strategy like a [cash-secured put](/blog/cash-secured-put-getting-paid-to-buy-stocks/) or a [covered call](/blog/covered-call-strategy-indian-stocks/) forces you to think about lot size, strike selection, and assignment before you touch the order button.
 
 ## Why does my live account underperform my paper account?
 
@@ -115,7 +117,7 @@ For the first 30 to 60 days, run the exact same rules on paper while trading liv
 
 Every time you move a stop, change size, skip an entry, or hold a losing trade beyond the rule, write it down. The deviation is more valuable data than the trade outcome.
 
-If you trade multi-leg spreads such as an [iron condor on Nifty](/blog/t1-trade-iron-condor-nifty), these checks are even more important. The margin benefit only exists if the legs are placed together, and slippage on one leg can destroy the risk profile you built on paper.
+If you trade multi-leg spreads such as an [iron condor on Nifty](/blog/t1-trade-iron-condor-nifty/), these checks are even more important. The margin benefit only exists if the legs are placed together, and slippage on one leg can destroy the risk profile you built on paper.
 
 ## What fixed looks like
 
@@ -125,19 +127,19 @@ Your position size follows a risk rule rather than the paper account's profits. 
 
 Your journal shows fewer overrides each month. The emotional reaction remains. Now you review it as data before you act on it.
 
-## Backtest and paper trade on Āagman
+## Backtest and paper trade on Aagman
 
-Before you fund the account, run the same strategy on Āagman with real costs and slippage.
+Before you fund the account, run the same strategy on Aagman with real costs and slippage.
 
-Backtest it with realistic slippage and costs:
+**1. Backtest it with realistic costs and slippage.** Paste this into Aagman:
 
-```
-Backtest an intraday Nifty 50 futures breakout strategy on 15-minute candles from Jan 2024 to Dec 2024. Enter long when price breaks above the previous 15-minute high. Exit at a 1:3 risk/reward or at a 1% stop loss. Then add 1 tick slippage per trade and the full cost stack: brokerage, STT, exchange charges, SEBI turnover fee, GST, and stamp duty.
+```text
+Backtest an intraday Nifty 50 futures breakout strategy on 15-minute candles from Jan 2024 to Dec 2024. Enter long when price breaks above the previous 15-minute high. Exit at a 1:3 risk/reward or at a 1% stop loss. Add 1 tick slippage per trade and the full cost stack: brokerage, STT, exchange charges, SEBI turnover fee, GST, and stamp duty.
 ```
 
 Compare the cost-adjusted report to the paper-style report. If the net P&L still justifies the drawdown, move to paper trading.
 
-Paper trade it on Āagman with live market data for at least 30 sessions. Run the same rules without changing them. If the fills and the cost drag match what you modeled, you have a live-ready process.
+**2. Paper trade it before risking capital.** Run the same rules on Aagman with live market data for at least 30 sessions. If the fills and the cost drag match what you modeled, you have a live-ready process.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
@@ -169,7 +171,6 @@ Most platforms separate paper and live accounts. Āagman lets you run the same s
 
 ## Related reads
 
-- [Covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/)
-- [Cash-secured put: getting paid to buy stocks](/blog/cash-secured-put-getting-paid-to-buy-stocks/)
-- [How to trade an iron condor on Nifty](/blog/t1-trade-iron-condor-nifty/)
-
+- [Covered call strategy for Indian stocks](/blog/covered-call-strategy-indian-stocks/) — a low-complexity live strategy with a predictable cost structure.
+- [Cash-secured put: getting paid to buy stocks](/blog/cash-secured-put-getting-paid-to-buy-stocks/) — a defined-risk way to start trading live capital.
+- [How to trade an iron condor on Nifty](/blog/t1-trade-iron-condor-nifty/) — why multi-leg spreads need slippage and margin modeling before live deployment.

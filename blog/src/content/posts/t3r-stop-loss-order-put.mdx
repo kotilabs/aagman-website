@@ -1,4 +1,5 @@
 ---
+
 title: "The stop-loss order: where to put it, taught through a losing trade"
 description: "Learn the the stop-loss order: where to put it, taught through a losing trade for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
 takeaway: "Learn the the stop-loss order: where to put it, taught through a losing trade for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
@@ -16,10 +17,8 @@ tags:
   - "Through"
 featured: false
 readingTime: 11
----
 
-URL: `/stop-loss-order-placement-indian-stocks`
-Meta description: `Learn where to place a stop-loss order on Indian stocks. A worked losing trade on Reliance shows why placement matters more than having the stop.`
+---
 
 # Where to Place a Stop-Loss Order: Taught Through a Losing Trade
 
@@ -62,7 +61,7 @@ Circuit filters and gaps can stop your stop from working. If a stock hits its lo
 
 Costs also change the math. Brokerage, STT, exchange charges, SEBI turnover fees, stamp duty, and GST are real on every exit. A stop that is right by only a few rupees can be wrong after costs. Your stop has to be wrong enough to justify getting out.
 
-Stop distance also has to talk to [position sizing](/guides/position-sizing). A wider stop must mean a smaller position. Otherwise you are simply trading a bigger loss with a prettier label.
+Stop distance also has to talk to position sizing. A wider stop must mean a smaller position. Otherwise you are simply trading a bigger loss with a prettier label.
 
 ## How does stop placement change a losing trade?
 
@@ -77,7 +76,7 @@ Let us put the same trade back through four different stop placements, so you ca
 
 These numbers are illustrative. They show the pattern, not a verified backtest. Variant A has the smallest loss per stop, but it gets hit by noise. Variants B, C, and D give the trade room to move. With any of them, the wick to ₹2,818 does not hit the stop, and the position rides to ₹2,950 for a gross gain of ₹50 per share, or ₹12,500 before costs.
 
-The support-based stop at ₹2,780 is below a real [validated support zone](/guides/support-resistance). The ATR-based stops adapt to how much the stock actually moves. Neither is perfect. A wider stop means when you are genuinely wrong, you lose more. A tighter stop means you get stopped out more often. There is no universal right answer. There is only the right answer for this instrument, this timeframe, and this position size.
+The support-based stop at ₹2,780 is below a real validated support zone. The ATR-based stops adapt to how much the stock actually moves. Neither is perfect. A wider stop means when you are genuinely wrong, you lose more. A tighter stop means you get stopped out more often. There is no universal right answer. There is only the right answer for this instrument, this timeframe, and this position size.
 
 ## What can go wrong with a stop-loss order?
 
@@ -91,36 +90,27 @@ Options add another layer. An option premium can gap because of its own bid-ask 
 
 Liquidity matters too. In mid- and small-cap names, the last traded price is not the price you will exit at. The bid-ask spread and impact cost can push your fill well below the trigger. That is why the most liquid Nifty stocks are the best place to learn stop placement. Reliance, HDFC Bank, Infosys, and TCS have tight enough markets that your stop generally fills near the trigger.
 
-## Backtest it on Āagman
+## Run this on Aagman
 
-The four stop placements above are not abstract theories. They can be tested on real data.
+The fastest way to find the right stop level for your instrument is to backtest the placement, then move up to desk-tier execution when the basic stop panel starts costing you.
+
+**1. Backtest the stop placement.** Paste this into Aagman:
 
 ```text
-Backtest on Āagman
-
-1. Log into Āagman.
-2. Type your strategy in any language. Example:
-   "Backtest a long swing strategy on RELIANCE from Jan 2023 to Dec 2024.
-   Entry: price closes above the 20-day high.
-   Compare four stop variants:
-   A) stop below the latest swing low,
-   B) stop below the nearest major support,
-   C) stop at 1.5× daily ATR,
-   D) stop at 2× daily ATR.
-   Report win rate, average loss, max drawdown, and number of whipsaws."
-3. Āagman shows you a strategy card. Check it matches what you meant.
-4. Click "Run Risk Checks."
-5. Click "Run Backtest."
-6. Read the results: total return, max drawdown, win rate, trade count, equity curve.
-7. Check the trade table for whipsaws. If one variant gets stopped out repeatedly while the underlying recovers, that is the lesson.
-8. Tweak one thing and rerun: a different stock, a different ATR multiple, or a buffer below support.
+Backtest a long swing strategy on RELIANCE from Jan 2023 to Dec 2024. Entry: price closes above the 20-day high. Compare four stop variants: A) stop below the latest swing low, B) stop below the nearest major support, C) stop at 1.5x daily ATR, D) stop at 2x daily ATR. Report win rate, average loss, max drawdown, and number of whipsaws. Include STT and brokerage.
 ```
 
-## Up the ladder
+The report shows which placement gets stopped out by noise and which lets the trade breathe.
 
-The retail panel gives you a basic stop-loss. Once you understand where to place it, the next step is better execution.
+**2. Paper trade the stop rule.** Paper trading catches what a backtest cannot: your broker's latency, the real spread at the stop trigger, and whether you can hold the rule without moving it.
 
-Āagman can run true trailing stops, market-if-touched, limit-if-touched, and VWAP or TWAP slicing on your existing broker account. These are not toys. They matter when your size is larger, your stop is wider, or slippage is eating the edge you worked to find. Read the desk-tier guide on [advanced stop-loss execution](/desk/advanced-stop-loss-execution) to see how to move from basic stops to institutional-grade execution.
+**3. Move up to desk-tier execution when size grows.** For larger size or gap protection, Aagman can run true trailing stops, market-if-touched, and VWAP/TWAP exits on your existing broker account. Start with:
+
+```text
+Paper trade a 1.5x ATR trailing stop on RELIANCE. Exit the long position if the price closes below the trailing level. Compare it against a fixed swing-low stop over the last 30 sessions.
+```
+
+Once the fill logic matches your plan, deploy live with the same order type.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
@@ -147,11 +137,9 @@ For swing trades, use daily ATR, typically 1.5× to 2×, or place the stop below
 **How do I size a position once I know my stop distance?**
 Divide your planned account risk by the stop distance. If you risk 1% of a ₹10 lakh account, that is ₹10,000. If your stop is ₹130 away, you can buy about 77 shares in cash. In F&O, a wider stop may mean fewer lots than you hoped.
 
-## Internal links
+## Related reads
 
-- [Position sizing guide](/guides/position-sizing) — how stop distance and account risk decide your quantity.
-- [Average true range (ATR) guide](/guides/average-true-range) — using volatility to set stop distance.
-- [Support and resistance guide](/guides/support-resistance) — how to find a validated demand zone.
-- [Advanced stop-loss execution](/desk/advanced-stop-loss-execution) — true trailing stops, VWAP, and TWAP slicing.
-- [Risk management pillar](/pillars/risk-management) — the framework around capital preservation.
-- [Swing trading strategy](/strategies/swing-trading) — holding periods where ATR-based stops work best.
+- [Market vs limit orders: the entry decision](./t3r-vs-limit-orders-entry) — how the order type you choose changes your entry fill.
+- [What changes when you go from paper trading to live capital](./t4-changes-go-paper-live) — why stop rules feel different once real money is at risk.
+- [Why most options buyers lose money](./why-options-buyers-lose-money) — how poor exits and slippage compound the buyer's edge problem.
+- [Covered call strategy for Indian stocks](./covered-call-strategy-indian-stocks) — a defined-risk live strategy to practice stops with a slower pace.
