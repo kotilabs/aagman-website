@@ -1,0 +1,7 @@
+# GitHub Pages config: the root site is static HTML; the Astro blog is built separately.
+# Exclude the blog source directory so Jekyll does not try to parse Astro files.
+exclude:
+  - blog/
+  - README.md
+  - LICENSE
+  - .github/
