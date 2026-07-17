@@ -1,0 +1,161 @@
+---
+title: "Market vs limit orders: the entry decision, through a real Reliance trade"
+description: "Learn the market vs limit orders: the entry decision, through a real reliance trade for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
+takeaway: "Learn the market vs limit orders: the entry decision, through a real reliance trade for Indian traders: mechanics, risks, when to use it, and how to test it on \\u0100agman."
+slug: "t3r-vs-limit-orders-entry"
+pubDate: 2026-07-14
+author: "Āagman Desk"
+authorSlug: "aagman-desk"
+category: "Execution & Order Types"
+tags: 
+  - "Market"
+  - "Limit"
+  - "Orders"
+  - "Entry"
+  - "Decision"
+  - "Through"
+featured: false
+readingTime: 11
+---
+
+slug: market-vs-limit-order-reliance  
+meta: Market orders fill quickly but can slip; limit orders control price but may miss the move. Learn the difference on NSE with a Reliance trade example.
+
+# Market vs limit orders: the entry decision, through an illustrative Reliance trade
+
+You are watching Reliance Industries. It has been consolidating for two hours, and the last traded price on your screen is ₹2,952. Your plan is simple: buy if it breaks above the morning high of ₹2,950. The breakout happens. The price prints ₹2,952. Now the first real decision of the trade shows up. Do you hit the market order button and take whatever is available, or do you place a limit order and refuse to pay more than a specific price?
+
+A market order is a request to buy or sell immediately at the best available price, assuming normal liquidity and no circuit or protection cancel. You are highly likely to get filled, but you do not control the price. A limit order is a request to buy or sell at a specific price or better. You control the price, but you are not guaranteed a fill. Neither is superior. Each solves a different problem.
+
+That is the whole distinction. The rest is learning to feel it in a live trade.
+
+## What is the difference between a market order and a limit order?
+
+A market order tells the exchange to fill you at the best available price right now. You get speed, but you give up price control. A limit order tells the exchange to fill you only at your price or better. You get price control, but you risk missing the trade. Neither is superior; each solves a different problem.
+
+## The problem, felt
+
+Let us walk the trade forward. Reliance is at ₹2,952.00, the offer on the screen is ₹2,952.40, and you are trying to buy one futures lot of 250 shares. NSE revises F&O lot sizes, so check the current list before trading. If you place a market order, the exchange matches you against the best sell orders in the queue. Let us say your fill comes at ₹2,952.85. You are in the position, but you paid 85 paise above the last traded price you saw, 45 paise above the offer you saw, and ₹2.85 above the breakout trigger you had chosen. That is slippage.
+
+If you place a limit order at ₹2,950.50, you are telling the market: "I will buy, but only if someone is willing to sell at ₹2,950.50 or lower." The market is at ₹2,952.40. Your order sits in the bid queue. The breakout is alive. Reliance moves to ₹2,955, then ₹2,958. Your order never fills. By the end of the day the stock is at ₹2,968. You saved the slippage, but you missed the trade.
+
+The fear you feel is real either way. With a market order, you worry about overpaying. With a limit order, you worry about missing the move. Both fears are valid. The choice depends on which mistake would hurt your plan more.
+
+If you want the price only if it is available right now, set the validity to IOC. Otherwise your limit order sits as a day order and may fill on a pullback you no longer want.
+
+## The order type as the answer
+
+On the NSE, the order matching engine works on price-time priority. Price is king: the best bid gets matched with the best offer first. When time is equal, the order that arrived earlier gets priority. A market buy order is treated as an instruction to take the best available offer immediately. If there are enough shares at the current offer, you fill at the offer. If the offer is thin and more buyers jump in, you sweep through higher offers, and your average fill price drifts upward.
+
+Here is a simplified bid-ask queue for Reliance at one moment:
+
+| Queue level | Bid quantity | Bid price | Offer price | Offer quantity |
+|---|---|---|---|---|
+| Best bid | 1,200 | ₹2,951.80 | | |
+| Best offer | | | ₹2,952.40 | 100 |
+| 2nd offer | | | ₹2,952.80 | 100 |
+| 3rd offer | | | ₹2,953.85 | 50 |
+
+A market buy of 250 shares would sweep 100 shares at ₹2,952.40, 100 shares at ₹2,952.80, and 50 shares at ₹2,953.85. The average fill is ₹2,952.85. The last traded price you saw was ₹2,952.00, so the slippage is real even though the stock looks quiet.
+
+In the F&O segment, NSE does not allow a completely unprotected market order. The "Market" order type you see is usually a market-with-protection order. Your broker fills you at the best price, but only within a fixed band around the last traded price. If the market gaps beyond that band, your order is cancelled instead of filling you at a wild price. In the equity cash segment, a plain market order is more common, but it is still subject to the stock's price band. Choose the product type (CNC for delivery, MIS for intraday, NRML for F&O overnight) before you choose the order type.
+
+## Cost mechanics by segment
+
+Brokerage, STT, exchange charges, and GST are calculated on the executed value and the rules of the segment, not on whether the order is a market order or a limit order. With a flat-fee discount broker, brokerage is typically ₹20 per executed order; full-service brokers may differ. The difference in total cost comes from the price at which you execute.
+
+For F&O futures, STT is zero on entry and 0.02% on the sell side at exit. The only extra cost from a higher fill price is the extra principal, plus the tiny exchange and SEBI turnover charges and the GST on those charges.
+
+| Segment | STT on entry | STT on exit |
+|---|---|---|
+| Equity delivery | 0.1% on buy | 0.1% on sell |
+| Equity intraday | None | 0.025% on sell |
+| F&O futures | None | 0.02% on sell |
+| F&O options | None (0.125% if exercised) | 0.05% on premium |
+
+Check the latest SEBI / Income Tax notification; these rates change.
+
+## A worked example with numbers
+
+The numbers below are illustrative. Replace them with your own Āagman backtest or live market snapshot before you trade.
+
+| | Market order | Limit order |
+|---|---|---|
+| Trigger | Reliance breaks above ₹2,950 | Reliance breaks above ₹2,950 |
+| LTP when you act | ₹2,952.00 | ₹2,952.00 |
+| Best offer you see | ₹2,952.40 | ₹2,952.40 |
+| Order you place | Buy at market | Buy at ₹2,950.50 |
+| Let us say the fill | ₹2,952.85 | No fill |
+| Slippage vs LTP | ₹0.85 per share | Not applicable |
+| Slippage vs trigger | ₹2.85 per share | Not applicable |
+| Outcome on one lot (250 shares) | Entry at ₹2,952.85; you ride the move | Missed entry; stock closes at ₹2,968 |
+
+The cost difference is not in the fee structure. It is in the execution price. Let us say brokerage is ₹20 per executed order with a flat-fee broker, and the exchange and SEBI charges plus GST work out to roughly 0.002% of the executed value. On the market fill, the executed value is ₹2,952.85 × 250 = ₹7,38,212.50. On the limit fill it would have been ₹2,950.50 × 250 = ₹7,37,625. The extra principal is ₹587.50. The extra exchange and SEBI charges plus GST on that amount are a few rupees. If the limit order never fills, your opportunity cost is the missed move.
+
+On a normal day, let us say Reliance slippage versus the LTP might be 2 to 5 basis points. On a fast day (Budget day, RBI policy day, or expiry Thursday), it can be 10 basis points or more. These are illustrative. Run an Āagman backtest on the actual day to see the real bid-ask spread and fill.
+
+## Market order or limit order: which one should you use?
+
+Choose a market order when the setup is time-sensitive and missing the move is worse than paying a little extra. Choose a limit order when the price level itself is the signal and you would rather skip the trade than overpay. The question is not which order type is better; it is which mistake would hurt your plan more.
+
+## Where the retail order panel stops
+
+The retail order panel (market, limit, stop loss, bracket, cover, GTT) is enough for a single entry. But it has a ceiling. You cannot eliminate slippage with a plain market order. You cannot guarantee a fill with a plain limit order. And you cannot walk away from the screen during a breakout without accepting either risk.
+
+This is especially true on volatile days. Budget day, RBI policy day, or expiry Thursday can widen the bid-ask spread and increase the gap between LTP and your fill. A limit order that looks conservative can leave you watching the stock run away while your bid sits untouched.
+
+Size is the other ceiling. One share of slippage is noise. One F&O lot is real money. Multiple lots add market impact.
+
+## Up the ladder
+
+The retail order panel handles the basic market-or-limit entry. The ceiling we described — slippage on size, missed breakouts, and screen time — is what desk-tier order types solve: true trailing stops, market-if-touched, limit-if-touched, and VWAP/TWAP slicing. These run on the same broker account, but they are not in your broker's standard panel. We cover them in the [desk-tier companion](./desk-tier-order-types-market-limit).
+
+## Run this on Āagman
+
+Whatever broker you use, Āagman runs on the same account and lets you test and place these orders in plain language.
+
+Backtest the entry first. Paste this into Āagman:
+
+```text
+Backtest a market-entry strategy on RELIANCE futures on a 15-minute timeframe from 1 Jan 2024 to 31 Dec 2024. Buy at market when the close crosses above the previous day high. Record the last traded price at the signal, the best offer, the actual market fill, and the slippage in bps.
+```
+
+The report shows average slippage, fill rate, and how many breakouts you would have missed with a limit order.
+
+Then paper trade the same setup for a few sessions. Paper trading catches what a backtest cannot: your broker's latency, the real bid-ask spread at the breakout, and whether you can sit through a limit order that does not fill.
+
+When you are ready to go live, ask Āagman in plain language:
+
+```text
+Buy 1 lot of RELIANCE futures at market if the price crosses above ₹2,950. Stop loss at ₹2,930.
+```
+
+Or for a limit entry:
+
+```text
+Buy 1 lot of RELIANCE futures with a limit order at ₹2,950.50 if the price touches ₹2,950. Stop loss at ₹2,930.
+```
+
+Āagman checks your broker connection, verifies your risk limits, and then routes the order.
+
+Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
+
+## FAQ
+
+**When should I use a market order?**
+Use it when getting into the position matters more than the exact price. Breakouts, fast-moving setups, and stop-loss exits are typical cases. You accept slippage in exchange for a high probability of fill.
+
+**When should I use a limit order?**
+Use it when price matters more than immediate fill. Building a position near a support level, entering at a specific technical level, or selling at a target are common cases. You accept the risk of missing the trade.
+
+**Is brokerage or STT higher for market orders?**
+No. Brokerage, STT, exchange charges, and GST depend on the executed value, the segment, and your broker, not the order type. A market order may cost more only because it fills at a higher price.
+
+**What is market with protection?**
+It is a market order with a price collar. Your broker fills you at the best price, but only within a fixed band around the last traded price. If the market gaps beyond that band, the order is cancelled rather than filling you at an extreme price.
+
+**Should I always use a limit order to get a better entry?**
+Not if missing the move is worse than paying a little extra. A limit order is a bargain-hunting tool. If the stock never returns to your price, the bargain was never available.
+
+**What if my limit order is only partially filled?**
+The unfilled portion stays in the order book as a limit order at your price. It fills only if the market comes back to that price. You can also cancel the rest or adjust the price. Partial fills are common in thin or fast markets.
