@@ -217,27 +217,65 @@ Here is how the bull put spread compares to its closest sibling, the bull call s
 
 **Adjustments.** If the underlying drifts toward your short strike but you remain bullish, you can roll the spread down and out. You can also convert the bull put spread into an iron condor if a bear call spread starts to look attractive. Each adjustment costs money; do not adjust just to avoid a loss.
 
-## Test this strategy on Aagman
+## How do you test a bull put spread on Āagman?
 
 The fastest way to know whether bull put spreads fit your style is to backtest the exact rules on real market data.
 
-**1. Backtest it on historical data.** Paste this into Aagman:
+### Backtest it on historical data
 
-```text
-Backtest a bull put spread on Nifty 50 from Jan 2023 to Jan 2025. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Enter only when Nifty 50 closes above its 20-day EMA. Take profit at 50% of the credit. Stop loss if the spread value doubles or if Nifty closes below the long strike. Include STT, brokerage, and GST.
+```
+Backtesting
+
+1. Log into Āagman.
+2. Type the strategy in plain language, including the spread, entry filter, and exit rules. Example:
+   "Backtest a bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Enter only when Nifty 50 closes above its 20-day EMA. Take profit at 50% of the credit. Stop loss if the spread value doubles or if Nifty closes below the long strike. Use current STT, brokerage, and GST rates. Run from 1 January 2023 to 1 January 2025."
+3. Āagman returns a strategy card: underlying, short and long delta rules, DTE, entry filter, exit rules.
+4. Check the card matches your intent. If something is off, edit the prompt and resend.
+5. Click "Run Risk Checks."
+6. Click "Run Backtest."
+7. Read the results: total return, max drawdown, win rate, total trades, Sharpe, expectancy, and equity curve.
+8. Inspect the trade table for any odd fills, expiry pin risk, or gap-down exits.
+9. Tweak one variable and rerun. Try:
+   - "what if I use 15 days to expiry instead of 30?"
+   - "only enter when India VIX is above 18"
+   - "what if I widen the spread to 300 points?"
+10. Compare the results against a simple buy-and-hold of Nifty 50 over the same period.
 ```
 
-You will get the actual credit collected each cycle, how often the spread hit the stop, and the return on margin. Tweak the delta rules, DTE, or entry filter and it re-runs.
+You will get the actual credit collected each cycle, how often the spread hit the stop, and the return on margin. Use that to decide whether the income is worth the risk.
 
-**2. Paper trade it before risking real money.** A backtest assumes clean fills at closing prices. Real credit spreads have bid-ask slippage, margin spikes on volatile days, and the emotional pull to move your stop. Paper trade two or three cycles to build that feel.
+### Research it before you trade
 
-**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker once and run it live:
+```
+Research
 
-```text
-Deploy live: bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Take profit at 50% of the credit. Stop loss if the spread value doubles. Start with one lot.
+1. Log into Āagman.
+2. Open the Research section.
+3. Ask for a screen or analysis. Example:
+   "Show me F&O names with high IV rank and price above the 50-day EMA."
+4. Review the criteria summary and the results table.
+5. Export to CSV if you want to track the shortlist.
+6. Recheck before acting — screens are a snapshot, not a standing recommendation.
 ```
 
-Risk checks run before every order, and you get a fill alert each time a new spread is placed.
+### Paper trade it before risking capital
+
+A backtest assumes clean fills at closing prices. Real options trading has its own rhythm: bid-ask spread, slippage, time to fill, and the temptation to change your stop mid-trade.
+
+1. Log into Āagman.
+2. Go to the execution agent.
+3. Type the same strategy but add "paper trade only." Example:
+   ```text
+   Paper trade a bull put spread on Nifty 50. Sell a 30-delta put and buy a 15-delta put, 30 days to expiry. Take profit at 50% of the credit. Stop loss if the spread value doubles.
+   ```
+4. Track the fills, the mark-to-market, and the emotional response.
+5. Run two or three cycles before you commit capital.
+
+### Connect your broker and deploy live
+
+When your paper results match your backtest, you can deploy live. When you are ready, ask Āagman to deploy a bull put spread on [STOCK TICKER / INDEX] with [position size] and your stop/target rules. Start small.
+
+Risk checks run before any live order, and you get a fill alert each time a new spread is placed.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 

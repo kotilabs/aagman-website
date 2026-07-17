@@ -109,27 +109,33 @@ Size is the other ceiling. One share of slippage is noise. One F&O lot is real m
 
 The retail order panel handles the basic market-or-limit entry. The ceiling we described — slippage on size, missed breakouts, and screen time — is what desk-tier order types solve: true trailing stops, market-if-touched, limit-if-touched, and VWAP/TWAP slicing. These run on the same broker account, but they are not in your broker's standard panel. We cover them in the desk-tier companion.
 
-## Run this on Aagman
+## Run this on Āagman
 
-The fastest way to settle the market-vs-limit question for your setup is to backtest the entry on real bid-ask data, then move up to desk-tier order types when size matters.
+Whatever broker you use, Āagman runs on the same account and lets you test and place these orders in plain language.
 
-**1. Backtest the entry.** Paste this into Aagman:
+Backtest the entry first. Paste this into Āagman:
 
 ```text
-Backtest a market-entry strategy on RELIANCE futures on a 15-minute timeframe from 1 Jan 2024 to 31 Dec 2024. Buy at market when the close crosses above the previous day high. Record the LTP at the signal, the best offer, the actual market fill, and the slippage in bps.
+Backtest a market-entry strategy on RELIANCE futures on a 15-minute timeframe from 1 Jan 2024 to 31 Dec 2024. Buy at market when the close crosses above the previous day high. Record the last traded price at the signal, the best offer, the actual market fill, and the slippage in bps.
 ```
 
 The report shows average slippage, fill rate, and how many breakouts you would have missed with a limit order.
 
-**2. Paper trade it.** Paper trading catches what a backtest cannot: your broker's latency, the real bid-ask spread at the breakout, and whether you can sit through a limit order that does not fill.
+Then paper trade the same setup for a few sessions. Paper trading catches what a backtest cannot: your broker's latency, the real bid-ask spread at the breakout, and whether you can sit through a limit order that does not fill.
 
-**3. Move up to desk-tier orders when size grows.** For larger size or tighter execution, Aagman can run market-if-touched, limit-if-touched, and VWAP/TWAP slices on your existing broker account. Start with:
+When you are ready to go live, ask Āagman in plain language:
 
 ```text
-Paper trade a market-if-touched order on RELIANCE futures: buy 1 lot if the price touches ₹2,950, using a limit of ₹2,950.50. Stop loss at ₹2,930.
+Buy 1 lot of RELIANCE futures at market if the price crosses above ₹2,950. Stop loss at ₹2,930.
 ```
 
-Once the fill logic matches your plan, deploy live with the same order type.
+Or for a limit entry:
+
+```text
+Buy 1 lot of RELIANCE futures with a limit order at ₹2,950.50 if the price touches ₹2,950. Stop loss at ₹2,930.
+```
+
+Āagman checks your broker connection, verifies your risk limits, and then routes the order.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 

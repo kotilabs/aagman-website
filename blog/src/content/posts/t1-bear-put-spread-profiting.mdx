@@ -154,31 +154,58 @@ The point of the walkthrough is this: the spread does not need a crash to make m
 
 **Convert to a butterfly.** If you become convinced the downside is capped at a specific level, you can convert the spread into a long put butterfly. With a bear put spread that is long the 12,000 put and short the 11,600 put, you would sell another 11,600 put and buy an 11,200 put, giving you long 12,000, short 2×11,600, long 11,200. This changes the payoff so the maximum profit is at the middle strike, but it also increases complexity and transaction costs.
 
-## Test this strategy on Aagman
+## How do you test a bear put spread on Āagman?
 
 The fastest way to know whether a bear put spread fits your bearish view is to backtest the exact rules on real NIFTY history.
 
-**1. Backtest it on historical data.** Paste this into Aagman:
+### Backtesting
 
-```text
-Backtest a bear put spread on NIFTY 50 from Jan 2020 to Dec 2023 on a daily timeframe.
-Enter when NIFTY closes below its 20-day SMA and RSI(14) is below 45.
-Buy the nearest ATM put and sell the nearest OTM put with the same weekly expiry.
-Exit at expiry, or if the spread value reaches 50% of max profit, or if the loss hits the full net debit.
-Include STT and brokerage.
-```
+1. Log into Āagman.
+2. Type your strategy in plain language. Use the multi-leg options backtest capability:
+   ```text
+   Backtest a bear put spread on NIFTY 50 from Jan 2020 to Dec 2023 on a daily timeframe.
+   Enter when NIFTY closes below its 20-day SMA and RSI(14) is below 45.
+   Buy the nearest ATM put and sell the nearest OTM put with the same weekly expiry.
+   Exit at expiry, or if the spread value reaches 50% of max profit, or if the loss hits the full net debit.
+   Compare this to a naked long put with the same entry signal.
+   ```
+3. Review the strategy card: symbol, entry rule, exit rule, spread legs, and sizing.
+4. Click **Run Risk Checks**.
+5. Click **Run Backtest**.
+6. Read the report: Total Return, Max Drawdown, Win Rate, Sharpe, Total Trades, Avg Win / Avg Loss, and Expectancy.
+7. Inspect the Recent Trades table to see the actual entry and exit premiums.
+8. Tweak one variable and rerun. Try monthly expiry, a wider strike width, or an entry filter using India VIX.
+9. Compare the spread results against the long put-only backtest.
 
-You will get the actual premium collected each cycle, how often the spread hit the stop, and the return on the net debit. Tweak the strike width, expiry, or entry filter and it re-runs.
+You can also iterate in chat:
+- "what if I widen the put strikes to 200 points on NIFTY?"
+- "only enter when India VIX is above 18"
+- "add a stop-loss at 100% of the net debit"
 
-**2. Paper trade it before risking real money.** A backtest assumes clean fills at closing prices. Real options spreads have bid-ask slippage, pin risk at expiry, and the temptation to change your stop mid-trade. Paper trade two or three cycles to build that feel.
+### Research
 
-**3. Connect your broker and deploy live.** When paper results match the backtest, connect your broker once and run it live:
+1. Log into Āagman.
+2. Open the Research section.
+3. Type:
+   ```text
+   Screen F&O stocks in the NIFTY 50 universe that closed below their 20-day SMA with RSI below 45 and increasing volume over the last 5 sessions.
+   ```
+4. Review the criteria summary and the results table.
+5. For any candidate, ask for a written analysis or bull/bear/base scenarios.
+6. Export the shortlist to CSV if you want to track it.
 
-```text
-Deploy live: bear put spread on NIFTY 50. Buy the nearest ATM put and sell the nearest OTM put, weekly expiry. Exit at 50% of max profit or if the loss hits the full net debit. Start with one lot.
-```
+### Live Execution
 
-Risk checks run before every order, and you get a fill alert each time a new spread is placed.
+1. Log into Āagman.
+2. Go to the execution agent.
+3. When you are ready to go live, ask Āagman to deploy a bear put spread on [STOCK TICKER / INDEX] with [quantity] lots, [higher-strike PE], [lower-strike PE], [expiry], and your stop/target rules. Start small.
+4. Āagman will ask: **paper trade or live?**
+5. Choose **paper trade** first to test the order logic without touching your broker account.
+6. For **live**, ensure:
+   - Your broker account is connected to Āagman (Zerodha / Upstox / Angel One / Motilal, or whichever broker you use).
+   - The relay extension is installed and running.
+7. Confirm and place the order. Āagman routes it through your existing broker.
+8. Track the order status the same way you would on your broker terminal.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 

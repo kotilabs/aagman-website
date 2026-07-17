@@ -90,27 +90,30 @@ Options add another layer. An option premium can gap because of its own bid-ask 
 
 Liquidity matters too. In mid- and small-cap names, the last traded price is not the price you will exit at. The bid-ask spread and impact cost can push your fill well below the trigger. That is why the most liquid Nifty stocks are the best place to learn stop placement. Reliance, HDFC Bank, Infosys, and TCS have tight enough markets that your stop generally fills near the trigger.
 
-## Run this on Aagman
+## Backtest it on Āagman
 
-The fastest way to find the right stop level for your instrument is to backtest the placement, then move up to desk-tier execution when the basic stop panel starts costing you.
-
-**1. Backtest the stop placement.** Paste this into Aagman:
+The four stop placements above are not abstract theories. They can be tested on real data.
 
 ```text
-Backtest a long swing strategy on RELIANCE from Jan 2023 to Dec 2024. Entry: price closes above the 20-day high. Compare four stop variants: A) stop below the latest swing low, B) stop below the nearest major support, C) stop at 1.5x daily ATR, D) stop at 2x daily ATR. Report win rate, average loss, max drawdown, and number of whipsaws. Include STT and brokerage.
+Backtest on Āagman
+
+1. Log into Āagman.
+2. Type your strategy in any language. Example:
+   "Backtest a long swing strategy on RELIANCE from Jan 2023 to Dec 2024.
+   Entry: price closes above the 20-day high.
+   Compare four stop variants:
+   A) stop below the latest swing low,
+   B) stop below the nearest major support,
+   C) stop at 1.5× daily ATR,
+   D) stop at 2× daily ATR.
+   Report win rate, average loss, max drawdown, and number of whipsaws."
+3. Āagman shows you a strategy card. Check it matches what you meant.
+4. Click "Run Risk Checks."
+5. Click "Run Backtest."
+6. Read the results: total return, max drawdown, win rate, trade count, equity curve.
+7. Check the trade table for whipsaws. If one variant gets stopped out repeatedly while the underlying recovers, that is the lesson.
+8. Tweak one thing and rerun: a different stock, a different ATR multiple, or a buffer below support.
 ```
-
-The report shows which placement gets stopped out by noise and which lets the trade breathe.
-
-**2. Paper trade the stop rule.** Paper trading catches what a backtest cannot: your broker's latency, the real spread at the stop trigger, and whether you can hold the rule without moving it.
-
-**3. Move up to desk-tier execution when size grows.** For larger size or gap protection, Aagman can run true trailing stops, market-if-touched, and VWAP/TWAP exits on your existing broker account. Start with:
-
-```text
-Paper trade a 1.5x ATR trailing stop on RELIANCE. Exit the long position if the price closes below the trailing level. Compare it against a fixed swing-low stop over the last 30 sessions.
-```
-
-Once the fill logic matches your plan, deploy live with the same order type.
 
 Trading and investing in securities markets involves risk. Past performance does not guarantee future results.
 
