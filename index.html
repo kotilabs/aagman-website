@@ -10,6 +10,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
 <!-- End Google Tag Manager -->
+<!-- GCLID capture (Google Ads → waitlist attribution) -->
+<script>
+(function () {
+  var gclid = new URLSearchParams(window.location.search).get('gclid');
+  if (gclid) {
+    document.cookie = 'gclid=' + gclid + '; max-age=7776000; path=/; domain=.aagman.ai; SameSite=Lax';
+  }
+})();
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
@@ -19,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var text = (el.textContent || '').trim().substring(0, 50);
     window.dataLayer = window.dataLayer || [];
     if (href.indexOf('app.aagman.ai') !== -1) {
-      window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href });
+      window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href, gclid_present: document.cookie.indexOf('gclid=') !== -1 });
     } else if (href.indexOf('linkedin.com/company/aagman-ai/jobs') !== -1) {
       window.dataLayer.push({ event: 'careers_click', text: text, href: href });
     } else if (href.indexOf('dub.sh/lp-linkedin') !== -1 || href.indexOf('dub.sh/x-lp') !== -1 || href.indexOf('dub.sh/insta-lp') !== -1) {
