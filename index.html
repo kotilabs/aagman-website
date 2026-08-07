@@ -10,6 +10,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
 <!-- End Google Tag Manager -->
+<!-- Reddit Pixel -->
+<script>
+!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js?pixel_id=a2_hiwsqs0yjt0p",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_hiwsqs0yjt0p');rdt('track', 'PageVisit');
+</script>
+<!-- End Reddit Pixel -->
+<!-- Reddit Lead tracking (Get started clicks) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    if (href.indexOf('app.aagman.ai') !== -1 && typeof rdt !== 'undefined') {
+      rdt('track', 'Lead');
+    }
+  });
+});
+</script>
+<!-- End Reddit Lead tracking -->
 <!-- GCLID capture (Google Ads → waitlist attribution) -->
 <script>
 (function () {
