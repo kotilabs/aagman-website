@@ -33,7 +33,7 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
 ---
 
 <Base
-  title={`${title} | Āagman Blog`}
+  title={`${title} | āagman Blog`}
   description={description}
   canonical={canonical}
   ogType="article"
@@ -85,7 +85,7 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
     <div>
       <div class="author-card-name">{author}</div>
       <div class="author-card-role">EDITORIAL DESK</div>
-      <p class="author-card-bio">Notes on strategy, execution, and risk from the team building Āagman — how to brief it better, and where backtests lie to you.</p>
+      <p class="author-card-bio">Notes on strategy, execution, and risk from the team building āagman — how to brief it better, and where backtests lie to you.</p>
       <a class="link" href="/blog/author/">View profile →</a>
     </div>
   </div>
@@ -179,7 +179,7 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
       });
     });
 
-    // Auto-link every "Āagman" mention to the app
+    // Auto-link every "āagman" mention to the app
     (function linkifyAagman() {
       var skipTags = { A: 1, PRE: 1, CODE: 1, SCRIPT: 1, STYLE: 1, SVG: 1, NOSCRIPT: 1 };
       var skipClasses = { 'a-title': 1, 'crumb': 1 };
@@ -187,7 +187,7 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
       var nodes = [];
       var node;
       while ((node = walker.nextNode())) {
-        if (node.textContent.indexOf('Āagman') === -1) continue;
+        if (node.textContent.indexOf('āagman') === -1) continue;
         var parent = node.parentNode;
         if (!parent || skipTags[parent.tagName]) continue;
         if (parent.closest && parent.closest('a, pre, code, script, style, svg, noscript')) continue;
@@ -197,11 +197,11 @@ const canonical = `https://www.aagman.ai/blog/${post.data.slug}/`;
       }
       nodes.forEach(function(textNode) {
         var text = textNode.textContent;
-        var parts = text.split(/(Āagman)/g);
+        var parts = text.split(/(āagman)/g);
         if (parts.length < 3) return;
         var frag = document.createDocumentFragment();
         parts.forEach(function(part) {
-          if (part === 'Āagman') {
+          if (part === 'āagman') {
             var a = document.createElement('a');
             a.href = 'https://app.aagman.ai';
             a.className = 'aagman-link';
