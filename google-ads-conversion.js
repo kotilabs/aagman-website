@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  var GOOGLE_ADS_CONVERSION_LABEL = 'AW-9442115425/REPLACE_WITH_CONVERSION_LABEL';
+  var GOOGLE_ADS_CONVERSION_LABEL = 'AW-18368771134/hS7OCIL3ieIcEL7o9LZE';
   var MAX_RETRIES = 50;
 
   function fireGetStartedConversion(attempt) {
