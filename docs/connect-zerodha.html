@@ -3,6 +3,27 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
+<!-- End Google Tag Manager -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    var text = (el.textContent || '').trim().substring(0, 50);
+    window.dataLayer = window.dataLayer || [];
+    if (href.indexOf('app.aagman.ai') !== -1) {
+      window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href, gclid_present: document.cookie.indexOf('gclid=') !== -1 });
+    }
+  });
+});
+</script>
 <title>connect zerodha to āagman</title>
 <meta content="Connect your Zerodha account to āagman and place trades, including conditional order types, using natural language, in any language. Full setup walkthrough." name="description"/>
 <link href="https://www.aagman.ai/docs/connect-zerodha" rel="canonical"/>
@@ -411,6 +432,9 @@
 }</script>  <script defer src="https://analytics.aagman.ai/script.js" data-website-id="e2f79735-4b71-4458-81f6-bdcb71ea9c6f"></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <input aria-label="Toggle navigation" class="nav-toggle-input" id="nav-toggle" type="checkbox"/>
 <label aria-hidden="true" class="nav-overlay" for="nav-toggle"></label>
 <div class="shell">

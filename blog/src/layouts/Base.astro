@@ -27,6 +27,27 @@ const url = canonical ? canonical : new URL(Astro.url.pathname, site).toString()
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content={description}>
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
+  <!-- End Google Tag Manager -->
+  <script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(e) {
+      var el = e.target.closest('a');
+      if (!el) return;
+      var href = el.getAttribute('href') || '';
+      var text = (el.textContent || '').trim().substring(0, 50);
+      window.dataLayer = window.dataLayer || [];
+      if (href.indexOf('app.aagman.ai') !== -1) {
+        window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href, gclid_present: document.cookie.indexOf('gclid=') !== -1 });
+      }
+    });
+  });
+  </script>
   <link href={url} rel="canonical">
   <link href="/uploads/aagman-logo.png" rel="icon" type="image/png">
   <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
@@ -45,6 +66,9 @@ const url = canonical ? canonical : new URL(Astro.url.pathname, site).toString()
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <input id="nav-toggle" type="checkbox" class="nav-toggle-input" aria-label="Toggle navigation">
   <label for="nav-toggle" class="nav-overlay" aria-hidden="true"></label>
 
