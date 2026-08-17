@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
   <meta name="twitter:image" content="https://www.aagman.ai/uploads/og-image.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preload" href="/vendor/react.production.min.js" as="script">
+<link rel="preload" href="/vendor/react-dom.production.min.js" as="script">
 <script src="./support.js"></script>
 <template id="__bundler_thumbnail" data-bg-color="#06080A">
   <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="#06080A"/><rect x="40" y="80" width="140" height="200" rx="8" fill="#0f1a16"/><rect x="220" y="60" width="140" height="240" rx="8" fill="#0f1a16"/><rect x="55" y="100" width="80" height="10" rx="2" fill="#56E8B8"/><rect x="235" y="80" width="80" height="10" rx="2" fill="#56E8B8"/><rect x="235" y="260" width="110" height="28" rx="5" fill="#56E8B8"/></svg>
@@ -116,6 +118,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<!-- Boot skeleton: static pre-React placeholder (site-local patch).
+     dc-runtime boots by hiding <x-dc>, loading React, then mounting — until
+     then the page is a blank dark rectangle. This paints with first paint and
+     is removed by support.js (removeBootSkeleton) in the same frame React
+     commits content into #dc-root. -->
+<style>
+@keyframes __bootSweep{0%{transform:translateX(-70%)}100%{transform:translateX(70%)}}
+[data-boot-skeleton]{position:fixed;inset:0;z-index:2147483000;background:#06080A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+[data-boot-skeleton] .__boot-mark{font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;letter-spacing:.02em;color:#E7EEEA}
+[data-boot-skeleton] .__boot-bar{width:132px;height:2px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.08)}
+[data-boot-skeleton] .__boot-bar i{display:block;width:44px;height:100%;background:#56E8B8;animation:__bootSweep 1.1s ease-in-out infinite alternate}
+</style>
+<div aria-hidden="true" data-boot-skeleton>
+  <div class="__boot-mark">āagman</div>
+  <div class="__boot-bar"><i></i></div>
+</div>
 <x-dc>
 <helmet>
   <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">

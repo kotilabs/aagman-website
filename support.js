@@ -1,4 +1,7 @@
 // GENERATED from dc-runtime/src/*.ts — do not edit. Rebuild with `cd dc-runtime && bun run build`.
+// SITE-LOCAL PATCHES (re-apply after regenerating; search "Site-local patch"):
+//   1. React/ReactDOM UMDs self-hosted from /vendor/ (SRI-verified byte-identical).
+//   2. boot(): removed redundant full-page re-fetch; added pre-React skeleton removal.
 "use strict";
 (() => {
   var __defProp = Object.defineProperty;
@@ -150,6 +153,21 @@
     if (w < 1024) return "tablet";
     return "desktop";
   }
+  // Site-local patch (not in dc-runtime/src): removes the [data-boot-skeleton]
+  // pre-React placeholder once the React tree has actually committed children
+  // into #dc-root. Runs inside rAF (pre-paint), so the swap from skeleton to
+  // content lands in a single painted frame. Re-apply when regenerating.
+  function removeBootSkeleton() {
+    const tryRemove = (attempts) => {
+      const root = document.getElementById("dc-root");
+      if (root && root.childElementCount > 0) {
+        document.querySelectorAll("[data-boot-skeleton]").forEach((el) => el.remove());
+        return;
+      }
+      if (attempts > 0) requestAnimationFrame(() => tryRemove(attempts - 1));
+    };
+    requestAnimationFrame(() => tryRemove(120));
+  }
   function boot(runtime, doc = document) {
     const parsed = parseDcDocument(doc);
     if (!parsed) return null;
@@ -157,11 +175,9 @@
     const rootName = rootNameForDocument(doc, location);
     runtime.markFetched(rootName);
     runtime.adoptParsed(rootName, parsed);
-    fetch(location.href).then((res) => res.ok ? res.text() : "").then((t) => {
-      const raw = t ? parseDcText(t) : null;
-      if (raw?.template) runtime.updateHtml(rootName, raw.template);
-    }).catch(() => {
-    });
+    // Site-local patch: the redundant `fetch(location.href)` re-fetch of the
+    // whole page (to re-adopt the identical template) is removed — it cost a
+    // second ~120KB download and a full re-render on every load.
     const dc = doc.querySelector("x-dc");
     const hostEl = doc.createElement("div");
     hostEl.id = "dc-root";
@@ -198,6 +214,7 @@
     if (ReactDOM.createRoot)
       ReactDOM.createRoot(hostEl).render(h(StandaloneRoot));
     else ReactDOM.render(h(StandaloneRoot), hostEl);
+    removeBootSkeleton();
     return rootName;
   }
 
@@ -1437,10 +1454,11 @@
   }
 
   // src/index.ts
-  var REACT_URL = "https://unpkg.com/react@18.3.1/umd/react.production.min.js";
-  var REACT_SRI = "sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z";
-  var REACT_DOM_URL = "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js";
-  var REACT_DOM_SRI = "sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1";
+  // Site-local patch (not in dc-runtime/src): React UMDs are self-hosted from
+  // /vendor/ (byte-identical to the unpkg originals, SRI-verified) so first
+  // paint no longer waits on a third-party origin. Re-apply when regenerating.
+  var REACT_URL = "/vendor/react.production.min.js";
+  var REACT_DOM_URL = "/vendor/react-dom.production.min.js";
   function hideRawTemplate() {
     const s = document.createElement("style");
     s.textContent = "x-dc{display:none!important}";
@@ -1451,8 +1469,10 @@
       //! nosemgrep: create-script-element
       const s = document.createElement("script");
       s.src = src;
-      s.integrity = integrity;
-      s.crossOrigin = "anonymous";
+      if (integrity) {
+        s.integrity = integrity;
+        s.crossOrigin = "anonymous";
+      }
       s.async = false;
       s.onload = () => resolve2();
       s.onerror = () => reject(new Error(`failed to load ${src}`));
@@ -1463,8 +1483,8 @@
     const w = window;
     if (w.React && w.ReactDOM) return Promise.resolve();
     return Promise.all([
-      loadScript(REACT_URL, REACT_SRI),
-      loadScript(REACT_DOM_URL, REACT_DOM_SRI)
+      loadScript(REACT_URL),
+      loadScript(REACT_DOM_URL)
     ]).then(() => void 0);
   }
   function init() {
