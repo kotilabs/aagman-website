@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <meta content="https://www.aagman.ai/uploads/og-image.png" name="twitter:image"/>
 <link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link rel="preload" href="/vendor/react.production.min.js" as="script">
+<link rel="preload" href="/vendor/react-dom.production.min.js" as="script">
 <script src="./support.js"></script>
 <template data-bg-color="#06080A" id="__bundler_thumbnail">
 <svg viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect fill="#06080A" height="400" width="400"></rect><rect fill="#1a2420" height="24" rx="4" width="340" x="30" y="60"></rect><rect fill="#1a2420" height="14" rx="3" width="200" x="30" y="96"></rect><rect fill="#0f1a16" height="160" rx="8" width="340" x="30" y="160"></rect><rect fill="#56E8B8" height="8" rx="2" width="8" x="46" y="178"></rect><rect fill="#2a3d35" height="8" rx="2" width="120" x="62" y="178"></rect><rect fill="#56E8B8" height="8" rx="2" width="8" x="46" y="198"></rect><rect fill="#2a3d35" height="8" rx="2" width="180" x="62" y="198"></rect><rect fill="#F59E0B" height="8" rx="2" width="8" x="46" y="218"></rect><rect fill="#2a3d35" height="8" rx="2" width="140" x="62" y="218"></rect><rect fill="#56E8B8" height="32" rx="6" width="100" x="30" y="334"></rect></svg>
@@ -276,6 +278,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<!-- Boot skeleton: static pre-React placeholder (site-local patch).
+     dc-runtime boots by hiding <x-dc>, loading React, then mounting — until
+     then the page is a blank dark rectangle. This paints with first paint and
+     is removed by support.js (removeBootSkeleton) in the same frame React
+     commits content into #dc-root. -->
+<style>
+@keyframes __bootSweep{0%{transform:translateX(-70%)}100%{transform:translateX(70%)}}
+[data-boot-skeleton]{position:fixed;inset:0;z-index:2147483000;background:#06080A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+[data-boot-skeleton] .__boot-mark{font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;letter-spacing:.02em;color:#E7EEEA}
+[data-boot-skeleton] .__boot-bar{width:132px;height:2px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.08)}
+[data-boot-skeleton] .__boot-bar i{display:block;width:44px;height:100%;background:#56E8B8;animation:__bootSweep 1.1s ease-in-out infinite alternate}
+</style>
+<div aria-hidden="true" data-boot-skeleton>
+  <div class="__boot-mark">āagman</div>
+  <div class="__boot-bar"><i></i></div>
+</div>
 <x-dc>
 <helmet>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -365,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <button data-target="section-team" onclick="{{ scrollTo }}" style="display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:7px;background:transparent;border:1px solid rgba(255,255,255,0.16);color:#D7E0DC;font-size:15px;cursor:pointer">Meet the team</button>
 </div>
 </div>
-<div style="border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 70px -25px rgba(0,0,0,0.8);display:{{ heroTerminalDisplay }}">
+<div data-hero-demo="" style="border-radius:12px;overflow:hidden;background:#080B0D;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 70px -25px rgba(0,0,0,0.8);display:{{ heroTerminalDisplay }}">
 <!-- title bar -->
 <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)">
 <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
@@ -1155,7 +1173,32 @@ class Component extends DCLogic {
     this._stageStart = Date.now();
     this._mountTime = Date.now();
     this._pauseElapsed = 0;
-    this._drive = setInterval(() => this.drive(), 40);
+    // Site-local patch: drive() used to run on a bare 40ms setInterval — 25
+    // full re-renders/sec forever, even with the tab hidden or the animated
+    // sections scrolled offscreen. Its only live template consumer is the
+    // trust-tab progress bar (trustBarW) plus the hero stage cycle, so the
+    // rAF loop below (browser-paused when the tab is hidden, throttled to
+    // the same 40ms cadence) is gated on either animated section being near
+    // the viewport.
+    this._driveLast = 0;
+    this._animVisible = true;
+    const driveLoop = (ts) => {
+      this._driveRaf = requestAnimationFrame(driveLoop);
+      if (document.hidden || !this._animVisible || ts - this._driveLast < 40) return;
+      this._driveLast = ts;
+      this.drive();
+    };
+    this._driveRaf = requestAnimationFrame(driveLoop);
+    const animTargets = [
+      document.querySelector('[data-hero-demo]'),
+      document.getElementById('section-trust')
+    ].filter(Boolean);
+    if (animTargets.length && 'IntersectionObserver' in window) {
+      this._animIo = new IntersectionObserver((entries) => {
+        this._animVisible = entries.some((e) => e.isIntersecting);
+      }, { rootMargin: '120px' });
+      animTargets.forEach((el) => this._animIo.observe(el));
+    }
     this._quotes = [
       "\u201CNIFTY ka RSI 30 ke neeche jaaye toh buy karo.\u201D",
       "\u201CJuly 2024 se December 2024 tak daily pe NIFTY 50 ke stocks check karo jiska RSI 14, 70 se zyada ho.\u201D",
@@ -1189,7 +1232,8 @@ class Component extends DCLogic {
   }
   componentWillUnmount() {
     clearInterval(this._t);
-    clearInterval(this._drive);
+    cancelAnimationFrame(this._driveRaf);
+    if (this._animIo) this._animIo.disconnect();
     clearInterval(this._trustTimer);
     clearInterval(this._quoteCycle);
     window.removeEventListener('scroll', this._onScroll);

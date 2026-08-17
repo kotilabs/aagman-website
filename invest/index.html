@@ -19,9 +19,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   gtag('config', 'AW-18368771134');
 </script>
-<!-- Google Ads conversion tracking (Get Started Click) -->
-<script src="../google-ads-conversion.js"></script>
-<!-- End Google Ads conversion tracking -->
+<!-- Google Ads conversion for Get Started clicks is fired by the GTM
+     container (tag: get_started_click trigger -> AW-18368771134). The previous
+     hardcoded google-ads-conversion.js double-fired the same conversion label
+     on every qualifying click (verified: one click produced two
+     /pagead/conversion/ hits plus two view-through companions). -->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
