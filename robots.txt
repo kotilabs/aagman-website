@@ -1,4 +1,21 @@
 User-agent: *
 Allow: /
 
+# Explicit AI-crawler access (answer-engine visibility depends on these;
+# keeps a future blanket rule from silently shutting them out)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://www.aagman.ai/sitemap.xml
+Sitemap: https://www.aagman.ai/sitemap-stocks.xml
+Sitemap: https://www.aagman.ai/sitemap-funds.xml
+Sitemap: https://www.aagman.ai/sitemap-screens.xml
+Sitemap: https://www.aagman.ai/sitemap-charts.xml

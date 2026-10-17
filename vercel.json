@@ -3,6 +3,88 @@
   "buildCommand": "cd blog && npm install && npm run build",
   "outputDirectory": "blog/dist",
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/stock",
+      "destination": "https://app.aagman.ai/stock"
+    },
+    {
+      "source": "/stock/:path*",
+      "destination": "https://app.aagman.ai/stock/:path*"
+    },
+    {
+      "source": "/fund",
+      "destination": "https://app.aagman.ai/fund"
+    },
+    {
+      "source": "/fund/:path*",
+      "destination": "https://app.aagman.ai/fund/:path*"
+    },
+    {
+      "source": "/stock-screener",
+      "destination": "https://app.aagman.ai/stock-screener"
+    },
+    {
+      "source": "/stock-screener/:path*",
+      "destination": "https://app.aagman.ai/stock-screener/:path*"
+    },
+    {
+      "source": "/how-we-compute",
+      "destination": "https://app.aagman.ai/how-we-compute"
+    },
+    {
+      "source": "/how-we-compute/:path*",
+      "destination": "https://app.aagman.ai/how-we-compute/:path*"
+    },
+    {
+      "source": "/chart",
+      "destination": "https://app.aagman.ai/chart"
+    },
+    {
+      "source": "/chart/:path*",
+      "destination": "https://app.aagman.ai/chart/:path*"
+    },
+    {
+      "source": "/news",
+      "destination": "https://app.aagman.ai/news"
+    },
+    {
+      "source": "/news/:path*",
+      "destination": "https://app.aagman.ai/news/:path*"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://app.aagman.ai/_next/:path*"
+    },
+    {
+      "source": "/sitemap-stocks.xml",
+      "destination": "https://app.aagman.ai/sitemap-stocks.xml"
+    },
+    {
+      "source": "/sitemap-funds.xml",
+      "destination": "https://app.aagman.ai/sitemap-funds.xml"
+    },
+    {
+      "source": "/sitemap-screens.xml",
+      "destination": "https://app.aagman.ai/sitemap-screens.xml"
+    },
+    {
+      "source": "/sitemap-charts.xml",
+      "destination": "https://app.aagman.ai/sitemap-charts.xml"
+    },
+    {
+      "source": "/sitemap-news.xml",
+      "destination": "https://app.aagman.ai/sitemap-news.xml"
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "https://app.aagman.ai/llms.txt"
+    },
+    {
+      "source": "/0ea2491ba8dc98fd3c8de4a2fb8998ca.txt",
+      "destination": "https://app.aagman.ai/0ea2491ba8dc98fd3c8de4a2fb8998ca.txt"
+    }
+  ],
   "headers": [
     {
       "source": "/vendor/(.*)",

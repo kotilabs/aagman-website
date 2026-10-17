@@ -4,3 +4,4 @@ blog/dist/
 blog/node_modules/
 blog/.astro/
 
+node_modules/
