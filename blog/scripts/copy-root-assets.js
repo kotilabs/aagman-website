@@ -9,6 +9,7 @@ const exclude = new Set([
   '.gitignore',
   'README.md',
   'blog',
+  'middleware.ts',
   'node_modules',
   'package.json',
   'package-lock.json',
