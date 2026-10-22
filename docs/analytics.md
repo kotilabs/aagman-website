@@ -80,16 +80,16 @@ Every event also carries `page`. Umami records page views, referrer, campaign ta
 |---|---|---|---|
 | `cta_click` | a call-to-action button is clicked | `label`: `sign_up` · `talk_to_founders` · `join_whatsapp`; `section`; `spot` | Q2, Q7 |
 | `app_link_click` | any other link to app.aagman.ai is clicked | `section`; `target` (the app path, e.g. `/how-we-grade`) | Q4 |
-| `section_view` | half of a section is on screen (or it fills half the screen), once per section per page view | `section` | Q2, Q3 |
+| `section_view` | half of a section is on screen, or the section crosses the middle line of the screen (for sections taller than the screen), once per section per page view | `section` | Q2, Q3 |
 | `nav_open` | the Product or Resources menu opens | `menu`: `product` · `resources` | Q5 |
 | `nav_click` | an internal link in the header, a menu or the footer is clicked | `area`: `header` · `menu` · `footer`; `item`: `home` · `research` · `charts` · `backtesting` · `picks` · `deploy` · `pricing` · `docs` · `blog` · `founders_letter` · `investors` · `sitemap` · `terms` · `privacy_policy` · `risk_disclosure` · `cancellation_refunds` | Q4, Q5 |
 | `soon_click` | a "Coming soon" item in the Resources menu is clicked | `item`: `charts` · `screener` · `pulse` | Q5 (demand for what is not built yet) |
 | `card_click` | a product card or action card in the page body is clicked | `card`: `research` · `charts` · `backtesting` · `picks` · `deploy` · `deploy_algo` · `paper_first` · `adjust_rules`; `section` | Q4 |
 | `faq_open` | an FAQ question is opened (not when it closes) | `question`: `what_is_aagman` · `is_it_a_broker` · `does_it_predict` · `why_not_chatgpt` · `trades_on_its_own` · `signals_or_tips` · `regulated` · `high_volatility` · `without_broker` · `shared_ip` | Q6 |
 | `outbound_click` | a link to another site is clicked (not social, not a CTA) | `href`; `section` | Q7 |
-| `social_click` | a link to LinkedIn, X, YouTube, GitHub, Reddit or Instagram is clicked | `platform`; `section` | Q7 |
-| `contact_click` | an email link is clicked | `href`; `section` | Q7 |
-| `blog_read` | a reader scrolls past half of a blog or docs page, once per page view | `slug` | Q8 |
+| `social_click` | a link to LinkedIn, X, YouTube, GitHub, Reddit or Instagram is clicked, including our dub.sh short links to them | `platform`; `section` | Q7 |
+| `contact_click` | an email link is clicked | `inbox` (the part before the @, e.g. `growth`; never the full address); `section` | Q7 |
+| `blog_read` | a reader scrolls past half of a blog or docs page, once per page view | `slug` (the page path, e.g. `/blog/why-options-buyers-lose-money`) | Q8 |
 
 **Which event wins when one click fits two:** `cta_click` → `app_link_click` → `card_click` → `nav_click` → `contact_click` → `social_click` → `outbound_click`. One click sends one event.
 
@@ -107,10 +107,10 @@ Every event also carries `page`. Umami records page views, referrer, campaign ta
 | Where | Umami | Google Analytics |
 |---|---|---|
 | www.aagman.ai, aagman.ai | live website | live, normal |
-| Vercel previews (`*.vercel.app`) | test website *(ID to create)* | off; on with `?aag_debug=1`, sent in debug mode (GA4 DebugView) and marked internal |
+| Vercel previews (`*.vercel.app`) | test website *(ID to create; until then nothing is sent)* | off; on with `?aag_debug=1`, sent in debug mode so it shows in GA4 DebugView |
 | localhost | nothing sent | nothing sent |
 | anywhere, with `?aag_debug=1` | every event is also printed in the browser console | same |
-| a team member's browser | nothing sent | sent marked `traffic_type=internal`, removed by the GA4 internal-traffic filter |
+| a team member's browser | nothing sent | sent marked `traffic_type=internal`, removed by the GA4 internal-traffic filter (except in debug mode, so DebugView still works) |
 
 **Marking a team browser:** open any page with `?aag_team=on` once (sets Umami's `umami.disabled` switch and an `aag_team` cookie). `?aag_team=off` undoes it.
 
@@ -133,11 +133,11 @@ Each Monday, for the last 7 days, compare Umami and GA4 counts of: page views, `
 
 ## 10. Google Analytics setup (property 503925644)
 
-- Data retention: 14 months (default is 2).
-- Enhanced measurement: page views on; scrolls, outbound clicks, site search, video and file downloads off (our events cover them; leaving them on double counts).
-- Custom dimensions (event scope): `page`, `section`, `spot`, `label`, `target`, `menu`, `area`, `item`, `card`, `question`, `platform`, `slug`.
-- Key event: `cta_click` (GA4 cannot filter a key event by `label`; the reports filter `label = sign_up`).
-- Internal-traffic filter: active.
+- Data retention: 14 months for event and user data (event data was 2). **Done 2026-10-23.**
+- Enhanced measurement: page views on; scrolls, outbound clicks, site search, form interactions, video and file downloads off (our events cover them; leaving them on double counts). **Done 2026-10-23.**
+- Custom dimensions (event scope): `page`, `section`, `spot`, `label`, `target`, `menu`, `area`, `item`, `card`, `question`, `platform`, `slug`. **Done 2026-10-23.** (`href` and `inbox` are not registered: they are for spot checks, not reports.)
+- Key event: `cta_click` (GA4 cannot filter a key event by `label`; the reports filter `label = sign_up`). GA4 only lets an event be starred once it has been received: star it after launch. The old `get_started_click` key event stops when Tag Manager goes.
+- Internal-traffic filter (`traffic_type = internal`, exclude): Active. **Done 2026-10-23.**
 
 ## 11. Changes from the previous version (live until go-live)
 
@@ -156,6 +156,7 @@ Each Monday, for the last 7 days, compare Umami and GA4 counts of: page views, `
 - Anything typed (the site has no forms).
 - Pages served by the app through www (`/stock`, `/fund`, `/stock-screener`, `/chart`, `/news`, `/how-we-compute`): the app tracks those in its own Umami website.
 - A person across two devices.
+- A click in the first moment of a page load, before the trackers have loaded, if it leaves the page straight away (rare). Middle-clicks (open in a new tab) are counted.
 
 ## 13. How to add an event and test it
 

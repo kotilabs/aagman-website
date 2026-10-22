@@ -110,11 +110,26 @@ test('docs and blog links count as internal on a preview host too', () => {
 // ---------- 5-7. leaving the site ----------
 test('email, social and other sites', () => {
   assert.deepEqual(classifyClick(d({ href: 'mailto:growth@kotilabs.com?subject=hi', section: 'footer', area: 'footer' }), '/'),
-    { name: 'contact_click', params: { href: 'mailto:growth@kotilabs.com', section: 'footer' } });
+    { name: 'contact_click', params: { inbox: 'growth', section: 'footer' } });
   assert.deepEqual(classifyClick(d({ href: 'https://www.linkedin.com/in/ajitk2003/', section: 'letter' }), '/'),
     { name: 'social_click', params: { platform: 'linkedin.com', section: 'letter' } });
   assert.deepEqual(classifyClick(d({ href: 'https://example.com/a?b=c', section: 'body' }), '/docs'),
     { name: 'outbound_click', params: { href: 'https://example.com/a', section: 'body' } });
+});
+
+test('dub.sh links to our social profiles count as social', () => {
+  assert.equal(classifyClick(d({ href: 'https://dub.sh/lp-linkedin', area: 'footer', section: 'footer' }), '/invest').params.platform, 'linkedin.com');
+  assert.equal(classifyClick(d({ href: 'https://dub.sh/x-lp' }), '/invest').params.platform, 'x.com');
+  assert.equal(classifyClick(d({ href: 'https://dub.sh/insta-lp' }), '/invest').params.platform, 'instagram.com');
+});
+test('no email address ever leaves in an event', () => {
+  const r = classifyClick(d({ href: 'mailto:ajit@kotilabs.com' }), '/invest');
+  assert.deepEqual(r, { name: 'contact_click', params: { inbox: 'ajit', section: 'body' } });
+  assert.ok(!JSON.stringify(r).includes('@'));
+});
+test('relative links resolve against the page they are on', () => {
+  const r = classifyClick(d({ href: 'connect-zerodha.html', base: 'https://www.aagman.ai/docs/how-to-prompt.html', area: 'header' }), '/docs/how-to-prompt');
+  assert.deepEqual(r, { name: 'nav_click', params: { area: 'header', item: 'docs' } });
 });
 
 // ---------- no event ----------

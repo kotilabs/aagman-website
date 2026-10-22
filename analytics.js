@@ -31,8 +31,8 @@
 
   // ---------- pure helpers (tested in tests/analytics.test.mjs) ----------
 
-  function parseUrl(href, pageHost) {
-    try { return new URL(href, 'https://' + (pageHost || 'www.aagman.ai') + '/'); } catch (e) { return null; }
+  function parseUrl(href, pageHost, base) {
+    try { return new URL(href, base || ('https://' + (pageHost || 'www.aagman.ai') + '/')); } catch (e) { return null; }
   }
 
   function isSiteHost(host, pageHost) {
@@ -53,7 +53,10 @@
     return path.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_').toLowerCase();
   }
 
-  function socialPlatform(hostname) {
+  var SOCIAL_SHORT = { '/lp-linkedin': 'linkedin.com', '/x-lp': 'x.com', '/insta-lp': 'instagram.com' }; // dub.sh links to our profiles
+
+  function socialPlatform(hostname, pathname) {
+    if (hostname === 'dub.sh' && SOCIAL_SHORT[pathname]) return SOCIAL_SHORT[pathname];
     for (var i = 0; i < SOCIAL_HOSTS.length; i++) {
       var h = SOCIAL_HOSTS[i];
       if (hostname === h || hostname.slice(-(h.length + 1)) === '.' + h) return h;
@@ -79,7 +82,7 @@
 
   /*
    * Pure click classifier (section 5 of the framework). desc:
-   *   { href, dataset: {cta, card}, section, area: 'header'|'menu'|'footer'|null, pageHost }
+   *   { href, dataset: {cta, card}, section, area: 'header'|'menu'|'footer'|null, pageHost, base }
    * Returns { name, params } or null. One click sends at most one event; earlier rules win.
    */
   function classifyClick(desc, page) {
@@ -87,7 +90,7 @@
     var dataset = desc.dataset || {};
     var section = desc.section || 'body';
     var spot = pageName(page || '/') + '.' + section;
-    var url = desc.href ? parseUrl(desc.href, desc.pageHost) : null;
+    var url = desc.href ? parseUrl(desc.href, desc.pageHost, desc.base) : null;
     if (desc.href && desc.href.indexOf('mailto:') === 0) url = null;
 
     // 1. call-to-action buttons
@@ -117,10 +120,11 @@
 
     // 5-7. leaving the site
     if (desc.href && desc.href.indexOf('mailto:') === 0) {
-      return { name: 'contact_click', params: { href: desc.href.split('?')[0], section: section } };
+      var inbox = desc.href.slice(7).split('?')[0].split('@')[0].toLowerCase(); // 'growth', never the full address
+      return { name: 'contact_click', params: { inbox: inbox, section: section } };
     }
     if (!url || (url.protocol !== 'http:' && url.protocol !== 'https:') || internal) return null;
-    var platform = socialPlatform(url.hostname.replace(/^www\./, ''));
+    var platform = socialPlatform(url.hostname.replace(/^www\./, ''), url.pathname);
     if (platform) return { name: 'social_click', params: { platform: platform, section: section } };
     return { name: 'outbound_click', params: { href: url.origin + url.pathname, section: section } };
   }
@@ -223,7 +227,7 @@
     root.gtag('js', new Date());
     var gaConfig = {};
     if (debug) gaConfig.debug_mode = true;
-    if (team || env !== 'live') gaConfig.traffic_type = 'internal';
+    else if (team || env !== 'live') gaConfig.traffic_type = 'internal'; // debug hits stay unmarked so DebugView shows them
     root.gtag('config', CONFIG.ga4, gaConfig);
     var gs = doc.createElement('script');
     gs.async = true;
@@ -244,7 +248,7 @@
       var p = {};
       for (var k in params) p[k] = params[k];
       if (debug) p.debug_mode = true;
-      if (team || env !== 'live') p.traffic_type = 'internal';
+      else if (team || env !== 'live') p.traffic_type = 'internal';
       root.gtag('event', name, p);
     });
   }
@@ -257,9 +261,9 @@
     return 'body';
   }
   function areaOf(el) {
-    if (el.closest('.dd-m, [role="menu"]')) return 'menu';
-    if (el.closest('header, nav.nav-links, nav.links')) return 'header';
     if (el.closest('footer')) return 'footer';
+    if (el.closest('.dd-m, [role="menu"]')) return 'menu';
+    if (el.closest('header, nav:not(.toc):not(.rail)')) return 'header'; // any site nav bar (blog topnav, docs and investor bars)
     return null;
   }
   function slug(text) { return (text || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''); }
@@ -275,7 +279,8 @@
   }
 
   safe(function () {
-    doc.addEventListener('click', function (event) {
+    var onClick = function (event) {
+      if (event.type === 'auxclick' && event.button !== 1) return; // middle-click only
       safe(function () {
         var t = event.target;
         if (!t || !t.closest) return;
@@ -287,11 +292,13 @@
         if (!el) return;
         var hit = classifyClick({
           href: el.getAttribute('href') || '', dataset: el.dataset || {},
-          section: sectionOf(el), area: areaOf(el), pageHost: host
+          section: sectionOf(el), area: areaOf(el), pageHost: host, base: loc.href
         }, page);
         if (hit) track(hit.name, hit.params);
       });
-    }, true);
+    };
+    doc.addEventListener('click', onClick, true);
+    doc.addEventListener('auxclick', onClick, true);
 
     [].forEach.call(doc.querySelectorAll('.dd'), function (dd) {
       var timer = null;
@@ -311,22 +318,27 @@
     }, true);
 
     // section_view: half the section on screen, or the section filling half the screen; once each per page view
+    // Two observers: half of a short section on screen, or any section crossing the middle line of the screen
+    // (a section several screens tall never shows half of itself at once).
     if ('IntersectionObserver' in root) {
       var seen = {};
-      var io = new root.IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          var name = e.target.getAttribute('data-section');
-          if (seen[name] || !e.isIntersecting) return;
-          var vh = root.innerHeight || 1;
-          if (e.intersectionRatio >= 0.5 || e.intersectionRect.height >= vh * 0.5) {
-            seen[name] = true;
-            io.unobserve(e.target);
-            track('section_view', { section: name });
-          }
-        });
-      }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+      var observers = [];
+      var viewed = function (el) {
+        var name = el.getAttribute('data-section');
+        if (seen[name]) return;
+        seen[name] = true;
+        observers.forEach(function (o) { o.unobserve(el); });
+        track('section_view', { section: name });
+      };
+      observers.push(new root.IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting && e.intersectionRatio >= 0.5) viewed(e.target); });
+      }, { threshold: [0.5] }));
+      observers.push(new root.IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) viewed(e.target); });
+      }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 }));
       [].forEach.call(doc.querySelectorAll('[data-section]'), function (el) {
-        if (el.getAttribute('data-section') !== 'header') io.observe(el);
+        if (el.getAttribute('data-section') === 'header') return;
+        observers.forEach(function (o) { o.observe(el); });
       });
     }
 
