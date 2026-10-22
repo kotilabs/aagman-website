@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<script defer src="/analytics.js"></script>
+<title>Backtest any trading strategy in your own words · āagman</title>
+<link rel="canonical" href="https://www.aagman.ai/backtesting">
+<meta name="description" content="Describe a strategy the way you&#x27;d explain it to a friend and see it tested on 10 years of history across equities, F&amp;O, mutual funds and commodities.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="āagman">
+<meta property="og:url" content="https://www.aagman.ai/backtesting">
+<meta property="og:title" content="Backtest any trading strategy in your own words · āagman">
+<meta property="og:image" content="https://www.aagman.ai/og/backtesting.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Backtest any trading strategy in your own words · āagman">
+<meta name="twitter:image" content="https://www.aagman.ai/og/backtesting.png">
+<meta property="og:description" content="Describe a strategy the way you&#x27;d explain it to a friend and see it tested on 10 years of history across equities, F&amp;O, mutual funds and commodities.">
+<meta name="twitter:description" content="Describe a strategy the way you&#x27;d explain it to a friend and see it tested on 10 years of history across equities, F&amp;O, mutual funds and commodities.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&family=Space+Grotesk:wght@400..700&display=swap">
+<style>
+/* Layout: the Backtesting page, built on the Research page template. Same light system as the homepage: nav, a centred page top, one full-width card with the main promise, five smaller cards that each go deep on one capability (two wide, then three), links onward, then the shared closing and footer. Card visuals use the product's light mode in Space Grotesk and play once when they scroll into view. */
+:root{
+  --page:#f7f8f8; --card:#ffffff; --inset:#f7f8f8; --fg:#060a11; --fg2:#475063; --fg3:#6c7280;
+  --line:#d0d6e0; --line2:#e6e6e6; --hover:#eef0f2; --mint:#19e299; --mint-600:#14b57a; --brand-word:#0f885c;
+  --up:#16a34a; --down:#dc2626; --teal:#0d9488; --info:#386a8f; --hl:color-mix(in srgb,#19e299 22%,#ffffff);
+  --font:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --prod:'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--fg);font-family:var(--font);font-size:16px;line-height:24px;letter-spacing:-0.01em;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:8px}
+
+/* nav (same as the homepage) */
+.nav{max-width:1200px;margin:0 auto;height:64px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.nav .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;line-height:28px;letter-spacing:-0.02em}
+.nav .logo img{width:28px;height:28px;border-radius:6px;display:block}
+.nav-links{display:flex;gap:4px}
+.nav-links a{display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:8px;font-size:15px;line-height:20px;font-weight:500;color:var(--fg2);transition:background .15s ease,color .15s ease}
+.nav-links a:hover,.nav-links a.cur{background:var(--hover);color:var(--fg)}
+.nav-links svg{width:14px;height:14px}
+.nav-right{display:flex;justify-content:flex-end}
+.nav-btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:8px;background:var(--fg);color:#fff;font-weight:600;font-size:15px;transition:background .15s ease}
+.nav-btn:hover{background:#2f3746}
+
+/* page top */
+.top{max-width:1200px;margin:0 auto;padding-block:96px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}
+.eyebrow{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-word)}
+.top h1{margin:0;font-size:72px;line-height:78px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.top p{margin:0;max-width:620px;font-size:19px;line-height:28px;color:var(--fg2);text-wrap:pretty}
+.top .acts{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+.b{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:8px;font-weight:600;font-size:16px;transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.b:active{transform:scale(.97)}
+.b-mint{background:var(--mint);color:#060a11} .b-mint:hover{background:var(--mint-600)}
+.b-ghost{background:var(--card);border:1px solid var(--line)} .b-ghost:hover{background:var(--hover);border-color:#c8d5e6}
+
+/* cards */
+.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.big{grid-column:span 6}
+.card.wide{grid-column:span 3}
+.card.third{grid-column:span 2}
+.card-h{padding:28px 32px 24px;display:flex;flex-direction:column;gap:8px}
+.card-h .lbl{font-size:14px;line-height:20px;font-weight:500;color:var(--fg3)}
+.card-h h2,.card-h h3{margin:0;font-weight:700;letter-spacing:-0.03em;text-wrap:balance}
+.card.big .card-h h2{font-size:40px;line-height:46px;max-width:760px}
+.card-h h3{font-size:24px;line-height:30px}
+.card-h p{margin:0;font-size:16px;line-height:24px;color:var(--fg2);max-width:640px;text-wrap:pretty}
+.card.big .card-h p{font-size:18px;line-height:28px}
+.vis{flex:1;background:var(--inset);border-top:1px solid var(--line2);padding:24px;display:flex;flex-direction:column;gap:12px;
+  font-family:var(--prod);letter-spacing:0;font-variant-numeric:tabular-nums;position:relative}
+.vfoot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;line-height:16px;color:var(--fg3)}
+.mock{border:1px dashed var(--line);border-radius:4px;padding:0 8px;font-size:10px;line-height:16px}
+.panel{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:16px}
+.anim{transition:opacity .35s ease,transform .35s ease}
+.pre .anim{opacity:0;transform:translateY(6px)}
+
+/* big card visual */
+.big-v{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.q{font-size:18px;line-height:26px;font-weight:500;color:var(--fg);display:flex;gap:12px}
+.q svg{width:18px;height:18px;flex:none;margin-top:4px;color:var(--fg3)}
+.srcs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.src{display:inline-flex;gap:8px;align-items:center;font-size:13px;line-height:20px;padding:4px 10px;border:1px solid var(--line2);border-radius:6px;background:var(--card);color:var(--fg2)}
+.src b{color:var(--fg);font-weight:600}
+.read{margin-top:16px;display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:16px;color:var(--fg3)}
+.bar{height:6px;border-radius:999px;background:var(--line2);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--teal);border-radius:999px;transition:width 1.4s ease}
+.pre .bar i{width:0}
+.ans-h{font-size:16px;line-height:24px;font-weight:600;color:var(--fg);padding-bottom:12px;border-bottom:1px solid var(--line2)}
+.rows{display:flex;flex-direction:column}
+.rw{display:grid;grid-template-columns:minmax(0,1.4fr) 96px 72px auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2);font-size:14px;line-height:20px}
+.rw:last-child{border-bottom:0}
+.ans-h,.rw{transition:opacity .35s ease}
+.rw .spark path{stroke-dashoffset:1}
+.rw.on .spark path{stroke-dashoffset:0}
+.rw.hd{font-size:11px;line-height:16px;color:var(--fg3);padding:10px 0 6px}
+.rw .chg{text-align:right;font-weight:600}
+.u{color:var(--up)} .d{color:var(--down)}
+.cite{font-size:11px;line-height:16px;color:var(--fg2);border:1px solid var(--line2);border-radius:4px;padding:2px 6px;white-space:nowrap}
+.spark{width:96px;height:24px;display:block}
+.spark path{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset .8s ease}
+
+/* screener */
+.sent{font-size:15px;line-height:22px;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.conds{display:flex;flex-wrap:wrap;gap:8px}
+.cond{font-size:12px;line-height:16px;font-weight:600;padding:5px 10px;border-radius:6px;background:var(--card);border:1px solid color-mix(in srgb,#0d9488 40%,transparent);color:var(--teal)}
+.tabs{display:flex;gap:4px;font-size:12px;line-height:16px}
+.tabs span{padding:6px 10px;border-radius:6px;color:var(--fg3)}
+.tabs span.on{background:var(--card);border:1px solid var(--line2);color:var(--fg);font-weight:600}
+.tabs em{margin-left:auto;font-style:normal;color:var(--fg2);align-self:center}
+.mini{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 16px;font-size:13px;line-height:20px}
+.mini span:nth-child(3n+2),.mini span:nth-child(3n){text-align:right}
+.mini .h{font-size:11px;color:var(--fg3)}
+.tagline{font-size:12px;line-height:16px;color:var(--fg3)}
+
+/* documents */
+.docs{display:flex;flex-direction:column;gap:8px}
+.doc{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.doc .dt{display:flex;justify-content:space-between;font-size:11px;line-height:16px;color:var(--fg3)}
+.doc .dt b{font-weight:600;color:var(--info);background:color-mix(in srgb,#5eb0ef 14%,#ffffff);border-radius:4px;padding:0 6px}
+.doc .ex{font-size:14px;line-height:20px;color:var(--fg)}
+.doc mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 2px;transition:background .5s ease}
+.pre .doc mark{background:transparent}
+.dcount{font-size:12px;line-height:16px;color:var(--fg2)}
+
+/* belief */
+.belief{font-size:15px;line-height:22px;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.belief small{display:block;font-size:11px;line-height:16px;color:var(--fg3);margin-bottom:4px}
+.simhd{display:flex;justify-content:space-between;font-size:11px;line-height:16px;color:var(--fg3)}
+.dots{display:grid;grid-template-columns:repeat(18,1fr);gap:4px}
+.dots i{aspect-ratio:1;border-radius:2px;background:var(--line2);transition:background .2s ease}
+.dots i.y{background:color-mix(in srgb,#16a34a 55%,#ffffff)} .dots i.n{background:color-mix(in srgb,#dc2626 45%,#ffffff)}
+.verdict{display:flex;align-items:center;gap:12px}
+.vstamp{font-family:var(--mono);font-size:13px;line-height:16px;font-weight:600;letter-spacing:.12em;color:#c4320a;border:2px solid currentColor;border-radius:6px;padding:4px 10px;transform:rotate(-4deg)}
+.verdict span{font-size:12px;line-height:16px;color:var(--fg2)}
+
+/* scorecard */
+.sc-h{display:flex;justify-content:space-between;align-items:baseline}
+.sc-h b{font-size:15px}
+.sc-h span{font-size:11px;color:var(--fg3)}
+.scores{display:flex;flex-direction:column;gap:8px}
+.sco{display:grid;grid-template-columns:72px 1fr 32px;align-items:center;gap:8px;font-size:12px;line-height:16px;color:var(--fg2)}
+.sco .t{height:6px;border-radius:999px;background:var(--line2);overflow:hidden}
+.sco .t i{display:block;height:100%;background:var(--teal);border-radius:999px;transition:width .8s ease}
+.pre .sco .t i{width:0!important}
+.sco b{text-align:right;color:var(--fg);font-weight:600}
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.case{border:1px solid var(--line2);border-radius:8px;padding:8px;font-size:11px;line-height:15px;color:var(--fg2);background:var(--card)}
+.case b{display:block;font-size:11px;margin-bottom:2px}
+.case.bull b{color:var(--up)} .case.bear b{color:var(--down)} .case.base b{color:var(--fg)}
+.conf{align-self:flex-start;font-size:11px;line-height:16px;color:var(--fg2);border:1px solid var(--line2);border-radius:4px;padding:1px 6px;background:var(--card)}
+
+/* compare */
+.cmp{width:100%;border-collapse:collapse;font-size:13px;line-height:18px}
+.cmp th{font-size:11px;font-weight:600;color:var(--fg);text-align:right;padding:8px 6px;border-bottom:1px solid var(--line2)}
+.cmp th:first-child,.cmp td:first-child{text-align:left;color:var(--fg3);font-weight:500}
+.cmp td{text-align:right;padding:9px 6px;border-bottom:1px solid var(--line2)}
+.cmp tr:last-child td{border-bottom:0}
+.cmp td.best{color:var(--teal);font-weight:700}
+.cmp-tabs{display:flex;gap:6px;font-size:11px;line-height:16px;color:var(--fg3)}
+.cmp-tabs span{padding:2px 8px;border-radius:999px;border:1px solid var(--line2);background:var(--card)}
+.cmp-tabs span.on{color:var(--fg);border-color:var(--line)}
+
+/* onward */
+.onward{max-width:1200px;margin:0 auto;padding-block:120px 0;display:flex;flex-direction:column;gap:24px}
+.onward h2{margin:0;text-align:center;font-size:40px;line-height:46px;letter-spacing:-0.03em;font-weight:700}
+.onward .links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.onward a{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s ease,background .15s ease}
+.onward a:hover{border-color:#c8d5e6;background:#fcfcfd}
+.onward a span{font-size:13px;line-height:18px;color:var(--fg3);font-weight:500}
+.onward a b{font-size:17px;line-height:24px;font-weight:600;letter-spacing:-0.02em}
+
+@media (max-width:1024px){
+  .card.wide,.card.third{grid-column:span 6}
+  .big-v{grid-template-columns:1fr}
+  .onward .links{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .nav{grid-template-columns:1fr auto} .nav-links{display:none}
+  .top{padding-block:56px 40px} .top h1{font-size:44px;line-height:50px} .top p{font-size:17px;line-height:26px}
+  .top .acts{width:100%;flex-direction:column} .b{width:100%}
+  .grid{gap:16px}
+  .card-h{padding:22px 20px 18px} .card.big .card-h h2{font-size:30px;line-height:36px} .card-h h3{font-size:21px;line-height:27px}
+  .vis{padding:16px}
+  .rw{grid-template-columns:minmax(0,1fr) 64px 64px;}
+  .rw .cite,.rw.hd span:last-child{display:none}
+  .spark{width:64px}
+  .onward{padding-block:72px 0} .onward h2{font-size:30px;line-height:36px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+
+/* backtesting visuals */
+.q-t{font-size:17px;line-height:25px;font-weight:500;color:var(--fg)}
+.you{font-size:11px;line-height:16px;color:var(--fg3);margin-bottom:6px}
+.rules{display:flex;flex-direction:column;margin-top:14px;border-top:1px solid var(--line2)}
+.rule{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:14px;line-height:20px}
+.rule:last-child{border-bottom:0}
+.rule span:first-child{font-size:12px;color:var(--fg3)}
+.curve-h{display:flex;justify-content:space-between;align-items:center;font-size:12px;line-height:16px;color:var(--fg2)}
+.curve-h .tg{display:flex;gap:4px}
+.curve-h .tg span{padding:3px 8px;border-radius:6px;color:var(--fg3)}
+.curve-h .tg span.on{background:var(--inset);color:var(--fg);font-weight:600}
+.curve svg{display:block;width:100%;height:auto}
+.curve .ln{fill:none;stroke:var(--teal);stroke-width:2;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.8s ease}
+.pre .curve .ln{stroke-dashoffset:1}
+.curve .ar{transition:opacity .6s ease .9s}
+.pre .curve .ar{opacity:0}
+.log{width:100%;border-collapse:collapse;font-size:13px;line-height:18px}
+.log th{font-size:11px;font-weight:500;color:var(--fg3);text-align:left;padding:6px 6px;border-bottom:1px solid var(--line2)}
+.log td{padding:8px 6px;border-bottom:1px solid var(--line2)}
+.log tr:last-child td{border-bottom:0}
+.log td.r,.log th.r{text-align:right}
+.ask-q{font-size:13px;line-height:18px;color:var(--fg);font-weight:600}
+.opt{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;font-size:12px;line-height:16px;color:var(--fg3)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;line-height:16px;padding:5px 10px;border-radius:6px;border:1px solid var(--line2);background:var(--card);color:var(--fg2);transition:all .25s ease}
+.chip.sel{border-color:var(--teal);color:var(--teal);font-weight:600;background:color-mix(in srgb,#0d9488 8%,#ffffff)}
+.pre .chip.sel{border-color:var(--line2);color:var(--fg2);font-weight:400;background:var(--card)}
+.assume{font-size:12px;line-height:16px;color:var(--fg2);background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:8px 10px}
+.structs{display:flex;flex-wrap:wrap;gap:6px}
+.structs span{font-size:11px;line-height:16px;padding:3px 8px;border-radius:999px;border:1px solid var(--line2);color:var(--fg3);background:var(--card)}
+.structs span.on{color:var(--fg);border-color:var(--fg);font-weight:600}
+.opt-v{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:center}
+.payoff svg{display:block;width:100%;height:auto}
+.payoff .pl{fill:none;stroke:var(--fg);stroke-width:2;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.2s ease}
+.pre .payoff .pl{stroke-dashoffset:1}
+.legs{display:flex;flex-direction:column;gap:6px;font-size:12px;line-height:16px}
+.leg{display:flex;align-items:center;gap:8px}
+.leg b{font-size:10px;line-height:14px;padding:1px 6px;border-radius:4px;color:#fff}
+.leg b.s{background:var(--down)} .leg b.bu{background:var(--up)}
+.rchips{display:flex;flex-wrap:wrap;gap:6px}
+.rchip{font-size:12px;line-height:16px;font-weight:600;padding:5px 10px;border-radius:6px;background:var(--card);border:1px solid color-mix(in srgb,#0d9488 40%,transparent);color:var(--teal)}
+.mtabs{display:flex;flex-wrap:wrap;gap:4px}
+.mtabs span{font-size:11px;line-height:16px;padding:4px 8px;border-radius:6px;color:var(--fg3);border:1px solid transparent}
+.mtabs span.on{background:var(--card);border-color:var(--line2);color:var(--fg);font-weight:600}
+.ind-tabs{display:flex;flex-wrap:wrap;gap:4px;font-size:11px;line-height:16px}
+.ind-tabs span{padding:4px 8px;border-radius:6px;color:var(--fg3)}
+.ind-tabs span.on{background:var(--card);border:1px solid var(--line2);color:var(--fg);font-weight:600}
+.cloud{display:flex;flex-wrap:wrap;gap:6px}
+.cloud span{font-size:12px;line-height:16px;padding:4px 9px;border-radius:6px;background:var(--card);border:1px solid var(--line2);color:var(--fg);transition:opacity .25s ease,transform .25s ease}
+.pre .cloud span{opacity:0;transform:scale(.9)}
+.cloud span.more{color:var(--fg3);border-style:dashed}
+.icount{display:flex;align-items:baseline;gap:8px}
+.icount b{font-size:28px;line-height:32px;font-weight:700;letter-spacing:-0.02em}
+.icount span{font-size:12px;color:var(--fg3)}
+.tiles{display:flex;flex-direction:column;gap:8px}
+.tl{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.tl .k{display:flex;justify-content:space-between;font-size:11px;line-height:16px;color:var(--fg3)}
+.tl .k b{color:var(--info);font-weight:600}
+.tl .t{font-size:13px;line-height:18px;color:var(--fg)}
+.sipbars{display:flex;align-items:flex-end;gap:3px;height:22px}
+.sipbars i{flex:1;background:color-mix(in srgb,#0d9488 55%,#ffffff);border-radius:2px;transition:transform .5s ease;transform-origin:bottom}
+.pre .sipbars i{transform:scaleY(0)}
+.rank{display:flex;gap:4px;flex-wrap:wrap}
+.rank span{font-size:10px;line-height:14px;padding:2px 6px;border-radius:4px;background:var(--inset);border:1px solid var(--line2);color:var(--fg2)}
+
+@media (max-width:768px){ .opt-v{grid-template-columns:1fr} .opt{grid-template-columns:1fr;gap:6px} }
+</style>
+<style>
+/* nav dropdowns */
+.dd{position:relative;display:inline-flex}
+.dd-t{font:inherit;display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:8px;border:0;background:transparent;cursor:pointer;
+  font-size:15px;line-height:20px;font-weight:500;color:#475063;letter-spacing:-0.01em;transition:background .15s ease,color .15s ease}
+.dd-t svg{width:14px;height:14px;transition:transform .15s ease}
+.dd-t.cur,.dd:hover .dd-t,.dd.open .dd-t{background:#eef0f2;color:#060a11}
+.dd.open .dd-t svg{transform:rotate(180deg)}
+.dd-m{position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,4px);min-width:340px;background:#ffffff;border:1px solid #d0d6e0;border-radius:12px;
+  padding:8px;display:flex;flex-direction:column;gap:2px;box-shadow:0 0 6px rgba(0,0,0,.06),0 10px 24px rgba(0,0,0,.08);opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;z-index:50;text-align:left}
+.dd-m::before{content:"";position:absolute;left:0;right:0;top:-10px;height:10px}
+.dd:hover .dd-m,.dd:focus-within .dd-m,.dd.open .dd-m{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.dd .dd-i{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border-radius:8px;text-decoration:none;color:#060a11;background:transparent;font-size:14px;transition:background .15s ease}
+.dd a.dd-i:hover{background:#f7f8f8}
+.dd .dd-i b{font-size:14px;line-height:20px;font-weight:600}
+.dd .dd-i small{font-size:13px;line-height:18px;color:#6c7280;font-weight:400}
+.dd .dd-i.soon b{color:#6c7280}
+.dd .dd-i .tag{display:inline-block;margin-left:8px;font-size:10px;line-height:14px;font-weight:600;color:#6c7280;border:1px dashed #d0d6e0;border-radius:999px;padding:0 6px;vertical-align:1px}
+.dd .dd-sep{height:1px;background:#e6e6e6;margin:4px 8px}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://www.aagman.ai/backtesting#webpage",
+   "url": "https://www.aagman.ai/backtesting",
+   "name": "Backtest any trading strategy in your own words · āagman",
+   "inLanguage": "en-IN",
+   "isPartOf": {
+    "@id": "https://www.aagman.ai/#website"
+   },
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   },
+   "description": "Describe a strategy the way you'd explain it to a friend and see it tested on 10 years of history across equities, F&O, mutual funds and commodities.",
+   "about": {
+    "@id": "https://www.aagman.ai/#app"
+   },
+   "breadcrumb": {
+    "@id": "https://www.aagman.ai/backtesting#breadcrumb"
+   }
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://www.aagman.ai/#org",
+   "name": "āagman",
+   "alternateName": [
+    "aagman",
+    "Aagman"
+   ],
+   "legalName": "Koti Labs Private Limited",
+   "url": "https://www.aagman.ai/",
+   "description": "An AI trading desk for Indian markets.",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.aagman.ai/logo.png",
+    "width": 1732,
+    "height": 1732
+   },
+   "email": "growth@kotilabs.com",
+   "sameAs": [
+    "https://www.linkedin.com/company/aagman-ai/"
+   ],
+   "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "SEBI RIA Registration Number",
+    "value": "INA000021951"
+   },
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "F-130, JUNIPER BRIGADE ORCHARDS",
+    "addressLocality": "Devanahalli",
+    "addressRegion": "Bangalore Rural, Karnataka",
+    "postalCode": "562110",
+    "addressCountry": "IN"
+   },
+   "founder": [
+    {
+     "@id": "https://www.aagman.ai/#ajit"
+    },
+    {
+     "@id": "https://www.aagman.ai/#amit"
+    }
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.aagman.ai/#website",
+   "name": "āagman",
+   "alternateName": "aagman",
+   "url": "https://www.aagman.ai/",
+   "inLanguage": "en-IN",
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://www.aagman.ai/#app",
+   "name": "āagman",
+   "url": "https://www.aagman.ai/",
+   "applicationCategory": "FinanceApplication",
+   "operatingSystem": "Web",
+   "description": "An AI trading desk you can give real work to, across Indian markets.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR",
+    "description": "Free for now",
+    "url": "https://www.aagman.ai/pricing"
+   },
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://www.aagman.ai/backtesting#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.aagman.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Backtesting",
+     "item": "https://www.aagman.ai/backtesting"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<header data-section="header" class="nav">
+  <a class="logo" href="/" aria-label="āagman home"><img src="/media/d3eba88f71b3.png" alt="">āagman</a>
+  <nav class="nav-links" aria-label="Main">
+    <div class="dd"><button type="button" class="dd-t cur" aria-haspopup="true" aria-expanded="false">Product<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><a class="dd-i" role="menuitem" href="/research"><b>Research</b><small>Research a whole sector with one question</small></a><a class="dd-i" role="menuitem" href="/charts"><b>Charts</b><small>Ask your chart for what you want to see</small></a><a class="dd-i" role="menuitem" href="/backtesting"><b>Backtesting</b><small>Describe a strategy and see it tested on 10 years of history</small></a><a class="dd-i" role="menuitem" href="/picks"><b>Picks &amp; strategies</b><small>Get picks vetted the way a senior desk vets them</small></a><a class="dd-i" role="menuitem" href="/deploy"><b>Deploy</b><small>Run algos like a trading desk, just by describing them</small></a></div></div>
+    <div class="dd"><button type="button" class="dd-t" aria-haspopup="true" aria-expanded="false">Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><span class="dd-i soon"><b>Charts<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Screener<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Pulse<span class="tag">Coming soon</span></b></span><div class="dd-sep"></div><a class="dd-i" role="menuitem" href="https://www.aagman.ai/docs/" target="_blank" rel="noopener"><b>Docs</b></a><a class="dd-i" role="menuitem" href="https://www.aagman.ai/blog/" target="_blank" rel="noopener"><b>Blog</b></a></div></div>
+    <a href="/pricing">Pricing</a>
+  </nav>
+  <div class="nav-right"><a class="nav-btn" href="https://app.aagman.ai/login">Sign up</a></div>
+</header>
+
+<section data-section="hero" class="top">
+  <span class="eyebrow">Backtesting</span>
+  <h1>See how your strategy would have played out.</h1>
+  <p>Describe the rules the way you'd explain them to a friend, and get them tested on 10 years of history across equities, F&amp;O, mutual funds and commodities.</p>
+  <div class="acts"><a class="b b-mint" href="https://app.aagman.ai/login">Sign up</a><a class="b b-ghost" href="https://dub.sh/fZsnb0w" target="_blank" rel="noopener">Talk to founders</a></div>
+</section>
+
+<div data-section="features" class="grid">
+  <!-- BIG: in your own words -->
+  <article class="card big" data-play="big">
+    <div class="card-h">
+      <span class="lbl">In your own words</span>
+      <h2>Describe a strategy and see it tested on 10 years of history</h2>
+      <p>Type the idea the way you think it, and āagman turns it into exact rules and runs it.</p>
+    </div>
+    <div class="vis">
+      <div class="big-v">
+        <div class="panel">
+          <div class="you">You typed</div>
+          <div class="q-t">“<span id="btQ">Buy Nifty when RSI dips under 30 and comes back up. 1% stop, out by 3:15.</span>”</div>
+          <div class="rules">
+            <div class="rule anim"><span>Market</span><span>NIFTY futures · 15 min bars</span></div>
+            <div class="rule anim"><span>Entry</span><span>RSI (14) crosses back above 30</span></div>
+            <div class="rule anim"><span>Stop</span><span>1% below entry</span></div>
+            <div class="rule anim"><span>Exit</span><span>15:15 IST, or the stop</span></div>
+            <div class="rule anim"><span>Size</span><span>1 lot</span></div>
+          </div>
+        </div>
+        <div class="panel" style="display:flex;flex-direction:column;gap:12px">
+          <div class="curve-h"><span>NIFTY · 15 min · 2016 to 2026</span><span class="tg"><span class="on">Equity curve</span><span>Drawdown</span></span></div>
+          <div class="curve"><svg viewBox="0 0 600 248" aria-hidden="true"><line x1="8" x2="592" y1="8.0" y2="8.0" stroke="#f0f1f3"/><line x1="8" x2="592" y1="59.3" y2="59.3" stroke="#f0f1f3"/><line x1="8" x2="592" y1="110.7" y2="110.7" stroke="#f0f1f3"/><line x1="8" x2="592" y1="162.0" y2="162.0" stroke="#f0f1f3"/><path class="ar" d="M8.0,170 L8.0,161.3 L9.1,160.8 L10.3,161.1 L11.4,161.6 L12.5,160.1 L13.6,159.9 L14.8,160.1 L15.9,157.5 L17.0,158.0 L18.1,159.6 L19.3,161.4 L20.4,162.0 L21.5,161.0 L22.6,159.6 L23.8,157.9 L24.9,155.1 L26.0,152.5 L27.1,151.4 L28.3,149.2 L29.4,148.0 L30.5,148.7 L31.6,147.2 L32.8,146.9 L33.9,147.0 L35.0,143.7 L36.1,142.3 L37.3,142.8 L38.4,142.7 L39.5,138.7 L40.6,138.9 L41.8,137.5 L42.9,136.2 L44.0,135.1 L45.1,133.9 L46.3,134.5 L47.4,135.0 L48.5,135.0 L49.6,135.3 L50.8,133.7 L51.9,130.9 L53.0,132.1 L54.1,131.0 L55.3,132.3 L56.4,133.2 L57.5,133.4 L58.6,132.9 L59.8,133.4 L60.9,137.4 L62.0,134.9 L63.1,135.1 L64.3,135.9 L65.4,134.5 L66.5,135.3 L67.6,137.3 L68.8,136.3 L69.9,135.4 L71.0,136.5 L72.1,134.8 L73.3,134.0 L74.4,135.6 L75.5,132.4 L76.6,131.7 L77.8,133.4 L78.9,132.4 L80.0,131.9 L81.1,130.0 L82.3,132.0 L83.4,130.0 L84.5,128.2 L85.6,126.7 L86.8,125.4 L87.9,122.9 L89.0,121.3 L90.1,120.8 L91.3,122.0 L92.4,119.8 L93.5,117.8 L94.6,117.0 L95.8,116.4 L96.9,114.8 L98.0,119.1 L99.1,118.3 L100.3,122.4 L101.4,121.7 L102.5,119.6 L103.6,115.9 L104.8,116.5 L105.9,115.5 L107.0,115.3 L108.1,119.1 L109.3,117.5 L110.4,117.2 L111.5,116.9 L112.6,118.3 L113.8,118.1 L114.9,117.7 L116.0,115.1 L117.1,114.3 L118.3,107.6 L119.4,108.0 L120.5,108.3 L121.6,108.1 L122.8,109.3 L123.9,106.2 L125.0,104.7 L126.2,106.9 L127.3,106.4 L128.4,103.9 L129.5,106.3 L130.7,105.8 L131.8,105.9 L132.9,101.2 L134.0,100.1 L135.2,100.6 L136.3,101.4 L137.4,97.4 L138.5,98.0 L139.7,93.2 L140.8,96.0 L141.9,96.1 L143.0,96.3 L144.2,97.4 L145.3,97.5 L146.4,95.9 L147.5,96.9 L148.7,99.5 L149.8,96.5 L150.9,93.3 L152.0,94.4 L153.2,93.5 L154.3,98.3 L155.4,96.0 L156.5,98.3 L157.7,99.1 L158.8,94.5 L159.9,96.8 L161.0,96.4 L162.2,98.3 L163.3,101.6 L164.4,103.6 L165.5,102.8 L166.7,105.0 L167.8,105.9 L168.9,104.2 L170.0,104.2 L171.2,106.4 L172.3,103.3 L173.4,102.8 L174.5,99.8 L175.7,101.5 L176.8,97.9 L177.9,100.3 L179.0,103.4 L180.2,103.9 L181.3,104.4 L182.4,103.6 L183.5,104.4 L184.7,102.9 L185.8,100.0 L186.9,101.0 L188.0,103.4 L189.2,103.9 L190.3,102.0 L191.4,100.2 L192.5,100.6 L193.7,102.2 L194.8,102.0 L195.9,99.8 L197.0,100.9 L198.2,98.1 L199.3,97.4 L200.4,96.5 L201.5,97.5 L202.7,94.5 L203.8,94.1 L204.9,96.8 L206.0,94.9 L207.2,95.4 L208.3,93.0 L209.4,92.3 L210.5,93.3 L211.7,92.7 L212.8,93.4 L213.9,94.8 L215.0,94.4 L216.2,92.5 L217.3,92.0 L218.4,91.9 L219.5,92.8 L220.7,91.3 L221.8,90.5 L222.9,88.2 L224.0,87.2 L225.2,82.4 L226.3,85.4 L227.4,85.2 L228.5,83.8 L229.7,81.6 L230.8,84.5 L231.9,86.8 L233.0,86.6 L234.2,84.1 L235.3,81.5 L236.4,84.4 L237.5,83.8 L238.7,81.0 L239.8,80.7 L240.9,82.5 L242.1,83.8 L243.2,86.3 L244.3,83.5 L245.4,83.7 L246.6,84.3 L247.7,85.8 L248.8,85.8 L249.9,87.4 L251.1,89.2 L252.2,89.0 L253.3,89.1 L254.4,87.9 L255.6,87.3 L256.7,84.6 L257.8,84.4 L258.9,83.5 L260.1,82.7 L261.2,84.1 L262.3,81.3 L263.4,82.2 L264.6,85.3 L265.7,82.3 L266.8,80.7 L267.9,81.6 L269.1,79.2 L270.2,76.8 L271.3,75.0 L272.4,77.3 L273.6,76.6 L274.7,78.5 L275.8,79.5 L276.9,80.4 L278.1,81.9 L279.2,80.6 L280.3,82.0 L281.4,80.3 L282.6,79.7 L283.7,80.7 L284.8,80.0 L285.9,78.2 L287.1,75.5 L288.2,75.7 L289.3,71.6 L290.4,70.0 L291.6,66.9 L292.7,69.6 L293.8,71.7 L294.9,68.7 L296.1,68.9 L297.2,67.5 L298.3,64.5 L299.4,67.4 L300.6,66.1 L301.7,61.4 L302.8,59.2 L303.9,58.7 L305.1,57.0 L306.2,56.7 L307.3,54.5 L308.4,51.1 L309.6,51.3 L310.7,49.6 L311.8,48.5 L312.9,46.4 L314.1,44.0 L315.2,46.3 L316.3,43.1 L317.4,40.6 L318.6,43.0 L319.7,43.3 L320.8,46.5 L321.9,46.9 L323.1,45.8 L324.2,48.2 L325.3,49.8 L326.4,51.5 L327.6,52.9 L328.7,54.4 L329.8,56.5 L330.9,54.9 L332.1,55.1 L333.2,56.7 L334.3,54.0 L335.4,55.0 L336.6,52.6 L337.7,55.2 L338.8,51.5 L339.9,52.2 L341.1,54.2 L342.2,52.9 L343.3,55.7 L344.4,57.9 L345.6,57.0 L346.7,57.8 L347.8,56.5 L348.9,55.9 L350.1,55.0 L351.2,54.3 L352.3,52.3 L353.4,52.0 L354.6,49.0 L355.7,46.4 L356.8,50.8 L357.9,54.6 L359.1,50.6 L360.2,51.3 L361.3,50.6 L362.5,50.5 L363.6,49.5 L364.7,43.8 L365.8,45.2 L367.0,44.7 L368.1,44.4 L369.2,46.6 L370.3,48.4 L371.5,48.7 L372.6,48.5 L373.7,47.2 L374.8,51.6 L376.0,54.9 L377.1,50.7 L378.2,50.8 L379.3,48.5 L380.5,49.2 L381.6,50.6 L382.7,45.1 L383.8,47.8 L385.0,49.6 L386.1,47.7 L387.2,47.3 L388.3,50.9 L389.5,50.3 L390.6,48.2 L391.7,51.5 L392.8,52.5 L394.0,50.3 L395.1,45.4 L396.2,50.6 L397.3,51.9 L398.5,51.6 L399.6,53.4 L400.7,55.2 L401.8,56.1 L403.0,54.5 L404.1,56.7 L405.2,54.4 L406.3,52.1 L407.5,49.7 L408.6,45.7 L409.7,46.6 L410.8,46.4 L412.0,43.7 L413.1,40.2 L414.2,37.5 L415.3,38.3 L416.5,39.2 L417.6,42.1 L418.7,42.8 L419.8,44.7 L421.0,45.6 L422.1,46.2 L423.2,43.8 L424.3,41.4 L425.5,41.2 L426.6,43.6 L427.7,43.4 L428.8,42.0 L430.0,39.6 L431.1,38.7 L432.2,36.4 L433.3,37.7 L434.5,35.7 L435.6,33.5 L436.7,34.0 L437.8,35.6 L439.0,32.1 L440.1,34.3 L441.2,32.2 L442.3,32.6 L443.5,33.1 L444.6,33.4 L445.7,34.2 L446.8,34.0 L448.0,29.1 L449.1,24.9 L450.2,24.9 L451.3,23.3 L452.5,20.6 L453.6,21.4 L454.7,16.1 L455.8,15.6 L457.0,13.6 L458.1,15.8 L459.2,18.4 L460.3,20.7 L461.5,22.1 L462.6,19.0 L463.7,19.5 L464.8,16.7 L466.0,17.5 L467.1,19.7 L468.2,18.9 L469.3,19.6 L470.5,23.6 L471.6,23.1 L472.7,19.7 L473.8,19.9 L475.0,22.7 L476.1,24.3 L477.2,27.1 L478.4,27.4 L479.5,29.5 L480.6,29.4 L481.7,28.6 L482.9,24.8 L484.0,27.5 L485.1,32.4 L486.2,27.9 L487.4,26.4 L488.5,27.0 L489.6,25.4 L490.7,27.4 L491.9,27.9 L493.0,25.8 L494.1,26.3 L495.2,25.6 L496.4,24.1 L497.5,23.4 L498.6,23.7 L499.7,22.0 L500.9,18.1 L502.0,14.4 L503.1,16.4 L504.2,14.0 L505.4,18.7 L506.5,22.1 L507.6,20.7 L508.7,18.9 L509.9,14.9 L511.0,19.1 L512.1,15.9 L513.2,17.0 L514.4,17.9 L515.5,16.3 L516.6,12.1 L517.7,14.3 L518.9,18.6 L520.0,19.8 L521.1,19.8 L522.2,16.2 L523.4,14.9 L524.5,15.3 L525.6,16.3 L526.7,17.2 L527.9,14.2 L529.0,18.3 L530.1,19.8 L531.2,21.8 L532.4,18.5 L533.5,17.8 L534.6,19.2 L535.7,16.9 L536.9,11.2 L538.0,8.0 L539.1,11.3 L540.2,11.5 L541.4,8.0 L542.5,12.6 L543.6,15.6 L544.7,16.3 L545.9,14.6 L547.0,16.4 L548.1,15.7 L549.2,15.8 L550.4,14.5 L551.5,17.4 L552.6,23.0 L553.7,28.2 L554.9,27.5 L556.0,24.6 L557.1,23.0 L558.2,26.9 L559.4,31.0 L560.5,31.4 L561.6,33.4 L562.7,37.7 L563.9,38.9 L565.0,40.5 L566.1,40.5 L567.2,39.3 L568.4,38.5 L569.5,37.7 L570.6,36.1 L571.7,36.1 L572.9,36.9 L574.0,37.5 L575.1,34.2 L576.2,34.6 L577.4,32.2 L578.5,27.7 L579.6,22.8 L580.7,28.1 L581.9,27.4 L583.0,24.5 L584.1,25.4 L585.2,26.9 L586.4,30.3 L587.5,31.7 L588.6,31.4 L589.7,35.9 L590.9,35.6 L592.0,37.4 L592.0,170 Z" fill="rgba(13,148,136,.08)"/><path class="ln" pathLength="1" d="M8.0,161.3 L9.1,160.8 L10.3,161.1 L11.4,161.6 L12.5,160.1 L13.6,159.9 L14.8,160.1 L15.9,157.5 L17.0,158.0 L18.1,159.6 L19.3,161.4 L20.4,162.0 L21.5,161.0 L22.6,159.6 L23.8,157.9 L24.9,155.1 L26.0,152.5 L27.1,151.4 L28.3,149.2 L29.4,148.0 L30.5,148.7 L31.6,147.2 L32.8,146.9 L33.9,147.0 L35.0,143.7 L36.1,142.3 L37.3,142.8 L38.4,142.7 L39.5,138.7 L40.6,138.9 L41.8,137.5 L42.9,136.2 L44.0,135.1 L45.1,133.9 L46.3,134.5 L47.4,135.0 L48.5,135.0 L49.6,135.3 L50.8,133.7 L51.9,130.9 L53.0,132.1 L54.1,131.0 L55.3,132.3 L56.4,133.2 L57.5,133.4 L58.6,132.9 L59.8,133.4 L60.9,137.4 L62.0,134.9 L63.1,135.1 L64.3,135.9 L65.4,134.5 L66.5,135.3 L67.6,137.3 L68.8,136.3 L69.9,135.4 L71.0,136.5 L72.1,134.8 L73.3,134.0 L74.4,135.6 L75.5,132.4 L76.6,131.7 L77.8,133.4 L78.9,132.4 L80.0,131.9 L81.1,130.0 L82.3,132.0 L83.4,130.0 L84.5,128.2 L85.6,126.7 L86.8,125.4 L87.9,122.9 L89.0,121.3 L90.1,120.8 L91.3,122.0 L92.4,119.8 L93.5,117.8 L94.6,117.0 L95.8,116.4 L96.9,114.8 L98.0,119.1 L99.1,118.3 L100.3,122.4 L101.4,121.7 L102.5,119.6 L103.6,115.9 L104.8,116.5 L105.9,115.5 L107.0,115.3 L108.1,119.1 L109.3,117.5 L110.4,117.2 L111.5,116.9 L112.6,118.3 L113.8,118.1 L114.9,117.7 L116.0,115.1 L117.1,114.3 L118.3,107.6 L119.4,108.0 L120.5,108.3 L121.6,108.1 L122.8,109.3 L123.9,106.2 L125.0,104.7 L126.2,106.9 L127.3,106.4 L128.4,103.9 L129.5,106.3 L130.7,105.8 L131.8,105.9 L132.9,101.2 L134.0,100.1 L135.2,100.6 L136.3,101.4 L137.4,97.4 L138.5,98.0 L139.7,93.2 L140.8,96.0 L141.9,96.1 L143.0,96.3 L144.2,97.4 L145.3,97.5 L146.4,95.9 L147.5,96.9 L148.7,99.5 L149.8,96.5 L150.9,93.3 L152.0,94.4 L153.2,93.5 L154.3,98.3 L155.4,96.0 L156.5,98.3 L157.7,99.1 L158.8,94.5 L159.9,96.8 L161.0,96.4 L162.2,98.3 L163.3,101.6 L164.4,103.6 L165.5,102.8 L166.7,105.0 L167.8,105.9 L168.9,104.2 L170.0,104.2 L171.2,106.4 L172.3,103.3 L173.4,102.8 L174.5,99.8 L175.7,101.5 L176.8,97.9 L177.9,100.3 L179.0,103.4 L180.2,103.9 L181.3,104.4 L182.4,103.6 L183.5,104.4 L184.7,102.9 L185.8,100.0 L186.9,101.0 L188.0,103.4 L189.2,103.9 L190.3,102.0 L191.4,100.2 L192.5,100.6 L193.7,102.2 L194.8,102.0 L195.9,99.8 L197.0,100.9 L198.2,98.1 L199.3,97.4 L200.4,96.5 L201.5,97.5 L202.7,94.5 L203.8,94.1 L204.9,96.8 L206.0,94.9 L207.2,95.4 L208.3,93.0 L209.4,92.3 L210.5,93.3 L211.7,92.7 L212.8,93.4 L213.9,94.8 L215.0,94.4 L216.2,92.5 L217.3,92.0 L218.4,91.9 L219.5,92.8 L220.7,91.3 L221.8,90.5 L222.9,88.2 L224.0,87.2 L225.2,82.4 L226.3,85.4 L227.4,85.2 L228.5,83.8 L229.7,81.6 L230.8,84.5 L231.9,86.8 L233.0,86.6 L234.2,84.1 L235.3,81.5 L236.4,84.4 L237.5,83.8 L238.7,81.0 L239.8,80.7 L240.9,82.5 L242.1,83.8 L243.2,86.3 L244.3,83.5 L245.4,83.7 L246.6,84.3 L247.7,85.8 L248.8,85.8 L249.9,87.4 L251.1,89.2 L252.2,89.0 L253.3,89.1 L254.4,87.9 L255.6,87.3 L256.7,84.6 L257.8,84.4 L258.9,83.5 L260.1,82.7 L261.2,84.1 L262.3,81.3 L263.4,82.2 L264.6,85.3 L265.7,82.3 L266.8,80.7 L267.9,81.6 L269.1,79.2 L270.2,76.8 L271.3,75.0 L272.4,77.3 L273.6,76.6 L274.7,78.5 L275.8,79.5 L276.9,80.4 L278.1,81.9 L279.2,80.6 L280.3,82.0 L281.4,80.3 L282.6,79.7 L283.7,80.7 L284.8,80.0 L285.9,78.2 L287.1,75.5 L288.2,75.7 L289.3,71.6 L290.4,70.0 L291.6,66.9 L292.7,69.6 L293.8,71.7 L294.9,68.7 L296.1,68.9 L297.2,67.5 L298.3,64.5 L299.4,67.4 L300.6,66.1 L301.7,61.4 L302.8,59.2 L303.9,58.7 L305.1,57.0 L306.2,56.7 L307.3,54.5 L308.4,51.1 L309.6,51.3 L310.7,49.6 L311.8,48.5 L312.9,46.4 L314.1,44.0 L315.2,46.3 L316.3,43.1 L317.4,40.6 L318.6,43.0 L319.7,43.3 L320.8,46.5 L321.9,46.9 L323.1,45.8 L324.2,48.2 L325.3,49.8 L326.4,51.5 L327.6,52.9 L328.7,54.4 L329.8,56.5 L330.9,54.9 L332.1,55.1 L333.2,56.7 L334.3,54.0 L335.4,55.0 L336.6,52.6 L337.7,55.2 L338.8,51.5 L339.9,52.2 L341.1,54.2 L342.2,52.9 L343.3,55.7 L344.4,57.9 L345.6,57.0 L346.7,57.8 L347.8,56.5 L348.9,55.9 L350.1,55.0 L351.2,54.3 L352.3,52.3 L353.4,52.0 L354.6,49.0 L355.7,46.4 L356.8,50.8 L357.9,54.6 L359.1,50.6 L360.2,51.3 L361.3,50.6 L362.5,50.5 L363.6,49.5 L364.7,43.8 L365.8,45.2 L367.0,44.7 L368.1,44.4 L369.2,46.6 L370.3,48.4 L371.5,48.7 L372.6,48.5 L373.7,47.2 L374.8,51.6 L376.0,54.9 L377.1,50.7 L378.2,50.8 L379.3,48.5 L380.5,49.2 L381.6,50.6 L382.7,45.1 L383.8,47.8 L385.0,49.6 L386.1,47.7 L387.2,47.3 L388.3,50.9 L389.5,50.3 L390.6,48.2 L391.7,51.5 L392.8,52.5 L394.0,50.3 L395.1,45.4 L396.2,50.6 L397.3,51.9 L398.5,51.6 L399.6,53.4 L400.7,55.2 L401.8,56.1 L403.0,54.5 L404.1,56.7 L405.2,54.4 L406.3,52.1 L407.5,49.7 L408.6,45.7 L409.7,46.6 L410.8,46.4 L412.0,43.7 L413.1,40.2 L414.2,37.5 L415.3,38.3 L416.5,39.2 L417.6,42.1 L418.7,42.8 L419.8,44.7 L421.0,45.6 L422.1,46.2 L423.2,43.8 L424.3,41.4 L425.5,41.2 L426.6,43.6 L427.7,43.4 L428.8,42.0 L430.0,39.6 L431.1,38.7 L432.2,36.4 L433.3,37.7 L434.5,35.7 L435.6,33.5 L436.7,34.0 L437.8,35.6 L439.0,32.1 L440.1,34.3 L441.2,32.2 L442.3,32.6 L443.5,33.1 L444.6,33.4 L445.7,34.2 L446.8,34.0 L448.0,29.1 L449.1,24.9 L450.2,24.9 L451.3,23.3 L452.5,20.6 L453.6,21.4 L454.7,16.1 L455.8,15.6 L457.0,13.6 L458.1,15.8 L459.2,18.4 L460.3,20.7 L461.5,22.1 L462.6,19.0 L463.7,19.5 L464.8,16.7 L466.0,17.5 L467.1,19.7 L468.2,18.9 L469.3,19.6 L470.5,23.6 L471.6,23.1 L472.7,19.7 L473.8,19.9 L475.0,22.7 L476.1,24.3 L477.2,27.1 L478.4,27.4 L479.5,29.5 L480.6,29.4 L481.7,28.6 L482.9,24.8 L484.0,27.5 L485.1,32.4 L486.2,27.9 L487.4,26.4 L488.5,27.0 L489.6,25.4 L490.7,27.4 L491.9,27.9 L493.0,25.8 L494.1,26.3 L495.2,25.6 L496.4,24.1 L497.5,23.4 L498.6,23.7 L499.7,22.0 L500.9,18.1 L502.0,14.4 L503.1,16.4 L504.2,14.0 L505.4,18.7 L506.5,22.1 L507.6,20.7 L508.7,18.9 L509.9,14.9 L511.0,19.1 L512.1,15.9 L513.2,17.0 L514.4,17.9 L515.5,16.3 L516.6,12.1 L517.7,14.3 L518.9,18.6 L520.0,19.8 L521.1,19.8 L522.2,16.2 L523.4,14.9 L524.5,15.3 L525.6,16.3 L526.7,17.2 L527.9,14.2 L529.0,18.3 L530.1,19.8 L531.2,21.8 L532.4,18.5 L533.5,17.8 L534.6,19.2 L535.7,16.9 L536.9,11.2 L538.0,8.0 L539.1,11.3 L540.2,11.5 L541.4,8.0 L542.5,12.6 L543.6,15.6 L544.7,16.3 L545.9,14.6 L547.0,16.4 L548.1,15.7 L549.2,15.8 L550.4,14.5 L551.5,17.4 L552.6,23.0 L553.7,28.2 L554.9,27.5 L556.0,24.6 L557.1,23.0 L558.2,26.9 L559.4,31.0 L560.5,31.4 L561.6,33.4 L562.7,37.7 L563.9,38.9 L565.0,40.5 L566.1,40.5 L567.2,39.3 L568.4,38.5 L569.5,37.7 L570.6,36.1 L571.7,36.1 L572.9,36.9 L574.0,37.5 L575.1,34.2 L576.2,34.6 L577.4,32.2 L578.5,27.7 L579.6,22.8 L580.7,28.1 L581.9,27.4 L583.0,24.5 L584.1,25.4 L585.2,26.9 L586.4,30.3 L587.5,31.7 L588.6,31.4 L589.7,35.9 L590.9,35.6 L592.0,37.4"/><line x1="8" x2="592" y1="180" y2="180" stroke="#e6e6e6"/><path class="ar" d="M8.0,180 L8.0,180.0 L9.1,180.0 L10.3,180.7 L11.4,182.1 L12.5,180.0 L13.6,180.0 L14.8,180.7 L15.9,180.0 L17.0,181.5 L18.1,185.8 L19.3,190.4 L20.4,192.0 L21.5,189.2 L22.6,185.7 L23.8,181.2 L24.9,180.0 L26.0,180.0 L27.1,180.0 L28.3,180.0 L29.4,180.0 L30.5,181.6 L31.6,180.0 L32.8,180.0 L33.9,180.2 L35.0,180.0 L36.1,180.0 L37.3,181.3 L38.4,181.0 L39.5,180.0 L40.6,180.4 L41.8,180.0 L42.9,180.0 L44.0,180.0 L45.1,180.0 L46.3,181.2 L47.4,182.4 L48.5,182.4 L49.6,183.2 L50.8,180.0 L51.9,180.0 L53.0,182.8 L54.1,180.1 L55.3,183.2 L56.4,185.3 L57.5,185.6 L58.6,184.6 L59.8,185.7 L60.9,194.7 L62.0,189.1 L63.1,189.5 L64.3,191.3 L65.4,188.2 L66.5,189.8 L67.6,194.5 L68.8,192.2 L69.9,190.1 L71.0,192.5 L72.1,188.9 L73.3,186.9 L74.4,190.6 L75.5,183.5 L76.6,181.9 L77.8,185.6 L78.9,183.3 L80.0,182.2 L81.1,180.0 L82.3,184.5 L83.4,180.0 L84.5,180.0 L85.6,180.0 L86.8,180.0 L87.9,180.0 L89.0,180.0 L90.1,180.0 L91.3,182.6 L92.4,180.0 L93.5,180.0 L94.6,180.0 L95.8,180.0 L96.9,180.0 L98.0,188.9 L99.1,187.1 L100.3,195.8 L101.4,194.3 L102.5,189.9 L103.6,182.3 L104.8,183.5 L105.9,181.3 L107.0,181.0 L108.1,188.8 L109.3,185.5 L110.4,185.0 L111.5,184.2 L112.6,187.2 L113.8,186.8 L114.9,185.9 L116.0,180.6 L117.1,180.0 L118.3,180.0 L119.4,181.0 L120.5,181.4 L121.6,181.1 L122.8,183.6 L123.9,180.0 L125.0,180.0 L126.2,184.2 L127.3,183.3 L128.4,180.0 L129.5,184.8 L130.7,183.7 L131.8,184.0 L132.9,180.0 L134.0,180.0 L135.2,181.0 L136.3,182.6 L137.4,180.0 L138.5,181.2 L139.7,180.0 L140.8,185.3 L141.9,185.5 L143.0,185.9 L144.2,187.9 L145.3,188.2 L146.4,185.1 L147.5,187.0 L148.7,191.8 L149.8,186.2 L150.9,180.2 L152.0,182.2 L153.2,180.5 L154.3,189.6 L155.4,185.2 L156.5,189.6 L157.7,191.1 L158.8,182.5 L159.9,186.7 L161.0,186.1 L162.2,189.5 L163.3,195.8 L164.4,199.5 L165.5,198.0 L166.7,202.2 L167.8,203.7 L168.9,200.6 L170.0,200.7 L171.2,204.8 L172.3,199.0 L173.4,198.0 L174.5,192.3 L175.7,195.6 L176.8,188.9 L177.9,193.4 L179.0,199.2 L180.2,200.2 L181.3,201.0 L182.4,199.5 L183.5,201.0 L184.7,198.2 L185.8,192.8 L186.9,194.7 L188.0,199.2 L189.2,200.1 L190.3,196.6 L191.4,193.1 L192.5,193.9 L193.7,196.9 L194.8,196.5 L195.9,192.4 L197.0,194.5 L198.2,189.2 L199.3,187.8 L200.4,186.2 L201.5,188.0 L202.7,182.4 L203.8,181.7 L204.9,186.8 L206.0,183.2 L207.2,184.2 L208.3,180.0 L209.4,180.0 L210.5,181.8 L211.7,180.6 L212.8,182.0 L213.9,184.5 L215.0,183.9 L216.2,180.2 L217.3,180.0 L218.4,180.0 L219.5,181.6 L220.7,180.0 L221.8,180.0 L222.9,180.0 L224.0,180.0 L225.2,180.0 L226.3,185.4 L227.4,185.0 L228.5,182.5 L229.7,180.0 L230.8,185.2 L231.9,189.2 L233.0,188.9 L234.2,184.4 L235.3,180.0 L236.4,185.2 L237.5,184.2 L238.7,180.0 L239.8,180.0 L240.9,183.3 L242.1,185.5 L243.2,189.9 L244.3,185.0 L245.4,185.4 L246.6,186.5 L247.7,189.2 L248.8,189.2 L249.9,192.0 L251.1,195.1 L252.2,194.7 L253.3,195.0 L254.4,192.9 L255.6,191.8 L256.7,186.9 L257.8,186.6 L258.9,185.1 L260.1,183.7 L261.2,186.2 L262.3,181.2 L263.4,182.8 L264.6,188.2 L265.7,183.0 L266.8,180.0 L267.9,181.6 L269.1,180.0 L270.2,180.0 L271.3,180.0 L272.4,183.9 L273.6,182.7 L274.7,186.0 L275.8,187.8 L276.9,189.4 L278.1,192.0 L279.2,189.6 L280.3,192.0 L281.4,189.2 L282.6,188.1 L283.7,189.8 L284.8,188.6 L285.9,185.6 L287.1,180.8 L288.2,181.2 L289.3,180.0 L290.4,180.0 L291.6,180.0 L292.7,184.5 L293.8,188.0 L294.9,182.9 L296.1,183.3 L297.2,181.0 L298.3,180.0 L299.4,184.9 L300.6,182.7 L301.7,180.0 L302.8,180.0 L303.9,180.0 L305.1,180.0 L306.2,180.0 L307.3,180.0 L308.4,180.0 L309.6,180.3 L310.7,180.0 L311.8,180.0 L312.9,180.0 L314.1,180.0 L315.2,183.5 L316.3,180.0 L317.4,180.0 L318.6,183.6 L319.7,184.1 L320.8,189.0 L321.9,189.6 L323.1,187.8 L324.2,191.6 L325.3,193.9 L326.4,196.6 L327.6,198.6 L328.7,200.8 L329.8,204.2 L330.9,201.6 L332.1,201.9 L333.2,204.3 L334.3,200.3 L335.4,201.8 L336.6,198.1 L337.7,202.1 L338.8,196.5 L339.9,197.6 L341.1,200.5 L342.2,198.6 L343.3,202.8 L344.4,206.2 L345.6,204.9 L346.7,206.1 L347.8,204.2 L348.9,203.2 L350.1,201.8 L351.2,200.8 L352.3,197.8 L353.4,197.3 L354.6,192.8 L355.7,188.8 L356.8,195.4 L357.9,201.3 L359.1,195.2 L360.2,196.3 L361.3,195.1 L362.5,195.0 L363.6,193.5 L364.7,184.9 L365.8,187.0 L367.0,186.2 L368.1,185.7 L369.2,189.2 L370.3,191.9 L371.5,192.4 L372.6,191.9 L373.7,190.0 L374.8,196.6 L376.0,201.7 L377.1,195.3 L378.2,195.5 L379.3,192.0 L380.5,193.0 L381.6,195.1 L382.7,186.9 L383.8,190.9 L385.0,193.7 L386.1,190.7 L387.2,190.2 L388.3,195.6 L389.5,194.6 L390.6,191.5 L391.7,196.5 L392.8,198.0 L394.0,194.7 L395.1,187.2 L396.2,195.2 L397.3,197.2 L398.5,196.6 L399.6,199.4 L400.7,202.1 L401.8,203.4 L403.0,201.1 L404.1,204.4 L405.2,200.9 L406.3,197.4 L407.5,193.8 L408.6,187.7 L409.7,189.2 L410.8,188.8 L412.0,184.7 L413.1,180.0 L414.2,180.0 L415.3,181.2 L416.5,182.5 L417.6,186.9 L418.7,188.0 L419.8,190.8 L421.0,192.0 L422.1,192.9 L423.2,189.4 L424.3,185.8 L425.5,185.4 L426.6,189.1 L427.7,188.8 L428.8,186.7 L430.0,183.1 L431.1,181.8 L432.2,180.0 L433.3,181.9 L434.5,180.0 L435.6,180.0 L436.7,180.8 L437.8,183.1 L439.0,180.0 L440.1,183.2 L441.2,180.1 L442.3,180.6 L443.5,181.4 L444.6,181.9 L445.7,183.0 L446.8,182.7 L448.0,180.0 L449.1,180.0 L450.2,180.0 L451.3,180.0 L452.5,180.0 L453.6,181.1 L454.7,180.0 L455.8,180.0 L457.0,180.0 L458.1,183.1 L459.2,186.7 L460.3,189.9 L461.5,191.7 L462.6,187.4 L463.7,188.1 L464.8,184.4 L466.0,185.4 L467.1,188.4 L468.2,187.3 L469.3,188.3 L470.5,193.8 L471.6,193.2 L472.7,188.4 L473.8,188.6 L475.0,192.5 L476.1,194.8 L477.2,198.6 L478.4,199.0 L479.5,201.9 L480.6,201.8 L481.7,200.7 L482.9,195.5 L484.0,199.2 L485.1,205.9 L486.2,199.7 L487.4,197.7 L488.5,198.5 L489.6,196.2 L490.7,199.1 L491.9,199.8 L493.0,196.9 L494.1,197.5 L495.2,196.6 L496.4,194.5 L497.5,193.6 L498.6,194.0 L499.7,191.6 L500.9,186.3 L502.0,181.1 L503.1,183.8 L504.2,180.5 L505.4,187.1 L506.5,191.7 L507.6,189.8 L508.7,187.3 L509.9,181.8 L511.0,187.6 L512.1,183.2 L513.2,184.7 L514.4,185.9 L515.5,183.8 L516.6,180.0 L517.7,183.0 L518.9,188.8 L520.0,190.5 L521.1,190.4 L522.2,185.6 L523.4,183.7 L524.5,184.3 L525.6,185.7 L526.7,186.9 L527.9,182.9 L529.0,188.5 L530.1,190.5 L531.2,193.2 L532.4,188.7 L533.5,187.7 L534.6,189.7 L535.7,186.5 L536.9,180.0 L538.0,180.0 L539.1,184.4 L540.2,184.6 L541.4,180.0 L542.5,186.2 L543.6,190.2 L544.7,191.3 L545.9,188.9 L547.0,191.4 L548.1,190.4 L549.2,190.5 L550.4,188.9 L551.5,192.8 L552.6,200.3 L553.7,207.4 L554.9,206.3 L556.0,202.5 L557.1,200.3 L558.2,205.5 L559.4,211.1 L560.5,211.7 L561.6,214.4 L562.7,220.2 L563.9,221.8 L565.0,224.0 L566.1,224.0 L567.2,222.3 L568.4,221.3 L569.5,220.2 L570.6,218.0 L571.7,218.0 L572.9,219.1 L574.0,219.9 L575.1,215.4 L576.2,216.0 L577.4,212.8 L578.5,206.6 L579.6,200.1 L580.7,207.2 L581.9,206.3 L583.0,202.4 L584.1,203.6 L585.2,205.6 L586.4,210.2 L587.5,212.1 L588.6,211.7 L589.7,217.7 L590.9,217.4 L592.0,219.8 L592.0,180 Z" fill="rgba(220,38,38,.14)" stroke="rgba(220,38,38,.5)" stroke-width="1"/><text x="8" y="228" font-size="9" fill="#9ca3af"></text><text x="8.0" y="242" font-size="10" fill="#6c7280" text-anchor="start">2016</text><text x="125.0" y="242" font-size="10" fill="#6c7280" text-anchor="middle">2018</text><text x="242.1" y="242" font-size="10" fill="#6c7280" text-anchor="middle">2020</text><text x="357.9" y="242" font-size="10" fill="#6c7280" text-anchor="middle">2022</text><text x="475.0" y="242" font-size="10" fill="#6c7280" text-anchor="middle">2024</text><text x="592.0" y="242" font-size="10" fill="#6c7280" text-anchor="end">2026</text></svg></div>
+          <table class="log anim"><thead><tr><th>Trade log</th><th>In</th><th>Out</th><th class="r">Exit</th></tr></thead>
+            <tbody><tr><td>16 Oct 2026</td><td>10:45</td><td>15:15</td><td class="r">Time exit</td></tr><tr><td>09 Oct 2026</td><td>11:30</td><td>12:05</td><td class="r">Stop</td></tr><tr><td>03 Oct 2026</td><td>09:50</td><td>15:15</td><td class="r">Time exit</td></tr></tbody></table>
+        </div>
+      </div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span><span>Fills at the next bar's open · fees and slippage included</span></div>
+    </div>
+  </article>
+
+  <!-- 1. Asks for what you missed -->
+  <article class="card wide" data-play="ask">
+    <div class="card-h"><span class="lbl">It asks</span><h3>It asks for what you missed</h3><p>Forgot a stop, a timeframe or a position size? It asks for all of it in one go and tells you what it assumed.</p></div>
+    <div class="vis">
+      <div class="sent">Buy Bank Nifty when it breaks above yesterday's high</div>
+      <div class="panel" style="display:flex;flex-direction:column;gap:12px">
+        <div class="ask-q">A few things to set before I run this:</div>
+        <div class="opt"><span>Stop loss</span><span class="chips"><span class="chip">1%</span><span class="chip sel">2%</span><span class="chip">ATR based</span></span></div>
+        <div class="opt"><span>Timeframe</span><span class="chips"><span class="chip">5 min</span><span class="chip sel">15 min</span><span class="chip">1 hour</span></span></div>
+        <div class="opt"><span>Position size</span><span class="chips"><span class="chip sel">1 lot</span><span class="chip">2 lots</span><span class="chip">5% of equity</span></span></div>
+      </div>
+      <div class="assume anim">Assumed: fees and slippage included · fills at the next bar's open</div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span></div>
+    </div>
+  </article>
+
+  <!-- 2. Options -->
+  <article class="card wide" data-play="opts">
+    <div class="card-h"><span class="lbl">Options</span><h3>Options strategies, built the same way</h3><p>Straddles, iron condors, spreads and calendars up to four legs, with strikes picked by delta and entries filtered by IV rank.</p></div>
+    <div class="vis">
+      <div class="structs"><span>Straddle</span><span>Strangle</span><span class="on">Iron condor</span><span>Butterfly</span><span>Spreads</span><span>Calendar</span></div>
+      <div class="panel opt-v">
+        <div class="payoff"><svg viewBox="0 0 300 150" aria-hidden="true"><line x1="0" x2="300" y1="82" y2="82" stroke="#d0d6e0" stroke-dasharray="3 3"/><line x1="0" x2="300" y1="122" y2="122" stroke="#e6e6e6"/><path class="pl" pathLength="1" d="M10,112 L60,112 L110,30 L190,30 L240,112 L290,112"/><circle cx="60" cy="122" r="4" fill="#0d9488"/><text x="60" y="140" font-size="9" fill="#6c7280" text-anchor="middle">24,800</text><circle cx="110" cy="122" r="4" fill="#0d9488"/><text x="110" y="140" font-size="9" fill="#6c7280" text-anchor="middle">25,000</text><circle cx="190" cy="122" r="4" fill="#0d9488"/><text x="190" y="140" font-size="9" fill="#6c7280" text-anchor="middle">25,400</text><circle cx="240" cy="122" r="4" fill="#0d9488"/><text x="240" y="140" font-size="9" fill="#6c7280" text-anchor="middle">25,600</text></svg></div>
+        <div class="legs anim">
+          <div class="leg"><b class="bu">BUY</b>NIFTY 24,800 PE</div>
+          <div class="leg"><b class="s">SELL</b>NIFTY 25,000 PE</div>
+          <div class="leg"><b class="s">SELL</b>NIFTY 25,400 CE</div>
+          <div class="leg"><b class="bu">BUY</b>NIFTY 25,600 CE</div>
+        </div>
+      </div>
+      <div class="rchips anim"><span class="rchip">Enter when IV rank is above 50</span><span class="rchip">Short strikes at 0.20 delta</span><span class="rchip">Exit at 50% of premium</span></div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span></div>
+    </div>
+  </article>
+
+  <!-- 3. Every metric, every trade -->
+  <article class="card third" data-play="log">
+    <div class="card-h"><span class="lbl">Results</span><h3>Every metric, every trade</h3><p>Drawdown, win rate, Sharpe, Sortino and profit factor, with a log of each trade including fees and slippage.</p></div>
+    <div class="vis">
+      <div class="mtabs"><span class="on">Trades</span><span>Drawdown</span><span>Win rate</span><span>Sharpe</span><span>Sortino</span><span>Profit factor</span></div>
+      <div class="panel" style="padding:8px 12px">
+        <table class="log"><thead><tr><th>Date</th><th>In</th><th>Exit</th><th class="r">Fees</th></tr></thead>
+          <tbody>
+            <tr class="anim"><td>16 Oct</td><td>10:45</td><td>Time exit</td><td class="r">₹46</td></tr>
+            <tr class="anim"><td>09 Oct</td><td>11:30</td><td>Stop</td><td class="r">₹44</td></tr>
+            <tr class="anim"><td>03 Oct</td><td>09:50</td><td>Time exit</td><td class="r">₹47</td></tr>
+            <tr class="anim"><td>26 Sep</td><td>13:10</td><td>Stop</td><td class="r">₹45</td></tr>
+            <tr class="anim"><td>19 Sep</td><td>10:05</td><td>Time exit</td><td class="r">₹46</td></tr>
+          </tbody></table>
+      </div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span><span>Slippage applied on every fill</span></div>
+    </div>
+  </article>
+
+  <!-- 4. Indicators -->
+  <article class="card third" data-play="ind">
+    <div class="card-h"><span class="lbl">Indicators</span><h3>142 indicators, ready when you name them</h3><p>Trend, momentum, volatility and volume indicators, 61 candlestick patterns, Supertrend, VWAP and CPR, and signals on Heikin-Ashi bars.</p></div>
+    <div class="vis">
+      <div class="ind-tabs"><span class="on">Trend</span><span>Momentum</span><span>Volatility</span><span>Volume</span><span>Patterns</span></div>
+      <div class="cloud" id="cloud"><span>EMA</span><span>SMA</span><span>Supertrend</span><span>VWAP</span><span>CPR</span><span>RSI</span><span>MACD</span><span>ADX</span><span>Stochastic</span><span>CCI</span><span>ATR</span><span>Bollinger Bands</span><span>OBV</span><span>Parabolic SAR</span><span>Hammer</span><span>Engulfing</span><span>Doji</span><span>Heikin-Ashi</span><span class="more">+124 more</span></div>
+      <div class="icount anim"><b id="icount">142</b><span>indicators and patterns</span></div>
+      <div class="rchips anim"><span class="rchip">RSI (14) crosses above 30 and price is above Supertrend</span></div>
+    </div>
+  </article>
+
+  <!-- 5. Beyond stocks -->
+  <article class="card third" data-play="beyond">
+    <div class="card-h"><span class="lbl">Beyond stocks</span><h3>SIPs, rotation, funds and commodities</h3><p>Test a SIP with step-ups, a rotation that holds the top five, a mutual fund switch or an MCX futures strategy, the same way.</p></div>
+    <div class="vis">
+      <div class="tiles">
+        <div class="tl anim"><div class="k"><b>SIP</b><span>Monthly</span></div><div class="t">₹10,000 a month, stepped up 10% each year</div><div class="sipbars"><i style="height:30%"></i><i style="height:30%"></i><i style="height:44%"></i><i style="height:44%"></i><i style="height:58%"></i><i style="height:58%"></i><i style="height:72%"></i><i style="height:72%"></i><i style="height:86%"></i><i style="height:86%"></i></div></div>
+        <div class="tl anim"><div class="k"><b>Rotation</b><span>Rebalance monthly</span></div><div class="t">Hold the top five NIFTY 50 stocks by six-month momentum</div><div class="rank"><span>TITAN</span><span>LT</span><span>BHARTIARTL</span><span>SUNPHARMA</span><span>M&amp;M</span></div></div>
+        <div class="tl anim"><div class="k"><b>MCX futures</b><span>1 hour</span></div><div class="t">CRUDEOIL breakout above the day's opening range</div></div>
+      </div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span></div>
+    </div>
+  </article>
+</div>
+
+<style>
+.onward a .ow-v{display:block;margin:-20px -24px 12px;height:132px;padding:12px 14px;background:var(--inset,#f7f8f8);
+  border-bottom:1px solid var(--line);border-radius:12px 12px 0 0;overflow:hidden}
+.onward a .ow-v svg{display:block;width:100%;height:100%}
+.onward a{overflow:hidden}
+@media (max-width:768px){
+  .onward a{padding:16px 18px}
+  .onward a .ow-v{margin:-16px -18px 10px;height:108px;padding:10px 12px}
+  .onward a b{font-size:16px;line-height:22px}
+}
+</style>
+<section data-section="onward" class="onward" aria-labelledby="on-h">
+  <h2 id="on-h">Ready to run it?</h2>
+  <div class="links">
+    <a href="/deploy"><span class="ow-v" aria-hidden="true"><svg viewBox="0 0 380 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="8" y="8" width="364" height="31" rx="7" fill="#fff" stroke="#e6e6e6"/><rect x="16" y="15" width="17" height="17" rx="4" fill="#f3f4f6"/><rect x="42" y="16" width="120" height="7" rx="3.5" fill="#cfd4db"/><rect x="42" y="27" width="84" height="5" rx="2.5" fill="#e3e6ea"/><rect x="318" y="15" width="44" height="17" rx="4" fill="#ecfdf3" stroke="#bbf7d0"/><circle cx="328" cy="23.5" r="3" fill="#16a34a"/><text x="335" y="27" font-size="9" font-weight="600" fill="#16a34a" font-family="Geist,sans-serif">Live</text><rect x="8" y="45" width="364" height="31" rx="7" fill="#fff" stroke="#e6e6e6"/><rect x="16" y="52" width="17" height="17" rx="4" fill="#f3f4f6"/><rect x="42" y="53" width="156" height="7" rx="3.5" fill="#cfd4db"/><rect x="42" y="64" width="66" height="5" rx="2.5" fill="#e3e6ea"/><rect x="318" y="52" width="44" height="17" rx="4" fill="#ecfdf3" stroke="#bbf7d0"/><circle cx="328" cy="60.5" r="3" fill="#16a34a"/><text x="335" y="64" font-size="9" font-weight="600" fill="#16a34a" font-family="Geist,sans-serif">Live</text><rect x="8" y="82" width="364" height="31" rx="7" fill="#fff" stroke="#e6e6e6"/><rect x="16" y="89" width="17" height="17" rx="4" fill="#f3f4f6"/><rect x="42" y="90" width="136" height="7" rx="3.5" fill="#cfd4db"/><rect x="42" y="101" width="100" height="5" rx="2.5" fill="#e3e6ea"/><rect x="318" y="89" width="44" height="17" rx="4" fill="#ecfdf3" stroke="#bbf7d0"/><circle cx="328" cy="97.5" r="3" fill="#16a34a"/><text x="335" y="101" font-size="9" font-weight="600" fill="#16a34a" font-family="Geist,sans-serif">Live</text></svg></span><span>Deploy</span><b>Run algos like a trading desk, just by describing them →</b></a>
+    <a href="/charts"><span class="ow-v" aria-hidden="true"><svg viewBox="0 0 380 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="116.3" y="65.1" width="21.0" height="20.9" rx="3" fill="#0d9488" fill-opacity=".08" stroke="#0d9488"/><circle cx="126.8" cy="58.1" r="5" fill="#0d9488"/><text x="126.8" y="60.6" font-size="7" font-weight="700" fill="#fff" text-anchor="middle" font-family="Geist,sans-serif">1</text><rect x="260.7" y="33.9" width="21.0" height="21.7" rx="3" fill="#0d9488" fill-opacity=".08" stroke="#0d9488"/><circle cx="271.2" cy="26.9" r="5" fill="#0d9488"/><text x="271.2" y="29.4" font-size="7" font-weight="700" fill="#fff" text-anchor="middle" font-family="Geist,sans-serif">2</text><line x1="14.0" x2="14.0" y1="97.0" y2="108.0" stroke="#16a34a"/><rect x="11.2" y="99.7" width="5.6" height="6.8" fill="#16a34a"/><line x1="23.0" x2="23.0" y1="98.9" y2="106.5" stroke="#dc2626"/><rect x="20.2" y="99.7" width="5.6" height="3.2" fill="#dc2626"/><line x1="32.1" x2="32.1" y1="96.0" y2="104.4" stroke="#16a34a"/><rect x="29.3" y="98.3" width="5.6" height="4.7" fill="#16a34a"/><line x1="41.1" x2="41.1" y1="94.4" y2="98.3" stroke="#16a34a"/><rect x="38.3" y="96.4" width="5.6" height="1.9" fill="#16a34a"/><line x1="50.1" x2="50.1" y1="95.9" y2="96.8" stroke="#16a34a"/><rect x="47.3" y="96.3" width="5.6" height="1.0" fill="#16a34a"/><line x1="59.1" x2="59.1" y1="96.2" y2="99.2" stroke="#dc2626"/><rect x="56.3" y="96.3" width="5.6" height="2.3" fill="#dc2626"/><line x1="68.2" x2="68.2" y1="86.4" y2="100.6" stroke="#16a34a"/><rect x="65.4" y="86.4" width="5.6" height="12.2" fill="#16a34a"/><line x1="77.2" x2="77.2" y1="84.6" y2="90.9" stroke="#dc2626"/><rect x="74.4" y="86.4" width="5.6" height="4.1" fill="#dc2626"/><line x1="86.2" x2="86.2" y1="90.5" y2="93.4" stroke="#dc2626"/><rect x="83.4" y="90.5" width="5.6" height="1.0" fill="#dc2626"/><line x1="95.2" x2="95.2" y1="89.0" y2="94.7" stroke="#16a34a"/><rect x="92.4" y="91.2" width="5.6" height="1.0" fill="#16a34a"/><line x1="104.3" x2="104.3" y1="75.5" y2="93.7" stroke="#16a34a"/><rect x="101.5" y="78.9" width="5.6" height="12.3" fill="#16a34a"/><line x1="113.3" x2="113.3" y1="73.1" y2="81.0" stroke="#16a34a"/><rect x="110.5" y="74.4" width="5.6" height="4.5" fill="#16a34a"/><line x1="122.3" x2="122.3" y1="73.4" y2="80.9" stroke="#dc2626"/><rect x="119.5" y="74.4" width="5.6" height="5.4" fill="#dc2626"/><line x1="131.3" x2="131.3" y1="69.1" y2="82.0" stroke="#16a34a"/><rect x="128.5" y="70.1" width="5.6" height="10.8" fill="#16a34a"/><line x1="140.4" x2="140.4" y1="56.4" y2="73.1" stroke="#16a34a"/><rect x="137.6" y="57.4" width="5.6" height="15.6" fill="#16a34a"/><line x1="149.4" x2="149.4" y1="54.2" y2="68.2" stroke="#dc2626"/><rect x="146.6" y="57.4" width="5.6" height="9.1" fill="#dc2626"/><line x1="158.4" x2="158.4" y1="57.1" y2="67.1" stroke="#16a34a"/><rect x="155.6" y="58.9" width="5.6" height="7.5" fill="#16a34a"/><line x1="167.4" x2="167.4" y1="54.8" y2="62.8" stroke="#dc2626"/><rect x="164.6" y="58.9" width="5.6" height="1.7" fill="#dc2626"/><line x1="176.5" x2="176.5" y1="59.5" y2="65.8" stroke="#dc2626"/><rect x="173.7" y="60.6" width="5.6" height="3.1" fill="#dc2626"/><line x1="185.5" x2="185.5" y1="57.4" y2="63.8" stroke="#16a34a"/><rect x="182.7" y="59.6" width="5.6" height="4.2" fill="#16a34a"/><line x1="194.5" x2="194.5" y1="54.3" y2="61.0" stroke="#16a34a"/><rect x="191.7" y="54.5" width="5.6" height="5.1" fill="#16a34a"/><line x1="203.5" x2="203.5" y1="51.9" y2="72.9" stroke="#dc2626"/><rect x="200.7" y="54.5" width="5.6" height="18.4" fill="#dc2626"/><line x1="212.6" x2="212.6" y1="71.8" y2="81.5" stroke="#dc2626"/><rect x="209.8" y="72.9" width="5.6" height="8.1" fill="#dc2626"/><line x1="221.6" x2="221.6" y1="67.4" y2="82.0" stroke="#16a34a"/><rect x="218.8" y="70.2" width="5.6" height="10.7" fill="#16a34a"/><line x1="230.6" x2="230.6" y1="65.1" y2="73.1" stroke="#16a34a"/><rect x="227.8" y="66.4" width="5.6" height="3.9" fill="#16a34a"/><line x1="239.6" x2="239.6" y1="50.2" y2="68.8" stroke="#16a34a"/><rect x="236.8" y="51.9" width="5.6" height="14.4" fill="#16a34a"/><line x1="248.7" x2="248.7" y1="49.8" y2="55.7" stroke="#16a34a"/><rect x="245.9" y="50.8" width="5.6" height="1.2" fill="#16a34a"/><line x1="257.7" x2="257.7" y1="43.2" y2="52.9" stroke="#16a34a"/><rect x="254.9" y="43.6" width="5.6" height="7.2" fill="#16a34a"/><line x1="266.7" x2="266.7" y1="42.4" y2="50.4" stroke="#dc2626"/><rect x="263.9" y="43.6" width="5.6" height="5.7" fill="#dc2626"/><line x1="275.7" x2="275.7" y1="37.9" y2="51.5" stroke="#16a34a"/><rect x="272.9" y="39.0" width="5.6" height="11.4" fill="#16a34a"/><line x1="284.8" x2="284.8" y1="41.7" y2="55.3" stroke="#16a34a"/><rect x="282.0" y="42.4" width="5.6" height="11.0" fill="#16a34a"/><line x1="293.8" x2="293.8" y1="41.2" y2="46.7" stroke="#dc2626"/><rect x="291.0" y="42.4" width="5.6" height="3.0" fill="#dc2626"/><line x1="302.8" x2="302.8" y1="39.4" y2="49.2" stroke="#16a34a"/><rect x="300.0" y="40.3" width="5.6" height="5.2" fill="#16a34a"/><line x1="311.8" x2="311.8" y1="32.4" y2="42.9" stroke="#16a34a"/><rect x="309.0" y="32.8" width="5.6" height="7.5" fill="#16a34a"/><line x1="320.9" x2="320.9" y1="28.6" y2="32.9" stroke="#16a34a"/><rect x="318.1" y="29.3" width="5.6" height="3.5" fill="#16a34a"/><line x1="329.9" x2="329.9" y1="19.9" y2="30.0" stroke="#16a34a"/><rect x="327.1" y="21.1" width="5.6" height="8.1" fill="#16a34a"/><line x1="338.9" x2="338.9" y1="12.0" y2="26.6" stroke="#16a34a"/><rect x="336.1" y="12.9" width="5.6" height="8.2" fill="#16a34a"/><line x1="347.9" x2="347.9" y1="12.9" y2="25.4" stroke="#dc2626"/><rect x="345.1" y="12.9" width="5.6" height="9.8" fill="#dc2626"/><line x1="357.0" x2="357.0" y1="14.6" y2="26.5" stroke="#16a34a"/><rect x="354.2" y="20.6" width="5.6" height="2.1" fill="#16a34a"/><line x1="366.0" x2="366.0" y1="18.5" y2="20.9" stroke="#16a34a"/><rect x="363.2" y="20.1" width="5.6" height="1.0" fill="#16a34a"/><path d="M14.0,105.7 L23.0,107.3 L32.1,106.3 L41.1,105.3 L50.1,104.7 L59.1,104.7 L68.2,102.9 L77.2,102.1 L86.2,101.1 L95.2,99.6 L104.3,97.2 L113.3,94.5 L122.3,92.4 L131.3,88.9 L140.4,85.2 L149.4,82.2 L158.4,78.2 L167.4,74.3 L176.5,72.4 L185.5,70.6 L194.5,67.4 L203.5,67.7 L212.6,70.7 L221.6,71.2 L230.6,72.1 L239.6,71.0 L248.7,69.4 L257.7,67.4 L266.7,66.7 L275.7,62.5 L284.8,57.7 L293.8,54.6 L302.8,51.3 L311.8,48.9 L320.9,46.3 L329.9,43.5 L338.9,38.9 L347.9,36.9 L357.0,34.2 L366.0,31.0" fill="none" stroke="#0d9488" stroke-width="1.5"/></svg></span><span>Charts</span><b>Ask your chart for what you want to see →</b></a>
+    <a href="/research"><span class="ow-v" aria-hidden="true"><svg viewBox="0 0 380 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="12" y="10" width="356" height="26" rx="13" fill="#fff" stroke="#d0d6e0"/><circle cx="28" cy="23" r="5" fill="none" stroke="#6c7280" stroke-width="1.5"/><line x1="31.5" y1="26.5" x2="35" y2="30" stroke="#6c7280" stroke-width="1.5" stroke-linecap="round"/><rect x="44" y="19" width="200" height="8" rx="4" fill="#e3e6ea"/><rect x="16" y="48" width="96" height="8" rx="4" fill="#e3e6ea"/><path d="M196.0,59.0 L209.4,55.5 L222.9,55.9 L236.3,52.8 L249.7,52.0 L263.1,51.2 L276.6,46.6 L290.0,45.0" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round"/><rect x="314" y="44" width="50" height="16" rx="4" fill="#16a34a" fill-opacity=".12"/><rect x="323" y="50" width="32" height="4" rx="2" fill="#16a34a" fill-opacity=".6"/><line x1="16" x2="364" y1="63" y2="63" stroke="#e6e6e6"/><rect x="16" y="70" width="74" height="8" rx="4" fill="#e3e6ea"/><path d="M196.0,81.0 L209.4,71.2 L222.9,69.2 L236.3,67.0 L249.7,67.4 L263.1,69.1 L276.6,69.3 L290.0,73.2" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round"/><rect x="314" y="66" width="50" height="16" rx="4" fill="#dc2626" fill-opacity=".12"/><rect x="323" y="72" width="32" height="4" rx="2" fill="#dc2626" fill-opacity=".6"/><line x1="16" x2="364" y1="85" y2="85" stroke="#e6e6e6"/><rect x="16" y="92" width="110" height="8" rx="4" fill="#e3e6ea"/><path d="M196.0,94.8 L209.4,97.0 L222.9,89.9 L236.3,98.0 L249.7,95.1 L263.1,103.0 L276.6,93.7 L290.0,89.0" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round"/><rect x="314" y="88" width="50" height="16" rx="4" fill="#16a34a" fill-opacity=".12"/><rect x="323" y="94" width="32" height="4" rx="2" fill="#16a34a" fill-opacity=".6"/></svg></span><span>Research</span><b>Research a whole sector with one question →</b></a>
+  </div>
+</section>
+
+<style>
+/* Layout: the page's ending. A centred closing call to action that repeats the hero's two buttons, then a quiet footer in the same 1200px column: brand and link columns, then the registration line, contact and disclaimer. Light-only. */
+:root{
+  --page:#f7f8f8; --card:#ffffff; --fg:#060a11; --fg2:#475063; --fg3:#6c7280;
+  --line:#d0d6e0; --line2:#e6e6e6; --hover:#eef0f2; --mint:#19e299; --mint-600:#14b57a; --brand-word:#0f885c;
+  --font:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--fg);font-family:var(--font);font-size:16px;line-height:24px;letter-spacing:-0.01em;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:6px}
+
+/* closing call to action */
+.close-cta{max-width:1200px;margin:0 auto;padding-block:120px 144px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.close-cta h2{margin:0;font-size:64px;line-height:68px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.close-cta .ctas{margin-top:32px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.close-cta .btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:8px;font-weight:600;font-size:16px;line-height:24px;transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.close-cta .btn:active{transform:scale(.97)}
+.close-cta .btn-mint{background:var(--mint);color:#060a11}
+.close-cta .btn-mint:hover{background:var(--mint-600)}
+.close-cta .btn-ghost{background:var(--card);color:var(--fg);border:1px solid var(--line)}
+.close-cta .btn-ghost:hover{border-color:#c8d5e6;background:var(--hover)}
+.close-cta .fine{margin-top:12px;font-size:14px;line-height:20px;color:var(--fg3)}
+
+/* footer */
+.foot{max-width:1200px;margin:0 auto;border-top:1px solid var(--line);padding-block:56px 48px;display:flex;flex-direction:column;gap:48px}
+.foot-top{display:grid;grid-template-columns:minmax(0,4fr) repeat(4,minmax(0,2fr));gap:32px}
+.foot-brand{display:flex;flex-direction:column;gap:12px}
+.foot-brand .mark{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;line-height:28px;letter-spacing:-0.02em}
+.foot-brand .mark img{width:28px;height:28px;border-radius:6px;display:block}
+.foot-brand p{margin:0;font-size:15px;line-height:22px;color:var(--fg2);max-width:280px}
+.foot-col h3{margin:0 0 16px;font-size:13px;line-height:16px;font-weight:600;color:var(--fg)}
+.foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.foot-col a{font-size:14px;line-height:20px;color:var(--fg2);transition:color .15s ease}
+.foot-col a:hover{color:var(--fg)}
+.foot-legal{border-top:1px solid var(--line2);padding-top:32px;display:flex;flex-direction:column;gap:12px;font-size:13px;line-height:20px;color:var(--fg3)}
+.foot-legal p{margin:0;max-width:880px}
+.foot-legal .reg{color:var(--fg2);font-weight:500}
+.foot-legal .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:12px}
+
+@media (max-width:1024px){ .foot-top{grid-template-columns:repeat(2,minmax(0,1fr))} .foot-brand{grid-column:1 / -1} }
+@media (max-width:768px){
+  .close-cta{padding-block:72px 96px}
+  .close-cta h2{font-size:40px;line-height:44px}
+  .close-cta .ctas{width:100%;flex-direction:column}
+  .close-cta .btn{width:100%}
+  .foot{padding-block:40px 32px;gap:32px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+<div class="end" id="end-fold">
+<section data-section="close" class="close-cta" aria-labelledby="close-h">
+  <h2 id="close-h">Your desk is ready when you are.</h2>
+  <div class="ctas">
+    <a class="btn btn-mint" href="https://app.aagman.ai/login">Sign up</a>
+    <a class="btn btn-ghost" href="https://dub.sh/fZsnb0w" target="_blank" rel="noopener">Talk to founders</a>
+  </div>
+  <div class="fine">Free to get started · Works with all major Indian brokers</div>
+</section>
+
+<footer data-section="footer" class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="mark" href="/" aria-label="āagman home"><img src="/media/d3eba88f71b3.png" alt="">āagman</a>
+      <p>An AI trading desk for Indian markets.</p>
+    </div>
+    <nav class="foot-col" aria-label="Product">
+      <h3>Product</h3>
+      <ul><li><a href="/research">Research</a></li><li><a href="/charts">Charts</a></li><li><a href="/backtesting">Backtesting</a></li><li><a href="/picks">Picks &amp; strategies</a></li><li><a href="/deploy">Deploy</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Company">
+      <h3>Company</h3>
+      <ul><li><a href="/#founders">Founders letter</a></li><li><a href="https://www.linkedin.com/company/aagman-ai/jobs/" target="_blank" rel="noopener">Careers</a></li><li><a href="https://www.aagman.ai/invest">For investors</a></li><li><a href="mailto:growth@kotilabs.com">Contact us</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Resources">
+      <h3>Resources</h3>
+      <ul><li><a href="/pricing">Pricing</a></li><li><a href="https://www.aagman.ai/docs/">Docs</a></li><li><a href="https://www.aagman.ai/blog/">Blog</a></li><li><a href="https://www.aagman.ai/sitemap.xml">Sitemap</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3>Legal</h3>
+      <ul><li><a href="/terms">Terms &amp; conditions</a></li><li><a href="/privacy-policy">Privacy policy</a></li><li><a href="/risk-disclosure">Risk disclosure</a></li><li><a href="/cancellation-refunds">Cancellations &amp; refunds</a></li></ul>
+    </nav>
+  </div>
+
+  <div class="foot-legal">
+    <p class="reg">āagman is a SEBI-registered Investment Adviser (INA000021951) and an NSE-empanelled algo provider under NSE Circular Ref. 40/2026 (3 Jun 2026).</p>
+    <p>For any queries, concerns, or feedback, email us at ajit@kotilabs.com.</p>
+    <p>Disclaimer: āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
+    <p>Investments in securities are subject to market risks. Read all related documents carefully. Backtested results do not guarantee future returns.</p>
+    <div class="row"><span>© 2026 āagman · Koti Labs Private Limited</span><span>Markets carry risk</span></div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const at = (ms, fn) => setTimeout(fn, ms);
+  const anims = el => [...el.querySelectorAll('.anim')];
+  function typeInto(el, ms){ const full = el.textContent; el.textContent = ''; [...full].forEach((ch, i) => at(i * (ms / full.length), () => el.textContent += ch)); return ms; }
+  const stagger = (card, base, step) => anims(card).forEach((x, i) => x.style.transitionDelay = (base + i * step) + 's');
+  const plays = {
+    big(card){ card.classList.add('pre'); stagger(card, 0, .15); const t = typeInto(document.getElementById('btQ'), 1300); at(t + 100, () => card.classList.remove('pre')); },
+    ask(card){ card.classList.add('pre'); stagger(card, 1.2, 0); at(80, () => { card.classList.remove('pre'); }); 
+      const sel = [...card.querySelectorAll('.chip.sel')]; sel.forEach(s => s.classList.remove('sel')); sel.forEach((s, i) => at(400 + i * 350, () => s.classList.add('sel'))); },
+    opts(card){ card.classList.add('pre'); stagger(card, .6, .25); at(80, () => card.classList.remove('pre')); },
+    log(card){ card.classList.add('pre'); stagger(card, 0, .15); at(80, () => card.classList.remove('pre')); },
+    ind(card){ card.classList.add('pre'); const chips = [...card.querySelectorAll('.cloud span')]; chips.forEach((c, i) => c.style.transitionDelay = (i * .06) + 's');
+      stagger(card, chips.length * .06 + .1, .2); const n = document.getElementById('icount'); n.textContent = '0';
+      at(80, () => { card.classList.remove('pre'); for (let k = 1; k <= 20; k++) at(k * 55, () => n.textContent = Math.round(142 * k / 20)); }); },
+    beyond(card){ card.classList.add('pre'); stagger(card, 0, .2); at(80, () => card.classList.remove('pre')); }
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); const f = plays[e.target.dataset.play]; if (f) f(e.target); }), {threshold:.35});
+  document.querySelectorAll('[data-play]').forEach(c => io.observe(c));
+})();
+</script>
+<script>
+(function(){
+  const dds = [...document.querySelectorAll('.dd')];
+  dds.forEach(d => { const t = d.querySelector('.dd-t');
+    t.addEventListener('click', e => { e.stopPropagation(); const o = !d.classList.contains('open'); dds.forEach(x => { x.classList.remove('open'); x.querySelector('.dd-t').setAttribute('aria-expanded','false'); }); d.classList.toggle('open', o); t.setAttribute('aria-expanded', o ? 'true' : 'false'); }); });
+  document.addEventListener('click', () => dds.forEach(d => { d.classList.remove('open'); d.querySelector('.dd-t').setAttribute('aria-expanded','false'); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') dds.forEach(d => d.classList.remove('open')); });
+})();
+</script>
+</body>
+</html>

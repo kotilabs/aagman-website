@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<script defer src="/analytics.js"></script>
+<title>Trading strategies, with the homework already done · āagman</title>
+<link rel="canonical" href="https://www.aagman.ai/picks">
+<meta name="description" content="Trading strategies and picks, tested on 10 years of history and paper tracked before they reach you. Follow a pick, or deploy its strategy as an algo.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="āagman">
+<meta property="og:url" content="https://www.aagman.ai/picks">
+<meta property="og:title" content="Trading strategies, with the homework already done · āagman">
+<meta property="og:image" content="https://www.aagman.ai/og/picks.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trading strategies, with the homework already done · āagman">
+<meta name="twitter:image" content="https://www.aagman.ai/og/picks.png">
+<meta property="og:description" content="Trading strategies and picks, tested on 10 years of history and paper tracked before they reach you. Follow a pick, or deploy its strategy as an algo.">
+<meta name="twitter:description" content="Trading strategies and picks, tested on 10 years of history and paper tracked before they reach you. Follow a pick, or deploy its strategy as an algo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&family=Space+Grotesk:wght@400..700&display=swap">
+<style>
+/* Layout: the Research page. Same light system as the homepage: nav, a centred page top, one full-width card with the main promise, five smaller cards that each go deep on one capability (two wide, then three), links onward, then the shared closing and footer. Card visuals use the product's light mode in Space Grotesk and play once when they scroll into view. */
+:root{
+  --page:#f7f8f8; --card:#ffffff; --inset:#f7f8f8; --fg:#060a11; --fg2:#475063; --fg3:#6c7280;
+  --line:#d0d6e0; --line2:#e6e6e6; --hover:#eef0f2; --mint:#19e299; --mint-600:#14b57a; --brand-word:#0f885c;
+  --up:#16a34a; --down:#dc2626; --teal:#0d9488; --info:#386a8f; --hl:color-mix(in srgb,#19e299 22%,#ffffff);
+  --font:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --prod:'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--fg);font-family:var(--font);font-size:16px;line-height:24px;letter-spacing:-0.01em;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:8px}
+
+/* nav (same as the homepage) */
+.nav{max-width:1200px;margin:0 auto;height:64px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.nav .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;line-height:28px;letter-spacing:-0.02em}
+.nav .logo img{width:28px;height:28px;border-radius:6px;display:block}
+.nav-links{display:flex;gap:4px}
+.nav-links a{display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:8px;font-size:15px;line-height:20px;font-weight:500;color:var(--fg2);transition:background .15s ease,color .15s ease}
+.nav-links a:hover,.nav-links a.cur{background:var(--hover);color:var(--fg)}
+.nav-links svg{width:14px;height:14px}
+.nav-right{display:flex;justify-content:flex-end}
+.nav-btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:8px;background:var(--fg);color:#fff;font-weight:600;font-size:15px;transition:background .15s ease}
+.nav-btn:hover{background:#2f3746}
+
+/* page top */
+.top{max-width:1200px;margin:0 auto;padding-block:96px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}
+.eyebrow{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-word)}
+.top h1{margin:0;font-size:72px;line-height:78px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.top p{margin:0;max-width:620px;font-size:19px;line-height:28px;color:var(--fg2);text-wrap:pretty}
+.top .acts{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+.b{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:8px;font-weight:600;font-size:16px;transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.b:active{transform:scale(.97)}
+.b-mint{background:var(--mint);color:#060a11} .b-mint:hover{background:var(--mint-600)}
+.b-ghost{background:var(--card);border:1px solid var(--line)} .b-ghost:hover{background:var(--hover);border-color:#c8d5e6}
+
+/* cards */
+.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.big{grid-column:span 6}
+.card.wide{grid-column:span 3}
+.card.third{grid-column:span 2}
+.card-h{padding:28px 32px 24px;display:flex;flex-direction:column;gap:8px}
+.card-h .lbl{font-size:14px;line-height:20px;font-weight:500;color:var(--fg3)}
+.card-h h2,.card-h h3{margin:0;font-weight:700;letter-spacing:-0.03em;text-wrap:balance}
+.card.big .card-h h2{font-size:40px;line-height:46px;max-width:760px}
+.card-h h3{font-size:24px;line-height:30px}
+.card-h p{margin:0;font-size:16px;line-height:24px;color:var(--fg2);max-width:640px;text-wrap:pretty}
+.card.big .card-h p{font-size:18px;line-height:28px}
+.vis{flex:1;background:var(--inset);border-top:1px solid var(--line2);padding:24px;display:flex;flex-direction:column;gap:12px;
+  font-family:var(--prod);letter-spacing:0;font-variant-numeric:tabular-nums;position:relative}
+.vfoot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;line-height:16px;color:var(--fg3)}
+.mock{border:1px dashed var(--line);border-radius:4px;padding:0 8px;font-size:10px;line-height:16px}
+.panel{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:16px}
+.anim{transition:opacity .35s ease,transform .35s ease}
+.pre .anim{opacity:0;transform:translateY(6px)}
+
+/* big card visual */
+.big-v{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.q{font-size:18px;line-height:26px;font-weight:500;color:var(--fg);display:flex;gap:12px}
+.q svg{width:18px;height:18px;flex:none;margin-top:4px;color:var(--fg3)}
+.srcs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.src{display:inline-flex;gap:8px;align-items:center;font-size:13px;line-height:20px;padding:4px 10px;border:1px solid var(--line2);border-radius:6px;background:var(--card);color:var(--fg2)}
+.src b{color:var(--fg);font-weight:600}
+.read{margin-top:16px;display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:16px;color:var(--fg3)}
+.bar{height:6px;border-radius:999px;background:var(--line2);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--teal);border-radius:999px;transition:width 1.4s ease}
+.pre .bar i{width:0}
+.ans-h{font-size:16px;line-height:24px;font-weight:600;color:var(--fg);padding-bottom:12px;border-bottom:1px solid var(--line2)}
+.rows{display:flex;flex-direction:column}
+.rw{display:grid;grid-template-columns:minmax(0,1.4fr) 96px 72px auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2);font-size:14px;line-height:20px}
+.rw:last-child{border-bottom:0}
+.ans-h,.rw{transition:opacity .35s ease}
+.rw .spark path{stroke-dashoffset:1}
+.rw.on .spark path{stroke-dashoffset:0}
+.rw.hd{font-size:11px;line-height:16px;color:var(--fg3);padding:10px 0 6px}
+.rw .chg{text-align:right;font-weight:600}
+.u{color:var(--up)} .d{color:var(--down)}
+.cite{font-size:11px;line-height:16px;color:var(--fg2);border:1px solid var(--line2);border-radius:4px;padding:2px 6px;white-space:nowrap}
+.spark{width:96px;height:24px;display:block}
+.spark path{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset .8s ease}
+
+/* screener */
+.sent{font-size:15px;line-height:22px;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.conds{display:flex;flex-wrap:wrap;gap:8px}
+.cond{font-size:12px;line-height:16px;font-weight:600;padding:5px 10px;border-radius:6px;background:var(--card);border:1px solid color-mix(in srgb,#0d9488 40%,transparent);color:var(--teal)}
+.tabs{display:flex;gap:4px;font-size:12px;line-height:16px}
+.tabs span{padding:6px 10px;border-radius:6px;color:var(--fg3)}
+.tabs span.on{background:var(--card);border:1px solid var(--line2);color:var(--fg);font-weight:600}
+.tabs em{margin-left:auto;font-style:normal;color:var(--fg2);align-self:center}
+.mini{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 16px;font-size:13px;line-height:20px}
+.mini span:nth-child(3n+2),.mini span:nth-child(3n){text-align:right}
+.mini .h{font-size:11px;color:var(--fg3)}
+.tagline{font-size:12px;line-height:16px;color:var(--fg3)}
+
+/* documents */
+.docs{display:flex;flex-direction:column;gap:8px}
+.doc{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.doc .dt{display:flex;justify-content:space-between;font-size:11px;line-height:16px;color:var(--fg3)}
+.doc .dt b{font-weight:600;color:var(--info);background:color-mix(in srgb,#5eb0ef 14%,#ffffff);border-radius:4px;padding:0 6px}
+.doc .ex{font-size:14px;line-height:20px;color:var(--fg)}
+.doc mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 2px;transition:background .5s ease}
+.pre .doc mark{background:transparent}
+.dcount{font-size:12px;line-height:16px;color:var(--fg2)}
+
+/* belief */
+.belief{font-size:15px;line-height:22px;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.belief small{display:block;font-size:11px;line-height:16px;color:var(--fg3);margin-bottom:4px}
+.simhd{display:flex;justify-content:space-between;font-size:11px;line-height:16px;color:var(--fg3)}
+.dots{display:grid;grid-template-columns:repeat(18,1fr);gap:4px}
+.dots i{aspect-ratio:1;border-radius:2px;background:var(--line2);transition:background .2s ease}
+.dots i.y{background:color-mix(in srgb,#16a34a 55%,#ffffff)} .dots i.n{background:color-mix(in srgb,#dc2626 45%,#ffffff)}
+.verdict{display:flex;align-items:center;gap:12px}
+.vstamp{font-family:var(--mono);font-size:13px;line-height:16px;font-weight:600;letter-spacing:.12em;color:#c4320a;border:2px solid currentColor;border-radius:6px;padding:4px 10px;transform:rotate(-4deg)}
+.verdict span{font-size:12px;line-height:16px;color:var(--fg2)}
+
+/* scorecard */
+.sc-h{display:flex;justify-content:space-between;align-items:baseline}
+.sc-h b{font-size:15px}
+.sc-h span{font-size:11px;color:var(--fg3)}
+.scores{display:flex;flex-direction:column;gap:8px}
+.sco{display:grid;grid-template-columns:72px 1fr 32px;align-items:center;gap:8px;font-size:12px;line-height:16px;color:var(--fg2)}
+.sco .t{height:6px;border-radius:999px;background:var(--line2);overflow:hidden}
+.sco .t i{display:block;height:100%;background:var(--teal);border-radius:999px;transition:width .8s ease}
+.pre .sco .t i{width:0!important}
+.sco b{text-align:right;color:var(--fg);font-weight:600}
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.case{border:1px solid var(--line2);border-radius:8px;padding:8px;font-size:11px;line-height:15px;color:var(--fg2);background:var(--card)}
+.case b{display:block;font-size:11px;margin-bottom:2px}
+.case.bull b{color:var(--up)} .case.bear b{color:var(--down)} .case.base b{color:var(--fg)}
+.conf{align-self:flex-start;font-size:11px;line-height:16px;color:var(--fg2);border:1px solid var(--line2);border-radius:4px;padding:1px 6px;background:var(--card)}
+
+/* compare */
+.cmp{width:100%;border-collapse:collapse;font-size:13px;line-height:18px}
+.cmp th{font-size:11px;font-weight:600;color:var(--fg);text-align:right;padding:8px 6px;border-bottom:1px solid var(--line2)}
+.cmp th:first-child,.cmp td:first-child{text-align:left;color:var(--fg3);font-weight:500}
+.cmp td{text-align:right;padding:9px 6px;border-bottom:1px solid var(--line2)}
+.cmp tr:last-child td{border-bottom:0}
+.cmp td.best{color:var(--teal);font-weight:700}
+.cmp-tabs{display:flex;gap:6px;font-size:11px;line-height:16px;color:var(--fg3)}
+.cmp-tabs span{padding:2px 8px;border-radius:999px;border:1px solid var(--line2);background:var(--card)}
+.cmp-tabs span.on{color:var(--fg);border-color:var(--line)}
+
+/* onward */
+.onward{max-width:1200px;margin:0 auto;padding-block:120px 0;display:flex;flex-direction:column;gap:24px}
+.onward h2{margin:0;text-align:center;font-size:40px;line-height:46px;letter-spacing:-0.03em;font-weight:700}
+.onward .links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.onward a{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s ease,background .15s ease}
+.onward a:hover{border-color:#c8d5e6;background:#fcfcfd}
+.onward a span{font-size:13px;line-height:18px;color:var(--fg3);font-weight:500}
+.onward a b{font-size:17px;line-height:24px;font-weight:600;letter-spacing:-0.02em}
+
+@media (max-width:1024px){
+  .card.wide,.card.third{grid-column:span 6}
+  .big-v{grid-template-columns:1fr}
+  .onward .links{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .nav{grid-template-columns:1fr auto} .nav-links{display:none}
+  .top{padding-block:56px 40px} .top h1{font-size:44px;line-height:50px} .top p{font-size:17px;line-height:26px}
+  .top .acts{width:100%;flex-direction:column} .b{width:100%}
+  .grid{gap:16px}
+  .card-h{padding:22px 20px 18px} .card.big .card-h h2{font-size:30px;line-height:36px} .card-h h3{font-size:21px;line-height:27px}
+  .vis{padding:16px}
+  .rw{grid-template-columns:minmax(0,1fr) 64px 64px;}
+  .rw .cite,.rw.hd span:last-child{display:none}
+  .spark{width:64px}
+  .onward{padding-block:72px 0} .onward h2{font-size:30px;line-height:36px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+
+/* ---------- Picks & strategies ---------- */
+.ph{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.ph b{font-size:14px;line-height:20px;font-weight:600}
+.ph span{font-size:12px;line-height:16px;color:var(--fg3)}
+.pg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px}
+.pk{display:grid;grid-template-columns:minmax(92px,auto) auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--hover);font-size:14px;line-height:20px}
+.ph + .pk{border-top:0}
+.pk b{font-weight:600}
+.pk em{font-style:normal;color:var(--fg3);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pk small{font-size:12px;color:var(--fg3);white-space:nowrap}
+.idea{font-size:11px;line-height:16px;font-weight:600;border-radius:4px;padding:2px 8px;white-space:nowrap}
+.idea.l{color:var(--brand-word);background:#ecfdf3}
+.idea.s{color:#b4232a;background:#fdf2f2}
+.st{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--hover)}
+.ph + .st{border-top:0}
+.st b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.st small{display:block;margin-top:3px;font-size:12px;line-height:16px;color:var(--fg3)}
+.dep{font-size:13px;line-height:18px;font-weight:600;color:var(--brand-word);border:1px solid #bbf7d0;background:#f6fdfa;border-radius:8px;padding:7px 12px;white-space:nowrap}
+
+.rail{position:relative;height:14px;margin:4px 12.5% 6px;display:flex;justify-content:space-between;align-items:center}
+.rail::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--line2);border-radius:2px}
+.rail .fill{position:absolute;left:0;top:6px;height:2px;width:100%;background:var(--teal);border-radius:2px;transition:width .6s ease}
+.rail span{position:relative;width:14px;height:14px;border-radius:999px;background:var(--teal);box-shadow:0 0 0 4px var(--inset);transition:background .3s ease}
+.pre .rail .fill{width:0}
+.pre .rail span:not(.lit){background:var(--card);box-shadow:0 0 0 4px var(--inset),inset 0 0 0 2px var(--line)}
+.gates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.gate{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;transition:opacity .4s ease,border-color .4s ease}
+.gate .gn{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.12em;color:var(--teal)}
+.gate b{font-family:var(--font);font-size:17px;line-height:24px;font-weight:600;letter-spacing:-0.01em}
+.gate p{margin:0;font-family:var(--font);font-size:14px;line-height:21px;color:var(--fg2)}
+.gate em{margin-top:auto;align-self:flex-start;font-style:normal;font-size:12px;line-height:16px;border-radius:4px;padding:3px 8px;transition:opacity .4s ease}
+.gate em.out{color:#b4232a;background:#fdf2f2}
+.gate em.in{color:var(--brand-word);background:#ecfdf3;font-weight:600}
+.pre .gate:not(.lit){opacity:.45}
+.pre .gate:not(.lit) em{opacity:0}
+.gate.lit{border-color:#cdeee2}
+
+.rc .trk{font-size:11px;font-weight:600;color:var(--brand-word);background:#ecfdf3;border-radius:4px;padding:2px 8px}
+.kv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:6px 0 12px}
+.kv div{border:1px solid var(--line2);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.kv span{font-size:11px;line-height:14px;color:var(--fg3)}
+.kv b{font-size:14px;line-height:18px;font-weight:600}
+.kv b.dn{color:var(--down)}
+.rc svg{display:block;width:100%;height:auto}
+
+.cl .cr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--hover)}
+.cl .cr:first-child{border-top:0;padding-top:2px}
+.cr b{display:block;font-size:14px;line-height:20px;font-weight:600;color:var(--fg2);text-decoration:line-through;text-decoration-color:#d0d6e0}
+.cr small{display:block;margin-top:2px;font-size:12px;line-height:16px;color:var(--fg3)}
+.cr .x{font-size:11px;line-height:16px;font-weight:600;color:#b4232a;background:#fdf2f2;border-radius:4px;padding:2px 8px;white-space:nowrap}
+
+.tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.tl span{font-size:12px;line-height:16px;text-align:center;padding:8px 4px;border-radius:8px;border:1px solid var(--line2);color:var(--fg3)}
+.tl span.on{color:var(--brand-word);background:#ecfdf3;border-color:#bbf7d0;font-weight:600}
+.tl span.nx{border-style:dashed}
+.lg{display:grid;grid-template-columns:10px 64px 1fr;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--hover);font-size:13px;line-height:18px}
+.lg i{width:8px;height:8px;border-radius:999px}
+.lg i.ok{background:var(--up)} .lg i.nx{border:1.5px solid var(--line)}
+.lg span{color:var(--fg2)}
+
+.yw{padding:6px 16px}
+.yr{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--hover);color:inherit;text-decoration:none}
+.yr:first-child{border-top:0}
+.yr b{display:block;font-family:var(--font);font-size:15px;line-height:20px;font-weight:600;letter-spacing:-0.01em}
+.yr small{display:block;font-family:var(--font);font-size:13px;line-height:18px;color:var(--fg3)}
+.yr i{font-style:normal;color:var(--fg3);transition:transform .15s ease,color .15s ease}
+a.yr:hover i{transform:translateX(3px);color:var(--fg)}
+a.yr:hover b{color:var(--brand-word)}
+.yi{width:36px;height:36px;border-radius:9px;background:var(--inset);border:1px solid var(--line2);display:grid;place-items:center;color:var(--teal)}
+.yi svg{width:18px;height:18px}
+
+.method{max-width:1200px;margin:32px auto 0;text-align:center;font-size:15px;line-height:22px;color:var(--fg2)}
+.method a{color:var(--brand-word);font-weight:600}
+
+@media (max-width:1024px){ .pg{grid-template-columns:1fr} .gates{grid-template-columns:repeat(2,minmax(0,1fr))} .rail{display:none} }
+@media (max-width:768px){
+  .gates{grid-template-columns:1fr}
+  .pk{grid-template-columns:auto auto minmax(0,1fr);row-gap:2px} .pk small{display:none}
+  .st{grid-template-columns:1fr;gap:10px} .dep{justify-self:start}
+  .kv{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tl{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .vfoot{flex-direction:column;align-items:flex-start;gap:6px}
+}
+</style>
+<style>
+/* nav dropdowns */
+.dd{position:relative;display:inline-flex}
+.dd-t{font:inherit;display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:8px;border:0;background:transparent;cursor:pointer;
+  font-size:15px;line-height:20px;font-weight:500;color:#475063;letter-spacing:-0.01em;transition:background .15s ease,color .15s ease}
+.dd-t svg{width:14px;height:14px;transition:transform .15s ease}
+.dd-t.cur,.dd:hover .dd-t,.dd.open .dd-t{background:#eef0f2;color:#060a11}
+.dd.open .dd-t svg{transform:rotate(180deg)}
+.dd-m{position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,4px);min-width:340px;background:#ffffff;border:1px solid #d0d6e0;border-radius:12px;
+  padding:8px;display:flex;flex-direction:column;gap:2px;box-shadow:0 0 6px rgba(0,0,0,.06),0 10px 24px rgba(0,0,0,.08);opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;z-index:50;text-align:left}
+.dd-m::before{content:"";position:absolute;left:0;right:0;top:-10px;height:10px}
+.dd:hover .dd-m,.dd:focus-within .dd-m,.dd.open .dd-m{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.dd .dd-i{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border-radius:8px;text-decoration:none;color:#060a11;background:transparent;font-size:14px;transition:background .15s ease}
+.dd a.dd-i:hover{background:#f7f8f8}
+.dd .dd-i b{font-size:14px;line-height:20px;font-weight:600}
+.dd .dd-i small{font-size:13px;line-height:18px;color:#6c7280;font-weight:400}
+.dd .dd-i.soon b{color:#6c7280}
+.dd .dd-i .tag{display:inline-block;margin-left:8px;font-size:10px;line-height:14px;font-weight:600;color:#6c7280;border:1px dashed #d0d6e0;border-radius:999px;padding:0 6px;vertical-align:1px}
+.dd .dd-sep{height:1px;background:#e6e6e6;margin:4px 8px}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://www.aagman.ai/picks#webpage",
+   "url": "https://www.aagman.ai/picks",
+   "name": "Trading strategies, with the homework already done · āagman",
+   "inLanguage": "en-IN",
+   "isPartOf": {
+    "@id": "https://www.aagman.ai/#website"
+   },
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   },
+   "description": "Trading strategies and picks, tested on 10 years of history and paper tracked before they reach you. Follow a pick, or deploy its strategy as an algo.",
+   "about": {
+    "@id": "https://www.aagman.ai/#app"
+   },
+   "breadcrumb": {
+    "@id": "https://www.aagman.ai/picks#breadcrumb"
+   }
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://www.aagman.ai/#org",
+   "name": "āagman",
+   "alternateName": [
+    "aagman",
+    "Aagman"
+   ],
+   "legalName": "Koti Labs Private Limited",
+   "url": "https://www.aagman.ai/",
+   "description": "An AI trading desk for Indian markets.",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.aagman.ai/logo.png",
+    "width": 1732,
+    "height": 1732
+   },
+   "email": "growth@kotilabs.com",
+   "sameAs": [
+    "https://www.linkedin.com/company/aagman-ai/"
+   ],
+   "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "SEBI RIA Registration Number",
+    "value": "INA000021951"
+   },
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "F-130, JUNIPER BRIGADE ORCHARDS",
+    "addressLocality": "Devanahalli",
+    "addressRegion": "Bangalore Rural, Karnataka",
+    "postalCode": "562110",
+    "addressCountry": "IN"
+   },
+   "founder": [
+    {
+     "@id": "https://www.aagman.ai/#ajit"
+    },
+    {
+     "@id": "https://www.aagman.ai/#amit"
+    }
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.aagman.ai/#website",
+   "name": "āagman",
+   "alternateName": "aagman",
+   "url": "https://www.aagman.ai/",
+   "inLanguage": "en-IN",
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://www.aagman.ai/#app",
+   "name": "āagman",
+   "url": "https://www.aagman.ai/",
+   "applicationCategory": "FinanceApplication",
+   "operatingSystem": "Web",
+   "description": "An AI trading desk you can give real work to, across Indian markets.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR",
+    "description": "Free for now",
+    "url": "https://www.aagman.ai/pricing"
+   },
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://www.aagman.ai/picks#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.aagman.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Picks & strategies",
+     "item": "https://www.aagman.ai/picks"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<header data-section="header" class="nav">
+  <a class="logo" href="/" aria-label="āagman home"><img src="/media/d3eba88f71b3.png" alt="">āagman</a>
+  <nav class="nav-links" aria-label="Main">
+    <div class="dd"><button type="button" class="dd-t cur" aria-haspopup="true" aria-expanded="false">Product<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><a class="dd-i" role="menuitem" href="/research"><b>Research</b><small>Research a whole sector with one question</small></a><a class="dd-i" role="menuitem" href="/charts"><b>Charts</b><small>Ask your chart for what you want to see</small></a><a class="dd-i" role="menuitem" href="/backtesting"><b>Backtesting</b><small>Describe a strategy and see it tested on 10 years of history</small></a><a class="dd-i" role="menuitem" href="/picks"><b>Picks &amp; strategies</b><small>Get picks vetted the way a senior desk vets them</small></a><a class="dd-i" role="menuitem" href="/deploy"><b>Deploy</b><small>Run algos like a trading desk, just by describing them</small></a></div></div>
+    <div class="dd"><button type="button" class="dd-t" aria-haspopup="true" aria-expanded="false">Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><span class="dd-i soon"><b>Charts<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Screener<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Pulse<span class="tag">Coming soon</span></b></span><div class="dd-sep"></div><a class="dd-i" role="menuitem" href="https://www.aagman.ai/docs/" target="_blank" rel="noopener"><b>Docs</b></a><a class="dd-i" role="menuitem" href="https://www.aagman.ai/blog/" target="_blank" rel="noopener"><b>Blog</b></a></div></div>
+    <a href="/pricing">Pricing</a>
+  </nav>
+  <div class="nav-right"><a class="nav-btn" href="https://app.aagman.ai/login">Sign up</a></div>
+</header>
+
+<section data-section="hero" class="top">
+  <span class="eyebrow">Picks &amp; strategies</span>
+  <h1>Trading strategies, with the homework already done.</h1>
+  <p>Tested on 10 years and paper tracked before they reach you. Follow a pick, or deploy its strategy as an algo.</p>
+  <div class="acts"><a class="b b-mint" href="https://app.aagman.ai/login">Sign up</a><a class="b b-ghost" href="https://dub.sh/fZsnb0w" target="_blank" rel="noopener">Talk to founders</a></div>
+</section>
+
+<div class="grid">
+
+  <!-- BIG: what you get. Strategy names, cadences and paper-track start are from the lab ledger; picks and dates are mock -->
+  <article data-section="this_week" class="card big" data-play="get">
+    <div class="card-h">
+      <span class="lbl">What you get</span>
+      <h2>This week's picks, and the strategies behind them</h2>
+      <p>Ideas that cleared every gate, each linked to its strategy and report card. You decide what to act on.</p>
+    </div>
+    <div class="vis">
+      <div class="pg">
+        <div class="panel pk-panel">
+          <div class="ph"><b>This week's picks</b><span>Week of 20 Oct</span></div>
+          <div class="pk anim"><b>HDFCBANK</b><span class="idea l">Long idea</span><em>Sector momentum</em><small>since 14 Oct</small></div>
+          <div class="pk anim"><b>LT</b><span class="idea l">Long idea</span><em>Earnings surprise</em><small>since 9 Oct</small></div>
+          <div class="pk anim"><b>BHARTIARTL</b><span class="idea l">Long idea</span><em>Earnings growth</em><small>since 9 Oct</small></div>
+          <div class="pk anim"><b>TATASTEEL</b><span class="idea s">Short idea</span><em>Sector momentum</em><small>since 14 Oct</small></div>
+          <div class="pk anim"><b>ZEEL</b><span class="idea s">Short idea</span><em>Earnings growth</em><small>since 9 Oct</small></div>
+        </div>
+        <div class="panel st-panel">
+          <div class="ph"><b>Strategies you can follow</b><span>3 paper tracked</span></div>
+          <div class="st anim"><div><b>Own the strongest stocks in each sector, short the weakest</b><small>Sector momentum · updates monthly · paper tracked since May</small></div><span class="dep">Deploy as algo</span></div>
+          <div class="st anim"><div><b>Buy companies that beat earnings, short the ones that miss</b><small>Earnings surprise · updates every 45 days · paper tracked since May</small></div><span class="dep">Deploy as algo</span></div>
+          <div class="st anim"><div><b>Own the fastest-growing earnings, short the decliners</b><small>Earnings growth · updates every 45 days · paper tracked since May</small></div><span class="dep">Deploy as algo</span></div>
+        </div>
+      </div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span><span>A test result is a measurement, not a promise. Markets carry risk.</span></div>
+    </div>
+  </article>
+
+  <!-- BIG: the four gates (the lab's real steps; see app.aagman.ai/how-we-grade) -->
+  <article data-section="gates" class="card big" data-play="gates">
+    <div class="card-h">
+      <span class="lbl">How they get here</span>
+      <h2>Every pick and strategy clears four gates first</h2>
+    </div>
+    <div class="vis">
+      <div class="rail" aria-hidden="true"><i class="fill"></i><span></span><span></span><span></span><span></span></div>
+      <div class="gates">
+        <div class="gate"><span class="gn">01</span><b>Rules fixed in advance</b><p>Written down before any result is seen: what it may hold, when it trades, and what counts as failure.</p><em class="out">Changed its rules midway: closed</em></div>
+        <div class="gate"><span class="gn">02</span><b>Tested on 10 years</b><p>The same rules, scored on separate stretches of history, with no tuning for any one stretch.</p><em class="out">Worked in one stretch only: closed</em></div>
+        <div class="gate"><span class="gn">03</span><b>Beats its own luck</b><p>Its timing is shuffled 200 times. The real result has to stand out from every shuffle.</p><em class="out">Looked like luck: closed</em></div>
+        <div class="gate"><span class="gn">04</span><b>Paper tracked</b><p>Followed day by day with no real trades, before it reaches you and for as long as it runs.</p><em class="in">Holding up: reaches you</em></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- WIDE: report card (mock values; the shaded span is the paper-tracked period) -->
+  <article data-section="report_card" class="card wide" data-play="rc">
+    <div class="card-h">
+      <span class="lbl">Report card</span>
+      <h3>Read the full report card before you decide</h3>
+      <p>How it did on each stretch, whether it beat its luck, and every day since it was paper tracked.</p>
+    </div>
+    <div class="vis">
+      <div class="panel rc">
+        <div class="ph"><b>Sector momentum</b><span class="trk">Paper tracked</span></div>
+        <div class="kv">
+          <div class="anim"><span>Stretches tested</span><b>5 of 5 held up</b></div>
+          <div class="anim"><span>Luck test</span><b>Passed</b></div>
+          <div class="anim"><span>Worst fall</span><b class="dn">−8.4%</b></div>
+          <div class="anim"><span>Paper tracked</span><b>Since May</b></div>
+        </div>
+        <svg viewBox="0 0 520 150" aria-hidden="true"><line x1="6" x2="514" y1="14" y2="14" stroke="#eef0f2"/><line x1="6" x2="514" y1="51" y2="51" stroke="#eef0f2"/><line x1="6" x2="514" y1="88" y2="88" stroke="#eef0f2"/><line x1="6" x2="514" y1="125" y2="125" stroke="#eef0f2"/><rect x="450.0" y="6" width="64.0" height="120" rx="4" fill="#0d9488" fill-opacity=".07"/><line x1="450.0" x2="450.0" y1="6" y2="126" stroke="#0d9488" stroke-opacity=".45" stroke-dasharray="3 3"/><path d="M6.0,126 L6.0,124.0 L10.3,122.3 L14.5,119.3 L18.8,114.7 L23.1,116.6 L27.3,117.3 L31.6,118.3 L35.9,118.2 L40.2,117.7 L44.4,119.5 L48.7,118.2 L53.0,120.2 L57.2,118.3 L61.5,119.3 L65.8,117.9 L70.0,116.2 L74.3,115.7 L78.6,116.1 L82.8,116.8 L87.1,118.3 L91.4,114.3 L95.6,112.3 L99.9,107.6 L104.2,106.0 L108.5,104.5 L112.7,104.9 L117.0,104.6 L121.3,107.0 L125.5,104.1 L129.8,101.3 L134.1,97.4 L138.3,93.6 L142.6,94.9 L146.9,99.2 L151.1,96.8 L155.4,95.5 L159.7,96.6 L163.9,97.7 L168.2,95.2 L172.5,90.7 L176.8,89.0 L181.0,89.6 L185.3,87.0 L189.6,83.9 L193.8,85.6 L198.1,83.2 L202.4,84.4 L206.6,83.5 L210.9,81.7 L215.2,80.8 L219.4,83.1 L223.7,81.5 L228.0,83.6 L232.3,81.4 L236.5,84.5 L240.8,84.8 L245.1,85.0 L249.3,85.6 L253.6,84.4 L257.9,83.1 L262.1,78.5 L266.4,76.7 L270.7,73.6 L274.9,75.2 L279.2,72.2 L283.5,69.5 L287.7,65.9 L292.0,62.1 L296.3,63.2 L300.6,65.2 L304.8,66.0 L309.1,66.5 L313.4,62.8 L317.6,66.1 L321.9,65.2 L326.2,62.4 L330.4,61.9 L334.7,64.1 L339.0,65.1 L343.2,63.2 L347.5,60.9 L351.8,60.4 L356.1,58.9 L360.3,55.2 L364.6,55.2 L368.9,50.2 L373.1,51.5 L377.4,46.7 L381.7,49.0 L385.9,45.4 L390.2,44.6 L394.5,47.0 L398.7,46.0 L403.0,44.0 L407.3,42.0 L411.5,41.0 L415.8,40.6 L420.1,40.4 L424.4,39.5 L428.6,36.1 L432.9,34.4 L437.2,32.1 L441.4,31.0 L445.7,27.2 L450.0,21.4 L454.2,16.0 L458.5,17.8 L462.8,18.8 L467.0,20.2 L471.3,20.2 L475.6,15.3 L479.8,15.3 L484.1,14.3 L488.4,14.0 L492.7,17.2 L496.9,18.9 L501.2,19.7 L505.5,20.7 L509.7,20.7 L514.0,20.9 L514.0,126 Z" fill="#0d9488" fill-opacity=".06"/><path class="rc-ln" d="M6.0,124.0 L10.3,122.3 L14.5,119.3 L18.8,114.7 L23.1,116.6 L27.3,117.3 L31.6,118.3 L35.9,118.2 L40.2,117.7 L44.4,119.5 L48.7,118.2 L53.0,120.2 L57.2,118.3 L61.5,119.3 L65.8,117.9 L70.0,116.2 L74.3,115.7 L78.6,116.1 L82.8,116.8 L87.1,118.3 L91.4,114.3 L95.6,112.3 L99.9,107.6 L104.2,106.0 L108.5,104.5 L112.7,104.9 L117.0,104.6 L121.3,107.0 L125.5,104.1 L129.8,101.3 L134.1,97.4 L138.3,93.6 L142.6,94.9 L146.9,99.2 L151.1,96.8 L155.4,95.5 L159.7,96.6 L163.9,97.7 L168.2,95.2 L172.5,90.7 L176.8,89.0 L181.0,89.6 L185.3,87.0 L189.6,83.9 L193.8,85.6 L198.1,83.2 L202.4,84.4 L206.6,83.5 L210.9,81.7 L215.2,80.8 L219.4,83.1 L223.7,81.5 L228.0,83.6 L232.3,81.4 L236.5,84.5 L240.8,84.8 L245.1,85.0 L249.3,85.6 L253.6,84.4 L257.9,83.1 L262.1,78.5 L266.4,76.7 L270.7,73.6 L274.9,75.2 L279.2,72.2 L283.5,69.5 L287.7,65.9 L292.0,62.1 L296.3,63.2 L300.6,65.2 L304.8,66.0 L309.1,66.5 L313.4,62.8 L317.6,66.1 L321.9,65.2 L326.2,62.4 L330.4,61.9 L334.7,64.1 L339.0,65.1 L343.2,63.2 L347.5,60.9 L351.8,60.4 L356.1,58.9 L360.3,55.2 L364.6,55.2 L368.9,50.2 L373.1,51.5 L377.4,46.7 L381.7,49.0 L385.9,45.4 L390.2,44.6 L394.5,47.0 L398.7,46.0 L403.0,44.0 L407.3,42.0 L411.5,41.0 L415.8,40.6 L420.1,40.4 L424.4,39.5 L428.6,36.1 L432.9,34.4 L437.2,32.1 L441.4,31.0 L445.7,27.2 L450.0,21.4 L454.2,16.0 L458.5,17.8 L462.8,18.8 L467.0,20.2 L471.3,20.2 L475.6,15.3 L479.8,15.3 L484.1,14.3 L488.4,14.0 L492.7,17.2 L496.9,18.9 L501.2,19.7 L505.5,20.7 L509.7,20.7 L514.0,20.9" fill="none" stroke="#0d9488" stroke-width="1.8" stroke-linejoin="round"/><text x="6" y="142" font-size="10" fill="#6c7280">2016</text><text x="225.0" y="142" font-size="10" fill="#6c7280" text-anchor="middle">Tested on 10 years</text><text x="514" y="142" font-size="10" fill="#0f885c" text-anchor="end">Paper tracked</text></svg>
+      </div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span><span>Value over time, no real trades</span></div>
+    </div>
+  </article>
+
+  <!-- WIDE: closed ideas. Real ideas the lab closed, with the reason from its ledger -->
+  <article data-section="closed" class="card wide" data-play="closed">
+    <div class="card-h">
+      <span class="lbl">Closed</span>
+      <h3>See what didn't make it, and why</h3>
+      <p>Every idea the lab closes stays on the list, with the gate it failed.</p>
+    </div>
+    <div class="vis">
+      <div class="panel cl">
+        <div class="cr anim"><div><b>Pairs of stocks that move together</b><small>Didn't beat its own luck</small></div><span class="x">Gate 3</span></div>
+        <div class="cr anim"><div><b>Nifty weekly expiry-day option selling</b><small>Faded once 0DTE trading crowded in after 2023</small></div><span class="x">Gate 2</span></div>
+        <div class="cr anim"><div><b>Momentum long-short with no crash stop</b><small>Broke in the 2024–25 stretch</small></div><span class="x">Gate 2</span></div>
+        <div class="cr anim"><div><b>Bank Nifty weekly last-hour straddle</b><small>Held up, then SEBI discontinued the weekly contract</small></div><span class="x">Closed</span></div>
+        <div class="cr anim"><div><b>Six earnings and margin factors</b><small>None survived the same test as earnings growth</small></div><span class="x">Gate 2</span></div>
+      </div>
+      <div class="vfoot"><span>From the lab's research ledger</span></div>
+    </div>
+  </article>
+
+  <!-- WIDE: re-checked while it runs (illustration) -->
+  <article data-section="rechecked" class="card wide" data-play="watch">
+    <div class="card-h">
+      <span class="lbl">Re-checked</span>
+      <h3>Watched for as long as it runs</h3>
+      <p>Paper results are compared with the test at 30 days, 90 days and a year. If it stops matching, it is pulled and listed with the reason.</p>
+    </div>
+    <div class="vis">
+      <div class="panel wt">
+        <div class="tl"><span class="on anim">Passed</span><span class="on anim">Paper tracked</span><span class="on anim">30 days</span><span class="on anim">90 days</span><span class="nx anim">1 year</span></div>
+        <div class="lg anim"><i class="ok"></i><b>Day 30</b><span>Matches its test</span></div>
+        <div class="lg anim"><i class="ok"></i><b>Day 90</b><span>Matches its test</span></div>
+        <div class="lg anim"><i class="nx"></i><b>Day 252</b><span>Next check</span></div>
+      </div>
+      <div class="vfoot"><span class="mock">Preview · mock data</span></div>
+    </div>
+  </article>
+
+  <!-- WIDE: your call -->
+  <article data-section="your_call" class="card wide">
+    <div class="card-h">
+      <span class="lbl">Your call</span>
+      <h3>Take it your way</h3>
+      <p>Picks are ideas, not instructions. Act on one, run the whole strategy, or change it first.</p>
+    </div>
+    <div class="vis">
+      <div class="panel yw">
+        <div class="yr"><span class="yi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><b>Follow a pick yourself</b><small>Place it on your own broker, your way</small></div></div>
+        <a data-card="deploy_algo" class="yr" href="/deploy"><span class="yi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 4 7-8"/><path d="M14 8h6v6"/></svg></span><div><b>Deploy the strategy as an algo</b><small>It runs on your broker, with your limits checked</small></div><i>→</i></a>
+        <a data-card="paper_first" class="yr" href="/deploy"><span class="yi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><div><b>Run it on paper first</b><small>Live prices, no real money</small></div><i>→</i></a>
+        <a data-card="adjust_rules" class="yr" href="/backtesting"><span class="yi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><div><b>Adjust the rules in Backtesting</b><small>Change it, then test your version</small></div><i>→</i></a>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<p class="method">The full method, step by step: <a href="https://app.aagman.ai/how-we-grade" target="_blank" rel="noopener">How we grade →</a></p>
+
+<style>
+.onward a .ow-v{display:block;margin:-20px -24px 12px;height:132px;padding:12px 14px;background:var(--inset,#f7f8f8);
+  border-bottom:1px solid var(--line);border-radius:12px 12px 0 0;overflow:hidden}
+.onward a .ow-v svg{display:block;width:100%;height:100%}
+.onward a{overflow:hidden}
+@media (max-width:768px){
+  .onward a{padding:16px 18px}
+  .onward a .ow-v{margin:-16px -18px 10px;height:108px;padding:10px 12px}
+  .onward a b{font-size:16px;line-height:22px}
+}
+</style>
+<section data-section="onward" class="onward" aria-labelledby="on-h">
+  <h2 id="on-h">Want to test your own idea?</h2>
+  <div class="links">
+    <a href="/research"><span class="ow-v" aria-hidden="true"><svg viewBox="0 0 380 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="12" y="10" width="356" height="26" rx="13" fill="#fff" stroke="#d0d6e0"/><circle cx="28" cy="23" r="5" fill="none" stroke="#6c7280" stroke-width="1.5"/><line x1="31.5" y1="26.5" x2="35" y2="30" stroke="#6c7280" stroke-width="1.5" stroke-linecap="round"/><rect x="44" y="19" width="200" height="8" rx="4" fill="#e3e6ea"/><rect x="16" y="48" width="96" height="8" rx="4" fill="#e3e6ea"/><path d="M196.0,59.0 L209.4,55.5 L222.9,55.9 L236.3,52.8 L249.7,52.0 L263.1,51.2 L276.6,46.6 L290.0,45.0" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round"/><rect x="314" y="44" width="50" height="16" rx="4" fill="#16a34a" fill-opacity=".12"/><rect x="323" y="50" width="32" height="4" rx="2" fill="#16a34a" fill-opacity=".6"/><line x1="16" x2="364" y1="63" y2="63" stroke="#e6e6e6"/><rect x="16" y="70" width="74" height="8" rx="4" fill="#e3e6ea"/><path d="M196.0,81.0 L209.4,71.2 L222.9,69.2 L236.3,67.0 L249.7,67.4 L263.1,69.1 L276.6,69.3 L290.0,73.2" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round"/><rect x="314" y="66" width="50" height="16" rx="4" fill="#dc2626" fill-opacity=".12"/><rect x="323" y="72" width="32" height="4" rx="2" fill="#dc2626" fill-opacity=".6"/><line x1="16" x2="364" y1="85" y2="85" stroke="#e6e6e6"/><rect x="16" y="92" width="110" height="8" rx="4" fill="#e3e6ea"/><path d="M196.0,94.8 L209.4,97.0 L222.9,89.9 L236.3,98.0 L249.7,95.1 L263.1,103.0 L276.6,93.7 L290.0,89.0" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round"/><rect x="314" y="88" width="50" height="16" rx="4" fill="#16a34a" fill-opacity=".12"/><rect x="323" y="94" width="32" height="4" rx="2" fill="#16a34a" fill-opacity=".6"/></svg></span><span>Research</span><b>Research a whole sector with one question →</b></a>
+    <a href="/backtesting"><span class="ow-v" aria-hidden="true"><svg viewBox="0 0 380 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><line x1="12" x2="368" y1="12" y2="12" stroke="#f0f1f3"/><line x1="12" x2="368" y1="35" y2="35" stroke="#f0f1f3"/><line x1="12" x2="368" y1="58" y2="58" stroke="#f0f1f3"/><path d="M12.0,82.0 L16.0,81.7 L20.0,81.6 L24.0,81.7 L28.0,81.0 L32.0,80.7 L36.0,80.7 L40.0,79.5 L44.0,79.5 L48.0,80.0 L52.0,80.5 L56.0,80.6 L60.0,80.0 L64.0,79.3 L68.0,78.4 L72.0,77.0 L76.0,75.6 L80.0,74.9 L84.0,73.6 L88.0,72.8 L92.0,72.9 L96.0,71.9 L100.0,71.5 L104.0,71.3 L108.0,69.2 L112.0,68.2 L116.0,68.2 L120.0,67.8 L124.0,65.2 L128.0,65.0 L132.0,63.7 L136.0,62.6 L140.0,61.5 L144.0,60.4 L148.0,60.4 L152.0,60.4 L156.0,60.1 L160.0,60.0 L164.0,58.5 L168.0,56.0 L172.0,56.6 L176.0,55.3 L180.0,56.0 L184.0,56.3 L188.0,56.0 L192.0,55.3 L196.0,55.3 L200.0,58.0 L204.0,55.7 L208.0,55.4 L212.0,55.7 L216.0,54.2 L220.0,54.4 L224.0,55.7 L228.0,54.4 L232.0,53.3 L236.0,53.8 L240.0,52.0 L244.0,50.8 L248.0,51.8 L252.0,48.6 L256.0,47.5 L260.0,48.5 L264.0,47.2 L268.0,46.3 L272.0,44.0 L276.0,45.4 L280.0,43.0 L284.0,40.6 L288.0,38.5 L292.0,36.6 L296.0,33.2 L300.0,30.8 L304.0,29.6 L308.0,30.5 L312.0,27.2 L316.0,24.0 L320.0,22.3 L324.0,20.9 L328.0,18.1 L332.0,23.0 L336.0,21.2 L340.0,25.9 L344.0,24.3 L348.0,20.9 L352.0,15.2 L356.0,15.2 L360.0,13.0 L364.0,12.0 L368.0,16.5 L368,84 L12,84 Z" fill="#0d9488" fill-opacity=".08"/><path d="M12.0,82.0 L16.0,81.7 L20.0,81.6 L24.0,81.7 L28.0,81.0 L32.0,80.7 L36.0,80.7 L40.0,79.5 L44.0,79.5 L48.0,80.0 L52.0,80.5 L56.0,80.6 L60.0,80.0 L64.0,79.3 L68.0,78.4 L72.0,77.0 L76.0,75.6 L80.0,74.9 L84.0,73.6 L88.0,72.8 L92.0,72.9 L96.0,71.9 L100.0,71.5 L104.0,71.3 L108.0,69.2 L112.0,68.2 L116.0,68.2 L120.0,67.8 L124.0,65.2 L128.0,65.0 L132.0,63.7 L136.0,62.6 L140.0,61.5 L144.0,60.4 L148.0,60.4 L152.0,60.4 L156.0,60.1 L160.0,60.0 L164.0,58.5 L168.0,56.0 L172.0,56.6 L176.0,55.3 L180.0,56.0 L184.0,56.3 L188.0,56.0 L192.0,55.3 L196.0,55.3 L200.0,58.0 L204.0,55.7 L208.0,55.4 L212.0,55.7 L216.0,54.2 L220.0,54.4 L224.0,55.7 L228.0,54.4 L232.0,53.3 L236.0,53.8 L240.0,52.0 L244.0,50.8 L248.0,51.8 L252.0,48.6 L256.0,47.5 L260.0,48.5 L264.0,47.2 L268.0,46.3 L272.0,44.0 L276.0,45.4 L280.0,43.0 L284.0,40.6 L288.0,38.5 L292.0,36.6 L296.0,33.2 L300.0,30.8 L304.0,29.6 L308.0,30.5 L312.0,27.2 L316.0,24.0 L320.0,22.3 L324.0,20.9 L328.0,18.1 L332.0,23.0 L336.0,21.2 L340.0,25.9 L344.0,24.3 L348.0,20.9 L352.0,15.2 L356.0,15.2 L360.0,13.0 L364.0,12.0 L368.0,16.5" fill="none" stroke="#0d9488" stroke-width="1.8" stroke-linejoin="round"/><line x1="12" x2="368" y1="92" y2="92" stroke="#e6e6e6"/><path d="M12,92 L12.0,92.0 L16.0,92.0 L20.0,92.0 L24.0,92.4 L28.0,92.0 L32.0,92.0 L36.0,92.0 L40.0,92.0 L44.0,92.5 L48.0,97.3 L52.0,102.4 L56.0,103.1 L60.0,97.5 L64.0,92.0 L68.0,92.0 L72.0,92.0 L76.0,92.0 L80.0,92.0 L84.0,92.0 L88.0,92.0 L92.0,92.7 L96.0,92.0 L100.0,92.0 L104.0,92.0 L108.0,92.0 L112.0,92.0 L116.0,92.2 L120.0,92.0 L124.0,92.0 L128.0,92.0 L132.0,92.0 L136.0,92.0 L140.0,92.0 L144.0,92.0 L148.0,92.2 L152.0,92.2 L156.0,92.0 L160.0,92.0 L164.0,92.0 L168.0,92.0 L172.0,94.5 L176.0,92.0 L180.0,95.0 L184.0,96.3 L188.0,95.1 L192.0,92.0 L196.0,92.0 L200.0,103.8 L204.0,93.8 L208.0,92.8 L212.0,93.9 L216.0,92.0 L220.0,92.8 L224.0,98.2 L228.0,93.1 L232.0,92.0 L236.0,94.1 L240.0,92.0 L244.0,92.0 L248.0,95.8 L252.0,92.0 L256.0,92.0 L260.0,95.8 L264.0,92.0 L268.0,92.0 L272.0,92.0 L276.0,97.0 L280.0,92.0 L284.0,92.0 L288.0,92.0 L292.0,92.0 L296.0,92.0 L300.0,92.0 L304.0,92.0 L308.0,94.2 L312.0,92.0 L316.0,92.0 L320.0,92.0 L324.0,92.0 L328.0,92.0 L332.0,103.3 L336.0,99.2 L340.0,110.0 L344.0,106.5 L348.0,98.5 L352.0,92.0 L356.0,92.1 L360.0,92.0 L364.0,92.0 L368.0,101.8 L368,92 Z" fill="#dc2626" fill-opacity=".14" stroke="#dc2626" stroke-opacity=".5"/></svg></span><span>Backtesting</span><b>Describe a strategy and see it tested on 10 years of history →</b></a>
+    <a href="/deploy"><span class="ow-v" aria-hidden="true"><svg viewBox="0 0 380 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="8" y="8" width="364" height="31" rx="7" fill="#fff" stroke="#e6e6e6"/><rect x="16" y="15" width="17" height="17" rx="4" fill="#f3f4f6"/><rect x="42" y="16" width="120" height="7" rx="3.5" fill="#cfd4db"/><rect x="42" y="27" width="84" height="5" rx="2.5" fill="#e3e6ea"/><rect x="318" y="15" width="44" height="17" rx="4" fill="#ecfdf3" stroke="#bbf7d0"/><circle cx="328" cy="23.5" r="3" fill="#16a34a"/><text x="335" y="27" font-size="9" font-weight="600" fill="#16a34a" font-family="Geist,sans-serif">Live</text><rect x="8" y="45" width="364" height="31" rx="7" fill="#fff" stroke="#e6e6e6"/><rect x="16" y="52" width="17" height="17" rx="4" fill="#f3f4f6"/><rect x="42" y="53" width="156" height="7" rx="3.5" fill="#cfd4db"/><rect x="42" y="64" width="66" height="5" rx="2.5" fill="#e3e6ea"/><rect x="318" y="52" width="44" height="17" rx="4" fill="#ecfdf3" stroke="#bbf7d0"/><circle cx="328" cy="60.5" r="3" fill="#16a34a"/><text x="335" y="64" font-size="9" font-weight="600" fill="#16a34a" font-family="Geist,sans-serif">Live</text><rect x="8" y="82" width="364" height="31" rx="7" fill="#fff" stroke="#e6e6e6"/><rect x="16" y="89" width="17" height="17" rx="4" fill="#f3f4f6"/><rect x="42" y="90" width="136" height="7" rx="3.5" fill="#cfd4db"/><rect x="42" y="101" width="100" height="5" rx="2.5" fill="#e3e6ea"/><rect x="318" y="89" width="44" height="17" rx="4" fill="#ecfdf3" stroke="#bbf7d0"/><circle cx="328" cy="97.5" r="3" fill="#16a34a"/><text x="335" y="101" font-size="9" font-weight="600" fill="#16a34a" font-family="Geist,sans-serif">Live</text></svg></span><span>Deploy</span><b>Run algos like a trading desk, just by describing them →</b></a>
+  </div>
+</section>
+
+<style>
+/* Layout: the page's ending. A centred closing call to action that repeats the hero's two buttons, then a quiet footer in the same 1200px column: brand and link columns, then the registration line, contact and disclaimer. Light-only. */
+:root{
+  --page:#f7f8f8; --card:#ffffff; --fg:#060a11; --fg2:#475063; --fg3:#6c7280;
+  --line:#d0d6e0; --line2:#e6e6e6; --hover:#eef0f2; --mint:#19e299; --mint-600:#14b57a; --brand-word:#0f885c;
+  --font:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--fg);font-family:var(--font);font-size:16px;line-height:24px;letter-spacing:-0.01em;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:6px}
+
+/* closing call to action */
+.close-cta{max-width:1200px;margin:0 auto;padding-block:120px 144px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.close-cta h2{margin:0;font-size:64px;line-height:68px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.close-cta .ctas{margin-top:32px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.close-cta .btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:8px;font-weight:600;font-size:16px;line-height:24px;transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.close-cta .btn:active{transform:scale(.97)}
+.close-cta .btn-mint{background:var(--mint);color:#060a11}
+.close-cta .btn-mint:hover{background:var(--mint-600)}
+.close-cta .btn-ghost{background:var(--card);color:var(--fg);border:1px solid var(--line)}
+.close-cta .btn-ghost:hover{border-color:#c8d5e6;background:var(--hover)}
+.close-cta .fine{margin-top:12px;font-size:14px;line-height:20px;color:var(--fg3)}
+
+/* footer */
+.foot{max-width:1200px;margin:0 auto;border-top:1px solid var(--line);padding-block:56px 48px;display:flex;flex-direction:column;gap:48px}
+.foot-top{display:grid;grid-template-columns:minmax(0,4fr) repeat(4,minmax(0,2fr));gap:32px}
+.foot-brand{display:flex;flex-direction:column;gap:12px}
+.foot-brand .mark{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;line-height:28px;letter-spacing:-0.02em}
+.foot-brand .mark img{width:28px;height:28px;border-radius:6px;display:block}
+.foot-brand p{margin:0;font-size:15px;line-height:22px;color:var(--fg2);max-width:280px}
+.foot-col h3{margin:0 0 16px;font-size:13px;line-height:16px;font-weight:600;color:var(--fg)}
+.foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.foot-col a{font-size:14px;line-height:20px;color:var(--fg2);transition:color .15s ease}
+.foot-col a:hover{color:var(--fg)}
+.foot-legal{border-top:1px solid var(--line2);padding-top:32px;display:flex;flex-direction:column;gap:12px;font-size:13px;line-height:20px;color:var(--fg3)}
+.foot-legal p{margin:0;max-width:880px}
+.foot-legal .reg{color:var(--fg2);font-weight:500}
+.foot-legal .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:12px}
+
+@media (max-width:1024px){ .foot-top{grid-template-columns:repeat(2,minmax(0,1fr))} .foot-brand{grid-column:1 / -1} }
+@media (max-width:768px){
+  .close-cta{padding-block:72px 96px}
+  .close-cta h2{font-size:40px;line-height:44px}
+  .close-cta .ctas{width:100%;flex-direction:column}
+  .close-cta .btn{width:100%}
+  .foot{padding-block:40px 32px;gap:32px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+<div class="end" id="end-fold">
+<section data-section="close" class="close-cta" aria-labelledby="close-h">
+  <h2 id="close-h">Your desk is ready when you are.</h2>
+  <div class="ctas">
+    <a class="btn btn-mint" href="https://app.aagman.ai/login">Sign up</a>
+    <a class="btn btn-ghost" href="https://dub.sh/fZsnb0w" target="_blank" rel="noopener">Talk to founders</a>
+  </div>
+  <div class="fine">Free to get started · Works with all major Indian brokers</div>
+</section>
+
+<footer data-section="footer" class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="mark" href="/" aria-label="āagman home"><img src="/media/d3eba88f71b3.png" alt="">āagman</a>
+      <p>An AI trading desk for Indian markets.</p>
+    </div>
+    <nav class="foot-col" aria-label="Product">
+      <h3>Product</h3>
+      <ul><li><a href="/research">Research</a></li><li><a href="/charts">Charts</a></li><li><a href="/backtesting">Backtesting</a></li><li><a href="/picks">Picks &amp; strategies</a></li><li><a href="/deploy">Deploy</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Company">
+      <h3>Company</h3>
+      <ul><li><a href="/#founders">Founders letter</a></li><li><a href="https://www.linkedin.com/company/aagman-ai/jobs/" target="_blank" rel="noopener">Careers</a></li><li><a href="https://www.aagman.ai/invest">For investors</a></li><li><a href="mailto:growth@kotilabs.com">Contact us</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Resources">
+      <h3>Resources</h3>
+      <ul><li><a href="/pricing">Pricing</a></li><li><a href="https://www.aagman.ai/docs/">Docs</a></li><li><a href="https://www.aagman.ai/blog/">Blog</a></li><li><a href="https://www.aagman.ai/sitemap.xml">Sitemap</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3>Legal</h3>
+      <ul><li><a href="/terms">Terms &amp; conditions</a></li><li><a href="/privacy-policy">Privacy policy</a></li><li><a href="/risk-disclosure">Risk disclosure</a></li><li><a href="/cancellation-refunds">Cancellations &amp; refunds</a></li></ul>
+    </nav>
+  </div>
+
+  <div class="foot-legal">
+    <p class="reg">āagman is a SEBI-registered Investment Adviser (INA000021951) and an NSE-empanelled algo provider under NSE Circular Ref. 40/2026 (3 Jun 2026).</p>
+    <p>For any queries, concerns, or feedback, email us at ajit@kotilabs.com.</p>
+    <p>Disclaimer: āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
+    <p>Investments in securities are subject to market risks. Read all related documents carefully. Backtested results do not guarantee future returns.</p>
+    <div class="row"><span>© 2026 āagman · Koti Labs Private Limited</span><span>Markets carry risk</span></div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;   // the still frame is the finished state
+  const at = (ms, fn) => setTimeout(fn, ms);
+  const stagger = (card, step, start) => {
+    card.classList.add('pre');
+    [...card.querySelectorAll('.anim')].forEach((x, i) => { x.style.transitionDelay = (start + i * step) + 's'; });
+    at(60, () => card.classList.remove('pre'));
+  };
+  const plays = {
+    get(card){ stagger(card, .14, .1); },
+    closed(card){ stagger(card, .16, .1); },
+    watch(card){ stagger(card, .22, .1); },
+    rc(card){
+      stagger(card, .15, .1);
+      const ln = card.querySelector('.rc-ln'); if (!ln) return;
+      const L = ln.getTotalLength(); ln.style.strokeDasharray = L; ln.style.strokeDashoffset = L;
+      void ln.getBoundingClientRect(); ln.style.transition = 'stroke-dashoffset 2.2s ease .4s'; ln.style.strokeDashoffset = 0;
+    },
+    gates(card){
+      const gs = [...card.querySelectorAll('.gate')], dots = [...card.querySelectorAll('.rail span')], fill = card.querySelector('.rail .fill');
+      card.classList.add('pre');
+      gs.forEach((g, i) => at(300 + i * 700, () => {
+        g.classList.add('lit'); dots[i].classList.add('lit');
+        fill.style.width = (i / (gs.length - 1) * 100) + '%';
+        if (i === gs.length - 1) at(400, () => card.classList.remove('pre'));
+      }));
+    }
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; io.unobserve(e.target);
+    const f = plays[e.target.dataset.play]; if (f) f(e.target);
+  }), {threshold:.35});
+  document.querySelectorAll('[data-play]').forEach(c => io.observe(c));
+})();
+</script>
+<script>
+(function(){
+  const dds = [...document.querySelectorAll('.dd')];
+  dds.forEach(d => { const t = d.querySelector('.dd-t');
+    t.addEventListener('click', e => { e.stopPropagation(); const o = !d.classList.contains('open'); dds.forEach(x => { x.classList.remove('open'); x.querySelector('.dd-t').setAttribute('aria-expanded','false'); }); d.classList.toggle('open', o); t.setAttribute('aria-expanded', o ? 'true' : 'false'); }); });
+  document.addEventListener('click', () => dds.forEach(d => { d.classList.remove('open'); d.querySelector('.dd-t').setAttribute('aria-expanded','false'); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') dds.forEach(d => d.classList.remove('open')); });
+})();
+</script>
+</body>
+</html>
