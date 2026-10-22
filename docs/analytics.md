@@ -1,6 +1,6 @@
 # āagman analytics framework: website
 
-Status: **draft for approval** (phase 1 of 3) · Owner: Aryan · Scope: www.aagman.ai (marketing pages, docs, blog)
+Status: **phase 1, built** (2026-10-23) · approved by Aryan · Owner: Aryan · Scope: www.aagman.ai (marketing pages, docs, blog)
 
 This is the contract for every piece of tracking on the website. Code follows this document. If an event is not in here, it does not ship.
 
@@ -58,7 +58,7 @@ Never in any event, property or value: phone numbers, emails, names, typed text,
 
 ## 4. Pages and section names
 
-Each section below is marked in the HTML with `data-section="<name>"`. The header and footer are the same on every page: `header`, `footer`.
+Each section below is marked in the HTML with `data-section="<name>"`. The header and footer are the same on every page: `header`, `footer`. A click outside any named section reports `section: body` (for example the "How we grade" link between two Picks sections, and every page that has no sections).
 
 | Page (`page`, page name) | Sections, top to bottom |
 |---|---|
@@ -68,13 +68,13 @@ Each section below is marked in the HTML with `data-section="<name>"`. The heade
 | Backtesting (`/backtesting`, `backtesting`) | same as Research |
 | Deploy (`/deploy`, `deploy`) | same as Research |
 | Picks & strategies (`/picks`, `picks`) | `hero` · `this_week` · `gates` · `report_card` · `closed` · `rechecked` · `your_call` · `onward` · `close` |
-| Pricing (`/pricing`, `pricing`) | `hero` (headline and plans) · `included` (Every plan includes the whole desk) · `stack` (The stack it replaces) · `charges` · `community` (WhatsApp) · `close` |
+| Pricing (`/pricing`, `pricing`) | `hero` (headline) · `plans` (Free, Pro, Desk) · `included` (Every plan includes the whole desk) · `stack` (The stack it replaces) · `charges` · `community` (WhatsApp) · `close` |
 | Terms, Privacy policy, Risk disclosure, Cancellations & refunds (`terms`, `privacy_policy`, `risk_disclosure`, `cancellation_refunds`) | `hero` · `body` · `others` (links to the other policies) |
 | Blog and docs (`/blog/…`, `/docs/…`) | page level only, no sections |
 
 ## 5. Events
 
-Every event also carries `page`. Umami records page views, referrer, campaign tags (`utm_*`), country, device and browser by itself; GA4 does the same with its automatic `page_view`.
+Every event also carries `page`. Umami records page views, referrer, campaign tags (`utm_*`), country, device and browser by itself; GA4 does the same with its automatic `page_view`. Umami also records page speed for each page view (time to first byte, first and largest paint, layout shift, responsiveness).
 
 | Event | Fires when | Properties (allowed values) | Answers |
 |---|---|---|---|
@@ -93,12 +93,12 @@ Every event also carries `page`. Umami records page views, referrer, campaign ta
 
 **Which event wins when one click fits two:** `cta_click` → `app_link_click` → `card_click` → `nav_click` → `contact_click` → `social_click` → `outbound_click`. One click sends one event.
 
-**How elements are marked:** call-to-action buttons carry `data-cta="<label>"`; cards carry `data-card="<card>"`; FAQ questions carry `data-question="<question>"`. Everything else is worked out from the link and the section it sits in.
+**How elements are recognised:** call-to-action buttons by their link (app.aagman.ai/login → `sign_up`, dub.sh/fZsnb0w → `talk_to_founders`, chat.whatsapp.com → `join_whatsapp`); a `data-cta="<label>"` on the element overrides that. Product cards by their link to a product page; action cards by `data-card="<card>"`; FAQ questions by `data-question="<question>"`. Sections and FAQ names are stamped into the pages by the site build (`build-site.py` in the site source), which stops if any marker is missing.
 
 ## 6. The visitor ID
 
 - A random ID (`aag_vid`, 22 characters, no meaning) is created on the first visit and kept in a first-party cookie on `.aagman.ai` for 400 days (Chrome's maximum; Safari keeps it 7 days, see phase 3).
-- It is passed to Umami with `umami.identify(aag_vid)`, so one visitor's visits across days join into one journey.
+- It is passed to Umami with `umami.identify(aag_vid)` before the page view is sent, so one visitor's visits across days join into one journey.
 - It is not sent to Google Analytics (GA4 keeps its own visitor ID in its `_ga` cookie).
 - It never holds or is joined to a name, phone or email in phase 1. Phase 2 hands it to the app at sign-up.
 
@@ -147,6 +147,7 @@ Each Monday, for the last 7 days, compare Umami and GA4 counts of: page views, `
 | Google Tag Manager, Piqo, inline `gclid` and `dataLayer` scripts | removed |
 | `cta_click` and `app_link_click` had `location` (`hero` / `nav` / `pricing` / `body` / `footer`) | replaced by `section` (+ `spot`, `label`); reports before go-live use `location` |
 | `get_started_click`, `careers_click` (Tag Manager) | gone; covered by `cta_click`, `social_click` |
+| Google Ads conversion tag `AW-18368771134` (fired on `get_started_click`, inside Tag Manager) | gone with Tag Manager; no campaign is live. Phase 2 sends Ads the real sign-ups instead |
 | no `section_view`, `nav_open`, `nav_click`, `soon_click`, `card_click`, `faq_open` | added |
 
 ## 12. What is not tracked

@@ -1,252 +1,341 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T72DN6HQ');</script>
-<!-- End Google Tag Manager -->
-<script defer data-site="bdwzjxia" data-domain="www.aagman.ai" src="https://piqo.app/piqo.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.addEventListener('click', function(e) {
-    var el = e.target.closest('a');
-    if (!el) return;
-    var href = el.getAttribute('href') || '';
-    var text = (el.textContent || '').trim().substring(0, 50);
-    window.dataLayer = window.dataLayer || [];
-    if (href.indexOf('app.aagman.ai') !== -1) {
-      window.dataLayer.push({ event: 'get_started_click', location: 'body', text: text, href: href });
-    } else if (href.indexOf('linkedin.com/company/aagman-ai/jobs') !== -1) {
-      window.dataLayer.push({ event: 'careers_click', text: text, href: href });
-    } else if (href.indexOf('dub.sh/lp-linkedin') !== -1 || href.indexOf('dub.sh/x-lp') !== -1 || href.indexOf('dub.sh/insta-lp') !== -1) {
-      var platform = href.indexOf('linkedin') !== -1 ? 'linkedin' : (href.indexOf('x-lp') !== -1 ? 'x' : 'instagram');
-      window.dataLayer.push({ event: 'social_click', platform: platform, href: href });
-    } else if (href.indexOf('mailto:') === 0) {
-      window.dataLayer.push({ event: 'contact_click', href: href });
-    }
-  });
-});
-</script>
-<title>risk disclosure — āagman</title>
-<meta content="āagman (Koti Labs) is a SEBI-registered Investment Adviser. Trading involves significant risk of loss — read our full risk disclosure." name="description"/>
-<link href="https://www.aagman.ai/risk-disclosure" rel="canonical"/>
-<meta content="Risk Disclosure — āagman" property="og:title"/>
-<meta content="āagman (Koti Labs) is a SEBI-registered Investment Adviser. Trading involves significant risk of loss — read our full risk disclosure." property="og:description"/>
-<meta content="https://www.aagman.ai/uploads/og-image.png" property="og:image"/>
-<meta content="https://www.aagman.ai/risk-disclosure" property="og:url"/>
-<meta content="website" property="og:type"/><meta content="āagman" property="og:site_name"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Risk Disclosure — āagman" name="twitter:title"/>
-<meta content="āagman (Koti Labs) is a SEBI-registered Investment Adviser. Trading involves significant risk of loss — read our full risk disclosure." name="twitter:description"/>
-<meta content="https://www.aagman.ai/uploads/og-image.png" name="twitter:image"/>
-<link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<link rel="preload" href="/vendor/react.production.min.js" as="script">
-<link rel="preload" href="/vendor/react-dom.production.min.js" as="script">
-<script src="./support.js"></script>
-<template data-bg-color="#06080A" id="__bundler_thumbnail">
-<svg viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect fill="#06080A" height="400" width="400"></rect><rect fill="#0f1a16" height="280" rx="8" width="280" x="60" y="60"></rect><rect fill="#F59E0B" height="14" rx="3" width="180" x="80" y="90"></rect><rect fill="#1a2420" height="8" rx="2" width="240" x="80" y="120"></rect><rect fill="#1a2420" height="8" rx="2" width="220" x="80" y="136"></rect></svg>
-</template>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "āagman",
-  "legalName": "Koti Labs Private Limited",
-  "url": "https://www.aagman.ai/",
-  "logo": "https://www.aagman.ai/uploads/aagman-logo.png",
-  "sameAs": [
-    "https://dub.sh/lp-linkedin",
-    "https://dub.sh/x-lp",
-    "https://www.linkedin.com/company/aagman-ai/",
-    "https://www.linkedin.com/company/aagman-ai/jobs/"
-  ],
-  "identifier": {
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<script defer src="/analytics.js"></script>
+<title>Risk disclosure &amp; disclaimer · āagman</title>
+<link rel="canonical" href="https://www.aagman.ai/risk-disclosure">
+<meta name="description" content="The risks of trading with āagman: market risk, the limits of hypothetical and backtested results, our role as algo provider, and our SEBI adviser status.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="āagman">
+<meta property="og:url" content="https://www.aagman.ai/risk-disclosure">
+<meta property="og:title" content="Risk disclosure &amp; disclaimer · āagman">
+<meta property="og:image" content="https://www.aagman.ai/og/risk-disclosure.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Risk disclosure &amp; disclaimer · āagman">
+<meta name="twitter:image" content="https://www.aagman.ai/og/risk-disclosure.png">
+<meta property="og:description" content="The risks of trading with āagman: market risk, the limits of hypothetical and backtested results, our role as algo provider, and our SEBI adviser status.">
+<meta name="twitter:description" content="The risks of trading with āagman: market risk, the limits of hypothetical and backtested results, our role as algo provider, and our SEBI adviser status.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap">
+<style>
+/* Layout: a legal page in the landing page design. Centred page top, then a sticky contents list beside one white sheet of numbered sections. Wording is reproduced from the current site. */
+
+/* Layout: the Research page. Same light system as the homepage: nav, a centred page top, one full-width card with the main promise, five smaller cards that each go deep on one capability (two wide, then three), links onward, then the shared closing and footer. Card visuals use the product's light mode in Space Grotesk and play once when they scroll into view. */
+:root{
+  --page:#f7f8f8; --card:#ffffff; --inset:#f7f8f8; --fg:#060a11; --fg2:#475063; --fg3:#6c7280;
+  --line:#d0d6e0; --line2:#e6e6e6; --hover:#eef0f2; --mint:#19e299; --mint-600:#14b57a; --brand-word:#0f885c;
+  --up:#16a34a; --down:#dc2626; --teal:#0d9488; --info:#386a8f; --hl:color-mix(in srgb,#19e299 22%,#ffffff);
+  --font:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --prod:'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--fg);font-family:var(--font);font-size:16px;line-height:24px;letter-spacing:-0.01em;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:8px}
+
+/* nav (same as the homepage) */
+.nav{max-width:1200px;margin:0 auto;height:64px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.nav .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;line-height:28px;letter-spacing:-0.02em}
+.nav .logo img{width:28px;height:28px;border-radius:6px;display:block}
+.nav-links{display:flex;gap:4px}
+.nav-links a{display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:8px;font-size:15px;line-height:20px;font-weight:500;color:var(--fg2);transition:background .15s ease,color .15s ease}
+.nav-links a:hover,.nav-links a.cur{background:var(--hover);color:var(--fg)}
+.nav-links svg{width:14px;height:14px}
+.nav-right{display:flex;justify-content:flex-end}
+.nav-btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:8px;background:var(--fg);color:#fff;font-weight:600;font-size:15px;transition:background .15s ease}
+.nav-btn:hover{background:#2f3746}
+
+/* page top */
+.top{max-width:1200px;margin:0 auto;padding-block:96px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}
+.eyebrow{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-word)}
+.top h1{margin:0;font-size:72px;line-height:78px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.top p{margin:0;max-width:620px;font-size:19px;line-height:28px;color:var(--fg2);text-wrap:pretty}
+.top .acts{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+.b{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:8px;font-weight:600;font-size:16px;transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.b:active{transform:scale(.97)}
+.b-mint{background:var(--mint);color:#060a11} .b-mint:hover{background:var(--mint-600)}
+.b-ghost{background:var(--card);border:1px solid var(--line)} .b-ghost:hover{background:var(--hover);border-color:#c8d5e6}
+
+
+
+.legal-top{max-width:1200px;margin:0 auto;padding-block:88px 56px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.legal-top h1{margin:0;font-size:64px;line-height:70px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.legal-top .upd{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.06em;color:var(--fg3)}
+.legal-top .intro{max-width:680px;margin:0;font-size:17px;line-height:27px;color:var(--fg2)}
+.legal{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;align-items:start}
+.toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:2px}
+.toc .tl{font-size:12px;line-height:16px;font-weight:600;color:var(--fg3);margin-bottom:8px}
+.toc a{display:grid;grid-template-columns:28px 1fr;gap:4px;padding:6px 10px;border-radius:8px;font-size:14px;line-height:20px;color:var(--fg2);transition:background .15s ease,color .15s ease}
+.toc a span{font-family:var(--mono);font-size:11px;color:var(--fg3);padding-top:1px}
+.toc a:hover{background:var(--hover);color:var(--fg)}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 48px}
+.sec{padding:32px 0;border-bottom:1px solid var(--line2);scroll-margin-top:24px}
+.sec:last-child{border-bottom:0}
+.sec .no{font-family:var(--mono);font-size:12px;line-height:16px;color:var(--brand-word);letter-spacing:.08em}
+.sec h2{margin:6px 0 14px;font-size:24px;line-height:30px;font-weight:700;letter-spacing:-0.02em}
+.sec p{margin:0 0 12px;font-size:16px;line-height:26px;color:var(--fg2);max-width:720px}
+.sec p:last-child{margin-bottom:0}
+.sec strong{color:var(--fg);font-weight:600}
+.sec a{color:var(--brand-word);text-decoration:underline;text-underline-offset:2px}
+.sec ul{margin:0 0 12px;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:24px;color:var(--fg2)}
+.dl{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;padding:12px 0;border-top:1px solid var(--line2)}
+.dl:first-of-type{border-top:0}
+.dl span{font-size:13px;line-height:22px;font-weight:600;color:var(--fg)}
+.dl p{margin:0}
+.ladder{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.step,.contact{background:var(--inset);border:1px solid var(--line2);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.step .lv,.contact .lv{font-family:var(--mono);font-size:11px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-word)}
+.step b{font-size:15px;line-height:20px}
+.step p{font-size:14px;line-height:21px;margin:0}
+.step .ct{font-size:13px;line-height:18px;color:var(--fg2);margin-top:auto}
+.contact{gap:0;max-width:560px}
+.crow{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line2);font-size:14px;line-height:20px}
+.crow:first-of-type{border-top:0}
+.contact .lv + .crow{border-top:0}
+.crow span{color:var(--fg3)} .crow b{font-weight:600}
+.others{max-width:1200px;margin:0 auto;padding-block:72px 96px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.others h3{margin:0;font-size:14px;line-height:20px;font-weight:600;color:var(--fg3)}
+.others .ol{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.others .ol a{padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);font-size:14px;font-weight:500;transition:background .15s ease}
+.others .ol a:hover{background:var(--hover)}
+@media (max-width:1024px){ .legal{grid-template-columns:1fr;gap:24px} .toc{position:static;flex-direction:row;flex-wrap:wrap} .toc .tl{width:100%} .ladder{grid-template-columns:1fr} }
+@media (max-width:768px){ .nav{grid-template-columns:1fr auto} .nav-links{display:none} .legal-top{padding-block:56px 32px} .legal-top h1{font-size:40px;line-height:46px} .sheet{padding:8px 20px} .dl,.crow{grid-template-columns:1fr;gap:4px} .toc a{grid-template-columns:24px 1fr} }
+</style>
+<style>
+/* nav dropdowns */
+.dd{position:relative;display:inline-flex}
+.dd-t{font:inherit;display:inline-flex;align-items:center;gap:4px;padding:8px 12px;border-radius:8px;border:0;background:transparent;cursor:pointer;
+  font-size:15px;line-height:20px;font-weight:500;color:#475063;letter-spacing:-0.01em;transition:background .15s ease,color .15s ease}
+.dd-t svg{width:14px;height:14px;transition:transform .15s ease}
+.dd-t.cur,.dd:hover .dd-t,.dd.open .dd-t{background:#eef0f2;color:#060a11}
+.dd.open .dd-t svg{transform:rotate(180deg)}
+.dd-m{position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,4px);min-width:340px;background:#ffffff;border:1px solid #d0d6e0;border-radius:12px;
+  padding:8px;display:flex;flex-direction:column;gap:2px;box-shadow:0 0 6px rgba(0,0,0,.06),0 10px 24px rgba(0,0,0,.08);opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;z-index:50;text-align:left}
+.dd-m::before{content:"";position:absolute;left:0;right:0;top:-10px;height:10px}
+.dd:hover .dd-m,.dd:focus-within .dd-m,.dd.open .dd-m{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.dd .dd-i{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border-radius:8px;text-decoration:none;color:#060a11;background:transparent;font-size:14px;transition:background .15s ease}
+.dd a.dd-i:hover{background:#f7f8f8}
+.dd .dd-i b{font-size:14px;line-height:20px;font-weight:600}
+.dd .dd-i small{font-size:13px;line-height:18px;color:#6c7280;font-weight:400}
+.dd .dd-i.soon b{color:#6c7280}
+.dd .dd-i .tag{display:inline-block;margin-left:8px;font-size:10px;line-height:14px;font-weight:600;color:#6c7280;border:1px dashed #d0d6e0;border-radius:999px;padding:0 6px;vertical-align:1px}
+.dd .dd-sep{height:1px;background:#e6e6e6;margin:4px 8px}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://www.aagman.ai/risk-disclosure#webpage",
+   "url": "https://www.aagman.ai/risk-disclosure",
+   "name": "Risk disclosure & disclaimer · āagman",
+   "inLanguage": "en-IN",
+   "isPartOf": {
+    "@id": "https://www.aagman.ai/#website"
+   },
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   },
+   "description": "The risks of trading with āagman: market risk, the limits of hypothetical and backtested results, our role as algo provider, and our SEBI adviser status.",
+   "dateModified": "2026-06-21",
+   "breadcrumb": {
+    "@id": "https://www.aagman.ai/risk-disclosure#breadcrumb"
+   }
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://www.aagman.ai/#org",
+   "name": "āagman",
+   "alternateName": [
+    "aagman",
+    "Aagman"
+   ],
+   "legalName": "Koti Labs Private Limited",
+   "url": "https://www.aagman.ai/",
+   "description": "An AI trading desk for Indian markets.",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.aagman.ai/logo.png",
+    "width": 1732,
+    "height": 1732
+   },
+   "email": "growth@kotilabs.com",
+   "sameAs": [
+    "https://www.linkedin.com/company/aagman-ai/"
+   ],
+   "identifier": {
     "@type": "PropertyValue",
     "propertyID": "SEBI RIA Registration Number",
     "value": "INA000021951"
-  },
-  "address": {
+   },
+   "address": {
     "@type": "PostalAddress",
     "streetAddress": "F-130, JUNIPER BRIGADE ORCHARDS",
     "addressLocality": "Devanahalli",
     "addressRegion": "Bangalore Rural, Karnataka",
-    "addressCountry": "IN",
-    "postalCode": "562110"
+    "postalCode": "562110",
+    "addressCountry": "IN"
+   },
+   "founder": [
+    {
+     "@id": "https://www.aagman.ai/#ajit"
+    },
+    {
+     "@id": "https://www.aagman.ai/#amit"
+    }
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.aagman.ai/#website",
+   "name": "āagman",
+   "alternateName": "aagman",
+   "url": "https://www.aagman.ai/",
+   "inLanguage": "en-IN",
+   "publisher": {
+    "@id": "https://www.aagman.ai/#org"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://www.aagman.ai/risk-disclosure#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.aagman.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Risk disclosure",
+     "item": "https://www.aagman.ai/risk-disclosure"
+    }
+   ]
   }
-}</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "āagman",
-  "url": "https://www.aagman.ai/",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Koti Labs Private Limited",
-    "logo": "https://www.aagman.ai/uploads/aagman-logo.png"
-  }
+ ]
 }
 </script>
-  <script defer src="./analytics.js"></script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-T72DN6HQ" style="display:none;visibility:hidden" width="0"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<!-- Boot skeleton: static pre-React placeholder (site-local patch).
-     dc-runtime boots by hiding <x-dc>, loading React, then mounting — until
-     then the page is a blank dark rectangle. This paints with first paint and
-     is removed by support.js (removeBootSkeleton) in the same frame React
-     commits content into #dc-root. -->
-<style>
-@keyframes __bootSweep{0%{transform:translateX(-70%)}100%{transform:translateX(70%)}}
-[data-boot-skeleton]{position:fixed;inset:0;z-index:2147483000;background:#06080A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-[data-boot-skeleton] .__boot-mark{font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;letter-spacing:.02em;color:#E7EEEA}
-[data-boot-skeleton] .__boot-bar{width:132px;height:2px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.08)}
-[data-boot-skeleton] .__boot-bar i{display:block;width:44px;height:100%;background:#56E8B8;animation:__bootSweep 1.1s ease-in-out infinite alternate}
-</style>
-<div aria-hidden="true" data-boot-skeleton>
-  <div class="__boot-mark">āagman</div>
-  <div class="__boot-bar"><i></i></div>
-</div>
-<x-dc>
-<helmet>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<style>
-    body { margin: 0; padding: 0; background: #06080A; font-family: 'Schibsted Grotesk', -apple-system, sans-serif; color: #E7EEEA; }
-    * { box-sizing: border-box; }
-  </style>
-</helmet>
-<div style="width:{{ frameWidth }};min-height:100vh;background:#06080A;display:flex;flex-direction:column;margin:0 auto;border-left:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.08)">
-<nav style="display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;width:100%;padding:{{ navPad }};border-bottom:1px solid rgba(255,255,255,0.06)">
-<a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none">
-<img alt="āagman" height="24" src="uploads/aagman-logo.png" style="width:24px;height:24px;border-radius:6px;display:block" width="24"/>
-<span style="font-weight:700;font-size:16px;color:#E7EEEA">āagman</span>
-</a>
-<div style="display:none"></div>
-<a data-cta="primary" data-cta-location="nav" href="https://app.aagman.ai/login" style="padding:9px 18px;border-radius:6px;background:#56E8B8;color:#04150F;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Geist Mono',monospace;text-decoration:none">Get started</a>
-</nav>
-<div style="max-width:1200px;margin:0 auto;width:100%;padding:{{ mainPad }};flex:1">
-<div style="margin-bottom:64px">
-<div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
-<svg fill="none" height="16" stroke="#56E8B8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"></path></svg>
-<span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;color:#56E8B8;text-transform:uppercase">Risk Disclosure &amp; Disclaimer</span>
-</div>
-<h1 style="font-size:{{ h1Size }};font-weight:800;line-height:1.08;letter-spacing:-.04em;margin:0 0 24px;max-width:680px">Know the <span style="color:#56E8B8">risks.</span></h1>
-<div style="width:48px;height:3px;background:#56E8B8;border-radius:2px;margin-bottom:28px"></div>
-<p style="font-family:'Geist Mono',monospace;font-size:12px;color:#4a534f;margin:0">Last updated: 21 June 2026 · consent version 2026-06-21.v1</p>
-</div>
-<div style="display:grid;grid-template-columns:{{ bodyGrid }};gap:{{ bodyGap }};align-items:flex-start">
-<div style="position:sticky;top:40px;display:{{ sidebarDisplay }}">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:20px">Contents</div>
-<div style="display:flex;flex-direction:column;gap:2px">
-<a href="#s1" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Market risk</a>
-<a href="#s2" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Hypothetical results</a>
-<a href="#s3" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Algo provider &amp; broker</a>
-<a href="#s4" style="font-size:13px;color:#6f7873;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid rgba(255,255,255,0.06)" style-hover="color:#E7EEEA;border-color:#56E8B8">Investment adviser</a>
-</div>
-</div>
-<div style="display:flex;flex-direction:column;gap:0">
-<div id="s1" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">01</div>
-<h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Market risk</h2>
-<div style="padding:22px 24px;border-radius:12px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);max-width:640px">
-<p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0">Trading and investment in securities, derivatives and commodities are subject to market risk; <strong style="color:#E7EEEA">you can lose part or all of your capital.</strong></p>
-</div>
-</div>
-<div id="s2" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">02</div>
-<h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Hypothetical results</h2>
-<p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">Information, analyses, screeners, backtests and simulated or hypothetical performance shown on āagman are for information only and do not guarantee future results — past behaviour does not imply future behaviour.</p>
-</div>
-<div id="s3" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06)">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">03</div>
-<h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Algo provider &amp; broker</h2>
-<p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 20px;max-width:640px">āagman provides Whitebox execution algorithms as an NSE-empanelled (provisional) algo provider — Koti Labs Private Limited (NSE Circular Ref. 40/2026 (3 Jun 2026), provisional, Whitebox).</p>
-<div style="padding:18px 22px;border-radius:10px;background:rgba(86,232,184,0.05);border:1px solid rgba(86,232,184,0.15);max-width:640px">
-<p style="font-size:14px;line-height:1.65;color:#8a938e;margin:0">Orders are placed in your own broker account through your broker, who is the <strong style="color:#E7EEEA">principal for execution</strong> and responsible for algo-trading grievances. Automated trading carries technology, connectivity and execution risks.</p>
-</div>
-</div>
-<div id="s4" style="padding:48px 0;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;text-transform:uppercase;margin-bottom:16px">04</div>
-<h2 style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 20px;color:#E7EEEA">Investment adviser, not research analyst</h2>
-<p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0 0 20px;max-width:640px">Koti Labs Private Limited is a SEBI-Registered Investment Adviser (RIA), Reg. No. INA000021951. It is <strong style="color:#E7EEEA">NOT</strong> a registered Research Analyst, and the strategies are not research reports.</p>
-<p style="font-size:15px;line-height:1.75;color:#8a938e;margin:0;max-width:640px">Consider your own circumstances and risk tolerance, and consult your adviser, before acting.</p>
-</div>
-</div>
-</div>
-</div>
-<footer style="border-top:1px solid rgba(255,255,255,0.06);background:#06080A">
-<div style="max-width:1200px;margin:0 auto;padding:{{ footerPad }}">
-<div style="display:grid;grid-template-columns:{{ footerGrid }};gap:32px">
-<div>
-<div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
-<img alt="āagman" height="28" src="uploads/aagman-logo.png" style="width:28px;height:28px;border-radius:7px;display:block" width="28"/>
-<span style="font-weight:700;font-size:17px">āagman</span>
-</div>
-<p style="font-size:13px;line-height:1.6;color:#6f7873;max-width:260px;margin:0">An AI trading team for Indian markets. You brief, they work, you approve.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:11px">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">COMPANY</div>
-<a href="/#section-founders" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Founders letter</a>
-</div>
-<div style="display:flex;flex-direction:column;gap:11px">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">RESOURCES</div>
-<a href="/pricing" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Pricing</a>
-<a href="https://www.aagman.ai/docs/" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Docs</a>
-<a href="sitemap.xml" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Sitemap</a>
-<a href="https://www.linkedin.com/company/aagman-ai/jobs/" rel="noopener noreferrer" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA" target="_blank">Careers</a>
-<a href="/invest" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">For Investors</a>
-</div>
-<div style="display:flex;flex-direction:column;gap:11px">
-<div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#56E8B8;margin-bottom:4px">LEGAL</div>
-<a href="/terms" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Terms &amp; Conditions</a>
-<a href="/privacy-policy" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Privacy Policy</a>
-<a href="/risk-disclosure" style="font-size:13.5px;color:#56E8B8;text-decoration:none;font-weight:600">Risk Disclosure</a>
-<a href="mailto:growth@kotilabs.com" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Contact Us</a>
-<a href="/cancellation-refunds" style="font-size:13.5px;color:#8a938e;text-decoration:none" style-hover="color:#E7EEEA">Cancellations &amp; Refunds</a>
-</div>
-</div>
-<p style="font-size:12px;line-height:1.6;color:#4a534f;margin:24px 0 0;max-width:900px">āagman is a SEBI-registered Investment Adviser (INA000021951) and an NSE-empanelled algo provider under NSE Circular Ref. 40/2026 (3 Jun 2026).</p>
-<p style="font-size:12px;line-height:1.6;color:#4a534f;margin:12px 0 0;max-width:900px">For any queries, concerns, or feedback, please email us at <a href="mailto:ajit@kotilabs.com" style="color:#56E8B8;text-decoration:none">ajit@kotilabs.com</a> or reach out to Ajit Kumar at <a href="tel:+919167949733" style="color:#56E8B8;text-decoration:none">+91-9167949733</a>.</p>
-<div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
-<span style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#4a534f">© 2026 āagman · Koti Labs Private Limited · Markets carry risk</span>
-<span style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#4a534f">Built for Indian markets</span>
-</div>
-<p style="margin-top:24px;font-size:11px;line-height:1.6;color:#3a4541">Disclaimer: āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
-</div>
-</footer>
-</div>
-</x-dc>
-<script data-dc-script="" data-props="{
-  &quot;$preview&quot;: {&quot;width&quot;: &quot;1200px&quot;, &quot;height&quot;: &quot;100vh&quot;},
-  &quot;previewLayout&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;desktop&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;tablet&quot;, &quot;mobile&quot;], &quot;tsType&quot;: &quot;'desktop'|'tablet'|'mobile'&quot;}
-}" type="text/x-dc">
-class Component extends DCLogic {
-  renderVals() {
-    const layout = this.props.previewLayout ?? 'desktop';
-    const w = layout === 'mobile' ? 375 : layout === 'tablet' ? 768 : 1200;
-    const isMobile = w < 640;
-    const isTablet = w >= 640 && w < 1024;
-    return {
-      navPad:          isMobile ? '16px 20px' : isTablet ? '18px 28px' : '20px 44px',
-      navLinksDisplay: isMobile ? 'none' : 'flex',
-      mainPad:         isMobile ? '48px 20px 80px' : isTablet ? '64px 32px 100px' : '80px 44px 120px',
-      h1Size:          isMobile ? '36px' : isTablet ? '44px' : '52px',
-      bodyGrid:        (isMobile || isTablet) ? '1fr' : '220px 1fr',
-      bodyGap:         (isMobile || isTablet) ? '40px' : '80px',
-      sidebarDisplay:  (isMobile || isTablet) ? 'none' : 'block',
-      footerPad:       isMobile ? '40px 20px 28px' : isTablet ? '48px 28px 32px' : '64px 44px 40px',
-      footerGrid:      (isMobile || isTablet) ? '1fr 1fr' : '1.8fr 1fr 1fr 1fr',
-      frameWidth:      layout === 'mobile' ? '375px' : layout === 'tablet' ? '768px' : '1200px',
-    };
-  }
+<header data-section="header" class="nav">
+  <a class="logo" href="/" aria-label="āagman home"><img src="/media/d3eba88f71b3.png" alt="">āagman</a>
+  <nav class="nav-links" aria-label="Main">
+    <div class="dd"><button type="button" class="dd-t" aria-haspopup="true" aria-expanded="false">Product<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><a class="dd-i" role="menuitem" href="/research"><b>Research</b><small>Research a whole sector with one question</small></a><a class="dd-i" role="menuitem" href="/charts"><b>Charts</b><small>Ask your chart for what you want to see</small></a><a class="dd-i" role="menuitem" href="/backtesting"><b>Backtesting</b><small>Describe a strategy and see it tested on 10 years of history</small></a><a class="dd-i" role="menuitem" href="/picks"><b>Picks &amp; strategies</b><small>Get picks vetted the way a senior desk vets them</small></a><a class="dd-i" role="menuitem" href="/deploy"><b>Deploy</b><small>Run algos like a trading desk, just by describing them</small></a></div></div>
+    <div class="dd"><button type="button" class="dd-t" aria-haspopup="true" aria-expanded="false">Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><span class="dd-i soon"><b>Charts<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Screener<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Pulse<span class="tag">Coming soon</span></b></span><div class="dd-sep"></div><a class="dd-i" role="menuitem" href="https://www.aagman.ai/docs/" target="_blank" rel="noopener"><b>Docs</b></a><a class="dd-i" role="menuitem" href="https://www.aagman.ai/blog/" target="_blank" rel="noopener"><b>Blog</b></a></div></div>
+    <a href="/pricing">Pricing</a>
+  </nav>
+  <div class="nav-right"><a class="nav-btn" href="https://app.aagman.ai/login">Sign up</a></div>
+</header>
+
+<section data-section="hero" class="legal-top"><span class="eyebrow">Risk Disclosure &amp; Disclaimer</span><h1>Know the risks.</h1><span class="upd">Last updated: 21 June 2026 · consent version 2026-06-21.v1</span></section><div data-section="body" class="legal"><nav class="toc" aria-label="Contents"><span class="tl">Contents</span><a href="#s1"><span>01</span>Market risk</a><a href="#s2"><span>02</span>Hypothetical results</a><a href="#s3"><span>03</span>Algo provider &amp; broker</a><a href="#s4"><span>04</span>Investment adviser, not research analyst</a></nav><article class="sheet"><section class="sec" id="s1"><span class="no">01</span><h2>Market risk</h2><p>Trading and investment in securities, derivatives and commodities are subject to market risk; <strong>you can lose part or all of your capital.</strong></p></section><section class="sec" id="s2"><span class="no">02</span><h2>Hypothetical results</h2><p>Information, analyses, screeners, backtests and simulated or hypothetical performance shown on āagman are for information only and do not guarantee future results — past behaviour does not imply future behaviour.</p></section><section class="sec" id="s3"><span class="no">03</span><h2>Algo provider &amp; broker</h2><p>āagman provides Whitebox execution algorithms as an NSE-empanelled (provisional) algo provider — Koti Labs Private Limited (NSE Circular Ref. 40/2026 (3 Jun 2026), provisional, Whitebox).</p><p>Orders are placed in your own broker account through your broker, who is the <strong>principal for execution</strong> and responsible for algo-trading grievances. Automated trading carries technology, connectivity and execution risks.</p></section><section class="sec" id="s4"><span class="no">04</span><h2>Investment adviser, not research analyst</h2><p>Koti Labs Private Limited is a SEBI-Registered Investment Adviser (RIA), Reg. No. INA000021951. It is <strong>NOT</strong> a registered Research Analyst, and the strategies are not research reports.</p><p>Consider your own circumstances and risk tolerance, and consult your adviser, before acting.</p></section></article></div><section data-section="others" class="others"><h3>Other policies</h3><div class="ol"><a href="/terms">Terms &amp; conditions</a><a href="/privacy-policy">Privacy policy</a><a href="/cancellation-refunds">Cancellations &amp; refunds</a></div></section><style>
+/* Layout: the page's ending. A centred closing call to action that repeats the hero's two buttons, then a quiet footer in the same 1200px column: brand and link columns, then the registration line, contact and disclaimer. Light-only. */
+:root{
+  --page:#f7f8f8; --card:#ffffff; --fg:#060a11; --fg2:#475063; --fg3:#6c7280;
+  --line:#d0d6e0; --line2:#e6e6e6; --hover:#eef0f2; --mint:#19e299; --mint-600:#14b57a; --brand-word:#0f885c;
+  --font:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme:light;
 }
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--fg);font-family:var(--font);font-size:16px;line-height:24px;letter-spacing:-0.01em;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:6px}
+
+/* closing call to action */
+.close-cta{max-width:1200px;margin:0 auto;padding-block:120px 144px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.close-cta h2{margin:0;font-size:64px;line-height:68px;letter-spacing:-0.04em;font-weight:700;text-wrap:balance}
+.close-cta .ctas{margin-top:32px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.close-cta .btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:8px;font-weight:600;font-size:16px;line-height:24px;transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.close-cta .btn:active{transform:scale(.97)}
+.close-cta .btn-mint{background:var(--mint);color:#060a11}
+.close-cta .btn-mint:hover{background:var(--mint-600)}
+.close-cta .btn-ghost{background:var(--card);color:var(--fg);border:1px solid var(--line)}
+.close-cta .btn-ghost:hover{border-color:#c8d5e6;background:var(--hover)}
+.close-cta .fine{margin-top:12px;font-size:14px;line-height:20px;color:var(--fg3)}
+
+/* footer */
+.foot{max-width:1200px;margin:0 auto;border-top:1px solid var(--line);padding-block:56px 48px;display:flex;flex-direction:column;gap:48px}
+.foot-top{display:grid;grid-template-columns:minmax(0,4fr) repeat(4,minmax(0,2fr));gap:32px}
+.foot-brand{display:flex;flex-direction:column;gap:12px}
+.foot-brand .mark{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;line-height:28px;letter-spacing:-0.02em}
+.foot-brand .mark img{width:28px;height:28px;border-radius:6px;display:block}
+.foot-brand p{margin:0;font-size:15px;line-height:22px;color:var(--fg2);max-width:280px}
+.foot-col h3{margin:0 0 16px;font-size:13px;line-height:16px;font-weight:600;color:var(--fg)}
+.foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.foot-col a{font-size:14px;line-height:20px;color:var(--fg2);transition:color .15s ease}
+.foot-col a:hover{color:var(--fg)}
+.foot-legal{border-top:1px solid var(--line2);padding-top:32px;display:flex;flex-direction:column;gap:12px;font-size:13px;line-height:20px;color:var(--fg3)}
+.foot-legal p{margin:0;max-width:880px}
+.foot-legal .reg{color:var(--fg2);font-weight:500}
+.foot-legal .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:12px}
+
+@media (max-width:1024px){ .foot-top{grid-template-columns:repeat(2,minmax(0,1fr))} .foot-brand{grid-column:1 / -1} }
+@media (max-width:768px){
+  .close-cta{padding-block:72px 96px}
+  .close-cta h2{font-size:40px;line-height:44px}
+  .close-cta .ctas{width:100%;flex-direction:column}
+  .close-cta .btn{width:100%}
+  .foot{padding-block:40px 32px;gap:32px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+<footer data-section="footer" class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="mark" href="/" aria-label="āagman home"><img src="/media/d3eba88f71b3.png" alt="">āagman</a>
+      <p>An AI trading desk for Indian markets.</p>
+    </div>
+    <nav class="foot-col" aria-label="Product">
+      <h3>Product</h3>
+      <ul><li><a href="/research">Research</a></li><li><a href="/charts">Charts</a></li><li><a href="/backtesting">Backtesting</a></li><li><a href="/picks">Picks &amp; strategies</a></li><li><a href="/deploy">Deploy</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Company">
+      <h3>Company</h3>
+      <ul><li><a href="/#founders">Founders letter</a></li><li><a href="https://www.linkedin.com/company/aagman-ai/jobs/" target="_blank" rel="noopener">Careers</a></li><li><a href="https://www.aagman.ai/invest">For investors</a></li><li><a href="mailto:growth@kotilabs.com">Contact us</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Resources">
+      <h3>Resources</h3>
+      <ul><li><a href="/pricing">Pricing</a></li><li><a href="https://www.aagman.ai/docs/">Docs</a></li><li><a href="https://www.aagman.ai/blog/">Blog</a></li><li><a href="https://www.aagman.ai/sitemap.xml">Sitemap</a></li></ul>
+    </nav>
+    <nav class="foot-col" aria-label="Legal">
+      <h3>Legal</h3>
+      <ul><li><a href="/terms">Terms &amp; conditions</a></li><li><a href="/privacy-policy">Privacy policy</a></li><li><a href="/risk-disclosure">Risk disclosure</a></li><li><a href="/cancellation-refunds">Cancellations &amp; refunds</a></li></ul>
+    </nav>
+  </div>
+
+  <div class="foot-legal">
+    <p class="reg">āagman is a SEBI-registered Investment Adviser (INA000021951) and an NSE-empanelled algo provider under NSE Circular Ref. 40/2026 (3 Jun 2026).</p>
+    <p>For any queries, concerns, or feedback, email us at ajit@kotilabs.com.</p>
+    <p>Disclaimer: āagman is a research and execution-assistance tool. Nothing here is investment advice. Trading in securities and derivatives involves substantial risk of loss and is not suitable for every investor. Past and backtested performance does not guarantee future results. You are responsible for every trade you approve.</p>
+    <p>Investments in securities are subject to market risks. Read all related documents carefully. Backtested results do not guarantee future returns.</p>
+    <div class="row"><span>© 2026 āagman · Koti Labs Private Limited</span><span>Markets carry risk</span></div>
+  </div>
+</footer>
+<script>
+(function(){
+  const dds = [...document.querySelectorAll('.dd')];
+  dds.forEach(d => { const t = d.querySelector('.dd-t');
+    t.addEventListener('click', e => { e.stopPropagation(); const o = !d.classList.contains('open'); dds.forEach(x => { x.classList.remove('open'); x.querySelector('.dd-t').setAttribute('aria-expanded','false'); }); d.classList.toggle('open', o); t.setAttribute('aria-expanded', o ? 'true' : 'false'); }); });
+  document.addEventListener('click', () => dds.forEach(d => { d.classList.remove('open'); d.querySelector('.dd-t').setAttribute('aria-expanded','false'); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') dds.forEach(d => d.classList.remove('open')); });
+})();
 </script>
 </body>
 </html>

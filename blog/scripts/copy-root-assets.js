@@ -14,7 +14,14 @@ const exclude = new Set([
   'package.json',
   'package-lock.json',
   'vercel.json',
+  'tests',
+  '_config.yml',
+  '.nojekyll',
+  '.DS_Store',
 ]);
+
+// Internal notes (docs/*.md and any other Markdown) are for the team, not the public site.
+const isInternal = (name) => name.endsWith('.md');
 
 function copyRecursive(src, dest) {
   if (!fs.existsSync(src)) return;
@@ -22,6 +29,7 @@ function copyRecursive(src, dest) {
   if (stat.isDirectory()) {
     fs.mkdirSync(dest, { recursive: true });
     for (const entry of fs.readdirSync(src)) {
+      if (isInternal(entry) || entry === '.DS_Store') continue;
       copyRecursive(path.join(src, entry), path.join(dest, entry));
     }
   } else {
@@ -35,7 +43,7 @@ if (!fs.existsSync(outDir)) {
 }
 
 for (const entry of fs.readdirSync(rootDir)) {
-  if (exclude.has(entry)) continue;
+  if (exclude.has(entry) || isInternal(entry)) continue;
   const src = path.join(rootDir, entry);
   const dest = path.join(outDir, entry);
   copyRecursive(src, dest);
