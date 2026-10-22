@@ -262,7 +262,7 @@
   }
   function areaOf(el) {
     if (el.closest('footer')) return 'footer';
-    if (el.closest('.dd-m, [role="menu"]')) return 'menu';
+    if (el.closest('.dd-m, [role="menu"], .mn-sheet')) return 'menu'; // desktop dropdowns and the phone and tablet menu
     if (el.closest('header, nav:not(.toc):not(.rail)')) return 'header'; // any site nav bar (blog topnav, docs and investor bars)
     return null;
   }
@@ -284,6 +284,8 @@
       safe(function () {
         var t = event.target;
         if (!t || !t.closest) return;
+        var mn = t.closest('.mn-btn');
+        if (mn) { if (mn.getAttribute('aria-expanded') !== 'true' && !openedMenus.mobile) { openedMenus.mobile = true; track('nav_open', { menu: 'mobile' }); } return; }
         var toggle = t.closest('.dd-t');
         if (toggle) { if (toggle.closest('.dd')) menuOpened(toggle.closest('.dd')); return; }
         var soon = t.closest('.dd-i.soon');
@@ -337,7 +339,8 @@
         entries.forEach(function (e) { if (e.isIntersecting) viewed(e.target); });
       }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 }));
       [].forEach.call(doc.querySelectorAll('[data-section]'), function (el) {
-        if (el.getAttribute('data-section') === 'header') return;
+        var nm = el.getAttribute('data-section');
+        if (nm === 'header' || nm === 'menu') return; // always on the page; the menu is hidden until opened
         observers.forEach(function (o) { o.observe(el); });
       });
     }

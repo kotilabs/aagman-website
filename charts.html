@@ -403,6 +403,70 @@ a{color:inherit;text-decoration:none}
  ]
 }
 </script>
+<style>
+/* phone and tablet menu (mobile_nav.py) */
+/* design-system token values, pinned so the menu looks the same on pages that define fewer tokens (the homepage) */
+.mn-btn,.mn-sheet{--fg:#060a11;--fg2:#475063;--fg3:#6c7280;--line:#d0d6e0;--line2:#e6e6e6;--line-hover:#c8d5e6;--hover:#eef0f2;--card:#ffffff;--page:#f7f8f8;--mint:#19e299;--mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,monospace}
+.mn-btn{display:none}
+.mn-sheet{display:none}
+@media (max-width:1024px){
+  .nav{grid-template-columns:1fr auto} .nav-links,.nav .links{display:none}
+  .nav-right,.nav .right{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+  .mn-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--card);
+    color:var(--fg);cursor:pointer;padding:0;transition:background .15s ease,border-color .15s ease}
+  .mn-btn:hover{border-color:var(--line-hover,#c8d5e6)}
+  .mn-btn svg{width:20px;height:20px}
+  .mn-btn path{transition:transform .2s ease;transform-origin:12px 12px}
+  .mn-open .mn-btn .mn-l1{transform:translateY(4px) rotate(45deg)}
+  .mn-open .mn-btn .mn-l2{transform:translateY(-4px) rotate(-45deg)}
+  .mn-sheet{display:block;position:fixed;left:0;right:0;top:64px;bottom:0;z-index:60;background:var(--page);overflow-y:auto;
+    padding:16px 16px calc(24px + env(safe-area-inset-bottom));opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s}
+  .mn-open .mn-sheet{opacity:1;visibility:visible;transform:none;transition:opacity .18s ease,transform .18s ease}
+  .mn-open{overflow:hidden}
+  .mn-sheet:focus{outline:none}
+  .mn-open .nav-btn,.mn-open .nav .right .btn{visibility:hidden} /* Sign up moves to the bottom of the menu */
+  .mn-in{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .mn-k{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3);margin:0 0 8px 4px}
+  .mn-list{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .mn-list .dd-i{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px 16px;text-decoration:none;color:var(--fg)}
+  .mn-list .dd-i + .dd-i{border-top:1px solid var(--line2)}
+  .mn-list .dd-i b{font-size:16px;line-height:22px;font-weight:600}
+  .mn-list .dd-i small{font-size:14px;line-height:20px;color:var(--fg2)}
+  .mn-list a.dd-i:active,.mn-list .dd-i.cur{background:var(--hover)}
+  .mn-row{flex-direction:row!important;align-items:center!important;justify-content:space-between}
+  .mn-row svg{width:16px;height:16px;color:var(--fg3)}
+  .mn-soon{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 4px}
+  .mn-soon span{font-size:12px;line-height:16px;font-weight:600;color:var(--fg3);border:1px dashed var(--line);border-radius:999px;padding:3px 10px}
+  .mn-acts{display:flex;flex-direction:column;gap:10px}
+  .mn-acts a{display:flex;align-items:center;justify-content:center;height:48px;border-radius:8px;font-weight:600;font-size:16px}
+  .mn-acts .mn-go{background:var(--mint);color:var(--fg)}
+  .mn-acts .mn-talk{background:var(--card);border:1px solid var(--line);color:var(--fg)}
+}
+@media (max-width:1024px) and (prefers-reduced-motion:reduce){.mn-sheet,.mn-btn path{transition:none}}
+</style>
+<script>
+/* phone and tablet menu: listens at the document level from the head, so the button works as soon as it is drawn */
+(function(){
+  var root = document.documentElement;
+  function els(){ return { btn: document.querySelector('.mn-btn'), sheet: document.getElementById('mn-sheet') }; }
+  function set(open){ var e = els(); if (!e.btn || !e.sheet) return; root.classList.toggle('mn-open', open);
+    e.btn.setAttribute('aria-expanded', open ? 'true' : 'false'); e.btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    e.sheet.setAttribute('aria-hidden', open ? 'false' : 'true'); if (open) e.sheet.focus({preventScroll:true}); }
+  document.addEventListener('click', function(ev){
+    var t = ev.target; if (!t || !t.closest) return;
+    if (t.closest('.mn-btn')) { set(!root.classList.contains('mn-open')); return; }
+    if (root.classList.contains('mn-open') && t.closest('#mn-sheet a')) set(false);
+  });
+  document.addEventListener('keydown', function(ev){
+    if (!root.classList.contains('mn-open')) return; var e = els();
+    if (ev.key === 'Escape') { set(false); e.btn && e.btn.focus(); }
+    if (ev.key === 'Tab' && e.btn && e.sheet) { var f = [e.btn].concat([].slice.call(e.sheet.querySelectorAll('a'))), i = f.indexOf(document.activeElement);
+      if (ev.shiftKey && i <= 0) { ev.preventDefault(); f[f.length - 1].focus(); } else if (!ev.shiftKey && i === f.length - 1) { ev.preventDefault(); f[0].focus(); } }
+  });
+  window.matchMedia('(min-width:1025px)').addEventListener('change', function(m){ if (m.matches) set(false); });
+})();
+</script>
 </head>
 <body>
 <header data-section="header" class="nav">
@@ -412,8 +476,8 @@ a{color:inherit;text-decoration:none}
     <div class="dd"><button type="button" class="dd-t" aria-haspopup="true" aria-expanded="false">Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-m" role="menu"><span class="dd-i soon"><b>Charts<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Screener<span class="tag">Coming soon</span></b></span><span class="dd-i soon"><b>Pulse<span class="tag">Coming soon</span></b></span><div class="dd-sep"></div><a class="dd-i" role="menuitem" href="https://www.aagman.ai/docs/" target="_blank" rel="noopener"><b>Docs</b></a><a class="dd-i" role="menuitem" href="https://www.aagman.ai/blog/" target="_blank" rel="noopener"><b>Blog</b></a></div></div>
     <a href="/pricing">Pricing</a>
   </nav>
-  <div class="nav-right"><a class="nav-btn" href="https://app.aagman.ai/login">Sign up</a></div>
-</header>
+  <div class="nav-right"><a class="nav-btn" href="https://app.aagman.ai/login">Sign up</a><button type="button" class="mn-btn" aria-expanded="false" aria-controls="mn-sheet" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="mn-l1" d="M4 8h16"/><path class="mn-l2" d="M4 16h16"/></svg></button></div>
+</header><div class="mn-sheet" id="mn-sheet" aria-hidden="true" tabindex="-1" data-section="menu"><div class="mn-in"><div><p class="mn-k">Product</p><div class="mn-list"><a class="dd-i" href="/research"><b>Research</b><small>Research a whole sector with one question</small></a><a class="dd-i cur" aria-current="page" href="/charts"><b>Charts</b><small>Ask your chart for what you want to see</small></a><a class="dd-i" href="/backtesting"><b>Backtesting</b><small>Describe a strategy and see it tested on 10 years of history</small></a><a class="dd-i" href="/picks"><b>Picks &amp; strategies</b><small>Get picks vetted the way a senior desk vets them</small></a><a class="dd-i" href="/deploy"><b>Deploy</b><small>Run algos like a trading desk, just by describing them</small></a></div></div><div><p class="mn-k">More</p><div class="mn-list"><a class="dd-i mn-row" href="/pricing"><b>Pricing</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a class="dd-i mn-row" href="https://www.aagman.ai/docs/"><b>Docs</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a class="dd-i mn-row" href="https://www.aagman.ai/blog/"><b>Blog</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div><div class="mn-soon"><span>Charts · soon</span><span>Screener · soon</span><span>Pulse · soon</span></div></div><div class="mn-acts"><a class="mn-go" href="https://app.aagman.ai/login">Sign up</a><a class="mn-talk" href="https://dub.sh/fZsnb0w">Talk to founders</a></div></div></div>
 
 <section data-section="hero" class="top">
   <span class="eyebrow">Charts</span>

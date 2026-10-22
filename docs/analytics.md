@@ -58,7 +58,7 @@ Never in any event, property or value: phone numbers, emails, names, typed text,
 
 ## 4. Pages and section names
 
-Each section below is marked in the HTML with `data-section="<name>"`. The header and footer are the same on every page: `header`, `footer`. A click outside any named section reports `section: body` (for example the "How we grade" link between two Picks sections, and every page that has no sections).
+Each section below is marked in the HTML with `data-section="<name>"`. The header and footer are the same on every page: `header`, `footer`. On phones and tablets (1024px and below) the header's menu button opens `menu`, a full-height list of the products, Pricing, Docs, Blog, Sign up and Talk to founders; `menu` is not counted by `section_view`. A click outside any named section reports `section: body` (for example the "How we grade" link between two Picks sections, and every page that has no sections).
 
 | Page (`page`, page name) | Sections, top to bottom |
 |---|---|
@@ -81,8 +81,8 @@ Every event also carries `page`. Umami records page views, referrer, campaign ta
 | `cta_click` | a call-to-action button is clicked | `label`: `sign_up` · `talk_to_founders` · `join_whatsapp`; `section`; `spot` | Q2, Q7 |
 | `app_link_click` | any other link to app.aagman.ai is clicked | `section`; `target` (the app path, e.g. `/how-we-grade`) | Q4 |
 | `section_view` | half of a section is on screen, or the section crosses the middle line of the screen (for sections taller than the screen), once per section per page view | `section` | Q2, Q3 |
-| `nav_open` | the Product or Resources menu opens | `menu`: `product` · `resources` | Q5 |
-| `nav_click` | an internal link in the header, a menu or the footer is clicked | `area`: `header` · `menu` · `footer`; `item`: `home` · `research` · `charts` · `backtesting` · `picks` · `deploy` · `pricing` · `docs` · `blog` · `founders_letter` · `investors` · `sitemap` · `terms` · `privacy_policy` · `risk_disclosure` · `cancellation_refunds` | Q4, Q5 |
+| `nav_open` | the Product or Resources menu opens, or the phone and tablet menu opens | `menu`: `product` · `resources` · `mobile` | Q5 |
+| `nav_click` | an internal link in the header, a menu (desktop dropdowns or the phone and tablet menu) or the footer is clicked | `area`: `header` · `menu` · `footer`; `item`: `home` · `research` · `charts` · `backtesting` · `picks` · `deploy` · `pricing` · `docs` · `blog` · `founders_letter` · `investors` · `sitemap` · `terms` · `privacy_policy` · `risk_disclosure` · `cancellation_refunds` | Q4, Q5 |
 | `soon_click` | a "Coming soon" item in the Resources menu is clicked | `item`: `charts` · `screener` · `pulse` | Q5 (demand for what is not built yet) |
 | `card_click` | a product card or action card in the page body is clicked | `card`: `research` · `charts` · `backtesting` · `picks` · `deploy` · `deploy_algo` · `paper_first` · `adjust_rules`; `section` | Q4 |
 | `faq_open` | an FAQ question is opened (not when it closes) | `question`: `what_is_aagman` · `is_it_a_broker` · `does_it_predict` · `why_not_chatgpt` · `trades_on_its_own` · `signals_or_tips` · `regulated` · `high_volatility` · `without_broker` · `shared_ip` | Q6 |

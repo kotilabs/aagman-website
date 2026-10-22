@@ -12,6 +12,8 @@ const { classifyClick, normalizePath, pageName, itemFor, environment, newVisitor
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 let passed = 0;
+const docText = fs.readFileSync(path.join(ROOT, 'docs/analytics.md'), 'utf8');
+const code = fs.readFileSync(path.join(ROOT, 'analytics.js'), 'utf8');
 const test = (name, fn) => { fn(); passed++; };
 const HOST = 'www.aagman.ai';
 const d = (over) => ({ href: '', dataset: {}, section: 'body', area: null, pageHost: HOST, ...over });
@@ -132,6 +134,23 @@ test('relative links resolve against the page they are on', () => {
   assert.deepEqual(r, { name: 'nav_click', params: { area: 'header', item: 'docs' } });
 });
 
+test('phone and tablet menu: product links are nav clicks, Sign up reports the menu spot', () => {
+  assert.deepEqual(classifyClick(d({ href: '/charts', section: 'menu', area: 'menu' }), '/research'),
+    { name: 'nav_click', params: { area: 'menu', item: 'charts' } });
+  assert.deepEqual(classifyClick(d({ href: 'https://app.aagman.ai/login', section: 'menu', area: 'menu' }), '/research'),
+    { name: 'cta_click', params: { label: 'sign_up', section: 'menu', spot: 'research.menu' } });
+  assert.deepEqual(classifyClick(d({ href: 'https://dub.sh/fZsnb0w', section: 'menu', area: 'menu' }), '/'),
+    { name: 'cta_click', params: { label: 'talk_to_founders', section: 'menu', spot: 'home.menu' } });
+});
+test('every page with the new header has the phone menu, wired for tracking', () => {
+  for (const f of ['index.html', 'research.html', 'charts.html', 'backtesting.html', 'picks.html', 'deploy.html', 'pricing.html', 'terms.html']) {
+    const html = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    assert.ok(html.includes('class="mn-btn"') && html.includes('id="mn-sheet"') && html.includes('data-section="menu"'), f);
+  }
+  assert.ok(code.includes("'.mn-sheet") || code.includes('.mn-sheet'), 'analytics.js treats the phone menu as a menu');
+  assert.ok(code.includes("menu: 'mobile'"), 'analytics.js sends nav_open for the phone menu');
+});
+
 // ---------- no event ----------
 test('in-page anchors and unknown internal links send nothing', () => {
   assert.equal(classifyClick(d({ href: '#faq' }), '/'), null);
@@ -142,8 +161,6 @@ test('in-page anchors and unknown internal links send nothing', () => {
 });
 
 // ---------- contract: code, pages and docs/analytics.md agree ----------
-const docText = fs.readFileSync(path.join(ROOT, 'docs/analytics.md'), 'utf8');
-const code = fs.readFileSync(path.join(ROOT, 'analytics.js'), 'utf8');
 test('every event the code sends is in the framework, and the reverse', () => {
   const section5 = docText.split('## 5. Events')[1].split('\n## ')[0];
   const documented = new Set([...section5.matchAll(/^\| `([a-z_]+)` \|/gm)].map((m) => m[1]));
