@@ -17,7 +17,11 @@
     liveHosts: ['www.aagman.ai', 'aagman.ai'],
     visitorCookie: 'aag_vid',
     teamCookie: 'aag_team',
-    cookieDays: 400
+    cookieDays: 400,
+    clickCookie: 'aag_click', // how the visitor arrived: first touch + latest tagged touch (section 14)
+    clickDays: 90,
+    trailCookie: 'aag_trail', // last 12 pages + the Sign up spot clicked (section 14)
+    trailDays: 30
   };
 
   var SOCIAL_HOSTS = ['twitter.com', 'x.com', 'linkedin.com', 'youtube.com', 'github.com', 'reddit.com', 'instagram.com'];
@@ -144,9 +148,202 @@
       .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 
+
+  // ---------- phase 2: how the visitor arrived, handed to the app at Sign up (section 14) ----------
+
+  var MAX_LEN = 128;        // characters, the app's and gateway's cap
+  var MAX_ENCODED = 200;    // and at most this many once URL-encoded, so non-Latin text cannot bloat the cookie
+  var CLICK_BUDGET = 3000;  // aag_click, encoded; browsers drop a cookie over 4096 bytes without a word
+  var TRAIL_PAGES = 12;
+  /* URL parameter -> touch key. The app and gateway use the same key names. */
+  var TAG_PARAMS = [
+    ['utm_source', 'source'], ['utm_medium', 'medium'], ['utm_campaign', 'campaign'], ['utm_term', 'term'],
+    ['utm_content', 'content'], ['adgroup', 'adGroup'],
+    ['gclid', 'gclid'], ['gbraid', 'gbraid'], ['wbraid', 'wbraid'], ['fbclid', 'fbclid'], ['msclkid', 'msclkid']
+  ];
+  var CLICK_IDS = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'];
+  var TOUCH_KEYS = ['source', 'medium', 'campaign', 'term', 'content', 'adGroup', 'gclid', 'gbraid', 'wbraid',
+    'fbclid', 'msclkid', 'clickAt', 'landingPath', 'referrerHost'];
+  var LAST_KEYS = TOUCH_KEYS.slice(0, 12); // tags, click ids and clickAt: the latest touch has no landing or referrer
+  /* dropped first, from the latest touch then the first, if aag_click would outgrow its budget; click ids never */
+  var FIT_ORDER = ['term', 'content', 'referrerHost', 'landingPath', 'campaign', 'adGroup', 'medium', 'source'];
+  var APP_DEFAULT_PATH = '/trading-strategy'; // where the app sends a signed-in visitor; keeps bare app links working
+  /* not put on the Sign up link: the app reads them from aag_click, and a link URL can be logged by other tools */
+  var NOT_IN_LINK = ['fbclid', 'msclkid'];
+
+  /* drop control characters (Postgres jsonb rejects NUL) and any half of a surrogate pair (half an emoji) */
+  function wellFormed(s) {
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      var c = s.charCodeAt(i);
+      if (c >= 0xD800 && c <= 0xDBFF) {
+        var n = s.charCodeAt(i + 1);
+        if (n >= 0xDC00 && n <= 0xDFFF) { out += s.charAt(i) + s.charAt(i + 1); i++; }
+        continue;
+      }
+      if ((c >= 0xDC00 && c <= 0xDFFF) || c < 0x20 || c === 0x7F) continue;
+      out += s.charAt(i);
+    }
+    return out;
+  }
+  function cap(v) {
+    if (typeof v !== 'string') return undefined;
+    v = wellFormed(wellFormed(v).trim().slice(0, MAX_LEN));
+    while (v && encodeURIComponent(v).length > MAX_ENCODED) v = wellFormed(v.slice(0, -1));
+    return v || undefined;
+  }
+  function isOwnHost(h) { return h === 'aagman.ai' || /\.aagman\.ai$/.test(h); }
+
+  /* One visit as a touch: campaign tags, click id (+ when), landing page and an outside referrer. */
+  function touchFromUrl(search, referrer, landingPath, now, pageHost) {
+    var q = new URLSearchParams(search || '');
+    var t = {};
+    for (var i = 0; i < TAG_PARAMS.length; i++) {
+      var v = cap(q.get(TAG_PARAMS[i][0]));
+      if (v) t[TAG_PARAMS[i][1]] = v;
+    }
+    if (hasClickId(t)) t.clickAt = now.toISOString();
+    var lp = cap(landingPath);
+    if (lp) t.landingPath = lp;
+    var r = referrer ? parseUrl(referrer, pageHost) : null;
+    if (r && r.hostname && !isOwnHost(r.hostname) && r.hostname !== pageHost) t.referrerHost = cap(r.hostname);
+    return t;
+  }
+
+  function hasClickId(t) {
+    for (var i = 0; i < CLICK_IDS.length; i++) if (t && t[CLICK_IDS[i]]) return true;
+    return false;
+  }
+  function isTagged(t) {
+    for (var i = 0; i < TAG_PARAMS.length; i++) if (t && t[TAG_PARAMS[i][1]]) return true;
+    return false;
+  }
+  function isPlain(o) { return !!o && typeof o === 'object' && !Array.isArray(o); }
+  function pick(t, keys) {
+    var out = {};
+    for (var i = 0; i < keys.length; i++) { var v = cap(isPlain(t) ? t[keys[i]] : undefined); if (v) out[keys[i]] = v; }
+    return out;
+  }
+  function validCookie(c) { return isPlain(c) && c.v === 1; }
+  function encodedSize(o) { return encodeURIComponent(JSON.stringify(o)).length; }
+  function fitClick(c) {
+    for (var i = 0; i < FIT_ORDER.length && encodedSize(c) > CLICK_BUDGET; i++) {
+      if (c.l) delete c.l[FIT_ORDER[i]];
+      if (encodedSize(c) > CLICK_BUDGET) delete c.f[FIT_ORDER[i]];
+    }
+    return c;
+  }
+
+  /*
+   * The new aag_click value after this visit. The first visit is the first touch, kept while the cookie lives.
+   * A visit with a campaign tag or click id replaces the latest touch; when it carries no click id of its own,
+   * the previous click id and its time stay, so a later newsletter or social link cannot erase the ad click.
+   */
+  function updateClick(existing, touch) {
+    var first = validCookie(existing) ? pick(existing.f, TOUCH_KEYS) : {};
+    if (!Object.keys(first).length) {
+      var fresh = { v: 1, f: pick(touch, TOUCH_KEYS) };
+      if (isTagged(touch)) fresh.l = pick(touch, LAST_KEYS);
+      return fitClick(fresh);
+    }
+    var out = { v: 1, f: first };
+    var prev = validCookie(existing) && isPlain(existing.l) ? pick(existing.l, LAST_KEYS) : null;
+    if (isTagged(touch)) {
+      out.l = pick(touch, LAST_KEYS);
+      if (!hasClickId(touch) && prev && hasClickId(prev)) {
+        for (var i = 0; i < CLICK_IDS.length; i++) if (prev[CLICK_IDS[i]]) out.l[CLICK_IDS[i]] = prev[CLICK_IDS[i]];
+        if (prev.clickAt) out.l.clickAt = prev.clickAt;
+      }
+    } else if (prev && Object.keys(prev).length) {
+      out.l = prev;
+    }
+    return fitClick(out);
+  }
+
+  /* aag_trail after visiting `path`: last 12 pages as path@unix-seconds, a reload is not a new page. */
+  function updateTrail(existing, path, nowSec) {
+    var tr = validCookie(existing) ? existing : { v: 1, p: '' };
+    var clean = (cap(String(path || '/')) || '/').replace(/[@|]/g, '_');
+    var pages = typeof tr.p === 'string' && tr.p ? tr.p.split('|') : [];
+    var last = pages.length ? pages[pages.length - 1].split('@')[0] : null;
+    if (last !== clean) pages.push(clean + '@' + Math.floor(nowSec));
+    var out = { v: 1, p: pages.slice(-TRAIL_PAGES).join('|') };
+    var spot = cap(tr.s);
+    if (spot) out.s = spot;
+    return out;
+  }
+  function setTrailSpot(existing, spot) {
+    var tr = validCookie(existing) ? existing : { v: 1, p: '' };
+    return { v: 1, p: typeof tr.p === 'string' ? tr.p : '', s: cap(spot) };
+  }
+
+  /*
+   * The Sign up link with the hand-off added (backup for when the app cannot read the cookies): src=<page>.<section>
+   * plus the latest touch's tags and click id (else the first touch's). Parameters already on the link win.
+   * A bare app.aagman.ai link goes through /login?next=/trading-strategy: the root redirects drop the query,
+   * and a signed-in visitor is sent straight on by the login page.
+   */
+  function handoffUrl(href, spot, click) {
+    var url = parseUrl(href);
+    if (!url || url.protocol !== 'https:' || url.hostname !== 'app.aagman.ai') return href;
+    if (url.pathname === '/' || url.pathname === '') {
+      url.pathname = '/login';
+      if (!url.searchParams.has('next')) url.searchParams.set('next', APP_DEFAULT_PATH);
+    }
+    var touch = validCookie(click) ? (isTagged(click.l) ? click.l : click.f) : null;
+    var add = [['src', spot]];
+    for (var i = 0; i < TAG_PARAMS.length; i++) {
+      if (NOT_IN_LINK.indexOf(TAG_PARAMS[i][0]) !== -1) continue;
+      var v = isPlain(touch) && cap(touch[TAG_PARAMS[i][1]]);
+      if (v) add.push([TAG_PARAMS[i][0], v]);
+    }
+    for (var j = 0; j < add.length; j++) if (add[j][1] && !url.searchParams.has(add[j][0])) url.searchParams.append(add[j][0], add[j][1]);
+    return url.toString();
+  }
+
+  /* A Sign up click: the new trail (with the spot) and the new link, or null when the link is not into the app. */
+  function signupClick(href, spot, trail, click) {
+    var url = parseUrl(href);
+    if (!url || url.protocol !== 'https:' || url.hostname !== 'app.aagman.ai') return null;
+    return { trail: setTrailSpot(trail, spot), href: handoffUrl(url.toString(), spot, click) };
+  }
+
+  /*
+   * Rule 3: Umami never stores a click id or any other per-person ad or tracker id. Allowlist, not a list of
+   * known ids: the page URL keeps its path and only utm_* parameters, and a hash with a parameter in it goes.
+   */
+  function umamiUrl(href) {
+    if (!href || typeof href !== 'string') return href;
+    var url = parseUrl(href);
+    if (!url) return href;
+    var keep = [];
+    url.searchParams.forEach(function (v, k) { if (/^utm_/i.test(k)) keep.push([k, v]); });
+    url.search = '';
+    for (var i = 0; i < keep.length; i++) url.searchParams.append(keep[i][0], keep[i][1]);
+    if (url.hash.indexOf('=') !== -1) url.hash = '';
+    return url.toString();
+  }
+  /* the referrer is another site's URL, with its own ids in path and query: keep its origin only */
+  function umamiReferrer(href) {
+    if (!href || typeof href !== 'string') return href;
+    var url = parseUrl(href);
+    return url && /^https?:$/.test(url.protocol) && href.indexOf('://') !== -1 ? url.origin : '';
+  }
+  /* Umami's data-before-send hook: runs on every send (page view, event, identify, performance). */
+  function umamiBeforeSend(type, payload) {
+    if (isPlain(payload)) {
+      payload.url = umamiUrl(payload.url);
+      payload.referrer = umamiReferrer(payload.referrer);
+    }
+    return payload;
+  }
+
   var api = {
     CONFIG: CONFIG, classifyClick: classifyClick, normalizePath: normalizePath, pageName: pageName,
-    itemFor: itemFor, environment: environment, newVisitorId: newVisitorId
+    itemFor: itemFor, environment: environment, newVisitorId: newVisitorId,
+    touchFromUrl: touchFromUrl, updateClick: updateClick, updateTrail: updateTrail, setTrailSpot: setTrailSpot,
+    handoffUrl: handoffUrl, signupClick: signupClick, umamiUrl: umamiUrl, umamiReferrer: umamiReferrer,
+    umamiBeforeSend: umamiBeforeSend, TOUCH_KEYS: TOUCH_KEYS
   };
   if (typeof module !== 'undefined' && module.exports) { module.exports = api; return; }
 
@@ -197,6 +394,17 @@
   }
   if (vid) writeCookie(CONFIG.visitorCookie, vid, CONFIG.cookieDays);
 
+  // how the visitor arrived (section 14): first touch + latest tagged touch, and the page trail.
+  // Read by the app's login page on app.aagman.ai; never sent to Umami or GA4.
+  function readJsonCookie(name) { return safe(function () { var v = readCookie(name); return v ? JSON.parse(v) : null; }) || null; }
+  var now = new Date();
+  var click = readJsonCookie(CONFIG.clickCookie);
+  // rewritten on every page view, so it lasts 90 days from the last visit
+  var nextClick = safe(function () { return updateClick(click, touchFromUrl(loc.search, doc.referrer, page, now, host)); });
+  if (nextClick) { click = nextClick; writeCookie(CONFIG.clickCookie, JSON.stringify(click), CONFIG.clickDays); }
+  var trail = safe(function () { return updateTrail(readJsonCookie(CONFIG.trailCookie), page, now.getTime() / 1000); });
+  if (trail) writeCookie(CONFIG.trailCookie, JSON.stringify(trail), CONFIG.trailDays);
+
   var umamiId = env === 'live' ? CONFIG.umamiLive : (env === 'preview' ? CONFIG.umamiTest : '');
   var gaOn = env === 'live' || (env === 'preview' && debug);
 
@@ -210,6 +418,9 @@
     us.setAttribute('data-website-id', umamiId);
     us.setAttribute('data-auto-pageview', 'false'); // page view sent below, after the visitor is identified
     us.setAttribute('data-performance', 'true'); // page speed: load time, layout shift, responsiveness
+    us.crossOrigin = 'anonymous'; // fetch script.js without our cookies (aag_click holds the click id)
+    root.aagUmamiBeforeSend = umamiBeforeSend; // scrubs the url and referrer of every send
+    us.setAttribute('data-before-send', 'aagUmamiBeforeSend');
     us.onload = function () {
       umamiReady = !!(root.umami && typeof root.umami.track === 'function');
       if (!umamiReady || team) return;
@@ -297,6 +508,17 @@
           section: sectionOf(el), area: areaOf(el), pageHost: host, base: loc.href
         }, page);
         if (hit) track(hit.name, hit.params);
+        // Sign up hand-off (section 14): remember the spot, and give the link the spot and the click
+        if (hit && hit.name === 'cta_click' && hit.params.label === 'sign_up') {
+          var target = parseUrl(el.getAttribute('href') || '', host, loc.href);
+          var hand = signupClick(target ? target.toString() : '', hit.params.spot,
+            readJsonCookie(CONFIG.trailCookie) || trail, readJsonCookie(CONFIG.clickCookie) || click);
+          if (hand) {
+            trail = hand.trail;
+            writeCookie(CONFIG.trailCookie, JSON.stringify(trail), CONFIG.trailDays);
+            el.setAttribute('href', hand.href);
+          }
+        }
       });
     };
     doc.addEventListener('click', onClick, true);

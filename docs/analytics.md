@@ -1,10 +1,10 @@
 # āagman analytics framework: website
 
-Status: **phase 1, built** (2026-10-23) · approved by Aryan · Owner: Aryan · Scope: www.aagman.ai (marketing pages, docs, blog)
+Status: **phase 1 live** (2026-10-23) · **phase 2 built** (2026-10-23, section 14) · approved by Aryan · Owner: Aryan · Scope: www.aagman.ai (marketing pages, docs, blog)
 
 This is the contract for every piece of tracking on the website. Code follows this document. If an event is not in here, it does not ship.
 
-Phases: **1. the whole website tracked** (this document) · 2. Google Ads infrastructure, the website-to-app hand-off (adds a section here) · 3. Safari fix (adds a section here).
+Phases: **1. the whole website tracked** · **2. Google Ads infrastructure, the website-to-app hand-off** (section 14) · 3. Safari fix (adds a section here).
 
 ---
 
@@ -23,6 +23,7 @@ Every event exists to answer one of these. An event that answers none is noise a
 | Q7 | Where do people leave the site to (founders call, WhatsApp, LinkedIn, docs)? | `cta_click`, `outbound_click`, `social_click`, `contact_click` |
 | Q8 | Which blog and docs pages get read, not just opened? | `blog_read` |
 | Q9 | Has tracking quietly broken? | the same events in Umami and Google Analytics, compared weekly (section 9) |
+| Q10 | Which ad, keyword and page brought each account, and did those people use the product? | `aag_click` and `aag_trail` handed to the app at Sign up, stored on the account (section 14) |
 
 ## 2. How it works
 
@@ -100,7 +101,7 @@ Every event also carries `page`. Umami records page views, referrer, campaign ta
 - A random ID (`aag_vid`, 22 characters, no meaning) is created on the first visit and kept in a first-party cookie on `.aagman.ai` for 400 days (Chrome's maximum; Safari keeps it 7 days, see phase 3).
 - It is passed to Umami with `umami.identify(aag_vid)` before the page view is sent, so one visitor's visits across days join into one journey.
 - It is not sent to Google Analytics (GA4 keeps its own visitor ID in its `_ga` cookie).
-- It never holds or is joined to a name, phone or email in phase 1. Phase 2 hands it to the app at sign-up.
+- It never holds or is joined to a name, phone or email. Phase 2 deliberately does **not** hand it to the app: joining it to an account would turn Umami into a per-person browsing record. The account gets the short trail in `aag_trail` instead (section 14).
 
 ## 7. Where tracking runs
 
@@ -165,6 +166,54 @@ Each Monday, for the last 7 days, compare Umami and GA4 counts of: page views, `
 3. `node tests/analytics.test.mjs`
 4. On the Vercel preview, open the page with `?aag_debug=1`, do the action, and check the console line, the Umami test website and GA4 DebugView.
 
-## 14. Phase 2 and 3 (to be written)
+## 14. Phase 2: how a visitor arrived, handed to the app at Sign up
 
-Phase 2 adds: the click and trail cookies, the Sign up hand-off to the app, Google Ads settings and conversions. Phase 3 adds: the server-written click cookie for Safari.
+Built 2026-10-23 (aagman-v2 issue #6343, PRD `docs/prd/platform/acquisition-attribution-google-ads.md` in aagman-v2). The app stores what these cookies hold on the new account; nothing here is sent to Umami or Google Analytics.
+
+```
+ ad click  www.aagman.ai/charts?gclid=…&utm_source=google&utm_medium=cpc&utm_campaign={campaignid}
+                                &adgroup={adgroupid}&utm_term={keyword}&utm_content={creative}
+     │ analytics.js, on every page view
+     ├─ aag_click  (.aagman.ai, 90 days from the last visit)   first touch + latest tagged touch
+     ├─ aag_trail  (.aagman.ai, 30 days)                       last 12 pages + the Sign up spot clicked
+     ├─ Umami: url keeps only utm_* tags, referrer only its origin (aagUmamiBeforeSend)
+     │ Sign up click
+     ▼ app.aagman.ai/login?src=<page>.<section>&utm_*=…&adgroup=…&gclid=…   (backup if cookies are blocked)
+ app login page reads the cookies and the link → sent with "Get OTP" → stored on the account
+```
+
+**Touch keys** (the same names the app and gateway use): `source`, `medium`, `campaign`, `term`, `content` (from `utm_*`), `adGroup` (from `adgroup`), the click ids `gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`, `clickAt` (ISO time, only with a click id), `landingPath`, `referrerHost` (outside sites only). Every value is capped at 128 characters and at 200 once URL-encoded, so a Hindi keyword cannot bloat the cookie.
+
+**`aag_click`** = URL-encoded JSON `{"v":1,"f":{…},"l":{…}}`.
+- `f`, the first touch: written on the first visit (even a direct one, then only `landingPath`) and not changed after. The cookie is re-dated on every visit, so it lasts until 90 days pass with no visit; after that the next visit is a new first touch.
+- `l`, the latest tagged touch: replaced by every visit that carries a campaign tag or a click id. It holds the tags, click id and `clickAt`, not the landing page or referrer. When the new visit has tags but no click id of its own (a newsletter, WhatsApp or social link), the previous click id and its `clickAt` stay in `l`, so the ad click is still credited.
+- A visit with no tag leaves both touches as they were. A cookie with another `v`, or without a usable first touch, is replaced.
+- At most 3,000 characters encoded (typically 300 to 600; browsers drop a cookie over 4 KB silently). If a cookie would exceed it, keyword, ad, referrer, landing page, campaign, ad group, medium and source are dropped in that order; click ids are always kept.
+
+**`aag_trail`** = URL-encoded JSON `{"v":1,"p":"/charts@1729661400|/pricing@1729661460","s":"pricing.plans"}`: the last 12 page paths (each capped at 128 characters, `@` and `|` replaced by `_`) with the time (unix seconds) each was opened, a reload not counted twice, and `s`, the `spot` (section 3) of the last Sign up clicked.
+
+**Sign up hand-off.** On a click classified as `cta_click` with `label = sign_up` whose link goes to app.aagman.ai (page buttons, the header, and the phone menu's `.mn-go`), analytics.js:
+1. stores the click's `spot` in `aag_trail`;
+2. adds to the link `src=<spot>` and the latest touch's `utm_*`, `adgroup` and Google click id (`gclid`, `gbraid`, `wbraid`; else the first touch's). Meta and Microsoft ids (`fbclid`, `msclkid`) stay in the cookie only: the app reads them from there, and a link URL can be logged by other tools. Only `https://app.aagman.ai` links are rewritten. Parameters already on the link are left alone.
+3. A bare `https://app.aagman.ai` link becomes `https://app.aagman.ai/login?next=/trading-strategy&…` (URL-encoded): the app's root redirects drop the query, and the login page sends a signed-in visitor straight on to `next`.
+
+The link is the backup for when the app cannot read the cookies; the cookies carry the full history. With cookies blocked, the link carries what is known on that page view only (the landing page's tags if Sign up is clicked there). Long-press "copy link" and right-click menus get no rewrite; the cookies still cover them.
+
+The menu's `.mn-talk` goes to the founders' booking link (dub.sh), so it is a `cta_click` (`talk_to_founders`) with no hand-off.
+
+**Umami strip.** The Umami script has `data-before-send="aagUmamiBeforeSend"`: before every send (page view, event, identify, performance) the `url` keeps its path and only its `utm_*` parameters (every click id, `_gl`, `dclid`, `twclid`, `li_fat_id`, `ttclid`, `igshid`, `srsltid` and anything else goes, in any letter case), a hash containing `=` is dropped, and the `referrer` is reduced to its origin. It is an allowlist, so a new tracker parameter cannot slip through. UTM tags stay, so campaign reports in Umami keep working. The script is loaded with `crossorigin="anonymous"`, so the browser does not send our cookies (which hold the click id) to analytics.aagman.ai. Google Analytics keeps the full URL: GA4 and Google Ads are linked, and the click id is Google's own.
+
+**What the app does with it** (aagman-v2): the login page reads both cookies and its own URL. A click id in the app's own URL counts as the freshest click. The gateway stores the touches on the OTP request, then copies them onto the account once, when it is created. A daily file sends Google Ads one row per "Account created", "OTP requested" and "Activated", credited to the latest Google click.
+
+**Google Ads account settings** (each changed only on Aryan's yes, recorded here when done):
+- Final URL suffix, account level: `utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&adgroup={adgroupid}&utm_term={keyword}&utm_content={creative}`. A campaign must not set its own suffix: it would replace this one.
+- Auto-tagging on (adds `gclid`, or `gbraid` / `wbraid` on iPhones).
+- Conversion actions "Account created" (primary), "OTP requested" and "Activated" (secondary), imported from clicks, by a daily scheduled upload. The five old actions are removed. GA4 events are never imported as conversions.
+
+**Test:** open `www.aagman.ai/charts?utm_source=test&utm_campaign=phase2&gclid=TEST123` with `?aag_debug=1`, open two more pages, click Sign up. The login URL carries `src=charts.hero` and `gclid=TEST123`; Umami shows the visit with `utm_campaign=phase2` and no `TEST123`.
+
+**Known gaps:** a click on one device and a sign-up on another; Safari keeps script-written cookies for 7 days, not 90 (phase 3); Safari Private Browsing and some in-app browsers drop click ids before the page loads. App pages served through www (`/stock`, `/fund`, `/stock-screener`, `/chart`, `/news`, `/how-we-compute`) do not load analytics.js, so **ads must land on marketing pages**; an ad landing on an app page is seen only by the app's own URL reading, for that session.
+
+## 15. Phase 3 (to be written)
+
+The server-written click cookie for Safari: Vercel middleware writes `aag_click` on a tagged visit, so Safari keeps it for 90 days.
