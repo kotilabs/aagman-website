@@ -271,24 +271,26 @@
    * Phase 3 (section 15): has this visit already been applied to aag_click? The server (middleware.ts) writes the
    * cookie in the page's own response, which Safari keeps for 90 days; a script write would bring back Safari's
    * 7-day cap, so the page script writes aag_click only when this returns false (the fallback).
-   * Applied = a usable cookie, and either the visit has no tag, or the latest touch holds this visit's tags and
-   * click id. clickAt differs by clock and is not compared. A tag missing from the cookie counts as dropped by the
-   * size cap only when putting it back would take the cookie over the cap (fitClick never drops a click id).
+   * Applied = a usable cookie, and either the visit has no tag, or the latest touch is exactly what this visit makes
+   * it (its tags and click id, or the carried-over click id when it has none). clickAt differs by clock and is not
+   * compared. A tag missing from the cookie counts as cut by the size cap only when the cookie is within one value
+   * of the cap (fitClick stops as soon as it fits, and never drops a click id).
    */
+  var NEAR_BUDGET = CLICK_BUDGET - 2 * MAX_ENCODED - 50; // one value, JSON-escaped at worst, plus its key
   function clickApplied(click, touch) {
     if (!validCookie(click) || !Object.keys(pick(click.f, TOUCH_KEYS)).length) return false;
     if (!isTagged(touch)) return true;
     if (!isPlain(click.l)) return false;
-    var restored = null;
+    var want = pick(touch, LAST_KEYS); // as stored: a value cut at a space loses that space when it is stored
+    if (!hasClickId(want)) for (var c = 0; c < CLICK_IDS.length; c++) if (click.l[CLICK_IDS[c]]) want[CLICK_IDS[c]] = click.l[CLICK_IDS[c]];
+    var near = encodedSize(click) > NEAR_BUDGET;
     for (var i = 0; i < LAST_KEYS.length; i++) {
       var k = LAST_KEYS[i];
-      var t = cap(touch[k]); // as stored: a value cut at a space loses that space when it is stored
-      if (k === 'clickAt' || !t || click.l[k] === t) continue;
-      if (click.l[k] !== undefined || FIT_ORDER.indexOf(k) === -1) return false;
-      restored = restored || { v: 1, f: click.f, l: pick(click.l, LAST_KEYS) };
-      restored.l[k] = t;
+      if (k === 'clickAt' || click.l[k] === want[k]) continue;
+      if (click.l[k] === undefined && near && FIT_ORDER.indexOf(k) !== -1) continue;
+      return false;
     }
-    return !restored || encodedSize(restored) > CLICK_BUDGET;
+    return true;
   }
 
   /* aag_trail after visiting `path`: last 12 pages as path@unix-seconds, a reload is not a new page. */

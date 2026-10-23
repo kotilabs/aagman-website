@@ -190,11 +190,11 @@ ok(typeof middleware === 'function', 'middleware.ts has a default export');
 // except /_next/:path*: the app ignores the headers on its static assets, so the
 // middleware (a function call per request) does not run on them.
 // Phase 3 (changed deliberately): one more matcher, last, for the marketing pages: every
-// path whose last segment has no dot (no files, no assets), except /_next. It also covers
+// path with no dot anywhere (no files, no assets), except /_next. It also covers
 // the extensionless forwarded paths, which were already matched; the code sends those down
 // the forwarding path first, unchanged.
 const FORWARDING_MATCHERS = rewrites.map((r) => r.source).filter((s) => s !== '/_next/:path*');
-eq(mw.MARKETING_MATCHER, '/:path((?!_next(?:/|$))[^.]*)', 'marketing matcher: extensionless paths except /_next');
+eq(mw.MARKETING_MATCHER, '/:path((?!_next(?:/|$))[^.]*)', 'marketing matcher: paths without a dot, except /_next');
 eq(mw.config.matcher, [...FORWARDING_MATCHERS, mw.MARKETING_MATCHER], 'middleware matcher = rewrite sources minus /_next/:path*, then the marketing matcher');
 const matcherRes = mw.config.matcher.map((m) => new RegExp(sourceToRegex(m).src));
 const vercelRes = pathToRegexpVersions.map((ptr) => mw.config.matcher.map((m) => ptr.pathToRegexp(m)));
@@ -203,8 +203,9 @@ const matcherHits = (p) => {
   for (const res of vercelRes) ok(res.some((re) => re.test(pathOf(p))) === hit, `Vercel's matcher compile agrees on ${p}`);
   return hit;
 };
-// A page: the last path segment has no dot, and it is not /_next.
-const isPage = (p) => !/^\/_next(\/|$)/.test(pathOf(p)) && !pathOf(p).split('/').pop().includes('.');
+// A page: no dot anywhere in the path, and not /_next.
+const isPage = (p) => !/^\/_next(\/|$)/.test(pathOf(p)) && !pathOf(p).includes('.');
+for (const p of ['/blog/v1.2/post', '/a.b/c']) ok(!matcherHits(p) && !mw.isMarketingPage(p), `matcher and isMarketingPage agree: no cookie on ${p}`);
 const NEXT_ASSETS = FORWARDED.filter((p) => p.startsWith('/_next/'));
 const WITH_HEADERS = FORWARDED.filter((p) => !p.startsWith('/_next/'));
 ok(NEXT_ASSETS.includes('/_next/static/x.js'), '/_next/static/x.js is in the forwarded list');

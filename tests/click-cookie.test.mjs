@@ -161,6 +161,8 @@ test('never on forwarded app pages, /_next, or files', () => {
     assert.equal(mw.clickSetCookie(req(`${WWW}${p}${AD}`), NOW), null, p);
     assert.equal(mw.isMarketingPage(p), false, p);
   }
+  // same rule as the matcher: no dot anywhere in the path
+  for (const p of ['/blog/v1.2/post', '/a.b/c']) assert.equal(mw.isMarketingPage(p), false, p);
   for (const p of ['/', '/charts', '/pricing/', '/blog', '/blog/why-options-buyers-lose-money', '/docs/how-to-prompt', '/invest/']) {
     assert.equal(mw.isMarketingPage(p), true, p);
   }
@@ -247,6 +249,25 @@ test('clickApplied: a tag cut at a space by the 128 cap still matches the stored
   assert.equal(A.clickApplied(cookieOf(url).value, touch), true);
 });
 
+test('clickApplied: a tag the visit dropped means not applied (a stale campaign must not stay)', () => {
+  const click = { v: 1, f: { landingPath: '/' }, l: { source: 'google', campaign: 'X', gclid: 'G', clickAt: NOW.toISOString() } };
+  const touch = A.touchFromUrl('?utm_source=google', '', '/', LATER, 'www.aagman.ai');
+  assert.equal(A.clickApplied(click, touch), false);
+  // the server's result for that visit (campaign gone, click id carried over) is applied
+  assert.equal(A.clickApplied(A.updateClick(click, touch), touch), true);
+});
+test('clickApplied: no wrong write when the size cap cut a tag from both touches (near-budget sweep)', () => {
+  const P = (n) => '%'.repeat(n);
+  const ids = (c) => ({ gclid: c.repeat(128), gbraid: c.repeat(128), wbraid: c.repeat(128), fbclid: c.repeat(128), msclkid: c.repeat(128) });
+  let wrong = 0;
+  for (let ft = 1; ft <= 66; ft += 3) for (let lt = 1; lt < ft; lt += 2) for (let fill = 0; fill <= 66; fill += 3) {
+    const existing = { v: 1, f: { source: P(66), medium: P(66), campaign: P(66), term: P(ft), content: P(66), adGroup: P(fill) || undefined, ...ids('f'), landingPath: '/x' } };
+    const touch = { source: P(66), medium: P(66), campaign: P(30), term: P(lt), ...ids('g'), clickAt: '2026-01-01T00:00:00.000Z', landingPath: '/p' };
+    if (!A.clickApplied(A.updateClick(existing, touch), touch)) wrong++;
+  }
+  assert.equal(wrong, 0);
+});
+
 // A page view in a simulated browser: document.cookie, location and referrer; Umami and GA4 calls are stubs.
 function runPage(url, { cookies = {}, referrer = '' } = {}) {
   const jar = new Map(Object.entries(cookies));
@@ -320,6 +341,8 @@ test('docs/analytics.md has the phase 3 section', () => {
   assert.ok(/## 15\. Phase 3/.test(doc));
   assert.ok(!/to be written/i.test(s15), 'section 15 is written');
   for (const must of ['Set-Cookie', 'middleware.ts', 'clickApplied', 'fallback', 'Safari']) assert.ok(s15.includes(must), must);
+  assert.ok(s15.includes("curl -s -D - -o /dev/null 'https://www.aagman.ai/?gclid=TEST"), 'the curl check sends GET (the middleware writes nothing on HEAD)');
+  assert.ok(!/curl -s?I '/.test(s15), 'no HEAD request as the check');
 });
 
 if (failures.length) {

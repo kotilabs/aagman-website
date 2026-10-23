@@ -40,7 +40,7 @@ import analytics from './analytics.js';
 export const EDGE_SECRET_HEADER = 'x-aagman-edge-secret';
 export const VISITOR_IP_HEADER = 'x-aagman-visitor-ip';
 
-/** Phase 3: every marketing page, i.e. every path whose last segment has no dot (no files or assets), except /_next. */
+/** Phase 3: every marketing page, i.e. every path with no dot anywhere (no files or assets), except /_next. */
 export const MARKETING_MATCHER = '/:path((?!_next(?:/|$))[^.]*)';
 
 /**
@@ -152,10 +152,9 @@ const A = analytics as unknown as ClickHelpers;
 export const CLICK_COOKIE = A.CONFIG.clickCookie; // 'aag_click'
 const CLICK_MAX_AGE = Math.round(A.CONFIG.clickDays * 86400); // 90 days, in seconds
 
-/** A page of the marketing site: not forwarded, not /_next, no dot in the last segment. */
+/** A page of the marketing site: the matcher's rule (no dot anywhere, not /_next), and not forwarded. */
 export function isMarketingPage(pathname: string): boolean {
-  if (isForwardedPath(pathname) || /^\/_next(\/|$)/.test(pathname)) return false;
-  return !pathname.slice(pathname.lastIndexOf('/') + 1).includes('.');
+  return !isForwardedPath(pathname) && !/^\/_next(\/|$)/.test(pathname) && !pathname.includes('.');
 }
 
 /** The raw value of the first cookie called `name` in a Cookie header (as the page script reads it), or null. */

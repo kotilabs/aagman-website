@@ -216,7 +216,7 @@ The menu's `.mn-talk` goes to the founders' booking link (dub.sh), so it is a `c
 
 ## 15. Phase 3: the server writes `aag_click`, so Safari keeps it 90 days
 
-Built 2026-10-23. **Why:** Safari (ITP) keeps a cookie written by page script (`document.cookie`) for at most 7 days, and 1 day when the visitor arrives from a site it classes as a tracker with an id in the link. A cookie set in the page's own `Set-Cookie` response keeps its full lifetime. About 93% of past ad clicks were on phones, many of them iPhones.
+Built 2026-10-23. **Why:** Safari (ITP) keeps a cookie written by page script (`document.cookie`) for at most 7 days, and 1 day when the visitor arrives from a site it classes as a tracker and the landing URL has a query or fragment. A cookie set in the `Set-Cookie` of the page's own response keeps its full lifetime, because the response comes from the site's own server. Since Safari 16.4 a server cookie is also capped at 7 days when the responding server's IP address differs from the site's, so **`aag_click` must keep coming from the response for the page itself**: never move this behind a CNAME to another service or a proxy on another IP. About 93% of past ad clicks were on phones, many of them iPhones.
 
 ```
  GET www.aagman.ai/charts?gclid=…&utm_source=google…        (any marketing page)
@@ -229,7 +229,7 @@ Built 2026-10-23. **Why:** Safari (ITP) keeps a cookie written by page script (`
      └─ aag_trail, aag_vid   written by the script, as before
 ```
 
-**Where it runs.** `config.matcher` in `middleware.ts` = the forwarding paths (unchanged), then `/:path((?!_next(?:/|$))[^.]*)`: every path whose last segment has no dot, except `/_next`. That is every page view of the marketing pages, docs, blog and investor pages (and 404s), and never a file (`.js`, `.css`, images, `sitemap.xml`, `robots.txt`; a `.html` URL is redirected to its clean path first). Pages forwarded to the app match too but go down the forwarding path first, exactly as before: the two request headers and no cookie. One function call per page view, GET only. `tests/forwarding.test.mjs` checks the list with Vercel's own matcher compiler.
+**Where it runs.** `config.matcher` in `middleware.ts` = the forwarding paths (unchanged), then `/:path((?!_next(?:/|$))[^.]*)`: every path with no dot anywhere, except `/_next` (`isMarketingPage` applies the same rule). That is every page view of the marketing pages, docs, blog and investor pages (and 404s), and never a file (`.js`, `.css`, images, `sitemap.xml`, `robots.txt`; a `.html` URL is redirected to its clean path first). Pages forwarded to the app match too but go down the forwarding path first, exactly as before: the two request headers and no cookie. One function call per page view, GET only (HEAD gets nothing). `tests/forwarding.test.mjs` checks the list with Vercel's own matcher compiler. A page path with a dot (say `/blog/v1.2/post`) gets no server cookie; the script's fallback covers it.
 
 **What it writes.** The phase 2 cookie, byte for byte: `middleware.ts` imports `touchFromUrl`, `updateClick` and `serializeClick` from analytics.js, so the format, the first and latest touch rules and both caps (128 characters a value, 3,000 a cookie) cannot drift apart. The touch comes from the request: tags and click ids from the URL, its path as `landingPath`, and the `Referer` header's host as `referrerHost` (outside sites only). Attributes: 90 days, `Path=/`, `Domain=.aagman.ai` (host-only on `*.vercel.app` previews, where that domain would be rejected), `SameSite=Lax`, `Secure`. Not `HttpOnly`: the app's login page reads it.
 
@@ -238,13 +238,16 @@ Built 2026-10-23. **Why:** Safari (ITP) keeps a cookie written by page script (`
 - an untagged first visit is still the first touch, now server-written;
 - a cookie the script wrote as a fallback becomes a server cookie on the next page view.
 
-**The page script, and the fallback.** analytics.js now writes `aag_click` only when `clickApplied(cookie, visit)` is false: no usable cookie, or a tagged visit whose tags and click id are not the latest touch. It then writes exactly as in phase 2. That covers visits the middleware did not: a middleware error (it writes nothing and the page loads as normal), local files, any host without the middleware. In Safari a fallback write lasts 7 days, until the next page view re-sends it from the server. `clickAt` is not compared (server and phone clocks differ). A tag missing from the cookie counts as cut by the size cap only when putting it back would really take the cookie over 3,000 characters.
+**The page script, and the fallback.** analytics.js now writes `aag_click` only when `clickApplied(cookie, visit)` is false: no usable cookie, or a tagged visit whose tags and click id are not the latest touch. It then writes exactly as in phase 2. That covers visits the middleware did not: a middleware error (it writes nothing and the page loads as normal), local files, any host without the middleware. In Safari a fallback write lasts 7 days, until the next page view re-sends it from the server. `clickAt` is not compared (server and phone clocks differ). The latest touch must be exactly what this visit makes it, so a tag the visit dropped also means a write. A tag missing from the cookie counts as cut by the size cap only when the cookie is within one value of the 3,000-character cap.
+
+**Reach.** The cookie is now set even when analytics.js is blocked or never runs (content blockers, bots, link previews). It holds nothing personal (section 3), but it is a change in who gets it, worth noting if consent rules ever apply.
 
 **Not changed:** `aag_trail` and `aag_vid` are still written by the script, so Safari keeps them 7 days: the trail starts again after 7 days without a visit, and Umami stops joining visits after 7. The Sign up hand-off, the Umami strip and the forwarding are unchanged. Ads must still land on marketing pages: the cookie is not written on the pages forwarded to the app.
 
 **Tests:** `tests/click-cookie.test.mjs`: the builder (parsing, first vs latest touch, refresh, size cap, nothing personal, never on forwarded pages, files or `/_next`, never throws) and analytics.js in a simulated browser (no rewrite after the server wrote this visit; fallback write when it did not).
 
-**Check a deploy:** `curl -sI 'https://www.aagman.ai/?gclid=TEST&utm_source=test'` shows one `set-cookie: aag_click=…; Max-Age=7776000; …`; `curl -sI https://www.aagman.ai/stock/reliance` shows none. A preview shows the same without `Domain`.
+**Check a deploy** (a GET: `curl -I` sends HEAD, which gets no cookie):
+`curl -s -D - -o /dev/null 'https://www.aagman.ai/?gclid=TEST&utm_source=test'` shows one `set-cookie: aag_click=…; Max-Age=7776000; …`; the same for `https://www.aagman.ai/stock/reliance?gclid=TEST` shows none. A preview shows the same without `Domain`.
 
 **Check in Safari** (Mac Safari has the same ITP as iPhone Safari):
 1. Safari, Settings, Privacy, Manage Website Data: remove `aagman.ai` (on iPhone: Settings, Apps, Safari, Advanced, Website Data).
