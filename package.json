@@ -3,7 +3,7 @@
   "private": true,
   "description": "Marketing site for www.aagman.ai. The static pages and blog/ are built by vercel.json's buildCommand; this file only holds the Routing Middleware dependency and the tests.",
   "scripts": {
-    "test": "node tests/analytics.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/forwarding.test.mjs"
+    "test": "node tests/analytics.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/forwarding.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/click-cookie.test.mjs"
   },
   "dependencies": {
     "@vercel/functions": "3.9.11"

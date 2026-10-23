@@ -1,6 +1,12 @@
 /**
- * Vercel Routing Middleware for the pages www.aagman.ai forwards to the app server.
+ * Vercel Routing Middleware for www.aagman.ai. Two separate jobs, by path:
  *
+ *  1. The pages forwarded to the app server: two request headers (below). Unchanged by phase 3.
+ *  2. Since phase 3, the marketing pages: the aag_click cookie in the page's own Set-Cookie
+ *     (docs/analytics.md section 15). Safari keeps a cookie set this way for 90 days; one
+ *     written by analytics.js is capped at 7 days (or 1 day after a click from a tracker).
+ *
+ * 1. Forwarded pages.
  * vercel.json rewrites the app's public pages (stock, fund, screener, chart, news,
  * how-we-compute, their /_next assets, the sitemap files, llms.txt and the
  * IndexNow key file) to
@@ -27,13 +33,20 @@
  */
 import { ipAddress } from '@vercel/functions/headers';
 import { next } from '@vercel/functions/middleware';
+// The page script's own cookie code, so the server writes exactly phase 2's format and rules.
+// analytics.js exports its pure helpers when loaded as a module (and runs nothing else).
+import analytics from './analytics.js';
 
 export const EDGE_SECRET_HEADER = 'x-aagman-edge-secret';
 export const VISITOR_IP_HEADER = 'x-aagman-visitor-ip';
 
+/** Phase 3: every marketing page, i.e. every path with no dot anywhere (no files or assets), except /_next. */
+export const MARKETING_MATCHER = '/:path((?!_next(?:/|$))[^.]*)';
+
 /**
  * Same list, in the same order, as the rewrite sources in vercel.json minus /_next/:path*
- * (the tests check this). Vercel reads `config` statically, so it must stay a literal here.
+ * (the tests check this), then MARKETING_MATCHER. Vercel reads `config` statically, so it
+ * must stay a literal here.
  */
 export const config = {
   // /_next/:path* is rewritten too, but the app ignores these headers on its static
@@ -58,6 +71,9 @@ export const config = {
     '/sitemap-news.xml',
     '/llms.txt',
     '/0ea2491ba8dc98fd3c8de4a2fb8998ca.txt',
+    // Phase 3: the marketing pages (= MARKETING_MATCHER). The extensionless forwarded paths match
+    // it too; they were already matched above and still take the forwarding path, unchanged.
+    '/:path((?!_next(?:/|$))[^.]*)',
   ],
   runtime: 'nodejs',
 };
@@ -93,7 +109,7 @@ function edgeSecret(): string | null {
 let warnedMalformed = false;
 
 export default function middleware(request: Request): Response {
-  if (!isForwardedPath(new URL(request.url).pathname)) return next();
+  if (!isForwardedPath(new URL(request.url).pathname)) return marketingPage(request);
 
   const headers = new Headers(request.headers);
   headers.delete(EDGE_SECRET_HEADER);
@@ -111,4 +127,66 @@ export default function middleware(request: Request): Response {
   if (visitor && VISITOR_IP_FORMAT.test(visitor)) headers.set(VISITOR_IP_HEADER, visitor);
 
   return next({ request: { headers } });
+}
+
+// ---------------------------------------------------------------------------
+// 2. Marketing pages (phase 3, docs/analytics.md section 15)
+// ---------------------------------------------------------------------------
+// On every GET of a marketing page the response carries aag_click: the cookie on the request,
+// updated with this visit by analytics.js's own updateClick (first touch never overwritten, the
+// latest tagged touch replaced, size capped), re-dated to 90 days. A visit without tags re-sends
+// the same value, so the 90 days run from the last visit and a cookie the page script wrote as a
+// fallback becomes a server cookie. Not HttpOnly: the app's login page reads it. The request
+// itself goes on untouched. Anything that goes wrong means no cookie, never a failed page.
+
+interface ClickHelpers {
+  CONFIG: { clickCookie: string; clickDays: number };
+  normalizePath(pathname: string): string;
+  touchFromUrl(search: string, referrer: string, landingPath: string, now: Date, pageHost: string): object;
+  updateClick(existing: unknown, touch: object): object;
+  serializeClick(click: object): string;
+  parseClick(raw: string | null): unknown;
+}
+const A = analytics as unknown as ClickHelpers;
+
+export const CLICK_COOKIE = A.CONFIG.clickCookie; // 'aag_click'
+const CLICK_MAX_AGE = Math.round(A.CONFIG.clickDays * 86400); // 90 days, in seconds
+
+/** A page of the marketing site: the matcher's rule (no dot anywhere, not /_next), and not forwarded. */
+export function isMarketingPage(pathname: string): boolean {
+  return !isForwardedPath(pathname) && !/^\/_next(\/|$)/.test(pathname) && !pathname.includes('.');
+}
+
+/** The raw value of the first cookie called `name` in a Cookie header (as the page script reads it), or null. */
+export function readCookie(header: string | null, name: string): string | null {
+  if (!header) return null;
+  for (const part of header.split(';')) {
+    const pair = part.trim();
+    const eq = pair.indexOf('=');
+    if (eq > 0 && pair.slice(0, eq) === name) return pair.slice(eq + 1);
+  }
+  return null;
+}
+
+/** The Set-Cookie header for this request, or null (not a GET of a marketing page, or anything failed). */
+export function clickSetCookie(request: Request, now: Date = new Date()): string | null {
+  try {
+    if (request.method !== 'GET') return null;
+    const url = new URL(request.url);
+    if (!isMarketingPage(url.pathname)) return null;
+    const existing = A.parseClick(readCookie(request.headers.get('cookie'), CLICK_COOKIE));
+    const touch = A.touchFromUrl(url.search, request.headers.get('referer') ?? '', A.normalizePath(url.pathname), now, url.hostname);
+    const value = A.serializeClick(A.updateClick(existing, touch));
+    // Same attributes as analytics.js's writeCookie, so both write the one cookie (a preview host gets a host-only one).
+    const domain = /(^|\.)aagman\.ai$/.test(url.hostname) ? '; Domain=.aagman.ai' : '';
+    const secure = url.protocol === 'https:' ? '; Secure' : '';
+    return `${CLICK_COOKIE}=${value}; Max-Age=${CLICK_MAX_AGE}; Path=/${domain}; SameSite=Lax${secure}`;
+  } catch {
+    return null;
+  }
+}
+
+function marketingPage(request: Request): Response {
+  const cookie = clickSetCookie(request);
+  return cookie ? next({ headers: { 'set-cookie': cookie } }) : next();
 }

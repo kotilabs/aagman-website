@@ -6,9 +6,12 @@
 //    no marketing path is, and /charts, /chartered (and other look-alikes) are not.
 //    Matching uses @vercel/routing-utils, the package Vercel uses to turn vercel.json
 //    into routes, so the regexes are the real ones.
-//  - middleware.ts: runs on the same paths only, and sets the edge-secret header only
+//  - middleware.ts: runs on the same paths, and sets the edge-secret header only
 //    when PUBLIC_EDGE_SECRET is set (and well-formed), the visitor-IP header from the
 //    real client address, and never passes through a client's own copy of either.
+//    Since phase 3 it also runs on the marketing pages (one extra matcher, last), where
+//    it only adds the aag_click cookie and never touches the request: see
+//    tests/click-cookie.test.mjs and docs/analytics.md section 15.
 //  - robots.txt: unchanged lines kept, the three app sitemap files added.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -18,6 +21,9 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const { getTransformedRoutes, sourceToRegex } = require('@vercel/routing-utils');
+// Vercel compiles a middleware matcher with path-to-regexp 6 and its default options
+// (getRegExpFromMatchers in @vercel/node); routing-utils ships 6.1.0 and 6.3.0.
+const pathToRegexpVersions = [require('path-to-regexp'), require('path-to-regexp-updated')];
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const APP = 'https://app.aagman.ai';
@@ -183,9 +189,23 @@ ok(typeof middleware === 'function', 'middleware.ts has a default export');
 // Same paths as the rewrites, in the same order (Vercel reads config statically),
 // except /_next/:path*: the app ignores the headers on its static assets, so the
 // middleware (a function call per request) does not run on them.
-eq(mw.config.matcher, rewrites.map((r) => r.source).filter((s) => s !== '/_next/:path*'), 'middleware matcher = rewrite sources minus /_next/:path*');
+// Phase 3 (changed deliberately): one more matcher, last, for the marketing pages: every
+// path with no dot anywhere (no files, no assets), except /_next. It also covers
+// the extensionless forwarded paths, which were already matched; the code sends those down
+// the forwarding path first, unchanged.
+const FORWARDING_MATCHERS = rewrites.map((r) => r.source).filter((s) => s !== '/_next/:path*');
+eq(mw.MARKETING_MATCHER, '/:path((?!_next(?:/|$))[^.]*)', 'marketing matcher: paths without a dot, except /_next');
+eq(mw.config.matcher, [...FORWARDING_MATCHERS, mw.MARKETING_MATCHER], 'middleware matcher = rewrite sources minus /_next/:path*, then the marketing matcher');
 const matcherRes = mw.config.matcher.map((m) => new RegExp(sourceToRegex(m).src));
-const matcherHits = (p) => matcherRes.some((re) => re.test(pathOf(p)));
+const vercelRes = pathToRegexpVersions.map((ptr) => mw.config.matcher.map((m) => ptr.pathToRegexp(m)));
+const matcherHits = (p) => {
+  const hit = matcherRes.some((re) => re.test(pathOf(p)));
+  for (const res of vercelRes) ok(res.some((re) => re.test(pathOf(p))) === hit, `Vercel's matcher compile agrees on ${p}`);
+  return hit;
+};
+// A page: no dot anywhere in the path, and not /_next.
+const isPage = (p) => !/^\/_next(\/|$)/.test(pathOf(p)) && !pathOf(p).includes('.');
+for (const p of ['/blog/v1.2/post', '/a.b/c']) ok(!matcherHits(p) && !mw.isMarketingPage(p), `matcher and isMarketingPage agree: no cookie on ${p}`);
 const NEXT_ASSETS = FORWARDED.filter((p) => p.startsWith('/_next/'));
 const WITH_HEADERS = FORWARDED.filter((p) => !p.startsWith('/_next/'));
 ok(NEXT_ASSETS.includes('/_next/static/x.js'), '/_next/static/x.js is in the forwarded list');
@@ -199,9 +219,13 @@ for (const p of WITH_HEADERS) {
   ok(mw.isForwardedPath(pathOf(p)), `isForwardedPath(${p})`);
 }
 for (const p of [...NOT_FORWARDED, ...MARKETING]) {
-  ok(!matcherHits(p), `middleware does not run on ${p}`);
+  // Phase 3: it now runs on pages (for the cookie only), still never on files or assets.
+  ok(matcherHits(p) === isPage(p), `middleware ${isPage(p) ? 'runs' : 'does not run'} on ${p}`);
   ok(!mw.isForwardedPath(p), `!isForwardedPath(${p})`);
 }
+ok(MARKETING.filter(isPage).length > 20, `the marketing pages are matched (${MARKETING.filter(isPage).length})`);
+for (const p of ['/', '/charts', '/pricing', '/blog', '/blog/', '/docs/how-to-prompt', '/invest']) ok(MARKETING.includes(p) && matcherHits(p), `middleware runs on ${p}`);
+for (const p of ['/analytics.js', '/sitemap.xml', '/robots.txt', '/charts.html', '/og/home.png']) ok(!matcherHits(p), `middleware does not run on ${p}`);
 
 eq(mw.EDGE_SECRET_HEADER, 'x-aagman-edge-secret', 'secret header name matches the app');
 eq(mw.VISITOR_IP_HEADER, 'x-aagman-visitor-ip', 'visitor header name matches the app');
@@ -269,11 +293,15 @@ eq(upstream(run('https://www.aagman.ai/fund/x', visitor, ` ${TEST_SECRET}\n`))?.
   ok(!('x-aagman-visitor-ip' in (up2 ?? {})), 'malformed address is not sent');
   eq(upstream(run('https://www.aagman.ai/chart/x', { 'x-real-ip': '2001:db8::1' }, TEST_SECRET))?.['x-aagman-visitor-ip'], '2001:db8::1', 'IPv6 address is sent');
 }
-// Called on a marketing path (the matcher prevents this; the code checks again): no changes.
+// Called on a marketing path: the request goes on untouched (no secret, no visitor header).
+// Since phase 3 a page response gets the aag_click cookie and nothing else; a file gets nothing.
 for (const p of ['/', '/pricing', '/blog/', '/charts', '/chartered', '/sitemap.xml']) {
   const res = run(`https://www.aagman.ai${p}`, forged, TEST_SECRET);
   eq(res.headers.get('x-middleware-next'), '1', `${p}: continues`);
   eq(upstream(res), null, `${p}: request headers untouched`);
+  const extra = [...res.headers.keys()].filter((k) => !k.startsWith('x-middleware-'));
+  eq(extra, isPage(p) ? ['set-cookie'] : [], `${p}: response headers added`);
+  ok(res.headers.getSetCookie().every((c) => c.startsWith('aag_click=')), `${p}: only the aag_click cookie`);
 }
 
 }
