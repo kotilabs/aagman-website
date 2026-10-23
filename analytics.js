@@ -260,6 +260,37 @@
     return fitClick(out);
   }
 
+  /* aag_click's value as it sits in the cookie (URL-encoded JSON), and back; null when it cannot be read */
+  function serializeClick(c) { return encodeURIComponent(JSON.stringify(c)); }
+  function parseClick(raw) {
+    if (typeof raw !== 'string' || !raw) return null;
+    try { return JSON.parse(decodeURIComponent(raw)); } catch (e) { return null; }
+  }
+
+  /*
+   * Phase 3 (section 15): has this visit already been applied to aag_click? The server (middleware.ts) writes the
+   * cookie in the page's own response, which Safari keeps for 90 days; a script write would bring back Safari's
+   * 7-day cap, so the page script writes aag_click only when this returns false (the fallback).
+   * Applied = a usable cookie, and either the visit has no tag, or the latest touch holds this visit's tags and
+   * click id. clickAt differs by clock and is not compared. A tag missing from the cookie counts as dropped by the
+   * size cap only when putting it back would take the cookie over the cap (fitClick never drops a click id).
+   */
+  function clickApplied(click, touch) {
+    if (!validCookie(click) || !Object.keys(pick(click.f, TOUCH_KEYS)).length) return false;
+    if (!isTagged(touch)) return true;
+    if (!isPlain(click.l)) return false;
+    var restored = null;
+    for (var i = 0; i < LAST_KEYS.length; i++) {
+      var k = LAST_KEYS[i];
+      var t = cap(touch[k]); // as stored: a value cut at a space loses that space when it is stored
+      if (k === 'clickAt' || !t || click.l[k] === t) continue;
+      if (click.l[k] !== undefined || FIT_ORDER.indexOf(k) === -1) return false;
+      restored = restored || { v: 1, f: click.f, l: pick(click.l, LAST_KEYS) };
+      restored.l[k] = t;
+    }
+    return !restored || encodedSize(restored) > CLICK_BUDGET;
+  }
+
   /* aag_trail after visiting `path`: last 12 pages as path@unix-seconds, a reload is not a new page. */
   function updateTrail(existing, path, nowSec) {
     var tr = validCookie(existing) ? existing : { v: 1, p: '' };
@@ -343,7 +374,8 @@
     itemFor: itemFor, environment: environment, newVisitorId: newVisitorId,
     touchFromUrl: touchFromUrl, updateClick: updateClick, updateTrail: updateTrail, setTrailSpot: setTrailSpot,
     handoffUrl: handoffUrl, signupClick: signupClick, umamiUrl: umamiUrl, umamiReferrer: umamiReferrer,
-    umamiBeforeSend: umamiBeforeSend, TOUCH_KEYS: TOUCH_KEYS
+    umamiBeforeSend: umamiBeforeSend, TOUCH_KEYS: TOUCH_KEYS,
+    serializeClick: serializeClick, parseClick: parseClick, clickApplied: clickApplied
   };
   if (typeof module !== 'undefined' && module.exports) { module.exports = api; return; }
 
@@ -399,9 +431,14 @@
   function readJsonCookie(name) { return safe(function () { var v = readCookie(name); return v ? JSON.parse(v) : null; }) || null; }
   var now = new Date();
   var click = readJsonCookie(CONFIG.clickCookie);
-  // rewritten on every page view, so it lasts 90 days from the last visit
-  var nextClick = safe(function () { return updateClick(click, touchFromUrl(loc.search, doc.referrer, page, now, host)); });
-  if (nextClick) { click = nextClick; writeCookie(CONFIG.clickCookie, JSON.stringify(click), CONFIG.clickDays); }
+  // Phase 3 (section 15): the server already wrote aag_click for this page view (and re-dated it, so it lasts
+  // 90 days from the last visit). Writing it again here would cap it at 7 days in Safari, so the script writes
+  // it only as the fallback, when this visit is not in the cookie (the middleware did not run).
+  var touch = safe(function () { return touchFromUrl(loc.search, doc.referrer, page, now, host); });
+  if (touch && !safe(function () { return clickApplied(click, touch); })) {
+    var nextClick = safe(function () { return updateClick(click, touch); });
+    if (nextClick) { click = nextClick; writeCookie(CONFIG.clickCookie, JSON.stringify(click), CONFIG.clickDays); }
+  }
   var trail = safe(function () { return updateTrail(readJsonCookie(CONFIG.trailCookie), page, now.getTime() / 1000); });
   if (trail) writeCookie(CONFIG.trailCookie, JSON.stringify(trail), CONFIG.trailDays);
 

@@ -1,10 +1,10 @@
 # āagman analytics framework: website
 
-Status: **phase 1 live** (2026-10-23) · **phase 2 built** (2026-10-23, section 14) · approved by Aryan · Owner: Aryan · Scope: www.aagman.ai (marketing pages, docs, blog)
+Status: **phase 1 live** (2026-10-23) · **phase 2 built** (2026-10-23, section 14) · **phase 3 built** (2026-10-23, section 15) · approved by Aryan · Owner: Aryan · Scope: www.aagman.ai (marketing pages, docs, blog)
 
 This is the contract for every piece of tracking on the website. Code follows this document. If an event is not in here, it does not ship.
 
-Phases: **1. the whole website tracked** · **2. Google Ads infrastructure, the website-to-app hand-off** (section 14) · 3. Safari fix (adds a section here).
+Phases: **1. the whole website tracked** · **2. Google Ads infrastructure, the website-to-app hand-off** (section 14) · **3. Safari fix: the server writes the click cookie** (section 15).
 
 ---
 
@@ -98,7 +98,7 @@ Every event also carries `page`. Umami records page views, referrer, campaign ta
 
 ## 6. The visitor ID
 
-- A random ID (`aag_vid`, 22 characters, no meaning) is created on the first visit and kept in a first-party cookie on `.aagman.ai` for 400 days (Chrome's maximum; Safari keeps it 7 days, see phase 3).
+- A random ID (`aag_vid`, 22 characters, no meaning) is created on the first visit and kept in a first-party cookie on `.aagman.ai` for 400 days (Chrome's maximum; Safari keeps a script-written cookie 7 days, and phase 3 moved only `aag_click` to the server, section 15).
 - It is passed to Umami with `umami.identify(aag_vid)` before the page view is sent, so one visitor's visits across days join into one journey.
 - It is not sent to Google Analytics (GA4 keeps its own visitor ID in its `_ga` cookie).
 - It never holds or is joined to a name, phone or email. Phase 2 deliberately does **not** hand it to the app: joining it to an account would turn Umami into a per-person browsing record. The account gets the short trail in `aag_trail` instead (section 14).
@@ -173,7 +173,7 @@ Built 2026-10-23 (aagman-v2 issue #6343, PRD `docs/prd/platform/acquisition-attr
 ```
  ad click  www.aagman.ai/charts?gclid=…&utm_source=google&utm_medium=cpc&utm_campaign={campaignid}
                                 &adgroup={adgroupid}&utm_term={keyword}&utm_content={creative}
-     │ analytics.js, on every page view
+     │ analytics.js, on every page view (since phase 3 the server writes aag_click, section 15)
      ├─ aag_click  (.aagman.ai, 90 days from the last visit)   first touch + latest tagged touch
      ├─ aag_trail  (.aagman.ai, 30 days)                       last 12 pages + the Sign up spot clicked
      ├─ Umami: url keeps only utm_* tags, referrer only its origin (aagUmamiBeforeSend)
@@ -212,8 +212,43 @@ The menu's `.mn-talk` goes to the founders' booking link (dub.sh), so it is a `c
 
 **Test:** open `www.aagman.ai/charts?utm_source=test&utm_campaign=phase2&gclid=TEST123` with `?aag_debug=1`, open two more pages, click Sign up. The login URL carries `src=charts.hero` and `gclid=TEST123`; Umami shows the visit with `utm_campaign=phase2` and no `TEST123`.
 
-**Known gaps:** a click on one device and a sign-up on another; Safari keeps script-written cookies for 7 days, not 90 (phase 3); Safari Private Browsing and some in-app browsers drop click ids before the page loads. App pages served through www (`/stock`, `/fund`, `/stock-screener`, `/chart`, `/news`, `/how-we-compute`) do not load analytics.js, so **ads must land on marketing pages**; an ad landing on an app page is seen only by the app's own URL reading, for that session.
+**Known gaps:** a click on one device and a sign-up on another; Safari keeps script-written cookies for 7 days, not 90 (fixed for `aag_click` by phase 3, section 15); Safari Private Browsing and some in-app browsers drop click ids before the page loads. App pages served through www (`/stock`, `/fund`, `/stock-screener`, `/chart`, `/news`, `/how-we-compute`) do not load analytics.js, so **ads must land on marketing pages**; an ad landing on an app page is seen only by the app's own URL reading, for that session.
 
-## 15. Phase 3 (to be written)
+## 15. Phase 3: the server writes `aag_click`, so Safari keeps it 90 days
 
-The server-written click cookie for Safari: Vercel middleware writes `aag_click` on a tagged visit, so Safari keeps it for 90 days.
+Built 2026-10-23. **Why:** Safari (ITP) keeps a cookie written by page script (`document.cookie`) for at most 7 days, and 1 day when the visitor arrives from a site it classes as a tracker with an id in the link. A cookie set in the page's own `Set-Cookie` response keeps its full lifetime. About 93% of past ad clicks were on phones, many of them iPhones.
+
+```
+ GET www.aagman.ai/charts?gclid=…&utm_source=google…        (any marketing page)
+     │ middleware.ts (Vercel Routing Middleware), before the page is served:
+     │   aag_click from the Cookie header + this visit, by analytics.js's own updateClick
+     ▼ Set-Cookie: aag_click=…; Max-Age=7776000; Path=/; Domain=.aagman.ai; SameSite=Lax; Secure
+ analytics.js on the page
+     ├─ aag_click   this visit already in it (clickApplied) → not written again
+     │              not in it (the middleware did not run)  → written by the script, as in phase 2 (fallback)
+     └─ aag_trail, aag_vid   written by the script, as before
+```
+
+**Where it runs.** `config.matcher` in `middleware.ts` = the forwarding paths (unchanged), then `/:path((?!_next(?:/|$))[^.]*)`: every path whose last segment has no dot, except `/_next`. That is every page view of the marketing pages, docs, blog and investor pages (and 404s), and never a file (`.js`, `.css`, images, `sitemap.xml`, `robots.txt`; a `.html` URL is redirected to its clean path first). Pages forwarded to the app match too but go down the forwarding path first, exactly as before: the two request headers and no cookie. One function call per page view, GET only. `tests/forwarding.test.mjs` checks the list with Vercel's own matcher compiler.
+
+**What it writes.** The phase 2 cookie, byte for byte: `middleware.ts` imports `touchFromUrl`, `updateClick` and `serializeClick` from analytics.js, so the format, the first and latest touch rules and both caps (128 characters a value, 3,000 a cookie) cannot drift apart. The touch comes from the request: tags and click ids from the URL, its path as `landingPath`, and the `Referer` header's host as `referrerHost` (outside sites only). Attributes: 90 days, `Path=/`, `Domain=.aagman.ai` (host-only on `*.vercel.app` previews, where that domain would be rejected), `SameSite=Lax`, `Secure`. Not `HttpOnly`: the app's login page reads it.
+
+**On every page view, not only tagged ones.** A visit with no tag re-sends the cookie unchanged, so:
+- the 90 days still run from the last visit (phase 2's rule) without a script write;
+- an untagged first visit is still the first touch, now server-written;
+- a cookie the script wrote as a fallback becomes a server cookie on the next page view.
+
+**The page script, and the fallback.** analytics.js now writes `aag_click` only when `clickApplied(cookie, visit)` is false: no usable cookie, or a tagged visit whose tags and click id are not the latest touch. It then writes exactly as in phase 2. That covers visits the middleware did not: a middleware error (it writes nothing and the page loads as normal), local files, any host without the middleware. In Safari a fallback write lasts 7 days, until the next page view re-sends it from the server. `clickAt` is not compared (server and phone clocks differ). A tag missing from the cookie counts as cut by the size cap only when putting it back would really take the cookie over 3,000 characters.
+
+**Not changed:** `aag_trail` and `aag_vid` are still written by the script, so Safari keeps them 7 days: the trail starts again after 7 days without a visit, and Umami stops joining visits after 7. The Sign up hand-off, the Umami strip and the forwarding are unchanged. Ads must still land on marketing pages: the cookie is not written on the pages forwarded to the app.
+
+**Tests:** `tests/click-cookie.test.mjs`: the builder (parsing, first vs latest touch, refresh, size cap, nothing personal, never on forwarded pages, files or `/_next`, never throws) and analytics.js in a simulated browser (no rewrite after the server wrote this visit; fallback write when it did not).
+
+**Check a deploy:** `curl -sI 'https://www.aagman.ai/?gclid=TEST&utm_source=test'` shows one `set-cookie: aag_click=…; Max-Age=7776000; …`; `curl -sI https://www.aagman.ai/stock/reliance` shows none. A preview shows the same without `Domain`.
+
+**Check in Safari** (Mac Safari has the same ITP as iPhone Safari):
+1. Safari, Settings, Privacy, Manage Website Data: remove `aagman.ai` (on iPhone: Settings, Apps, Safari, Advanced, Website Data).
+2. Open `https://www.aagman.ai/?gclid=SAFARI_TEST&utm_source=test` in a normal (not private) window.
+3. Develop, Show Web Inspector (for an iPhone: Web Inspector switched on in its Safari settings, the phone plugged into the Mac, then Develop, *the iPhone*, the page), Storage, Cookies.
+4. Expected: `aag_click` on `.aagman.ai` expires about 90 days from today; `aag_trail` (asked for 30 days, script-written) about 7 days, which shows ITP is active.
+
