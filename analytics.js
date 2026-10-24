@@ -25,7 +25,7 @@
   var ITEMS = {
     '/': 'home', '/pricing': 'pricing', '/docs': 'docs', '/blog': 'blog', '/invest': 'investors', '/sitemap.xml': 'sitemap',
     '/terms': 'terms', '/privacy-policy': 'privacy_policy', '/risk-disclosure': 'risk_disclosure',
-    '/cancellation-refunds': 'cancellation_refunds'
+    '/cancellation-refunds': 'cancellation_refunds', '/chart': 'chart', '/stock-screener': 'stock_screener'
   };
   var CTA_LABELS = ['sign_up', 'talk_to_founders', 'join_whatsapp'];
 

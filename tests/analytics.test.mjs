@@ -104,6 +104,13 @@ test('menu, header and footer links', () => {
   assert.deepEqual(classifyClick(d({ href: '/picks', section: 'footer', area: 'footer' }), '/terms'),
     { name: 'nav_click', params: { area: 'footer', item: 'picks' } });
 });
+test('Resources menu: the free chart and screener pages are nav clicks', () => {
+  assert.deepEqual(classifyClick(d({ href: '/chart', section: 'header', area: 'menu' }), '/'),
+    { name: 'nav_click', params: { area: 'menu', item: 'chart' } });
+  assert.deepEqual(classifyClick(d({ href: '/stock-screener', section: 'menu', area: 'menu' }), '/pricing'),
+    { name: 'nav_click', params: { area: 'menu', item: 'stock_screener' } });
+  assert.equal(itemFor('/chart/RELIANCE', ''), 'chart');
+});
 test('docs and blog links count as internal on a preview host too', () => {
   const r = classifyClick(d({ href: 'https://www.aagman.ai/docs/', area: 'menu', pageHost: 'x.vercel.app' }), '/');
   assert.deepEqual(r, { name: 'nav_click', params: { area: 'menu', item: 'docs' } });
